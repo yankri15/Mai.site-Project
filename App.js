@@ -6,13 +6,6 @@ import { collection, doc, setDoc } from 'firebase/firestore';
 
 export default function App() {
 
-  const ref=collection(firestore,'users');
-  setDoc(doc(ref),
-  {
-    name: "Yaniv",
-    Email: "yanivank@gmail.com"
-  });
-
   return (
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>
