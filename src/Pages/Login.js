@@ -1,18 +1,41 @@
 import React from 'react';
-import { Text, View, Button } from 'react-native';
+import { Text, View, Button, TextInput } from 'react-native';
 
 const Login = () => {
   return (
-    <View
-      style={styles.main}>
-      <Button>Email</Button>
-      <Button>Password</Button>
+    <SafeAreaView>
+      {/* insert mai symbol */}
+    <View style = {styles.header}>
+      <Text> Email</Text>
+      {/* insert icon */}
+      <TextInput  
+      
+      placeholder='Your Email'
+      autoComplete = 'email'
+      autoCapitalize='none'
+      />
+      {/* add text input style */}
+      
 
-
-      <Button>Register</Button>
-      <Button>continue as a guest</Button>
-      <Button>Forgot Password</Button>
+      <Text> password</Text>
+      {/* insert icon */}
+      <TextInput  
+      
+      placeholder='Your Password'
+      autoComplete = 'password'
+      autoCapitalize='none'
+      />
+      {/* add text input style */}
     </View>
+    <View style = {styles.footer}>
+    <Text> register, , continue as guest, forgot password</Text>
+  </View>
+
+
+    </SafeAreaView>
+
+    
+
   )
 }
 export default Login;
@@ -20,9 +43,20 @@ export default Login;
 
 
 const styles = StyleSheet.create({
-    main: {
+    header: {
       flex: '1',
-      justifyContent: 'space-evenly', 
+      justifyContent: 'flex-end', 
       minHeight: '10%',
+      backgroundColor: '#FAE479',
+
+    },
+
+    footer:{
+        flex: '3',
+        backgroundColor: '#fff',
+        borderTopRadius: 24,
+
+
+
     }
   })
