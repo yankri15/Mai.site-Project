@@ -1,28 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { firestore } from "./src/firebase";
 import { collection, doc, setDoc } from "firebase/firestore";
 import RegisterScreen from "./src/Screens/RegisterScreen";
 import Contact from "./src/Screens/Contact";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import AppLoading from "expo-app-loading";
+import AsyncStorageLib from "@react-native-async-storage/async-storage";
 
-const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Contact" component={Contact} />
-      </Stack.Navigator>
-    </NavigationContainer>
-
-    // <View style={styles.container}>
-    //   <Text>Open up App.js to start working on your app!</Text>
-    //   <StatusBar style="auto" />
-    // </View>
+    <View style={styles.container}>
+      <Text>Open up App.js to start working on your app!</Text>
+      <StatusBar style="auto" />
+    </View>
   );
 }
 
