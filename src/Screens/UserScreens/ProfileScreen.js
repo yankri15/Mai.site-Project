@@ -1,5 +1,8 @@
 // add connection to edit profile
 //connect to user
+
+
+
 import { View, Text } from 'react-native'
 import { StyleSheet, SafeAreaView, Image, ScrollView } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
@@ -102,7 +105,7 @@ const styles = StyleSheet.create({
         marginTop: 32
     },
     statsBox: {
-        
+
         alignItems: "center",
         flex: 1
     },
