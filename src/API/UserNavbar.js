@@ -16,7 +16,7 @@ const wantedName = "Wanted";
 
 const Tab = createBottomTabNavigator();
 
-const Navbar = () => {
+const UserNavbar = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -49,4 +49,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default UserNavbar;
