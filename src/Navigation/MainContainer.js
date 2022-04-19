@@ -8,6 +8,7 @@ import FeedScreen from "../Screens/UserScreens/FeedScreen"
 import ProfileScreen from "../Screens/UserScreens/ProfileScreen"
 import RegisterScreen from '../Screens/AuthScreens/RegisterScreen';
 import LoginScreen from '../Screens/AuthScreens/LoginScreen';
+import Navbar from '../API/Navbar';
 
 //
 const Stack = createNativeStackNavigator();
@@ -15,18 +16,10 @@ const Stack = createNativeStackNavigator();
 const MainContainer = () => {
 
     const { currentUser } = useAuth();
-    console.log(currentUser);
 
     if (currentUser) {
         return (
-            <AuthProvider>
-                <NavigationContainer>
-                    <Stack.Navigator screenOptions={{ headerShown: false }}>
-                        <Stack.Screen name="FeedScreen" component={FeedScreen} />
-                        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
-                    </Stack.Navigator>
-                </NavigationContainer>
-            </AuthProvider>
+            <Navbar />
         )
     }
     else {
@@ -34,8 +27,8 @@ const MainContainer = () => {
             <AuthProvider>
                 <NavigationContainer>
                     <Stack.Navigator screenOptions={{ headerShown: false }}>
-                        <Stack.Screen name="Register" component={RegisterScreen} />
                         <Stack.Screen name="Login" component={LoginScreen} />
+                        <Stack.Screen name="Register" component={RegisterScreen} />
                     </Stack.Navigator>
                 </NavigationContainer>
             </AuthProvider>

@@ -4,7 +4,7 @@ import { TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AuthProvider, { useAuth } from "../../AuthProvider/AuthProvider";
 
-const RegisterScreen = () => {
+const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signup } = useAuth();
@@ -16,7 +16,7 @@ const RegisterScreen = () => {
       setError('');
       setLoading(true);
       await signup(email, password);
-      alert('User has been created!')
+      //alert('User has been created!')
     }
     catch (err) {
       setError('Failed to create an account')
@@ -40,6 +40,7 @@ const RegisterScreen = () => {
           secureTextEntry
         />
         <Button title="Register" onPress={handleSubmit} disabled={loading} />
+        <Text>Alreay have an account? <Text style={{ color: 'blue' }} onPress={() => { navigation.push('Login') }}>Login</Text></Text>
       </View>
     </AuthProvider>
   );

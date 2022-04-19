@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, Link } from "react-native";
 import { TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AuthProvider, { useAuth } from "../../AuthProvider/AuthProvider";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();
@@ -16,7 +16,7 @@ const LoginScreen = () => {
       setError('');
       setLoading(true);
       await login(email, password);
-      alert('User logged in')
+      //alert('User logged in')
     }
     catch (err) {
       setError('Failed to login')
@@ -40,6 +40,7 @@ const LoginScreen = () => {
           secureTextEntry
         />
         <Button title="Login" onPress={handleLogin} disabled={loading} />
+        <Text>Need an account? <Text style={{ color: 'blue' }} onPress={() => { navigation.push('Register') }}>Register</Text></Text>
       </View>
     </AuthProvider>
   );
