@@ -4,12 +4,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-//Screens
-import FeedScreen from "../Screens/UserScreens/FeedScreen";
-import MapScreen from "../Screens/UserScreens/MapScreen";
-import WantedScreen from "../Screens/UserScreens/WantedScreen";
+//Navigators
+import FeedNavigator from "../Navigation/FeedNavigator";
+import MapNavigator from "../Navigation/MapNavigator";
+import WantedNavigator from "../Navigation/WantedNavigator";
 
-//Screen names
+//Navigators names
 const feedName = "Feed";
 const mapName = "Map";
 const wantedName = "Wanted";
@@ -20,8 +20,9 @@ const UserNavbar = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName={feedName}
+        initialRouteName={FeedNavigator}
         screenOptions={({ route }) => ({
+          headerShown: false,
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             let rn = route.name;
@@ -33,7 +34,6 @@ const UserNavbar = () => {
             } else if (rn === wantedName) {
               iconName = focused ? "albums" : "albums-outline";
             }
-
             return <Ionicons name={iconName} size={size} color={color} />;
           },
 
@@ -41,9 +41,9 @@ const UserNavbar = () => {
           tabBarInactiveTintColor: "grey",
         })}
       >
-        <Tab.Screen name={feedName} component={FeedScreen} />
-        <Tab.Screen name={mapName} component={MapScreen} />
-        <Tab.Screen name={wantedName} component={WantedScreen} />
+        <Tab.Screen name={feedName} component={FeedNavigator} />
+        <Tab.Screen name={mapName} component={MapNavigator} />
+        <Tab.Screen name={wantedName} component={WantedNavigator} />
       </Tab.Navigator>
     </NavigationContainer>
   );
