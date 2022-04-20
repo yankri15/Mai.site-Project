@@ -1,5 +1,6 @@
-// add connection to edit profile
-//connect to user
+//need to connect to user and differentiate between user and others taht see the profile
+// need add connect to edit profile
+//for change photo(need to add button): https://www.npmjs.com/package/react-native-image-picker
 
 
 
@@ -30,10 +31,7 @@ const ProfileScreen = () => {
                     <Text style={[styles.text, { color: "#AEB5BC", fontSize: 14 }]}>about - Take from user</Text>
                 </View>
                    
-                <View style={styles.infoContainer}>
-                    <Text style={[styles.text, { fontWeight: "200", fontSize: 36 }]}>Julie</Text>
-                    <Text style={[styles.text, { color: "#AEB5BC", fontSize: 14 }]}>Photographer</Text>
-                </View>
+            
 
                 <View style={styles.statsContainer}>
                     <View style={styles.statsBox}>
