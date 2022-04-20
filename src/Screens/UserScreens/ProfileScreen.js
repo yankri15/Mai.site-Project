@@ -22,9 +22,11 @@ const ProfileScreen = () => {
                     <View style={styles.profileImage}>
                         <Image source={require('../../../assets/profile-pic.png')} style={styles.image} resizeMode="center"></Image>
                     </View>
+                    <Touchable>
                     <View style={styles.edit}>
                         <MaterialIcons name="Edit" size={18} color="#DFD8C8"></MaterialIcons>
                     </View>
+                    </Touchable>
                     </View>
                     <View style={styles.infoContainer}>
                     <Text style={[styles.text, { fontWeight: "200", fontSize: 36 }]}>name - Take from user</Text>
