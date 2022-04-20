@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { TextInput } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import AuthProvider, { useAuth } from "../../AuthProvider/AuthProvider";
 
 const RegisterScreen = ({ navigation }) => {
