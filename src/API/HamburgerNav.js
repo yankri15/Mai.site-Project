@@ -20,7 +20,6 @@ const HamburgerNav = () => {
     try {
       setError("");
       await logout();
-      //alert('User logged out')
     } catch (err) {
       setError("Failed to logout");
       console.log(error + ":\n " + err);
