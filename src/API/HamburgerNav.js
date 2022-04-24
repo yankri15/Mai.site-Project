@@ -27,17 +27,19 @@ const HamburgerNav = () => {
     }
   }
 
+  function CustomDrawer(props) {
+    return (
+      <DrawerContentScrollView {...props}>
+        <DrawerItemList {...props} />
+        <DrawerItem label="Logout" onPress={handleLogout} />
+      </DrawerContentScrollView>
+    );
+  }
+
   return (
     <Drawer.Navigator
       screenOptions={{ headerShown: false }}
-      drawerContent={(props) => {
-        return (
-          <DrawerContentScrollView {...props}>
-            <DrawerItemList {...props} />
-            <DrawerItem label="Logout" onPress={handleLogout} />
-          </DrawerContentScrollView>
-        );
-      }}
+      drawerContent={(props) => <CustomDrawer {...props} />}
     >
       <Drawer.Screen name="Home" component={UserNavbar} />
       <Drawer.Screen name="Forum" component={ForumNavigator} />
