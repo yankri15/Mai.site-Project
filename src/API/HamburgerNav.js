@@ -27,9 +27,9 @@ const HamburgerNav = () => {
     }
   }
 
-  // screenOptions={{ headerShown: false }}
   return (
     <Drawer.Navigator
+      screenOptions={{ headerShown: false }}
       drawerContent={(props) => {
         return (
           <DrawerContentScrollView {...props}>
