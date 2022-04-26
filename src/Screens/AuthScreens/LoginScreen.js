@@ -40,6 +40,7 @@ const LoginScreen = ({ navigation }) => {
                 />
                 <Button title="Login" onPress={handleLogin} disabled={loading} />
                 <Text>Need an account? <Text style={{ color: 'blue' }} onPress={() => { navigation.navigate('Register') }}>Register</Text></Text>
+                <Text style={{ color: 'yellow' }} onPress={() => { navigation.navigate('ForgotPassword') }}>Forgot password?</Text>
             </View>
         </AuthProvider>
     );
