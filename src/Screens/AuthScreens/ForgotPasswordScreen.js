@@ -6,22 +6,38 @@ import AuthProvider, { useAuth } from "../../AuthProvider/AuthProvider";
 
 
 const ForgotPasswordScreen = () => {
-  const [email, setEmail] = useState(""); 
+    const [email, setEmail] = useState("");
+    const { resetPassword } = useAuth();
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    async function handleLogin() {
+        try {
+            setError('');
+            setLoading(true);
+            await resetPassword(email);
+    
+        }
+        catch (err) {
+            setError('Failed to reaet password')
+            console.log(error + ":\n " + err);
+        }
+        setLoading(false);
+    }
   return (      
 <SafeAreaView style={styles.container}>
             <Text style={styles.text}>forgot password?</Text>
-            <Ionicons name="ios-mail" size={24} color="#52575D"></Ionicons>
+            
             <TextInput
-              keyboradType = 'email-address'
               placeholder="Email"
-              textContentType = 'emailAdrdess'
-              value={email}
+              keyboardType="email-address"
               onChangeText={(text) => setEmail(text)}
+              value={email}
 
       />
       <Button
-        title="Send Email"
-        //onClick = {forgotPassword(text)}
+        title="Reset Password"
+        onClick = {resetPassword(email)}
       />
       </SafeAreaView>
     )
@@ -33,7 +49,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
-      marginTop: 150
+      marginTop: 150,
     },
     text: {
       color: '#333',
