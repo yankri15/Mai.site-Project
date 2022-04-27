@@ -5,7 +5,7 @@ import { useAuth } from "../AuthProvider/AuthProvider";
 import RegisterScreen from "../Screens/AuthScreens/RegisterScreen";
 import LoginScreen from "../Screens/AuthScreens/LoginScreen";
 import HamburgerStack from "./HamburgerStack";
-
+import ForgotPasswordScreen from "../Screens/AuthScreens/ForgotPasswordScreen";
 const Stack = createStackNavigator();
 
 const MainContainer = () => {
@@ -18,6 +18,7 @@ const MainContainer = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="Forgot" component={ForgotPasswordScreen} />
       </Stack.Navigator>
     );
   }
