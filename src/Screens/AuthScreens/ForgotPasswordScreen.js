@@ -6,24 +6,26 @@ import {
   Button,
   SafeAreaView,
 } from "react-native";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import AuthProvider, { useAuth } from "../../AuthProvider/AuthProvider";
+import { useAuth } from "../../AuthProvider/AuthProvider";
 
-const ForgotPasswordScreen = () => {
+const ForgotPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const { resetPassword } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  
   async function handleForgot() {
     try {
       setError("");
       setLoading(true);
       await resetPassword(email);
+      
     } catch (err) {
       setError("Failed to reaet password");
       console.log(error + ":\n " + err);
     }
+    navigation.navigate('Login');
     setLoading(false);
   }
   return (
