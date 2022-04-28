@@ -18,11 +18,19 @@ const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
 
   const signup = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+    return createUserWithEmailAndPassword(auth, email, password).then(
+      (userCredential) => {
+        return userCredential.user.uid;
+      }
+    );
   };
 
   const login = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
+    return signInWithEmailAndPassword(auth, email, password).then(
+      (userCredential) => {
+        return userCredential.user.uid;
+      }
+    );
   };
 
   const logout = () => {
