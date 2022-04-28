@@ -62,10 +62,19 @@ const RegisterScreen = ({ navigation }) => {
 export default RegisterScreen;
 
 const styles = StyleSheet.create({
+
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#ffc823",
+    },
+
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: 552583,
   },
+
 });

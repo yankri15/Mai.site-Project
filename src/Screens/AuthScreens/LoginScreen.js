@@ -16,6 +16,9 @@ const LoginScreen = ({ navigation }) => {
     try {
       setError("");
       setLoading(true);
+
+      await login(email, password);
+
       const uid = await login(email, password);
       console.log(uid);
       try {
@@ -44,21 +47,46 @@ const LoginScreen = ({ navigation }) => {
     <AuthProvider>
       <View style={styles.container}>
         <TextInput
+
+          style={styles.textInput}
+
+
           placeholder="Email"
           value={email}
           onChangeText={(text) => setEmail(text)}
         />
         <TextInput
+
+          style={styles.textInput}
+
           placeholder="Password"
           value={password}
           onChangeText={(text) => setPassword(text)}
           secureTextEntry
         />
+
+        <Button
+          title="Login"
+          color="#005377"
+          borderBottomLeftRadius
+          borderBottomRightRadius
+          borderTopLeftRadius
+          borderTopRightRadius
+          onPress={handleLogin}
+          disabled={loading}
+        />
+        <Text style = {styles.need}>
+        
+          Need an account?
+          <Text
+            style = {{color: "blue"}}
+
         <Button title="Login" onPress={handleLogin} disabled={loading} />
         <Text>
           Need an account?{" "}
           <Text
             style={{ color: "blue" }}
+
             onPress={() => {
               navigation.navigate("Register");
             }}
@@ -67,7 +95,11 @@ const LoginScreen = ({ navigation }) => {
           </Text>
         </Text>
         <Text
+
+          style={styles.forgot}
+
           style={{ color: "yellow" }}
+
           onPress={() => {
             navigation.navigate("ForgotPassword");
           }}
@@ -86,6 +118,35 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+
+    backgroundColor: "#ffc823",
+    
+  },
+  textInput: {
+    borderColor: "black",
+    padding: 3,
+    fontSize: 24,
+    borderWidth: 2,
+    marginBottom: 4,
+    textAlign: "center",
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    backgroundColor: "#33B373",
+  },
+  need: {
+    marginTop:4, 
+    marginBottom:4, 
+    fontSize:20,
+    fontFamily:"sans-serif",  
+  },
+  forgot:{
+    fontSize:20,
+    fontFamily:"sans-serif",
+    color: "#DFDFDF"
+  }
+
     backgroundColor: 552583,
   },
 });
