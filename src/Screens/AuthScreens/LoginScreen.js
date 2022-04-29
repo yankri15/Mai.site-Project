@@ -12,33 +12,21 @@ const LoginScreen = ({ navigation }) => {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
-    async function handleLogin() {
-        try {
-            setError("");
-            setLoading(true);
+  async function handleLogin() {
+    try {
+      setError("");
+      setLoading(true);
+      const uid = await login(email, password);
+      try {
+        const docRef = doc(db, "users", uid);
+        const docSnap = await getDoc(docRef);
 
-            await login(email, password);
+        if (docSnap.exists()) {
+          console.log("Document data:", docSnap.data().status);
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
 
-            const uid = await login(email, password);
-            console.log(uid);
-            try {
-                console.log(uid);
-                const docRef = doc(db, "users", uid);
-                const docSnap = await getDoc(docRef);
-
-                if (docSnap.exists()) {
-                    console.log("Document data:", docSnap.data());
-                } else {
-                    // doc.data() will be undefined in this case
-                    console.log("No such document!");
-                }
-            } catch (err) {
-                console.log(err);
-            }
-            //alert('User logged in')
-        } catch (err) {
-            setError("Failed to login");
-            console.log(error + ":\n " + err);
         }
         setLoading(false);
     }
