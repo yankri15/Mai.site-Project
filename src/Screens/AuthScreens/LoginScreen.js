@@ -12,7 +12,7 @@ const LoginScreen = ({ navigation }) => {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
-    async function handleLogin() {
+  async function handleLogin() {
         try {
             setError("");
             setLoading(true);
