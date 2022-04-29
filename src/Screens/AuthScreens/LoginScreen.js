@@ -49,6 +49,7 @@ const LoginScreen = ({ navigation }) => {
                 <TextInput
                     style={styles.textInput}
                     placeholder="Email"
+                    keyboardType="email-address"
                     value={email}
                     onChangeText={(text) => setEmail(text)}
                 />
@@ -62,21 +63,13 @@ const LoginScreen = ({ navigation }) => {
                 <Pressable style={styles.button} title="Login"
                     onPress={handleLogin}
                     disabled={loading}>
-                    <Text style={{ color: "#ffffff", fontSize: 20, fontWeight: "bold" }}>LOGIN</Text>
+                    <Text style={styles.btn_text}>LOGIN</Text>
                 </Pressable>
                 <Text style={styles.need}>
                     Need an account?{" "}
-                    <Text style={{ color: "blue", fontWeight: "bold" }} onPress={() => {
-                        navigation.navigate("Register");
-                    }}>
-                        Register
-                    </Text>
+                    <Text style={styles.press_register} onPress={() => { navigation.navigate("Register"); }}>Register</Text>
                 </Text>
-                <Text style={styles.forgot} onPress={() => {
-                    navigation.navigate("ForgotPassword");
-                }}>
-                    Forgot password?
-                </Text>
+                <Text style={styles.forgot} onPress={() => { navigation.navigate("ForgotPassword"); }}>Forgot password?</Text>
             </View>
         </AuthProvider>
     );
@@ -96,7 +89,7 @@ const styles = StyleSheet.create({
         width: 250,
         padding: 5,
         paddingLeft: 10,
-        fontSize: 20,
+        fontSize: 17,
         borderWidth: 2,
         marginBottom: 4,
         textAlign: "left",
@@ -106,17 +99,28 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 5,
         backgroundColor: "#ffeeee",
     },
+    btn_text: {
+        color: "#ffffff",
+        fontSize: 20,
+        fontWeight: "bold",
+    },
     need: {
-        marginTop: 4,
-        marginBottom: 4,
+        marginTop: 10,
+        marginBottom: 10,
         fontSize: 20,
         fontFamily: "sans-serif",
     },
+    press_register: {
+        color: "blue",
+        fontWeight: "bold",
+        textDecorationLine: 'underline',
+    },
     forgot: {
-        fontSize: 20,
+        marginTop: 10,
+        fontSize: 15,
         fontFamily: "sans-serif",
         color: "gray",
-        fontWeight: "bold",
+        textDecorationLine: 'underline'
     },
     button: {
         alignItems: 'center',
