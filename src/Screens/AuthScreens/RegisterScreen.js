@@ -1,6 +1,6 @@
 import { doc, setDoc } from "firebase/firestore";
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import { StyleSheet, Text, View, Pressable, Alert } from "react-native";
 import { TextInput } from "react-native";
 import AuthProvider, { useAuth } from "../../AuthProvider/AuthProvider";
 import { db } from "../../../firebase";
@@ -27,6 +27,14 @@ const RegisterScreen = ({ navigation }) => {
         } catch (err) {
             setError("Failed to create an account");
             console.log(error + ":\n " + err);
+            switch(err.code) {
+                case 'auth/invalid-email':
+                      Alert.alert('Email pattern is wrong')
+                      break;
+                case 'auth/weak-password':
+                    Alert.alert('password too weak')
+                     break;
+             }
         }
         setLoading(false);
     }

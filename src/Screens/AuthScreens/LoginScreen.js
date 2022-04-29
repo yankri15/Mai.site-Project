@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import { StyleSheet, Text, View, Pressable, Alert } from "react-native";
 import { TextInput } from "react-native";
 import AuthProvider, { useAuth } from "../../AuthProvider/AuthProvider";
 import { doc, getDoc } from "firebase/firestore";
@@ -13,20 +13,33 @@ const LoginScreen = ({ navigation }) => {
     const [loading, setLoading] = useState(false);
 
   async function handleLogin() {
-    try {
-      setError("");
-      setLoading(true);
-      const uid = await login(email, password);
-      try {
-        const docRef = doc(db, "users", uid);
-        const docSnap = await getDoc(docRef);
+        try {
+            setError("");
+            setLoading(true);
 
-        if (docSnap.exists()) {
-          console.log("Document data:", docSnap.data().status);
-        } else {
-          // doc.data() will be undefined in this case
-          console.log("No such document!");
+            await login(email, password);
 
+            const uid = await login(email, password);
+            console.log(uid);
+            try {
+                console.log(uid);
+                const docRef = doc(db, "users", uid);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    console.log("Document data:", docSnap.data());
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            } catch (err) {
+                console.log(err);
+            }
+            //alert('User logged in')
+        } catch (err) {
+            setError("Failed to login");
+            console.log(error + ":\n " + err);
+            Alert.alert('Email or password are incorrect');
         }
         setLoading(false);
     }
