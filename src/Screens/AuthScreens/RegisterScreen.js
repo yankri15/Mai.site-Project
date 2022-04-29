@@ -59,6 +59,7 @@ const RegisterScreen = ({ navigation }) => {
                 />
                 <TextInput style={styles.textInput}
                     placeholder="Age"
+                    keyboardType='numeric'
                     value={age}
                     onChangeText={(text) => setAge(text)}
                 />
