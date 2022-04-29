@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import { StyleSheet, Text, View, Pressable, Alert } from "react-native";
 import { TextInput } from "react-native";
 import AuthProvider, { useAuth } from "../../AuthProvider/AuthProvider";
 import { doc, getDoc } from "firebase/firestore";
@@ -39,6 +39,7 @@ const LoginScreen = ({ navigation }) => {
         } catch (err) {
             setError("Failed to login");
             console.log(error + ":\n " + err);
+            Alert.alert('Email or password are incorrect');
         }
         setLoading(false);
     }
