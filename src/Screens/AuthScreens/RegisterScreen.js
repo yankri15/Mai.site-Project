@@ -36,6 +36,7 @@ const RegisterScreen = ({ navigation }) => {
             <View style={styles.container}>
                 <TextInput style={styles.textInput}
                     placeholder="Email"
+                    keyboardType="email-address"
                     value={email}
                     onChangeText={(text) => setEmail(text)}
                 />
@@ -67,18 +68,11 @@ const RegisterScreen = ({ navigation }) => {
                     onChangeText={(text) => setNeighborhood(text)}
                 />
                 <Pressable style={styles.button} title="Register" onPress={handleSubmit} disabled={loading}>
-                    <Text style={{ color: "#ffffff", fontSize: 20 }}>REGISTER</Text>
+                    <Text style={styles.btn_text}>REGISTER</Text>
                 </Pressable>
                 <Text style={styles.need}>
                     Alreay have an account?{" "}
-                    <Text
-                        style={{ color: "blue", fontWeight: "bold" }}
-                        onPress={() => {
-                            navigation.push("Login");
-                        }}
-                    >
-                        Login
-                    </Text>
+                    <Text style={styles.press_login} onPress={() => { navigation.push("Login"); }}>Login</Text>
                 </Text>
             </View>
         </AuthProvider>
@@ -100,7 +94,7 @@ const styles = StyleSheet.create({
         width: 250,
         padding: 5,
         paddingLeft: 10,
-        fontSize: 20,
+        fontSize: 17,
         borderWidth: 2,
         marginBottom: 4,
         textAlign: "left",
@@ -110,11 +104,21 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 5,
         backgroundColor: "#ffeeee",
     },
+    btn_text: {
+        color: "#ffffff",
+        fontSize: 20,
+        fontWeight: "bold",
+    },
     need: {
         marginTop: 4,
         marginBottom: 4,
         fontSize: 20,
         fontFamily: "sans-serif",
+    },
+    press_login: {
+        color: "blue",
+        fontWeight: "bold",
+        textDecorationLine: 'underline',
     },
     forgot: {
         fontSize: 20,
