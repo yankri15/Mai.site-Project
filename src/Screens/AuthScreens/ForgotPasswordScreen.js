@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, TextInput, Pressable } from "react-native";
+import { View, StyleSheet, Text, TextInput, Pressable, Alert } from "react-native";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 
 const ForgotPasswordScreen = ({ navigation }) => {
@@ -14,12 +14,21 @@ const ForgotPasswordScreen = ({ navigation }) => {
       setError("");
       setLoading(true);
       await resetPassword(email);
-
+      Alert.alert('Check your account ' + email + ' inbox')
+      navigation.navigate('Login');
     } catch (err) {
       setError("Failed to reaet password");
       console.log(error + ":\n " + err);
+      console.log(err.code);
+      switch (err.code) {
+        case 'auth/invalid-email':
+          Alert.alert('Email pattern is wrong')
+          break;
+        case 'auth/user-not-found':
+          Alert.alert('User not exist')
+          break;
+      }
     }
-    navigation.navigate('Login');
     setLoading(false);
   }
   return (
@@ -34,6 +43,17 @@ const ForgotPasswordScreen = ({ navigation }) => {
       <Pressable style={styles.button} title="Reset Password" onPress={handleForgot}>
         <Text>Reset Password</Text>
       </Pressable>
+      <Text style={styles.need}>
+        Remember now?{" "}
+        <Text
+          style={{ color: "blue", fontWeight: "bold" }}
+          onPress={() => {
+            navigation.push("Login");
+          }}
+        >
+          Back to Login
+        </Text>
+      </Text>
     </View>
   );
 };
@@ -79,5 +99,11 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     elevation: 3,
     backgroundColor: "#6495ED",
+  },
+  need: {
+    marginTop: 4,
+    marginBottom: 4,
+    fontSize: 20,
+    fontFamily: "sans-serif",
   },
 });

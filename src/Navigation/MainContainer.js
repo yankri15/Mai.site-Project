@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { useAuth } from "../AuthProvider/AuthProvider";
@@ -6,32 +6,33 @@ import RegisterScreen from "../Screens/AuthScreens/RegisterScreen";
 import LoginScreen from "../Screens/AuthScreens/LoginScreen";
 import HamburgerStack from "./HamburgerStack";
 import ForgotPasswordScreen from "../Screens/AuthScreens/ForgotPasswordScreen";
-import { getDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase";
+import { getDoc, doc } from "firebase/firestore";
+import ApprovalWatingScreen from "../Screens/UserScreens/ApprovalWatingScreen";
+import BlockedScreen from "../Screens/UserScreens/BlockedScreen";
 
 const Stack = createStackNavigator();
 
 const MainContainer = () => {
+  const [userStatus, setUserStatus] = useState(0);
   const { currentUser } = useAuth();
 
   const getStatus = async () => {
     const docRef = doc(db, "users", currentUser.uid);
     const docSnap = await getDoc(docRef);
-
-    setStatus(docSnap.data().status);
+    console.log('User status: ' + docSnap.data().status);
+    setUserStatus(docSnap.data().status);
   };
 
-  const [status, setStatus] = getStatus();
 
   if (currentUser) {
-    console.log(status);
-    if (getStatus() == 1) {
-      console.log("yay");
+    getStatus();
+    if (userStatus == 1) {
       return <HamburgerStack />;
-    } else if (getStatus() == 0) {
-      return <LoginScreen />;
+    } else if (userStatus == 0) {
+      return <ApprovalWatingScreen />;
     } else {
-      return <LoginScreen />;
+      return <BlockedScreen />;
     }
   } else {
     return (
