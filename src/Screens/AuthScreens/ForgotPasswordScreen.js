@@ -33,27 +33,17 @@ const ForgotPasswordScreen = ({ navigation }) => {
   }
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>forgot password?</Text>
+      <Text style={styles.title}>שכחת סיסמה?</Text>
       <TextInput style={styles.textInput}
-        placeholder="Email"
+        placeholder="מייל"
         keyboardType="email-address"
         onChangeText={(text) => setEmail(text)}
         value={email}
       />
       <Pressable style={styles.button} title="Reset Password" onPress={handleForgot}>
-        <Text>Reset Password</Text>
+        <Text style={styles.btn_text}>אפס לי את הסיסמה</Text>
       </Pressable>
-      <Text style={styles.need}>
-        Remember now?{" "}
-        <Text
-          style={{ color: "blue", fontWeight: "bold" }}
-          onPress={() => {
-            navigation.push("Login");
-          }}
-        >
-          Back to Login
-        </Text>
-      </Text>
+      <Text style={styles.need} onPress={() => {navigation.push("Login");}}>אהה נזכרתי!</Text>
     </View>
   );
 };
@@ -65,17 +55,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#ffc823",
+    backgroundColor: "#a77ce8",
   },
   textInput: {
     borderColor: "black",
     width: 250,
     padding: 5,
-    paddingLeft: 10,
-    fontSize: 20,
+    paddingRight: 10,
+    fontSize: 17,
     borderWidth: 2,
     marginBottom: 4,
-    textAlign: "left",
+    textAlign: "right",
     borderBottomLeftRadius: 5,
     borderBottomRightRadius: 5,
     borderTopLeftRadius: 5,
@@ -95,15 +85,22 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 15,
     paddingVertical: 10,
-    paddingHorizontal: 35,
+    paddingHorizontal: 15,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: "#6495ED",
+    backgroundColor: "#fdc123",
+  },
+  btn_text: {
+    color: "#000000",
+    fontSize: 15,
+    fontWeight: "bold",
   },
   need: {
-    marginTop: 4,
+    paddingTop: 15,
     marginBottom: 4,
     fontSize: 20,
     fontFamily: "sans-serif",
+    color: "blue",
+    fontWeight: "bold",
   },
 });

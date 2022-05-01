@@ -36,7 +36,6 @@ const RegisterScreen = ({ navigation }) => {
     }
     setLoading(false);
   }
-
   return (
     <AuthProvider>
       <View style={styles.container}>
