@@ -5,7 +5,6 @@ import DatePicker from "react-native-datepicker";
 
 const FillDetails = () => {
   const [name, setName] = useState("");
-  const [birthDate, setBirthDate] = useState("");
   const [school, setSchool] = useState("");
   const [organiztion, setOrganiztion] = useState("");
   const [classs, setClasss] = useState("בחר כיתה");
@@ -27,9 +26,7 @@ const FillDetails = () => {
         format="YYYY-MM-DD"
         confirmBtnText="אשר"
         cancelBtnText="בטל"
-        onDateChange={(date) => {
-          this.setState({ date: date });
-        }}
+        onDateChange={(ddtate) => setDate(ddtate)}
       />
       <TextInput
         placeholder="בית ספר"
