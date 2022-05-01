@@ -114,11 +114,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: "sans-serif",
   },
-  forgot: {
-    fontSize: 20,
-    fontFamily: "sans-serif",
-    color: "gray",
-  },
+  
   button: {
     alignItems: "center",
     justifyContent: "center",
