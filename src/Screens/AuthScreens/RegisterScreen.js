@@ -21,6 +21,7 @@ const RegisterScreen = ({ navigation }) => {
       await setDoc(doc(db, "users", uid), {
         status: 0,
       });
+      navigation.navigate("FillDetails");
     } catch (err) {
       setError("Failed to create an account");
       console.log(error + ":\n " + err);
@@ -65,7 +66,7 @@ const RegisterScreen = ({ navigation }) => {
           onPress={handleSubmit}
           disabled={loading}
         >
-          <Text style={{ color: "#ffffff", fontSize: 20 }}>REGISTER</Text>
+          <Text style={{ color: "#ffffff", fontSize: 20 }} >REGISTER</Text>
         </Pressable>
         <Text style={styles.need}>
           Alreay have an account?{" "}
