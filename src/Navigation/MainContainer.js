@@ -10,6 +10,7 @@ import { db } from "../../firebase";
 import { getDoc, doc } from "firebase/firestore";
 import ApprovalWatingScreen from "../Screens/UserScreens/ApprovalWatingScreen";
 import BlockedScreen from "../Screens/UserScreens/BlockedScreen";
+import fillDetailsScreen from "../Screens/AuthScreens/fillDetailsScreen";
 
 const Stack = createStackNavigator();
 
@@ -25,24 +26,25 @@ const MainContainer = () => {
   };
 
 
-  if (currentUser) {
-    getStatus();
-    if (userStatus == 1) {
-      return <HamburgerStack />;
-    } else if (userStatus == 0) {
-      return <ApprovalWatingScreen />;
-    } else {
-      return <BlockedScreen />;
-    }
-  } else {
+  // if (currentUser) {
+  //   getStatus();
+  //   if (userStatus == 1) {
+      // return <HamburgerStack />;
+    // } else if (userStatus == 0) {
+    //   return <ApprovalWatingScreen />;
+    // } else {
+    //   return <BlockedScreen />;
+    // }
+  // } else {
     return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+        <Stack.Screen name="FillDetails" component={fillDetailsScreen} />
       </Stack.Navigator>
     );
-  }
+  // }
 };
 
 export default MainContainer;
