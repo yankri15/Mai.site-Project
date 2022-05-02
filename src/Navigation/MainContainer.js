@@ -12,31 +12,31 @@ import { getDoc, doc } from "firebase/firestore";
 import ApprovalWatingScreen from "../Screens/UserScreens/ApprovalWatingScreen";
 import BlockedScreen from "../Screens/UserScreens/BlockedScreen";
 import fillDetailsScreen from "../Screens/AuthScreens/fillDetailsScreen";
+import { useData } from "../AuthProvider/UserDataProvider";
 
 const Stack = createStackNavigator();
 
 const MainContainer = () => {
-  const [userStatus, setUserStatus] = useState(0);
+  const { userStatus } = useData();
   const { currentUser } = useAuth();
 
-  const getStatus = async () => {
-    const docRef = doc(db, "users", currentUser.uid);
-    const docSnap = await getDoc(docRef);
-    console.log('User status: ' + docSnap.data().status);
-    setUserStatus(docSnap.data().status);
-  };
+  // const getStatus = async () => {
+  //   const docRef = doc(db, "users", currentUser.uid);
+  //   const docSnap = await getDoc(docRef);
+  //   console.log('User status: ' + docSnap.data().status);
+  //   setUserStatus(docSnap.data().status);
+  // };
 
 
-  // if (currentUser) {
-  //   getStatus();
-  //   if (userStatus == 1) {
-      // return <HamburgerStack />;
-    // } else if (userStatus == 0) {
-    //   return <ApprovalWatingScreen />;
-    // } else {
-    //   return <BlockedScreen />;
-    // }
-  // } else {
+  if (currentUser) {
+    if (userStatus == 1) {
+      return <HamburgerStack />;
+    } else if (userStatus == 0) {
+      return <ApprovalWatingScreen />;
+    } else {
+      return <BlockedScreen />;
+    }
+  } else {
     return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Landing" component={LandingScreen} />
@@ -46,7 +46,7 @@ const MainContainer = () => {
         <Stack.Screen name="FillDetails" component={fillDetailsScreen} />
       </Stack.Navigator>
     );
-  // }
+  }
 };
 
 export default MainContainer;
