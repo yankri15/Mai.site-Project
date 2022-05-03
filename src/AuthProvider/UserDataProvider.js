@@ -40,9 +40,11 @@ const UserDataProvider = ({ children }) => {
 
   useEffect(() => {
     const getStatus = async () => {
-      const docRef = doc(db, "users", currentUser.uid);
-      const docSnap = await getDoc(docRef);
-      setUserStatus(docSnap.data().status);
+      if (currentUser) {
+        const docRef = doc(db, "users", currentUser.uid);
+        const docSnap = await getDoc(docRef);
+        setUserStatus(docSnap.data().status);
+      }
     };
     getStatus().catch(console.error);
     return;
