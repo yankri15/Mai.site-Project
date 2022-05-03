@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, TextInput, Pressable, Alert } from "react-native";
+import { View, StyleSheet, Text, TextInput, Pressable, Alert, Image } from "react-native";
+import { globalStyles } from '../../styles/global';
 import { useAuth } from "../../AuthProvider/AuthProvider";
 
 const ForgotPasswordScreen = ({ navigation }) => {
@@ -32,75 +33,23 @@ const ForgotPasswordScreen = ({ navigation }) => {
     setLoading(false);
   }
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>שכחת סיסמה?</Text>
-      <TextInput style={styles.textInput}
+    <View style={globalStyles.container_enter_screens}>
+      <View style={globalStyles.logo}>
+        <Image source={require('../../../assets/app_icon.png')} style={globalStyles.logo_image_area} resizeMode="center"></Image>
+      </View>
+      <Text style={globalStyles.forgot_title}>שכחת סיסמה?</Text>
+      <TextInput style={globalStyles.textInput}
         placeholder="מייל"
         keyboardType="email-address"
         onChangeText={(text) => setEmail(text)}
         value={email}
       />
-      <Pressable style={styles.button} title="Reset Password" onPress={handleForgot}>
-        <Text style={styles.btn_text}>אפס לי את הסיסמה</Text>
+      <Pressable style={globalStyles.enter_button} title="Reset Password" onPress={handleForgot}>
+        <Text style={globalStyles.enter_btn_text}>אפס סיסמה</Text>
       </Pressable>
-      <Text style={styles.need} onPress={() => {navigation.push("Login");}}>אהה נזכרתי!</Text>
+      <Text style={globalStyles.blue_btn} onPress={() => { navigation.push("Login"); }}>אהה נזכרתי!</Text>
     </View>
   );
 };
 
 export default ForgotPasswordScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#a77ce8",
-  },
-  textInput: {
-    borderColor: "black",
-    width: 250,
-    padding: 5,
-    paddingRight: 10,
-    fontSize: 17,
-    borderWidth: 2,
-    marginBottom: 4,
-    textAlign: "right",
-    borderBottomLeftRadius: 5,
-    borderBottomRightRadius: 5,
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
-    backgroundColor: "#ffeeee",
-  },
-  title: {
-    top: 1,
-    marginBottom: 30,
-    fontSize: 25,
-    fontWeight: "bold",
-    fontFamily: "sans-serif",
-  },
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 15,
-    marginBottom: 15,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: "#fdc123",
-  },
-  btn_text: {
-    color: "#000000",
-    fontSize: 15,
-    fontWeight: "bold",
-  },
-  need: {
-    paddingTop: 15,
-    marginBottom: 4,
-    fontSize: 20,
-    fontFamily: "sans-serif",
-    color: "blue",
-    fontWeight: "bold",
-  },
-});

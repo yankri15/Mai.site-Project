@@ -1,9 +1,7 @@
-import { doc, setDoc } from "firebase/firestore";
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Pressable, Alert } from "react-native";
-import { TextInput } from "react-native";
+import { StyleSheet, Text, TextInput, View, Pressable, Alert, Image } from "react-native";
+import { globalStyles } from '../../styles/global';
 import AuthProvider, { useAuth } from "../../AuthProvider/AuthProvider";
-import { db } from "../../../firebase";
 import { useData } from "../../AuthProvider/UserDataProvider";
 
 const RegisterScreen = ({ navigation }) => {
@@ -38,45 +36,43 @@ const RegisterScreen = ({ navigation }) => {
   }
   return (
     <AuthProvider>
-      <View style={styles.container}>
+      <View style={globalStyles.container_enter_screens}>
+        <View style={globalStyles.logo}>
+          <Image source={require('../../../assets/app_icon.png')} style={globalStyles.logo_image_area} resizeMode="center"></Image>
+        </View>
         <TextInput
-          style={styles.textInput}
-          placeholder="Email"
+          style={globalStyles.textInput}
+          placeholder="מייל"
           value={email}
           onChangeText={(text) => setEmail(text)}
         />
         <TextInput
-          style={styles.textInput}
-          placeholder="Password"
+          style={globalStyles.textInput}
+          placeholder="סיסמה"
           value={password}
           onChangeText={(text) => setPassword(text)}
           secureTextEntry
         />
         <TextInput
-          style={styles.textInput}
-          placeholder="Confirm Password"
+          style={globalStyles.textInput}
+          placeholder="אימות סיסמה"
           value={ConfirmPassword}
           onChangeText={(text) => setConfirmPassword(text)}
           secureTextEntry
         />
         <Pressable
-          style={styles.button}
+          style={globalStyles.enter_button}
           title="Register"
           onPress={handleSubmit}
           disabled={loading}
         >
-          <Text style={{ color: "#ffffff", fontSize: 20 }}>REGISTER</Text>
+          <Text style={globalStyles.enter_btn_text}>תרשום אותי</Text>
         </Pressable>
-        <Text style={styles.need}>
-          Alreay have an account?{" "}
-          <Text
-            style={{ color: "blue", fontWeight: "bold" }}
-            onPress={() => {
-              navigation.push("Login");
-            }}
-          >
-            Login
-          </Text>
+        <Text style={globalStyles.already_have}>
+          כבר יש משתמש? {" "}
+          <Text style={globalStyles.blue_btn} onPress={() => {
+            navigation.push("Login");
+          }}>כניסה</Text>
         </Text>
       </View>
     </AuthProvider>
@@ -84,45 +80,3 @@ const RegisterScreen = ({ navigation }) => {
 };
 
 export default RegisterScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#ffc823",
-  },
-  textInput: {
-    borderColor: "black",
-    width: 250,
-    padding: 5,
-    paddingLeft: 10,
-    fontSize: 20,
-    borderWidth: 2,
-    marginBottom: 4,
-    textAlign: "left",
-    borderBottomLeftRadius: 5,
-    borderBottomRightRadius: 5,
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
-    backgroundColor: "#ffeeee",
-  },
-  need: {
-    marginTop: 4,
-    marginBottom: 4,
-    fontSize: 20,
-    fontFamily: "sans-serif",
-  },
-
-  button: {
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 15,
-    marginBottom: 15,
-    paddingVertical: 10,
-    paddingHorizontal: 35,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: "#6495ED",
-  },
-});
