@@ -5,7 +5,7 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 const LandingScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
-            <View style={styles.title}>
+            <View>
                 <View>
                     <Text style={styles.title_text}>מנהיגות</Text>
                 </View>
@@ -17,9 +17,7 @@ const LandingScreen = ({ navigation }) => {
                 </View>
             </View>
             <View style={styles.imageArea}>
-                {/* megaphone icon */}
                 <Ionicons name='megaphone-outline' size={150} ></Ionicons>
-                {/* <Image source={require('../../../assets/megaphone.png')} style={styles.image}></Image> */}
             </View>
             <Pressable style={styles.log_button} title="Login" onPress={() => { navigation.navigate("Login"); }}>
                 <Text style={styles.log_btn_text}>יאללה לעבודה</Text>
@@ -43,15 +41,6 @@ const styles = StyleSheet.create({
     imageArea: {
         margin: 25,
     },
-    // image: {
-    //     flex: 1,
-    //     height: 150,
-    //     width: 150,
-    //     backgroundColor: "#a77ce8",
-    // },
-    title: {
-        //bottom: 80,
-    },
     title_text: {
         color: "#fdc123",
         fontSize: 50,
@@ -61,7 +50,6 @@ const styles = StyleSheet.create({
     reg_button: {
         alignItems: 'center',
         justifyContent: 'center',
-        //top: 80,
         width: 180,
         marginTop: 2,
         marginBottom: 15,
@@ -79,7 +67,6 @@ const styles = StyleSheet.create({
     log_button: {
         alignItems: 'center',
         justifyContent: 'center',
-        //top: 80,
         width: 180,
         marginTop: 15,
         marginBottom: 10,
