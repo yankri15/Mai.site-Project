@@ -1,8 +1,10 @@
-import { StyleSheet, style, View, Text, TextInput, Picker, Pressable } from "react-native";
+import { StyleSheet, style, View, Text, TextInput, Picker, Pressable, Image } from "react-native";
+import { globalStyles } from '../../styles/global';
 import React, { useState } from "react";
-import AuthProvider, { useAuth } from "../../AuthProvider/AuthProvider";
+import { useAuth } from "../../AuthProvider/AuthProvider";
 import { useData } from "../../AuthProvider/UserDataProvider";
 import DatePicker from "react-native-datepicker";
+import { color } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 
 const FillDetails = () => {
   const { addDataToDB } = useData();
@@ -11,11 +13,11 @@ const FillDetails = () => {
   const [organiztion, setOrganiztion] = useState("");
   const [classs, setClasss] = useState("");
   const { currentUser } = useAuth();
-  const [ date, setDate ] = useState(new Date());
+  const [date, setDate] = useState(new Date());
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  
-  
+
+
   async function handleRegisteration() {
     try {
       setError("");
@@ -25,58 +27,71 @@ const FillDetails = () => {
     } catch (err) {
       setError("Failed to create an account");
       console.log(error + ":\n " + err);
-    
+
     }
     setLoading(false);
   }
-  
-  
+
+  const isPlaceholder = (value) => {
+    return value == "";
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>בואו נעשה קסמים!</Text>
+    <View style={globalStyles.container_enter_screens}>
+      <View style={globalStyles.logo}>
+        <Image source={require('../../../assets/app_icon.png')} style={globalStyles.logo_image_area} resizeMode="center"></Image>
+      </View>
+      <Text style={[globalStyles.fill_title_text, { paddingBottom: 20 }]}>בואו נעשה קסמים!</Text>
       <TextInput
+        style={globalStyles.textInput}
         placeholder="שם + שם משפחה"
         value={name}
         onChangeText={(text) => setName(text)}
       />
-      <DatePicker
-        style={{ width: 200 }}
-        date={date}
-        mode="date"
-        placeholder="תאריך לידה"
-        format="YYYY-MM-DD"
-        confirmBtnText="אשר"
-        cancelBtnText="בטל"
-        onDateChange={(ddtate) => setDate(ddtate)}
-      />
+      <View style={globalStyles.textInput} >
+        <Text style={{ color: "gray" }}>תאריך לידה</Text>
+        <DatePicker
+          date={date}
+          mode="date"
+          format="DD-MM-YYYY"
+          confirmBtnText="אשר"
+          cancelBtnText="בטל"
+          onDateChange={(ddtate) => setDate(ddtate)}
+        />
+      </View>
       <TextInput
+        style={globalStyles.textInput}
         placeholder="בית ספר"
         value={school}
         onChangeText={(text) => setSchool(text)}
       />
-      <Picker
-        selectedValue={classs}
-        placeholder = "כיתה"
-        onValueChange={(itemValue, itemIndex) => setClasss(itemValue)}
-      >
-        <Picker.Item label="ט" value="ט" />
-        <Picker.Item label="י" value="י" />
-        <Picker.Item label="יא" value="יא" />
-        <Picker.Item label="יב" value="יב" />
-      </Picker>
+      <View style={globalStyles.textInput}>
+        <Picker
+          selectedValue={classs}
+          style={[isPlaceholder(classs) ? { color: "gray" } : { color: "black" }]}
+          onValueChange={(itemValue, itemIndex) => setClasss(itemValue)}
+        >
+          <Picker.Item label="בחר כיתה" value="choose" />
+          <Picker.Item label="ט'" value="class_9" />
+          <Picker.Item label="י'" value="class_10" />
+          <Picker.Item label="יא'" value="class_11" />
+          <Picker.Item label="יב'" value="class_12" />
+        </Picker>
+      </View>
       <TextInput
+        style={globalStyles.textInput}
         placeholder="ארגון"
         value={organiztion}
         onChangeText={(text) => setOrganiztion(text)}
       />
       <Pressable
-          
-          title="Register"
-          onPress={handleRegisteration}
-          disabled={loading}
-        >
-          <Text style={{ color: "#ffffff", fontSize: 20 }}>אני בפנים!</Text>
-        </Pressable>
+        style={globalStyles.enter_button}
+        title="Register"
+        onPress={handleRegisteration}
+        disabled={loading}
+      >
+        <Text style={globalStyles.enter_btn_text}>אני בפנים!</Text>
+      </Pressable>
     </View>
   );
 };
@@ -89,4 +104,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#a77ce8",
-  }});
+  }
+});
