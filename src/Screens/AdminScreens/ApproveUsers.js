@@ -9,6 +9,7 @@ import { doc, updateDoc } from "firebase/firestore";
 const ApproveUsers = () => {
   const [snapshot, setSnapshot] = useState([]);
 
+  //Gets the lists of users whith status 1 - pending
   useEffect(() => {
     const getSnapshot = async () => {
       const q = query(collection(db, "users"), where("status", "==", 1));
@@ -19,10 +20,12 @@ const ApproveUsers = () => {
     return;
   }, [snapshot]);
 
+  //Set user status to 2 - Approved
   const approveUser = async (uid) => {
     await updateDoc(doc(db, "users", uid), "status", 2);
   };
 
+  //Set user status to -1 - blocked
   const declineUser = async (uid) => {
     await updateDoc(doc(db, "users", uid), "status", -1);
   };
