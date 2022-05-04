@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Text, TextInput, View, Pressable, Alert, Image } from "react-native";
-import { globalStyles } from '../../styles/global';
+import { globalStyles } from "../../styles/global";
 import AuthProvider, { useAuth } from "../../AuthProvider/AuthProvider";
 import { useData } from "../../AuthProvider/UserDataProvider";
 
@@ -13,10 +13,29 @@ const RegisterScreen = ({ navigation }) => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+
+  //function deal with password, need to alert the user
+  function confirm(password, ConfirmPassword) {
+    if (password.length == 0 || ConfirmPassword.length == 0) {
+      Alert.alert("הכנס סיסמא");
+      return false;
+    }
+
+    else if (password !== ConfirmPassword) {
+      Alert.alert("סיסמא לא תואמת");
+      return false;
+    }
+    return true;
+  }
+
   async function handleSubmit() {
     try {
       setError("");
       setLoading(true);
+      if(confirm(password, ConfirmPassword) === false){
+
+        throw new error;
+      }
       const uid = await signup(email, password);
       setUserToDB(uid, email);
       navigation.navigate("FillDetails");
@@ -38,7 +57,11 @@ const RegisterScreen = ({ navigation }) => {
     <AuthProvider>
       <View style={globalStyles.container_enter_screens}>
         <View style={globalStyles.logo}>
-          <Image source={require('../../../assets/app_icon.png')} style={globalStyles.logo_image_area} resizeMode="center"></Image>
+          <Image
+            source={require("../../../assets/app_icon.png")}
+            style={globalStyles.logo_image_area}
+            resizeMode="center"
+          ></Image>
         </View>
         <TextInput
           style={globalStyles.textInput}
@@ -69,10 +92,15 @@ const RegisterScreen = ({ navigation }) => {
           <Text style={globalStyles.enter_btn_text}>תרשום אותי</Text>
         </Pressable>
         <Text style={globalStyles.already_have}>
-          כבר יש משתמש? {" "}
-          <Text style={globalStyles.blue_btn} onPress={() => {
-            navigation.push("Login");
-          }}>כניסה</Text>
+          כבר יש משתמש?{" "}
+          <Text
+            style={globalStyles.blue_btn}
+            onPress={() => {
+              navigation.push("Login");
+            }}
+          >
+            כניסה
+          </Text>
         </Text>
       </View>
     </AuthProvider>
