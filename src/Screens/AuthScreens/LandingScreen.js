@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable, Image } from 'react-native'
+import { View, Text, Pressable, Image } from 'react-native'
 import React from 'react'
 import { globalStyles } from '../../styles/global';
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";

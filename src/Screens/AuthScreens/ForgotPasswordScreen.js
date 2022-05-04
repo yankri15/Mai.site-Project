@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, TextInput, Pressable, Alert, Image } from "react-native";
+import { View, Text, TextInput, Pressable, Alert, Image } from "react-native";
 import { globalStyles } from '../../styles/global';
 import { useAuth } from "../../AuthProvider/AuthProvider";
 

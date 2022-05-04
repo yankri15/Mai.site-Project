@@ -9,10 +9,10 @@ export const globalStyles = StyleSheet.create({
     },
     textInput: {
         borderColor: "black",
-        width: 250,
-        padding: 3,
+        width: 260,
+        padding: 5,
         paddingRight: 10,
-        fontSize: 17,
+        fontSize: 15,
         borderWidth: 2,
         marginBottom: 4,
         textAlign: "right",
@@ -21,6 +21,11 @@ export const globalStyles = StyleSheet.create({
         borderTopLeftRadius: 5,
         borderTopRightRadius: 5,
         backgroundColor: "#fffffa",
+    },
+    loading: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: "#a77ce8",
     },
     ////////////////////////////////////////////////
     landing_imageArea: {
@@ -123,5 +128,13 @@ export const globalStyles = StyleSheet.create({
         color: "#fdc123",
         fontSize: 30,
         fontWeight: "bold",
+    },
+    datePicker: {
+        flexDirection: "row",
+        alignContent: "space-between",
+    },
+    picker: {
+        flex: 1,
+        
     },
 });

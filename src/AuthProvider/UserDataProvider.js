@@ -23,18 +23,14 @@ const UserDataProvider = ({ children }) => {
   };
 
   //Add other registration details (name, school, organization etc.)
-  const addDataToDB = async (uid, name, date, school, classs, organiztion) => {
+  const addDataToDB = async (uid, name, day, month, year, school, classs, organiztion) => {
     await updateDoc(
       doc(db, "users", uid),
       "name", name,
-      "birth-date",
-      date,
-      "school",
-      school,
-      "class",
-      classs,
-      "organiztion",
-      organiztion,
+      "birth-date", day +"/" + month +"/"+ year,
+      "school", school,
+      "class", classs,
+      "organiztion", organiztion,
       "status", 1
     ).then(() => {
       setUserStatus(1);
