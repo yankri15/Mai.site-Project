@@ -60,9 +60,11 @@ const ProfileScreen = () => {
           <Text style={globalStyles.circle_details}>{organiztion}</Text>
         </View>
       </View>
+      <View style={globalStyles.line}></View>
       <View style={globalStyles.stage2}>
         <Text>המיזמים שלי</Text>
       </View>
+      <View style={globalStyles.line}></View>
       <View style={globalStyles.stage3}>
         <Text>שתפ"ים לחיפוש</Text>
       </View>

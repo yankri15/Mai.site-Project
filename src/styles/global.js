@@ -9,7 +9,8 @@ export const globalStyles = StyleSheet.create({
     },
     textInput: {
         borderColor: "black",
-        width: 260,
+        color: "gray",
+        width: 330,
         padding: 5,
         paddingRight: 10,
         fontSize: 15,
@@ -91,7 +92,7 @@ export const globalStyles = StyleSheet.create({
     logo: {
         width: 100,
         height: 100,
-        bottom: 50,
+        bottom: 10,
         borderRadius: 100,
         overflow: "hidden",
     },
@@ -131,14 +132,17 @@ export const globalStyles = StyleSheet.create({
     },
     datePicker: {
         flexDirection: "row",
-        alignContent: "space-between",
+        alignContent: "center",
+        padding: -5,
     },
     picker: {
         flex: 1,
+        margin: 2,
+        fontSize: 15,
     },
     ////////////////////////////////////////////////
     profile: {
-        paddingVertical: 10,
+        paddingVertical: 75,
 
     },
     stage1: {
@@ -146,14 +150,17 @@ export const globalStyles = StyleSheet.create({
         alignContent: "space-between",
         alignItems: "center",
         justifyContent: "center",
+        marginBottom: 20,
     },
     stage2: {
         alignItems: "center",
         justifyContent: "center",
+        marginBottom: 20,
     },
     stage3: {
         alignItems: "center",
         justifyContent: "center",
+        marginBottom: 20,
     },
     profile_pic:{
         width: 100,
@@ -162,25 +169,30 @@ export const globalStyles = StyleSheet.create({
         overflow: "hidden",
         //alignItems: "center",
         justifyContent: "center",
+        marginBottom: 10,
     },
     profile_details:{
         fontWeight: "bold",
-        fontSize: 18,
+        fontSize: 13,
         alignItems: "center",
         justifyContent: "center",
+        marginBottom: 10,
     },
     picAndDetails: {
         alignItems: "center",
         justifyContent: "center",
+        marginRight: 20,
     },
     side_details: {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        marginLeft: 20,
     },
     circle_details: {
         width: 70,
         height: 70,
+        fontSize: 13,
         fontWeight: "bold",
         flexWrap: "wrap",
         backgroundColor: "#fdc123",
@@ -190,7 +202,13 @@ export const globalStyles = StyleSheet.create({
         textAlign: "center",
         alignContent: "center",
         alignItems: "center",
-        justifyContent: "center"
-
+        justifyContent: "center",
+        margin: 5,
+        paddingTop: 5, 
     },
+    line:{
+        borderWidth: 0.5,
+        borderColor:'black',
+        margin:10,
+   },
 });
