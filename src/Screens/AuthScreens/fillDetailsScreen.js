@@ -3,14 +3,16 @@ import { globalStyles } from '../../styles/global';
 import React, { useState } from "react";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import { useData } from "../../AuthProvider/UserDataProvider";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 const FillDetails = () => {
   const { addDataToDB } = useData();
+  const { currentUser } = useAuth();
   const [name, setName] = useState("");
   const [school, setSchool] = useState("");
+  const [neighborhood, setNeighborhood] = useState("");
   const [organiztion, setOrganiztion] = useState("");
   const [classs, setClasss] = useState("");
-  const { currentUser } = useAuth();
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
@@ -22,7 +24,7 @@ const FillDetails = () => {
       setError("");
       setLoading(true);
       const uid = currentUser.uid;
-      addDataToDB(uid, name, day, month, year, school, classs, organiztion);
+      addDataToDB(uid, name, day, month, year, school, classs, neighborhood, organiztion);
     } catch (err) {
       setError("Failed to create an account");
       console.log(error + ":\n " + err);
@@ -48,7 +50,6 @@ const FillDetails = () => {
         onChangeText={(text) => setName(text)}
       />
       <View style={[globalStyles.datePicker , globalStyles.textInput]}>
-        
         <Picker
           selectedValue={day}
           style={globalStyles.picker}
@@ -159,12 +160,18 @@ const FillDetails = () => {
           style={[isPlaceholder(classs) ? { color: "gray" } : { color: "black" } , {textAlign: "right"}]}
           onValueChange={(itemValue) => setClasss(itemValue)}>
           <Picker.Item label="בחר כיתה" value="choose" />
-          <Picker.Item label="'ט" value="class_9" />
-          <Picker.Item label="'י" value="class_10" />
-          <Picker.Item label="'יא" value="class_11" />
-          <Picker.Item label="'יב" value="class_12" />
+          <Picker.Item label="'ט" value="'ט" />
+          <Picker.Item label="'י" value="'י" />
+          <Picker.Item label="'יא" value="'יא" />
+          <Picker.Item label="'יב" value="'יב" />
         </Picker>
       </View>
+      <TextInput
+        style={globalStyles.textInput}
+        placeholder="שכונה"
+        value={neighborhood}
+        onChangeText={(text) => setNeighborhood(text)}
+      />
       <TextInput
         style={globalStyles.textInput}
         placeholder="ארגון"

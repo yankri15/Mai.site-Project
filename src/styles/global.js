@@ -135,6 +135,62 @@ export const globalStyles = StyleSheet.create({
     },
     picker: {
         flex: 1,
-        
+    },
+    ////////////////////////////////////////////////
+    profile: {
+        paddingVertical: 10,
+
+    },
+    stage1: {
+        flexDirection: "row",
+        alignContent: "space-between",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    stage2: {
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    stage3: {
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    profile_pic:{
+        width: 100,
+        height: 100,
+        borderRadius: 100,
+        overflow: "hidden",
+        //alignItems: "center",
+        justifyContent: "center",
+    },
+    profile_details:{
+        fontWeight: "bold",
+        fontSize: 18,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    picAndDetails: {
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    side_details: {
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    circle_details: {
+        width: 70,
+        height: 70,
+        fontWeight: "bold",
+        flexWrap: "wrap",
+        backgroundColor: "#fdc123",
+        borderColor: "black",
+        borderWidth: 1,
+        borderRadius: 100,
+        textAlign: "center",
+        alignContent: "center",
+        alignItems: "center",
+        justifyContent: "center"
+
     },
 });
