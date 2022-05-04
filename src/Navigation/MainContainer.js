@@ -7,7 +7,7 @@ import RegisterScreen from "../Screens/AuthScreens/RegisterScreen";
 import LoginScreen from "../Screens/AuthScreens/LoginScreen";
 import HamburgerStack from "./HamburgerStack";
 import ForgotPasswordScreen from "../Screens/AuthScreens/ForgotPasswordScreen";
-import LoadingPage from "../Screens/LoadingPage";
+import LoadingScreen from "../Screens/LoadingScreen";
 import ApprovalWatingScreen from "../Screens/UserScreens/ApprovalWatingScreen";
 import BlockedScreen from "../Screens/UserScreens/BlockedScreen";
 import FillDetailsScreen from "../Screens/AuthScreens/FillDetailsScreen";
@@ -30,7 +30,7 @@ const MainContainer = () => {
     } else if (userStatus == -1) {
       return <BlockedScreen />;
     } else {
-      return <LoadingPage />;
+      return <LoadingScreen />;
     }
   } else {
     return (
@@ -40,6 +40,7 @@ const MainContainer = () => {
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
         <Stack.Screen name="FillDetails" component={FillDetailsScreen} />
+        <Stack.Screen name="Loading" component={LoadingScreen} />
       </Stack.Navigator>
     );
   }

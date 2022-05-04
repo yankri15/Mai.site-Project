@@ -1,4 +1,5 @@
-import { View, Text, Pressable, StyleSheet } from 'react-native'
+import { View, Text, Pressable, StyleSheet, Image } from 'react-native'
+import { globalStyles } from '../../styles/global'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useData } from '../../AuthProvider/UserDataProvider'
@@ -15,8 +16,11 @@ const ApprovalWatingScreen = () => {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <Text>ApprovalWatingScreen</Text>
+        <SafeAreaView style={globalStyles.container_enter_screens}>
+            <View style={globalStyles.logo}>
+                <Image source={require('../../../assets/app_icon.png')} style={globalStyles.logo_image_area} resizeMode="center"></Image>
+            </View>
+            <Text style={globalStyles.landing_title_text}>ממתין לאישור</Text>
             <Pressable
                 style={styles.button}
                 title="Approve"
@@ -31,12 +35,6 @@ const ApprovalWatingScreen = () => {
 export default ApprovalWatingScreen
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#ffc823",
-    },
     button: {
         alignItems: "center",
         justifyContent: "center",

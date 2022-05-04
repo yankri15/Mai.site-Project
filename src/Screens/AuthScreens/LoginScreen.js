@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, View, Pressable, Alert, Image } from "react-native";
+import { Text, TextInput, View, Pressable, Alert, Image } from "react-native";
 import { globalStyles } from '../../styles/global';
 import AuthProvider, { useAuth } from "../../AuthProvider/AuthProvider";
 
@@ -14,9 +14,7 @@ const LoginScreen = ({ navigation }) => {
         try {
             setError("");
             setLoading(true);
-
             await login(email, password);
-
         } catch (err) {
             setError("Failed to login");
             console.log(error + ":\n " + err);
