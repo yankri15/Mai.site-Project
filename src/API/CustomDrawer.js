@@ -7,10 +7,12 @@ import {
 } from "@react-navigation/drawer";
 import { useAuth } from "../AuthProvider/AuthProvider";
 import { View, Image, Text, TouchableOpacity } from "react-native";
+import { useData } from "../AuthProvider/UserDataProvider";
 
 const CustomDrawer = (props) => {
   const { logout } = useAuth();
   const [error, setError] = useState("");
+  const { name, getName } = useData();
 
   async function handleLogout() {
     try {
@@ -22,6 +24,8 @@ const CustomDrawer = (props) => {
     }
   }
 
+  getName();
+
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
@@ -32,7 +36,7 @@ const CustomDrawer = (props) => {
           source={require("../../assets/profile-pic.png")}
           style={{ height: 80, width: 80, borderRadius: 40, marginBottom: 10 }}
         />
-        <Text style={{ color: "#fff", fontSize: 18 }}>Adam Ariel</Text>
+        <Text style={{ color: "#fff", fontSize: 18 }}>{name}</Text>
         <View style={{ flex: 1, backgroundColor: "#fff", paddingTop: 10 }}>
           <DrawerItemList {...props} />
         </View>

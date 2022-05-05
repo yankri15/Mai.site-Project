@@ -12,6 +12,7 @@ export function useData() {
 const UserDataProvider = ({ children }) => {
   const { currentUser } = useAuth();
   const [userStatus, setUserStatus] = useState();
+  const [name, setName] = useState("");
 
   //Add user to db with email and status
   const setUserToDB = async (uid, email) => {
@@ -27,7 +28,7 @@ const UserDataProvider = ({ children }) => {
     await updateDoc(
       doc(db, "users", uid),
       "name", name,
-      "birthDate", day +"/" + month +"/"+ year,
+      "birthDate", day + "/" + month + "/" + year,
       "school", school,
       "class", classs,
       "neighborhood", neighborhood,
@@ -57,12 +58,22 @@ const UserDataProvider = ({ children }) => {
     return;
   }, [currentUser]);
 
+  const getName = async () => {
+    if (currentUser) {
+      const docRef = doc(db, "users", currentUser.uid);
+      const docSnap = await getDoc(docRef);
+      setName(docSnap.data().name);
+    }
+  };
+
 
   const value = {
     userStatus,
+    name,
     setUserToDB,
     approveUser,
     addDataToDB,
+    getName,
   };
 
   return (
