@@ -33,7 +33,7 @@ const MainContainer = () => {
     } else {
       return <LoadingScreen />;
     }
-    //return <ProfileScreen />
+    // return <ProfileScreen />
   } else {
     return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
