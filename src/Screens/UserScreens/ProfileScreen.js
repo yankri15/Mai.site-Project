@@ -5,14 +5,14 @@
 import React, { useState, useEffect } from "react";
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
-import { View, Text, SafeAreaView, Image, ScrollView, } from "react-native";
+import { View, Text, SafeAreaView, Image, ScrollView, Pressable } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { globalStyles } from "../../styles/global";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 
 
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
   const { currentUser } = useAuth();
   const [name, setName] = useState("");
   const [school, setSchool] = useState("");
@@ -42,6 +42,13 @@ const ProfileScreen = () => {
   return (
     <View style={globalStyles.profile}>
       <View style={globalStyles.stage1}>
+        <Pressable
+          style={globalStyles}
+          title="edit"
+          onPress={() => { navigation.navigate("editProfile") }}
+        >
+          <Text style={globalStyles.enter_btn_text}>עריכה</Text>
+        </Pressable>
         <View style={globalStyles.picAndDetails}>
           <View>
             <View style={globalStyles.profile_pic}>

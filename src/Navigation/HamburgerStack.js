@@ -3,9 +3,9 @@ import React from "react";
 
 import UserNavbar from "../API/UserNavbar";
 import ForumNavigator from "./ForumNavigator";
-import ProfileScreen from "../Screens/UserScreens/ProfileScreen";
 import SettingsScreen from "../Screens/UserScreens/SettingsScreen";
 import CustomDrawer from "../API/CustomDrawer";
+import ProfileNavigator from "./ProfileNavigator";
 
 const Drawer = createDrawerNavigator();
 
@@ -22,7 +22,7 @@ const HamburgerStack = () => {
       }}
     >
       <Drawer.Screen name="Home" component={UserNavbar} />
-      <Drawer.Screen name="Profile" component={ProfileScreen} />
+      <Drawer.Screen name="Profile" component={ProfileNavigator} />
       <Drawer.Screen name="Forum" component={ForumNavigator} />
       <Drawer.Screen name="Settings" component={SettingsScreen} />
     </Drawer.Navigator>
