@@ -20,13 +20,16 @@ const LoginScreen = ({ navigation }) => {
             console.log(error + ":\n " + err);
             switch (err.code) {
                 case 'auth/invalid-email':
-                    Alert.alert('Email pattern is wrong')
+                    Alert.alert('מייל לא תקין')
                     break;
                 case 'auth/user-not-found':
-                    Alert.alert('User not exist')
+                    Alert.alert('משתמש לא קיים')
                     break;
                 case 'auth/wrong-password':
-                    Alert.alert('Wrong password')
+                    Alert.alert('סיסמה לא נכונה')
+                    break;
+                case 'auth/internal-error':
+                    Alert.alert('נראה שיש בעיה באחד השדות')
                     break;
             }
         }
