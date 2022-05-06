@@ -19,17 +19,21 @@
     "expo": "^41.0.0",
     "expo-updates": "~0.5.4",
     "firebase": "^9.6.11",
+    "link": "^1.4.1",
     "lottie-react-native": "^5.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-native": "^0.63.4",
     "react-native-gesture-handler": "^1.10.2",
+    "react-native-image-crop-picker": "^0.37.3",
+    "react-native-image-picker": "^4.8.2",
     "react-native-paper": "^4.12.1",
     "react-native-reanimated": "^2.1.0",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.0.0",
     "react-native-vector-icons": "^9.1.0",
-    "react-native-web": "^0.13.12"
+    "react-native-web": "^0.13.12",
+    "reanimated-bottom-sheet": "^1.0.0-alpha.22"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"
