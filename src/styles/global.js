@@ -212,4 +212,9 @@ export const globalStyles = StyleSheet.create({
         borderColor: 'black',
         margin: 10,
     },
+    editProfile: {
+        position: 'absolute',
+        left: 2,
+        top: 2,
+    },
 });

@@ -42,13 +42,13 @@ const ProfileScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={globalStyles.global}>
       <View style={globalStyles.stage1}>
-        {/* <Pressable
-          style={globalStyles}
+        <Pressable
+          style={globalStyles.editProfile}
           title="edit"
           onPress={() => { navigation.navigate("editProfile") }}
         >
           <Text style={globalStyles.enter_btn_text}>עריכה</Text>
-        </Pressable> */}
+        </Pressable>
         <View style={globalStyles.picAndDetails}>
           <View>
             <View style={globalStyles.profile_pic}>
