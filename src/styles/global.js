@@ -9,11 +9,11 @@ export const globalStyles = StyleSheet.create({
     },
     textInput: {
         borderColor: "black",
-        color: "gray",
+        color: "#000000",
         width: 330,
         padding: 5,
         paddingRight: 10,
-        fontSize: 15,
+        fontSize: 17,
         borderWidth: 2,
         marginBottom: 4,
         textAlign: "right",
@@ -134,11 +134,12 @@ export const globalStyles = StyleSheet.create({
         flexDirection: "row",
         alignContent: "center",
         padding: -5,
+        width: 315,
     },
     picker: {
         flex: 1,
         margin: 2,
-        fontSize: 15,
+        fontSize: 10,  
     },
     ////////////////////////////////////////////////
     profile: {

@@ -55,11 +55,11 @@ const RegistrationDetailsScreen = () => {
                 onChangeText={(text) => setName(text)}
             />
             <View style={globalStyles.textInput}>
-                <Text style={[{ color: "gray" }, { fontSize: 15 }]}>תאריך לידה:</Text>
+                <Text style={[{ color: "#999" }, { fontSize: 17 }]}>תאריך לידה:</Text>
                 <View style={globalStyles.datePicker}>
                     <Picker
                         selectedValue={day}
-                        style={[isPlaceholder(classs) ? { color: "gray" } : { color: "black" }, { textAlign: "right" }, globalStyles.picker]}
+                        style={[isPlaceholder(day) ? { color: "#999" } : { color: "black" }, { textAlign: "right" }, globalStyles.picker]}
                         onValueChange={(itemValue) => setDay(itemValue)}>
                         <Picker.Item label="יום" value="0" />
                         <Picker.Item label="1" value="1" />
@@ -96,7 +96,7 @@ const RegistrationDetailsScreen = () => {
                     </Picker>
                     <Picker
                         selectedValue={month}
-                        style={[isPlaceholder(classs) ? { color: "gray" } : { color: "black" }, { textAlign: "right" }, globalStyles.picker]}
+                        style={[isPlaceholder(month) ? { color: "#999" } : { color: "black" }, { textAlign: "right" }, globalStyles.picker]}
                         onValueChange={(itemValue) => setMonth(itemValue)}>
                         <Picker.Item label="חודש" value="0" />
                         <Picker.Item label="1" value="1" />
@@ -114,7 +114,7 @@ const RegistrationDetailsScreen = () => {
                     </Picker>
                     <Picker
                         selectedValue={year}
-                        style={[isPlaceholder(classs) ? { color: "gray" } : { color: "black" }, { textAlign: "right" }, globalStyles.picker]}
+                        style={[isPlaceholder(year) ? { color: "#999" } : { color: "black" }, { textAlign: "right" }, globalStyles.picker]}
                         onValueChange={(itemValue) => setYear(itemValue)}>
                         <Picker.Item label="שנה" value="0" />
                         <Picker.Item label="1980" value="1980" />
@@ -164,7 +164,7 @@ const RegistrationDetailsScreen = () => {
             <View style={globalStyles.textInput}>
                 <Picker
                     selectedValue={classs}
-                    style={[isPlaceholder(classs) ? { color: "gray" } : { color: "black" }, { textAlign: "right" }]}
+                    style={[isPlaceholder(classs) ? { color: "#999" } : { color: "black" }, { width: 330 }, { height: 28 }]}
                     onValueChange={(itemValue) => setClasss(itemValue)}>
                     <Picker.Item label="בחר כיתה" value="choose" />
                     <Picker.Item label="ט" value="ט" />
