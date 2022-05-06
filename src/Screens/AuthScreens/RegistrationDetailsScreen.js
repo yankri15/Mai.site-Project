@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Picker, Pressable, Image } from "react-native";
+import { View, Text, TextInput, Picker, Pressable, Image, Alert } from "react-native";
 import { globalStyles } from '../../styles/global';
 import React, { useState } from "react";
 import { useAuth } from "../../AuthProvider/AuthProvider";
@@ -21,14 +21,19 @@ const RegistrationDetailsScreen = () => {
 
     async function handleRegisteration() {
         try {
-            setError("");
-            setLoading(true);
-            const uid = currentUser.uid;
-            addDataToDB(uid, name, day, month, year, school, classs, neighborhood, organiztion);
+            if (name && school && neighborhood && organiztion && classs && day && month && year) {
+                setError("");
+                setLoading(true);
+                const uid = currentUser.uid;
+                addDataToDB(uid, name, day, month, year, school, classs, neighborhood, organiztion);
+            }
+            else {
+                throw "אופס! נראה שלא הכל הושלם.."
+            }
         } catch (err) {
             setError("Failed to create an account");
             console.log(error + ":\n " + err);
-
+            Alert.alert(err)
         }
         setLoading(false);
     }
