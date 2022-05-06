@@ -10,9 +10,8 @@ import ForgotPasswordScreen from "../Screens/AuthScreens/ForgotPasswordScreen";
 import LoadingScreen from "../Screens/LoadingScreen";
 import ApprovalWatingScreen from "../Screens/UserScreens/ApprovalWatingScreen";
 import BlockedScreen from "../Screens/UserScreens/BlockedScreen";
-import FillDetailsScreen from "../Screens/AuthScreens/FillDetailsScreen";
 import { useData } from "../AuthProvider/UserDataProvider";
-import ProfileScreen from "../Screens/UserScreens/ProfileScreen";
+import RegistrationDetailsScreen from "../Screens/AuthScreens/RegistrationDetailsScreen";
 
 const Stack = createStackNavigator();
 
@@ -27,13 +26,12 @@ const MainContainer = () => {
     } else if (userStatus == 1) {
       return <ApprovalWatingScreen />;
     } else if (userStatus == 0) {
-      return <FillDetailsScreen />;
+      return <RegistrationDetailsScreen />;
     } else if (userStatus == -1) {
       return <BlockedScreen />;
     } else {
       return <LoadingScreen />;
     }
-    // return <ProfileScreen />
   } else {
     return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -41,7 +39,7 @@ const MainContainer = () => {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
-        <Stack.Screen name="FillDetails" component={FillDetailsScreen} />
+        <Stack.Screen name="RegistrationDetails" component={RegistrationDetailsScreen} />
         <Stack.Screen name="Loading" component={LoadingScreen} />
       </Stack.Navigator>
     );
