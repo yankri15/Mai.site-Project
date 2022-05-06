@@ -42,11 +42,8 @@ const ProfileScreen = ({ navigation }) => {
   return (
     <View style={globalStyles.profile}>
       <View style={globalStyles.stage1}>
-        <Pressable
-          style={globalStyles}
-          title="edit"
-          onPress={() => { navigation.navigate("editProfile") }}
-        >
+        <Pressable style={globalStyles} title="edit"
+          onPress={() => { navigation.navigate("editProfile") }}>
           <Text style={globalStyles.enter_btn_text}>עריכה</Text>
         </Pressable>
         <View style={globalStyles.picAndDetails}>
