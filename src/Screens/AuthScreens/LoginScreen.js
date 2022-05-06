@@ -9,6 +9,7 @@ const LoginScreen = ({ navigation }) => {
     const { login } = useAuth();
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const { global, container_enter_screens } = globalStyles;
 
     async function handleLogin() {
         try {
@@ -38,7 +39,7 @@ const LoginScreen = ({ navigation }) => {
 
     return (
         <AuthProvider>
-            <View style={globalStyles.container_enter_screens}>
+            <View style={[container_enter_screens, global]}>
                 <View style={globalStyles.logo}>
                     <Image source={require('../../../assets/app_icon.png')} style={globalStyles.logo_image_area} resizeMode="center"></Image>
                 </View>

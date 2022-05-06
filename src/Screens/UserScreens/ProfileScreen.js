@@ -40,10 +40,13 @@ const ProfileScreen = ({ navigation }) => {
   }, [currentUser]);
 
   return (
-    <View style={globalStyles.profile}>
+    <SafeAreaView style={globalStyles.global}>
       <View style={globalStyles.stage1}>
-        <Pressable style={globalStyles} title="edit"
-          onPress={() => { navigation.navigate("editProfile") }}>
+        <Pressable
+          style={globalStyles.editProfile}
+          title="edit"
+          onPress={() => { navigation.navigate("editProfile") }}
+        >
           <Text style={globalStyles.enter_btn_text}>עריכה</Text>
         </Pressable>
         <View style={globalStyles.picAndDetails}>
@@ -72,7 +75,7 @@ const ProfileScreen = ({ navigation }) => {
       <View style={globalStyles.stage3}>
         <Text>שתפ"ים לחיפוש</Text>
       </View>
-    </View>
+    </SafeAreaView>
 
 
   )

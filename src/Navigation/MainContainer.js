@@ -12,6 +12,7 @@ import ApprovalWatingScreen from "../Screens/UserScreens/ApprovalWatingScreen";
 import BlockedScreen from "../Screens/UserScreens/BlockedScreen";
 import { useData } from "../AuthProvider/UserDataProvider";
 import RegistrationDetailsScreen from "../Screens/AuthScreens/RegistrationDetailsScreen";
+import ProfileScreen from "../Screens/UserScreens/ProfileScreen";
 
 const Stack = createStackNavigator();
 
@@ -32,6 +33,7 @@ const MainContainer = () => {
     } else {
       return <LoadingScreen />;
     }
+    // return <ProfileScreen />;
   } else {
     return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
