@@ -17,12 +17,12 @@ const RegisterScreen = ({ navigation }) => {
   //function deal with password, need to alert the user
   function confirm(password, ConfirmPassword) {
     if (password.length == 0 || ConfirmPassword.length == 0) {
-      alert("שגיאה","הכנס סיסמה");
+      alert("שגיאה", "הכנס סיסמה");
       return false;
     }
 
     else if (password !== ConfirmPassword) {
-      alert("שגיאה","סיסמה לא תואמת");
+      alert("שגיאה", "סיסמה לא תואמת");
       return false;
     }
     return true;
@@ -32,22 +32,22 @@ const RegisterScreen = ({ navigation }) => {
     try {
       setError("");
       setLoading(true);
-      if(confirm(password, ConfirmPassword) === false){
+      if (confirm(password, ConfirmPassword) === false) {
 
         throw new error;
       }
       const uid = await signup(email, password);
       setUserToDB(uid, email);
-      navigation.navigate("FillDetails");
+      navigation.navigate("RegistrationDetails");
     } catch (err) {
       setError("Failed to create an account");
       console.log(error + ":\n " + err);
       switch (err.code) {
         case "auth/invalid-email":
-          alert("שגיאה","אימייל לא נכון");
+          alert("שגיאה", "אימייל לא נכון");
           break;
         case "auth/weak-password":
-          alert("שגיאה","סיסמה חלשה מדי");
+          alert("שגיאה", "סיסמה חלשה מדי");
           break;
       }
     }
