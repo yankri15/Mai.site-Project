@@ -1,6 +1,9 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, StatusBar } from "react-native";
 
 export const globalStyles = StyleSheet.create({
+    global: {
+        marginTop: StatusBar.currentHeight
+    },
     container_enter_screens: {
         flex: 1,
         justifyContent: "center",
@@ -141,10 +144,6 @@ export const globalStyles = StyleSheet.create({
         fontSize: 15,
     },
     ////////////////////////////////////////////////
-    profile: {
-        paddingVertical: 75,
-
-    },
     stage1: {
         flexDirection: "row",
         alignContent: "space-between",
@@ -162,7 +161,7 @@ export const globalStyles = StyleSheet.create({
         justifyContent: "center",
         marginBottom: 20,
     },
-    profile_pic:{
+    profile_pic: {
         width: 100,
         height: 100,
         borderRadius: 100,
@@ -171,7 +170,7 @@ export const globalStyles = StyleSheet.create({
         justifyContent: "center",
         marginBottom: 10,
     },
-    profile_details:{
+    profile_details: {
         fontWeight: "bold",
         fontSize: 13,
         alignItems: "center",
@@ -181,13 +180,15 @@ export const globalStyles = StyleSheet.create({
     picAndDetails: {
         alignItems: "center",
         justifyContent: "center",
-        marginRight: 20,
+        // marginRight: 20,
+        width: '70%',
     },
     side_details: {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        marginLeft: 20,
+        //marginLeft: 20,
+        width: '30%',
     },
     circle_details: {
         width: 70,
@@ -204,11 +205,11 @@ export const globalStyles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         margin: 5,
-        paddingTop: 5, 
+        paddingTop: 5,
     },
-    line:{
+    line: {
         borderWidth: 0.5,
-        borderColor:'black',
-        margin:10,
-   },
+        borderColor: 'black',
+        margin: 10,
+    },
 });
