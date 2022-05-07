@@ -2,7 +2,8 @@ import { StyleSheet, StatusBar } from "react-native";
 
 export const globalStyles = StyleSheet.create({
     global: {
-        marginTop: StatusBar.currentHeight
+        marginTop: StatusBar.currentHeight,
+        height: '100%',
     },
     container_enter_screens: {
         flex: 1,
@@ -95,7 +96,7 @@ export const globalStyles = StyleSheet.create({
     logo: {
         width: 100,
         height: 100,
-        bottom: 10,
+        bottom: 20,
         borderRadius: 100,
         overflow: "hidden",
     },
@@ -142,7 +143,7 @@ export const globalStyles = StyleSheet.create({
     picker: {
         flex: 1,
         margin: 2,
-        fontSize: 10,  
+        fontSize: 10,
     },
     ////////////////////////////////////////////////
     stage1: {
@@ -150,6 +151,7 @@ export const globalStyles = StyleSheet.create({
         alignContent: "space-between",
         alignItems: "center",
         justifyContent: "center",
+        marginTop: 10,
         marginBottom: 20,
     },
     stage2: {
@@ -217,5 +219,82 @@ export const globalStyles = StyleSheet.create({
         position: 'absolute',
         left: 2,
         top: 2,
+    },
+    ////////////////////////////////////////////////
+    edit_btn: {
+        position: 'absolute',
+        bottom: '8%',
+        left: '5%',
+        borderColor: 'black',
+        borderStyle: 'solid',
+        backgroundColor: "#a77ce8",
+        textAlign: "center",
+        borderWidth: 2,
+        borderRadius: 100,
+        padding: 5,
+    },
+    edit_btn_text: {
+        color: "#fdc123",
+        fontSize: 20,
+        fontWeight: "bold",
+        paddingLeft: 10,
+        paddingRight: 10,
+    },
+    title_creat_post: {
+        textAlign: "center",
+        fontSize: 25,
+        color: "#fdc123",
+        fontWeight: "bold",
+        top: '5%',
+        marginBottom: '15%',
+    },
+    post_text: {
+        marginLeft: '4%',
+        borderColor: "black",
+        color: "#000000",
+        width: '92%',
+        height: '40%',
+        textAlignVertical: 'top',
+        marginBottom: '7%',
+        padding: 10,
+        fontSize: 20,
+        borderWidth: 1,
+        textAlign: "right",
+        borderBottomLeftRadius: 8,
+        borderBottomRightRadius: 8,
+        borderTopLeftRadius: 8,
+        borderTopRightRadius: 8,
+    },
+    choose_img: {
+        width: '45%',
+        left: '51%',
+        borderColor: 'black',
+        borderStyle: 'solid',
+        backgroundColor: "#fdc123",
+        textAlign: "center",
+        borderWidth: 2,
+        borderRadius: 100,
+        padding: 10,
+    },
+    choose_img_text: {
+        fontSize: 15,
+        fontWeight: "bold",
+    },
+    to_post: {
+        position: 'absolute',
+        bottom: '10%',
+        left: '5%',
+        borderColor: 'black',
+        borderStyle: 'solid',
+        backgroundColor: "#a77ce8",
+        textAlign: "center",
+        borderWidth: 2,
+        borderRadius: 100,
+        padding: 10,
+    },
+    to_post_text: {
+        color: "#fdc123",
+        fontWeight: "bold",
+        fontSize: 20,
     },
 });

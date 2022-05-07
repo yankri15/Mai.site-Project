@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "react-native";
 import { db } from "../../firebase";
-import {
-    collection,
-    doc,
-    getDoc,
-    query,
-    getDocs,
-    ref,
-} from "firebase/firestore";
+import { collection, doc, getDoc, query, getDocs, ref } from "firebase/firestore";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Post = ({ postID }) => {

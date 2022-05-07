@@ -36,7 +36,6 @@ const CreatePost = () => {
             Alert.alert('חובה למלא את כל השדות');
             return;
         }
-        console.log("Uploading image............");
         const date = new Date().toLocaleString();
         const path = '/img/' + currentUser.uid + date + '.jpg';
         const docRef = ref(storage, path);
@@ -53,34 +52,23 @@ const CreatePost = () => {
 
     return (
         <SafeAreaView style={global}>
-            <Text>CreatePost</Text>
+            <Text style={globalStyles.title_creat_post}>שתף/י אותנו במיזם חדש!</Text>
             <TextInput
-                placeholder="דבר אלינו"
+                placeholder="דבר/י אלינו"
                 onChangeText={(text) => setPostText(text)}
-                style={{
-                    height: 100,
-                }}
+                multiline={true}
+                style={globalStyles.post_text}
             />
-            {image ?
-                (<Image
-                    source={{ uri: image }}
-                    style={{
-                        height: 100,
-                        width: 100,
-                    }}
-                />) : (<Pressable
-                    title="edit"
-                    onPress={pickImage}
-                >
-                    <Text>בחר תמונה</Text>
-                </Pressable>)}
-            <Pressable
-                title="post"
-                onPress={uploadPost}
-            >
-                <Text>פרסם</Text>
+            {image ? (<Image source={{ uri: image }}
+                style={{ height: 100, width: 100, }}
+            />) : (<Pressable style={globalStyles.choose_img} title="img" onPress={pickImage}>
+                <Text style={globalStyles.choose_img_text}>+ בוא/י נוסיף תמונה</Text>
+            </Pressable>)}
+            <Pressable style={globalStyles.to_post} title="post" onPress={uploadPost}>
+                <Text style={globalStyles.to_post_text}>פרסם אותי!</Text>
             </Pressable>
-        </SafeAreaView >
+        </SafeAreaView>
+
     )
 }
 

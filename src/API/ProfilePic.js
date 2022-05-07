@@ -10,10 +10,10 @@ const ProfilePic = ({ navigation }) => {
           <Image
             source={require("../../assets/profile-pic.png")}
             style={{
-              height: 40,
-              width: 40,
+              height: 50,
+              width: 50,
               borderRadius: 40,
-              marginBottom: 10,
+              marginLeft: 10,
             }}
           />
         </TouchableOpacity>
