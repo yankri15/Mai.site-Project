@@ -8,6 +8,7 @@ import ProfileScreen from "../Screens/UserScreens/ProfileScreen";
 import SearchResultScreen from "../Screens/UserScreens/SearchResultScreen";
 import SettingsScreen from "../Screens/UserScreens/SettingsScreen";
 import WantedScreen from "../Screens/UserScreens/WantedScreen";
+import CreatePost from "../Screens/UserScreens/CreatePost";
 
 const UserStack = createStackNavigator();
 
@@ -20,6 +21,7 @@ const FeedNavigator = () => {
       <UserStack.Screen name="SearchResult" component={SearchResultScreen} />
       <UserStack.Screen name="Settings" component={SettingsScreen} />
       <UserStack.Screen name="Wanted" component={WantedScreen} />
+      <UserStack.Screen name="CreatePost" component={CreatePost} />
     </UserStack.Navigator>
   );
 };
