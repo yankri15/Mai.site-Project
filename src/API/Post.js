@@ -26,7 +26,7 @@ const Post = ({ postID }) => {
             console.log(docSnap.data().downloadURL);
 
 
-            const docRef = ref(storage, '/img/qvnWTHyygCXTOlH97zUgj8tnvq33.jpg');
+            const docRef = ref(storage, docSnap.data().downloadURL);
             await getDownloadURL(docRef).then((uri) => {
                 console.log(uri);
                 setUrl(uri);
@@ -45,20 +45,6 @@ const Post = ({ postID }) => {
     }, []);
 
     return (
-        // <SafeAreaView style={{ flex: 1 }}>
-        //     <View>
-        //         <Text>{postData.postText}</Text>
-        //     </View>
-        //     <View>
-        //         {console.log(postData.downloadURL)}
-        //         {/* {console.log(comments)} */}
-        //         {comments
-        //             ? comments.map((item, index) => {
-        //                 console.log(item.data().commentText);
-        //             })
-        //             : console.log("shit")}
-        //     </View>
-        // </SafeAreaView>
         <View>
             <Text>{postData && postData.postText}</Text>
             {url && <Image source={{ uri: url }} style={{ width: 200, height: 200 }} />}
