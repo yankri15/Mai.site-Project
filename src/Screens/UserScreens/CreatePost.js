@@ -1,12 +1,4 @@
-import {
-    View,
-    Text,
-    Pressable,
-    TextInput,
-    Image,
-    SafeAreaView,
-    Alert,
-} from "react-native";
+import { View, Text, Pressable, TextInput, Image, SafeAreaView, Alert } from "react-native";
 import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { globalStyles } from "../../styles/global";
@@ -65,7 +57,7 @@ const CreatePost = ({ navigation }) => {
                 placeholder="דבר/י אלינו"
                 onChangeText={(text) => setPostText(text)}
                 multiline={true}
-                style={globalStyles.post_text}
+                style={globalStyles.create_post_text}
             />
             {image ? (
                 <Image source={{ uri: image }} style={{ height: 100, width: 100 }} />

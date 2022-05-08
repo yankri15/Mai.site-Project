@@ -2,18 +2,14 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "react-native";
 import { ref } from "firebase/storage";
 import { db, storage } from "../../firebase";
-import {
-    collection,
-    doc,
-    getDoc,
-    query,
-    getDocs
-} from "firebase/firestore";
+import { collection, doc, getDoc, query, getDocs } from "firebase/firestore";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { async } from "@firebase/util";
 import { getDownloadURL } from "firebase/storage";
+import { globalStyles } from "../styles/global";
+import UserPicName from "./UserPicName";
 
-const Post = ({ postID }) => {
+const Post = ({ postID, navigation }) => {
     const [postData, setPostData] = useState("");
     const [comments, setCommnets] = useState("");
     const [url, setUrl] = useState();
@@ -45,10 +41,13 @@ const Post = ({ postID }) => {
     }, []);
 
     return (
-        <View>
-            <Text>{postData && postData.postText}</Text>
-            {url && <Image source={{ uri: url }} style={{ width: 200, height: 200 }} />}
-        </View>
+        <SafeAreaView>
+            <View style={globalStyles.post}>
+                <UserPicName navigation={navigation} />
+                <Text style={globalStyles.post_text}>{postData && postData.postText}</Text>
+                {url && <Image source={{ uri: url }} style={globalStyles.post_img} />}
+            </View>
+        </SafeAreaView>
     );
 };
 

@@ -14,7 +14,7 @@ export const globalStyles = StyleSheet.create({
     textInput: {
         borderColor: "black",
         color: "#000000",
-        width: 330,
+        width: '90%',
         padding: 5,
         paddingRight: 10,
         fontSize: 17,
@@ -137,7 +137,6 @@ export const globalStyles = StyleSheet.create({
     datePicker: {
         flexDirection: "row",
         alignContent: "center",
-        padding: -5,
         width: 315,
     },
     picker: {
@@ -163,6 +162,20 @@ export const globalStyles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         marginBottom: 20,
+    },
+    profile_edit_btn: {
+        position: 'absolute',
+        left: '2%',
+        top: '2%',
+        backgroundColor: "#a77ce8",
+        borderWidth: 2,
+        borderRadius: 100,
+        padding: 5,
+    },
+    profile_edit_btn_text: {
+        color: "#fdc123",
+        fontSize: 15,
+        fontWeight: "bold",
     },
     profile_pic: {
         width: 100,
@@ -194,36 +207,32 @@ export const globalStyles = StyleSheet.create({
         width: '30%',
     },
     circle_details: {
-        width: 70,
-        height: 70,
-        fontSize: 13,
-        fontWeight: "bold",
-        flexWrap: "wrap",
+        width: '78%',
+        height: 82,
         backgroundColor: "#fdc123",
         borderColor: "black",
         borderWidth: 1,
         borderRadius: 100,
-        textAlign: "center",
-        alignContent: "center",
-        alignItems: "center",
         justifyContent: "center",
         margin: 5,
         paddingTop: 5,
+    },
+    circle_details_text: {
+        fontWeight: "bold",
+        textAlign: "center",
+        justifyContent: "center",
+        fontSize: 12,
+        flexWrap: "wrap",
     },
     line: {
         borderWidth: 0.5,
         borderColor: 'black',
         margin: 10,
     },
-    editProfile: {
-        position: 'absolute',
-        left: 2,
-        top: 2,
-    },
     ////////////////////////////////////////////////
-    edit_btn: {
+    plus_btn: {
         position: 'absolute',
-        bottom: '8%',
+        bottom: '5%',
         left: '5%',
         borderColor: 'black',
         borderStyle: 'solid',
@@ -233,7 +242,7 @@ export const globalStyles = StyleSheet.create({
         borderRadius: 100,
         padding: 5,
     },
-    edit_btn_text: {
+    plus_btn_text: {
         color: "#fdc123",
         fontSize: 20,
         fontWeight: "bold",
@@ -248,7 +257,7 @@ export const globalStyles = StyleSheet.create({
         top: '5%',
         marginBottom: '15%',
     },
-    post_text: {
+    create_post_text: {
         marginLeft: '4%',
         borderColor: "black",
         color: "#000000",
@@ -296,5 +305,44 @@ export const globalStyles = StyleSheet.create({
         color: "#fdc123",
         fontWeight: "bold",
         fontSize: 20,
+    },
+    ////////////////////////////////////////////////
+    feed: {
+        bottom: '3%',
+        backgroundColor: "#d3d3d3",
+    },
+    list_of_posts: {
+        width: '100%',
+        marginBottom: '2%',
+        backgroundColor: "#ffffff"
+    },
+    post: {
+        width: '100%',
+        marginBottom: '-3%',
+        backgroundColor: "#ffffff"
+    },
+    post_text: {
+        textAlign: "right",
+        margin: '3%',
+        fontSize: 17,
+    },
+    post_img: {
+        width: '100%',
+        height: 300,
+    },
+    user_pic: {
+        width: 40,
+        height: 40,
+        borderRadius: 100,
+        overflow: "hidden",
+        margin: '2%',
+    },
+    user_name: {
+        fontWeight: "bold",
+    },
+    user_pic_name: {
+        flexDirection: "row",
+        alignItems: "center",
+        
     },
 });
