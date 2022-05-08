@@ -1,9 +1,13 @@
-import React, { useState } from "react";
-import { Button, Image, View, TextInput, Pressable, Text,Picker } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Button, Image, View, TextInput, Pressable, Text, Picker } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import { globalStyles } from "../../styles/global";
 import { useData } from "../../AuthProvider/UserDataProvider";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../../firebase";
+import { SafeAreaView } from "react-native-safe-area-context";
+
 
 const editProfileScreen = ({ navigation }) => {
   const { currentUser } = useAuth();
@@ -16,6 +20,22 @@ const editProfileScreen = ({ navigation }) => {
   const [organiztion, setOrganiztion] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+
+  useEffect(() => {
+    const getUserData = async () => {
+      const docRef = doc(db, "users", currentUser.uid);
+      const docSnap = await getDoc(docRef);
+      const userData = docSnap.data();
+      setName(userData.name);
+      setNeighborhood(userData.neighborhood);
+      setSchool(userData.school);
+      setOrganiztion(userData.organiztion);
+      // console.log('Getting data/////////////');
+      // console.log(userData.name)
+    }
+    getUserData()
+  }, [])
 
   async function handleChanges() {
     try {
@@ -34,7 +54,7 @@ const editProfileScreen = ({ navigation }) => {
 
   const isPlaceholder = (value) => {
     return value == "";
-}
+  }
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -69,30 +89,48 @@ const editProfileScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <SafeAreaView style={[globalStyles.global, globalStyles.container_enter_screens]}>
       {image && (
-        <Image source={{ uri: image }} style={{ height: 100, width: 100 }} />
+        <Image source={{ uri: image }} style={globalStyles.edit_profile_pic} />
       )}
-      <Button title="בחר תמונה מגלריה" onPress={pickImage} />
-      <Button title="צלם תמונה " onPress={pickImageFromCamera} />
-
-      <TextInput placeholder="שם" onChangeText={(text) => setName(text)} />
+      <View style={globalStyles.take_a_pic}>
+        <Pressable
+          style={globalStyles.take_a_pic_btn}
+          title="pickImage"
+          onPress={pickImage}
+          disabled={loading}
+        >
+          <Text style={globalStyles.take_a_pic_btn_text}>בחר/י תמונה מגלריה</Text>
+        </Pressable>
+        {/* <Button title="בחר/י תמונה מגלריה" onPress={pickImage} /> */}
+        <Pressable
+          style={globalStyles.take_a_pic_btn}
+          title="pickImageFromCamera"
+          onPress={pickImageFromCamera}
+          disabled={loading}
+        >
+          <Text style={globalStyles.take_a_pic_btn_text}>צלם/י תמונה</Text>
+        </Pressable>
+        {/* <Button title="צלם/י תמונה" onPress={pickImageFromCamera} /> */}
+      </View>
       <TextInput
-        placeholder="שכונה"
+        style={globalStyles.textInput}
+        value={name}
+        onChangeText={(text) => setName(text)} />
+      <TextInput
+        style={globalStyles.textInput}
+        value={neighborhood}
         onChangeText={(text) => setNeighborhood(text)}
       />
       <TextInput
-        placeholder="בית ספר"
+        style={globalStyles.textInput}
+        value={school}
         onChangeText={(text) => setSchool(text)}
       />
-      <View>
+      <View style={globalStyles.textInput}>
         <Picker
           selectedValue={classs}
-          style={[
-            isPlaceholder(classs) ? { color: "#999" } : { color: "black" },
-            { width: 330 },
-            { height: 28 },
-          ]}
+          style={[isPlaceholder(classs) ? { color: "#999" } : { color: "black" }, { width: '105%' }, { height: 28 }]}
           onValueChange={(itemValue) => setClasss(itemValue)}
         >
           <Picker.Item label="בחר כיתה" value="choose" />
@@ -103,7 +141,8 @@ const editProfileScreen = ({ navigation }) => {
         </Picker>
       </View>
       <TextInput
-        placeholder="ארגון"
+        style={globalStyles.textInput}
+        value={organiztion}
         onChangeText={(text) => setOrganiztion(text)}
       />
       <Pressable
@@ -114,9 +153,8 @@ const editProfileScreen = ({ navigation }) => {
       >
         <Text style={globalStyles.enter_btn_text}>שנה פרטים</Text>
       </Pressable>
-    </View>
+    </SafeAreaView>
   );
 };
 
 export default editProfileScreen;
-

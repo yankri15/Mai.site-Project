@@ -45,11 +45,11 @@ const UserDataProvider = ({ children }) => {
     const docRef = doc(db, "users", uid);
     const docSnap = await getDoc(docRef);
     const userData = docSnap.data();
-    if(name === "") name = userData.name;
-    if(school=== "") school = userData.school;
-    if(neighborhood=== "") neighborhood = userData.neighborhood;
-    if(organiztion === "") organiztion = userData.organization;
-    if(classs === "") classs = userData.classs;
+    // if(name === "") name = userData.name;
+    // if(school=== "") school = userData.school;
+    // if(neighborhood=== "") neighborhood = userData.neighborhood;
+    // if(organiztion === "") organiztion = userData.organization;
+    // if(classs === "") classs = userData.classs;
     await updateDoc(
       doc(db, "users", uid),
       "name", name,
