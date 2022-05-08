@@ -1,6 +1,5 @@
 import React from "react";
-import { View, TouchableOpacity, Image } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { View, TouchableOpacity, Image, SafeAreaView } from "react-native";
 
 const ProfilePic = ({ navigation }) => {
   return (

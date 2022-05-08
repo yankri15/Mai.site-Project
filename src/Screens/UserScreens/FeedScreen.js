@@ -1,4 +1,11 @@
-import { View, Text, TouchableOpacity, Image, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  Pressable,
+  FlatList,
+} from "react-native";
 import { globalStyles } from "../../styles/global";
 import React, { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -11,7 +18,6 @@ import { collection, getDocs } from "firebase/firestore";
 
 const FeedScreen = ({ navigation }) => {
   const { currentUser } = useAuth();
-  // const [url, setUrl] = useState();
   const [snapshot, setSnapshot] = useState();
 
   useEffect(() => {
@@ -19,12 +25,21 @@ const FeedScreen = ({ navigation }) => {
       const col = collection(db, "posts");
       const colSnapshot = await getDocs(col);
       setSnapshot(colSnapshot.docs);
-    }
+    };
     getPosts();
   }, []);
 
   return (
-    <SafeAreaView style={globalStyles.global}>
+    <SafeAreaView>
+      {snapshot ? (
+        <FlatList
+          data={snapshot}
+          renderItem={({ item }) => <Post postID={item.id} />}
+        />
+      ) : (
+        <Text>כרגע אין מה להציג...</Text>
+      )}
+
       <Pressable
         title="edit"
         onPress={() => {
@@ -34,16 +49,6 @@ const FeedScreen = ({ navigation }) => {
       >
         <Text style={globalStyles.edit_btn_text}>+</Text>
       </Pressable>
-      {snapshot && snapshot.length > 0 ? (
-        snapshot.map((item, index) => {
-          console.log(item.id);
-          return (
-            <Post postID={item.id} key={index} />
-          );
-        })
-      ) : (
-        <Text>כרגע אין מה להציג...</Text>
-      )}
     </SafeAreaView>
   );
 };
