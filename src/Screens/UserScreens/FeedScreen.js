@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  Pressable,
-  FlatList,
-} from "react-native";
+import { View, Text, TouchableOpacity, Image, Pressable, FlatList } from "react-native";
 import { globalStyles } from "../../styles/global";
 import React, { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -30,11 +23,12 @@ const FeedScreen = ({ navigation }) => {
   }, []);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={[globalStyles.global, globalStyles.feed]}>
       {snapshot ? (
         <FlatList
           data={snapshot}
-          renderItem={({ item }) => <Post postID={item.id} />}
+          renderItem={({ item }) => <Post navigation={navigation} style={globalStyles.list_of_posts} postID={item.id} />}
+
         />
       ) : (
         <Text>כרגע אין מה להציג...</Text>
@@ -45,9 +39,9 @@ const FeedScreen = ({ navigation }) => {
         onPress={() => {
           navigation.navigate("CreatePost", { navigation });
         }}
-        style={globalStyles.edit_btn}
+        style={globalStyles.plus_btn}
       >
-        <Text style={globalStyles.edit_btn_text}>+</Text>
+        <Text style={globalStyles.plus_btn_text}>+</Text>
       </Pressable>
     </SafeAreaView>
   );
