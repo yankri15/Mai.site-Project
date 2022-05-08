@@ -1,3 +1,5 @@
+
+
 import { async } from "@firebase/util";
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import React, { useContext, useState, useEffect } from "react";
@@ -39,6 +41,27 @@ const UserDataProvider = ({ children }) => {
     });
   };
 
+  const changeData = async (uid, name, school,classs, neighborhood, organiztion) =>{
+    const docRef = doc(db, "users", uid);
+    const docSnap = await getDoc(docRef);
+    const userData = docSnap.data();
+    if(name === "") name = userData.name;
+    if(school=== "") school = userData.school;
+    if(neighborhood=== "") neighborhood = userData.neighborhood;
+    if(organiztion === "") organiztion = userData.organization;
+    if(classs === "") classs = userData.classs;
+    await updateDoc(
+      doc(db, "users", uid),
+      "name", name,
+      "school", school,
+      "class", classs,
+      "neighborhood", neighborhood,
+      "organiztion", organiztion,
+    ).then(() => {
+      console.log("details updated");
+    });
+  }
+
   //Approve user
   const approveUser = async (uid) => {
     await updateDoc(doc(db, "users", uid), "status", 2).then(() => {
@@ -74,6 +97,7 @@ const UserDataProvider = ({ children }) => {
     approveUser,
     addDataToDB,
     getName,
+    changeData,
   };
 
   return (

@@ -1,137 +1,122 @@
-//put button on profile and then check this screen
-//need to store the image on the database
-
-import {
-  View,
-  style,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Image,
-} from "react-native";
 import React, { useState } from "react";
+import { Button, Image, View, TextInput, Pressable, Text,Picker } from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import { useAuth } from "../../AuthProvider/AuthProvider";
 import { globalStyles } from "../../styles/global";
-import BottomSheet from "reanimated-bottom-sheet";
-import Animated from "react-native-reanimated";
-import ImagePicker from "react-native-image-picker";
+import { useData } from "../../AuthProvider/UserDataProvider";
 
-const editProfileScreen = () => {
-  const [image, setImage] = useState("");
+const editProfileScreen = ({ navigation }) => {
+  const { currentUser } = useAuth();
+  const { changeData } = useData();
+  const [image, setImage] = useState(null);
+  const [name, setName] = useState("");
+  const [school, setSchool] = useState("");
+  const [classs, setClasss] = useState("");
+  const [neighborhood, setNeighborhood] = useState("");
+  const [organiztion, setOrganiztion] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const takePhotoFromCamera = () => {
-    let options = {
-      storageOptions: {
-        skipBackup: true,
-        path: "images",
-      },
-    };
-    ImagePicker.launchCamera(options, (res) => {
-      console.log("Response = ", res);
-      if (res.didCancel) {
-        console.log("User cancelled image picker");
-      } else if (res.error) {
-        console.log("ImagePicker Error: ", res.error);
-      } else if (res.customButton) {
-        console.log("User tapped custom button: ", res.customButton);
-        alert(res.customButton);
-      } else {
-        const source = { uri: res.uri };
-        console.log("response", JSON.stringify(res));
-        this.setState({
-          filePath: res,
-          fileData: res.data,
-          fileUri: res.uri,
-        });
-      }
-    });
+  async function handleChanges() {
+    try {
+      setError("");
+      setLoading(true);
+      const uid = currentUser.uid;
+      changeData(uid, name, school, classs, neighborhood, organiztion);
+      navigation.navigate("Profile");
+    } catch (err) {
+      setError("Failed to change details");
+      console.log(error + ":\n " + err);
+      alert(err);
+    }
+    setLoading(false);
   };
 
-  const chooseFromLibrary = () => {
-    let options = {
-      storageOptions: {
-        skipBackup: true,
-        path: "images",
-      },
-    };
-    ImagePicker.launchImageLibrary(options, (res) => {
-      console.log("Response = ", res);
-      if (res.didCancel) {
-        console.log("User cancelled image picker");
-      } else if (res.error) {
-        console.log("ImagePicker Error: ", res.error);
-      } else if (res.customButton) {
-        console.log("User tapped custom button: ", res.customButton);
-        alert(res.customButton);
-      } else {
-        const source = { uri: res.uri };
-        console.log("response", JSON.stringify(res));
-        this.setState({
-          filePath: res,
-          fileData: res.data,
-          fileUri: res.uri,
-        });
-      }
+  const isPlaceholder = (value) => {
+    return value == "";
+}
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
     });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
   };
 
-  const renderInner = () => (
-    <View>
-      <TouchableOpacity onPress={takePhotoFromCamera}>
-        <Text>camera</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={chooseFromLibrary}>
-        <Text>gallery</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => this.bs.current.snapTo(1)}>
-        <Text>cancel</Text>
-      </TouchableOpacity>
-    </View>
-  );
+  const pickImageFromCamera = async () => {
+    // No permissions request is necessary for launching the image camera
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
 
-  let bs = React.createRef(); //create reference
-  let fall = new Animated.Value(1); //for animation
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
 
   return (
-    <View style={globalStyles.container_enter_screens}>
-      <BottomSheet
-        ref={bs}
-        snapPoints={[330, 0]}
-        initialSnap={1}
-        callbackNode={fall}
-        enabledGestureInteraction={true}
-        //what to dysplay in sheet. we also can have renderHeader
-        renderContent={renderInner}
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      {image && (
+        <Image source={{ uri: image }} style={{ height: 100, width: 100 }} />
+      )}
+      <Button title="בחר תמונה מגלריה" onPress={pickImage} />
+      <Button title="צלם תמונה " onPress={pickImageFromCamera} />
+
+      <TextInput placeholder="שם" onChangeText={(text) => setName(text)} />
+      <TextInput
+        placeholder="שכונה"
+        onChangeText={(text) => setNeighborhood(text)}
       />
-      <TouchableOpacity
-        style={{ backgroundColor: "blue" }}
-        onPress={() => bs.current.snapTo(0)}
+      <TextInput
+        placeholder="בית ספר"
+        onChangeText={(text) => setSchool(text)}
+      />
+      <View>
+        <Picker
+          selectedValue={classs}
+          style={[
+            isPlaceholder(classs) ? { color: "#999" } : { color: "black" },
+            { width: 330 },
+            { height: 28 },
+          ]}
+          onValueChange={(itemValue) => setClasss(itemValue)}
+        >
+          <Picker.Item label="בחר כיתה" value="choose" />
+          <Picker.Item label="ט" value="ט" />
+          <Picker.Item label="י" value="י" />
+          <Picker.Item label="יא" value="יא" />
+          <Picker.Item label="יב" value="יב" />
+        </Picker>
+      </View>
+      <TextInput
+        placeholder="ארגון"
+        onChangeText={(text) => setOrganiztion(text)}
+      />
+      <Pressable
+        style={globalStyles.enter_button}
+        title="change"
+        onPress={handleChanges}
+        disabled={loading}
       >
-        <View>
-          <Image
-            source={require("../../../assets/default_profile_pic.jpg")}
-            style={globalStyles.logo_image_area}
-            resizeMode="center"
-          ></Image>
-        </View>
-      </TouchableOpacity>
-
-      <Text>name to put under image</Text>
-      <TextInput
-        placeholder="name"
-        onChangeText={(text) => console.log(text)}
-      />
-
-      <TextInput
-        placeholder="name"
-        onChangeText={(text) => console.log(text)}
-      />
-
-      <TextInput
-        placeholder="name"
-        onChangeText={(text) => console.log(text)}
-      />
+        <Text style={globalStyles.enter_btn_text}>שנה פרטים</Text>
+      </Pressable>
     </View>
   );
 };
 
 export default editProfileScreen;
+
