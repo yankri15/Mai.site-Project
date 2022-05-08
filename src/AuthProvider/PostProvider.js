@@ -1,50 +1,50 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { View, Text, Image } from "react-native";
 import { db } from "../../firebase";
 import { collection, getDocs } from "firebase/firestore";
 
-const Post = ({ postID }) => {
+const PostContext = React.createContext();
+
+export function usePost() {
+  return useContext(PostContext);
+}
+const PostProvider = ({ children }) => {
   const [postData, setPostData] = useState("");
   const [comments, setCommnets] = useState("");
   const [url, setUrl] = useState();
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    const getpostData = async () => {
-      const q = collection(db, "posts");
-      const docSnap = await getDocs(q);
-
-      docSnap.docs.map(async (item, index) => {
-        const tmp = collection(db, "posts", item.id, "userPosts");
-        const tmpSnap = await getDocs(tmp);
-        tmpSnap.docs.map(async (element) => {
-          setPosts((prev) => {
-            prev.push(element.data());
-          });
+  const getPostData = async () => {
+    setPosts(() => {
+      return [];
+    });
+    const q = collection(db, "posts");
+    const docSnap = await getDocs(q);
+    docSnap.docs.map(async (item) => {
+      const tmp = collection(db, "posts", item.id, "userPosts");
+      const tmpSnap = await getDocs(tmp);
+      tmpSnap.docs.map(async (element) => {
+        setPosts((prev) => {
+          const data = element.data();
+          prev.push(data);
+          return prev;
         });
       });
-    };
+    });
+  };
 
-    const getComments = async () => {
-      const subCOl = collection(db, "posts", postID, "comments");
-      const qSnap = await getDocs(subCOl);
-      setCommnets(qSnap.docs);
-    };
+  const getComments = async () => {
+    const subCOl = collection(db, "posts", postID, "comments");
+    const qSnap = await getDocs(subCOl);
+    setCommnets(qSnap.docs);
+  };
 
-    getpostData()
-      .catch(console.error)
-      .then(() => {
-        console.log(posts);
-      });
-  }, []);
-  return (
-    <View>
-      <Text>{postData && postData.postText}</Text>
-      {url && (
-        <Image source={{ uri: url }} style={{ width: 200, height: 200 }} />
-      )}
-    </View>
-  );
+  const value = {
+    getPostData,
+    posts,
+  };
+
+  return <PostContext.Provider value={value}>{children}</PostContext.Provider>;
 };
 
-export default Post;
+export default PostProvider;
