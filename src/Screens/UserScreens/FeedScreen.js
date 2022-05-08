@@ -25,7 +25,6 @@ const FeedScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={globalStyles.global}>
-      <ProfilePic navigation={navigation} />
       <Pressable
         title="edit"
         onPress={() => {

@@ -9,13 +9,20 @@ import SearchResultScreen from "../Screens/UserScreens/SearchResultScreen";
 import SettingsScreen from "../Screens/UserScreens/SettingsScreen";
 import WantedScreen from "../Screens/UserScreens/WantedScreen";
 import CreatePost from "../Screens/UserScreens/CreatePost";
+import ProfilePic from "../API/ProfilePic";
 
 const UserStack = createStackNavigator();
 
-const FeedNavigator = () => {
+const FeedNavigator = ({ navigation }) => {
   return (
-    <UserStack.Navigator screenOptions={{ headerShown: false }}>
-      <UserStack.Screen name="Feed" component={FeedScreen} />
+    <UserStack.Navigator>
+      <UserStack.Screen
+        name="Feed"
+        component={FeedScreen}
+        options={{
+          headerTitle: () => <ProfilePic navigation={navigation} />,
+        }}
+      />
       <UserStack.Screen name="Map" component={MapScreen} />
       <UserStack.Screen name="Profile" component={ProfileScreen} />
       <UserStack.Screen name="SearchResult" component={SearchResultScreen} />

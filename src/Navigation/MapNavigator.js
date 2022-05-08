@@ -8,13 +8,20 @@ import ProfileScreen from "../Screens/UserScreens/ProfileScreen";
 import SearchResultScreen from "../Screens/UserScreens/SearchResultScreen";
 import SettingsScreen from "../Screens/UserScreens/SettingsScreen";
 import WantedScreen from "../Screens/UserScreens/WantedScreen";
+import ProfilePic from "../API/ProfilePic";
 
 const Stack = createStackNavigator();
 
-const MapNavigator = () => {
+const MapNavigator = ({ navigation }) => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Map" component={MapScreen} />
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Map"
+        component={MapScreen}
+        options={{
+          headerTitle: () => <ProfilePic navigation={navigation} />,
+        }}
+      />
       <Stack.Screen name="Feed" component={FeedScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="SearchResult" component={SearchResultScreen} />
