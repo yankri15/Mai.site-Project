@@ -1,4 +1,5 @@
 import { View, Text, TouchableOpacity, Image, Pressable } from "react-native";
+import { globalStyles } from "../../styles/global";
 import React, { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ProfilePic from "../../API/ProfilePic";
@@ -7,30 +8,20 @@ import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../../firebase";
 
 const FeedScreen = ({ navigation }) => {
-
   const { currentUser } = useAuth();
   const [url, setUrl] = useState();
 
-
   return (
-    <SafeAreaView>
+    <SafeAreaView style={globalStyles.global}>
       <ProfilePic navigation={navigation} />
       <Pressable
         title="edit"
-        onPress={() => { navigation.navigate('CreatePost') }}
-        style={
-          {
-            position: 'absolute',
-            top: 100,
-            right: 30,
-            borderColor: 'black',
-            borderStyle: 'solid',
-            borderWidth: 1,
-            borderRadius: 40,
-            padding: 5,
-          }}
+        onPress={() => {
+          navigation.navigate("CreatePost", { navigation });
+        }}
+        style={globalStyles.edit_btn}
       >
-        <Text>+ </Text>
+        <Text style={globalStyles.edit_btn_text}>+</Text>
       </Pressable>
     </SafeAreaView>
   );
