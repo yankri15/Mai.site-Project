@@ -1,18 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "react-native";
-import { ref } from "firebase/storage";
-import { db, storage } from "../../firebase";
-import {
-  collection,
-  doc,
-  getDoc,
-  query,
-  getDocs,
-  onSnapshot,
-} from "firebase/firestore";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { async } from "@firebase/util";
-import { getDownloadURL } from "firebase/storage";
+import { db } from "../../firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 const Post = ({ postID }) => {
   const [postData, setPostData] = useState("");
