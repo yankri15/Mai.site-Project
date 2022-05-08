@@ -8,18 +8,19 @@ import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../../firebase";
 
 const FeedScreen = ({ navigation }) => {
-
   const { currentUser } = useAuth();
   const [url, setUrl] = useState();
-
 
   return (
     <SafeAreaView style={globalStyles.global}>
       <ProfilePic navigation={navigation} />
       <Pressable
         title="edit"
-        onPress={() => { navigation.navigate('CreatePost') }}
-        style={globalStyles.edit_btn}>
+        onPress={() => {
+          navigation.navigate("CreatePost", { navigation });
+        }}
+        style={globalStyles.edit_btn}
+      >
         <Text style={globalStyles.edit_btn_text}>+</Text>
       </Pressable>
     </SafeAreaView>
