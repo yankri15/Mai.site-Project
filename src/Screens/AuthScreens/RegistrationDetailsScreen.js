@@ -164,7 +164,7 @@ const RegistrationDetailsScreen = () => {
             <View style={globalStyles.textInput}>
                 <Picker
                     selectedValue={classs}
-                    style={[isPlaceholder(classs) ? { color: "#999" } : { color: "black" }, { width: 330 }, { height: 28 }]}
+                    style={[isPlaceholder(classs) ? { color: "#999" } : { color: "black" }, { width: '100%' }, { height: 28 }]}
                     onValueChange={(itemValue) => setClasss(itemValue)}>
                     <Picker.Item label="בחר כיתה" value="choose" />
                     <Picker.Item label="ט" value="ט" />

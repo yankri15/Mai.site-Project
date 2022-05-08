@@ -186,6 +186,15 @@ export const globalStyles = StyleSheet.create({
         justifyContent: "center",
         marginBottom: 10,
     },
+    edit_profile_pic: {
+        width: 150,
+        height: 150,
+        borderRadius: 100,
+        overflow: "hidden",
+        //alignItems: "center",
+        justifyContent: "center",
+        marginBottom: 10,
+    },
     profile_details: {
         fontWeight: "bold",
         fontSize: 13,
@@ -344,5 +353,22 @@ export const globalStyles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         
+    },
+    take_a_pic: {
+        flexDirection: "row",
+        marginBottom: '7%',
+    },
+    take_a_pic_btn: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 10,
+        margin: 10,
+        borderRadius: 20,
+        backgroundColor: "#000000",
+    },
+    take_a_pic_btn_text: {
+        fontSize: 15,
+        color: "#fdc123",
+        fontWeight: "bold",
     },
 });
