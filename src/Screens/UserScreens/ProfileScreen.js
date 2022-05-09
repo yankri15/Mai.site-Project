@@ -93,11 +93,11 @@ const ProfileScreen = ({ navigation }) => {
       </View>
       <View style={globalStyles.line}></View>
       <View style={globalStyles.stage2}>
-        <Text>המיזמים שלי</Text>
+        <Text style={globalStyles.profile_title}>המיזמים שלי</Text>
       </View>
       <View style={globalStyles.line}></View>
       <View style={globalStyles.stage3}>
-        <Text>שתפ"ים לחיפוש</Text>
+        <Text style={globalStyles.profile_title}>שתפ"ים לחיפוש</Text>
       </View>
     </SafeAreaView>
 

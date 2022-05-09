@@ -52,6 +52,7 @@ const RegistrationDetailsScreen = () => {
                 style={globalStyles.textInput}
                 placeholder="שם + שם משפחה"
                 value={name}
+                maxLength={16}
                 onChangeText={(text) => setName(text)}
             />
             <View style={globalStyles.textInput}>
@@ -159,6 +160,7 @@ const RegistrationDetailsScreen = () => {
                 style={globalStyles.textInput}
                 placeholder="בית ספר"
                 value={school}
+                maxLength={25}
                 onChangeText={(text) => setSchool(text)}
             />
             <View style={globalStyles.textInput}>
@@ -177,12 +179,14 @@ const RegistrationDetailsScreen = () => {
                 style={globalStyles.textInput}
                 placeholder="שכונה"
                 value={neighborhood}
+                maxLength={13}
                 onChangeText={(text) => setNeighborhood(text)}
             />
             <TextInput
                 style={globalStyles.textInput}
                 placeholder="ארגון"
                 value={organiztion}
+                maxLength={25}
                 onChangeText={(text) => setOrganiztion(text)}
             />
             <Pressable

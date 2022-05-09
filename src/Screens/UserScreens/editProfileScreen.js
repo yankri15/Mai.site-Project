@@ -116,15 +116,18 @@ const editProfileScreen = ({ navigation }) => {
       <TextInput
         style={globalStyles.textInput}
         value={name}
+        maxLength={16}
         onChangeText={(text) => setName(text)} />
       <TextInput
         style={globalStyles.textInput}
         value={neighborhood}
+        maxLength={13}
         onChangeText={(text) => setNeighborhood(text)}
       />
       <TextInput
         style={globalStyles.textInput}
         value={school}
+        maxLength={25}
         onChangeText={(text) => setSchool(text)}
       />
       <View style={globalStyles.textInput}>
@@ -143,6 +146,7 @@ const editProfileScreen = ({ navigation }) => {
       <TextInput
         style={globalStyles.textInput}
         value={organiztion}
+        maxLength={25}
         onChangeText={(text) => setOrganiztion(text)}
       />
       <Pressable

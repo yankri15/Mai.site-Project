@@ -19,7 +19,7 @@ const FeedScreen = ({ navigation }) => {
 
   console.log(posts);
   return (
-    <SafeAreaView>
+    <SafeAreaView style={globalStyles.global}>
       {posts && posts.length > 0 ? (
         <Post post={posts[0]} navigation={navigation} />
       ) : (
@@ -33,7 +33,7 @@ const FeedScreen = ({ navigation }) => {
         //     />
         //   )}
         // />
-        <Text>כרגע אין מה להציג...</Text>
+        <Text style={globalStyles.empty_feed}>כרגע אין מיזמים להציג, לחץ/י על הפלוס בתחתית המסך ותזכה/י להיות הראשון/ה לשתף במיזם שלך!</Text>
       )}
 
       <Pressable
