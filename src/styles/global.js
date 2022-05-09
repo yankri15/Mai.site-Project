@@ -145,6 +145,35 @@ export const globalStyles = StyleSheet.create({
         fontSize: 10,
     },
     ////////////////////////////////////////////////
+    drawer_pic: {
+        height: 85,
+        width: 85,
+        borderRadius: 100,
+        margin: '4%',
+    },
+    drawer_name: {
+        color: "#fff",
+        fontSize: 20,
+        margin: '1%',
+    },
+    drawer_props: {
+        flex: 1,
+        backgroundColor: "#fff",
+        paddingTop: '2%',
+    },
+    sign_out_area: {
+        padding: '5%',
+        borderTopWidth: 1,
+        borderTopColor: "#ccc",
+    },
+    sign_out: {
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    sign_out_text: {
+        fontSize: 15,
+        marginRight: '3%',
+    },
     stage1: {
         flexDirection: "row",
         alignContent: "space-between",
@@ -185,6 +214,10 @@ export const globalStyles = StyleSheet.create({
         //alignItems: "center",
         justifyContent: "center",
         marginBottom: 10,
+    },
+    profile_title: {
+        fontWeight: "bold",
+        fontSize: 25,
     },
     edit_profile_pic: {
         width: 150,
@@ -234,14 +267,15 @@ export const globalStyles = StyleSheet.create({
         flexWrap: "wrap",
     },
     line: {
-        borderWidth: 0.5,
+        width: '100%',
+        borderWidth: 1,
         borderColor: 'black',
-        margin: 10,
+        marginBottom: '5%',
     },
     ////////////////////////////////////////////////
     plus_btn: {
         position: 'absolute',
-        bottom: '5%',
+        bottom: '7%',
         left: '5%',
         borderColor: 'black',
         borderStyle: 'solid',
@@ -320,6 +354,13 @@ export const globalStyles = StyleSheet.create({
         bottom: '3%',
         backgroundColor: "#d3d3d3",
     },
+    empty_feed: {
+        color: "#fdc123",
+        textAlign: "center",
+        fontSize: 30,
+        fontWeight: "bold",
+        alignItems: "center",
+    },
     list_of_posts: {
         width: '100%',
         marginBottom: '2%',
@@ -352,7 +393,7 @@ export const globalStyles = StyleSheet.create({
     user_pic_name: {
         flexDirection: "row",
         alignItems: "center",
-        
+
     },
     take_a_pic: {
         flexDirection: "row",
