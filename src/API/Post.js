@@ -12,8 +12,8 @@ const Post = ({ post, navigation }) => {
         <Text style={globalStyles.post_text}>{post && post.postText}</Text>
         {post.downloadURL && (
           <Image
-            source={{ uri: post.downloadURL }}
             style={globalStyles.post_img}
+            source={{ uri: post.downloadURL }}
           />
         )}
       </View>

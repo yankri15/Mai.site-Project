@@ -1,8 +1,28 @@
 import { View, Text, Image, Pressable } from 'react-native'
-import React from 'react'
+import React, { useState, useEffect } from "react";
 import { globalStyles } from '../styles/global'
+import { db } from '../../firebase';
+import { getDoc } from 'firebase/firestore';
+import { useAuth } from '../AuthProvider/AuthProvider';
 
 const UserPicName = ({ navigation }) => {
+
+    const { currentUser } = useAuth();
+    const [image, setImage] = useState(null);
+    const [name, setName] = useState("");
+
+    useEffect(() => {
+        const getUserData = async () => {
+            const docRef = doc(db, "users", currentUser.uid);
+            const docSnap = await getDoc(docRef);
+            const userData = docSnap.data();
+            setName(userData.name);
+            // console.log('Getting data/////////////');
+            // console.log(userData.name)
+        };
+        getUserData();
+    }, []);
+
     return (
         <View style={globalStyles.user_pic_name}>
             <View style={globalStyles.user_pic}>
@@ -12,8 +32,8 @@ const UserPicName = ({ navigation }) => {
                 title="to_profile"
                 onPress={() => { navigation.navigate("Profile") }}
             >
-                <Text style={globalStyles.user_name}>שם משתמש</Text>
-            </Pressable> 
+                <Text style={globalStyles.user_name}>{name}</Text>
+            </Pressable>
         </View>
     )
 }
