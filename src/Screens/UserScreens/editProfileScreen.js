@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Button, Image, View, TextInput, Pressable, Text, Picker } from "react-native";
+import {
+  Button,
+  Image,
+  View,
+  TextInput,
+  Pressable,
+  Text,
+  Picker,
+} from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import { globalStyles } from "../../styles/global";
@@ -8,8 +16,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-
-const editProfileScreen = ({ navigation }) => {
+const EditProfileScreen = ({ navigation }) => {
   const { currentUser } = useAuth();
   const { changeData } = useData();
   const [image, setImage] = useState(null);
@@ -20,7 +27,6 @@ const editProfileScreen = ({ navigation }) => {
   const [organiztion, setOrganiztion] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
 
   useEffect(() => {
     const getUserData = async () => {
@@ -33,9 +39,9 @@ const editProfileScreen = ({ navigation }) => {
       setOrganiztion(userData.organiztion);
       // console.log('Getting data/////////////');
       // console.log(userData.name)
-    }
-    getUserData()
-  }, [])
+    };
+    getUserData();
+  }, []);
 
   async function handleChanges() {
     try {
@@ -50,11 +56,11 @@ const editProfileScreen = ({ navigation }) => {
       alert(err);
     }
     setLoading(false);
-  };
+  }
 
   const isPlaceholder = (value) => {
     return value == "";
-  }
+  };
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -89,7 +95,9 @@ const editProfileScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={[globalStyles.global, globalStyles.container_enter_screens]}>
+    <SafeAreaView
+      style={[globalStyles.global, globalStyles.container_enter_screens]}
+    >
       {image && (
         <Image source={{ uri: image }} style={globalStyles.edit_profile_pic} />
       )}
@@ -100,7 +108,9 @@ const editProfileScreen = ({ navigation }) => {
           onPress={pickImage}
           disabled={loading}
         >
-          <Text style={globalStyles.take_a_pic_btn_text}>בחר/י תמונה מגלריה</Text>
+          <Text style={globalStyles.take_a_pic_btn_text}>
+            בחר/י תמונה מגלריה
+          </Text>
         </Pressable>
         {/* <Button title="בחר/י תמונה מגלריה" onPress={pickImage} /> */}
         <Pressable
@@ -116,7 +126,8 @@ const editProfileScreen = ({ navigation }) => {
       <TextInput
         style={globalStyles.textInput}
         value={name}
-        onChangeText={(text) => setName(text)} />
+        onChangeText={(text) => setName(text)}
+      />
       <TextInput
         style={globalStyles.textInput}
         value={neighborhood}
@@ -130,7 +141,11 @@ const editProfileScreen = ({ navigation }) => {
       <View style={globalStyles.textInput}>
         <Picker
           selectedValue={classs}
-          style={[isPlaceholder(classs) ? { color: "#999" } : { color: "black" }, { width: '105%' }, { height: 28 }]}
+          style={[
+            isPlaceholder(classs) ? { color: "#999" } : { color: "black" },
+            { width: "105%" },
+            { height: 28 },
+          ]}
           onValueChange={(itemValue) => setClasss(itemValue)}
         >
           <Picker.Item label="בחר כיתה" value="choose" />
@@ -157,4 +172,4 @@ const editProfileScreen = ({ navigation }) => {
   );
 };
 
-export default editProfileScreen;
+export default EditProfileScreen;
