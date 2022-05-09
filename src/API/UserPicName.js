@@ -2,7 +2,7 @@ import { View, Text, Image, Pressable } from 'react-native'
 import React, { useState, useEffect } from "react";
 import { globalStyles } from '../styles/global'
 import { db } from '../../firebase';
-import { getDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { useAuth } from '../AuthProvider/AuthProvider';
 
 const UserPicName = ({ navigation }) => {
@@ -17,8 +17,6 @@ const UserPicName = ({ navigation }) => {
             const docSnap = await getDoc(docRef);
             const userData = docSnap.data();
             setName(userData.name);
-            // console.log('Getting data/////////////');
-            // console.log(userData.name)
         };
         getUserData();
     }, []);
