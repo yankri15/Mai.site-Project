@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItem,
-  DrawerItemList,
-} from "@react-navigation/drawer";
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList} from "@react-navigation/drawer";
 import { useAuth } from "../AuthProvider/AuthProvider";
 import { View, Image, Text, TouchableOpacity } from "react-native";
 import { useData } from "../AuthProvider/UserDataProvider";
+import { globalStyles } from "../styles/global";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 const CustomDrawer = (props) => {
   const { logout } = useAuth();
@@ -30,26 +27,20 @@ const CustomDrawer = (props) => {
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
         {...props}
-        contentContainerStyle={{ backgroundColor: "#552583" }}
-      >
+        contentContainerStyle={{ backgroundColor: "#a77ce8" }}>
         <Image
           source={require("../../assets/profile-pic.png")}
-          style={{ height: 80, width: 80, borderRadius: 40, marginBottom: 10 }}
+          style={globalStyles.drawer_pic}
         />
-        <Text style={{ color: "#fff", fontSize: 18 }}>{name}</Text>
-        <View style={{ flex: 1, backgroundColor: "#fff", paddingTop: 10 }}>
+        <Text style={globalStyles.drawer_name}>{name}</Text>
+        <View style={globalStyles.drawer_props}>
           <DrawerItemList {...props} />
         </View>
       </DrawerContentScrollView>
-      <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: "#ccc" }}>
-        <TouchableOpacity onPress={handleLogout}>
-          <Text
-            style={{
-              fontSize: 15,
-            }}
-          >
-            Sign out
-          </Text>
+      <View style={globalStyles.sign_out_area}>
+        <TouchableOpacity style={globalStyles.sign_out} onPress={handleLogout}>
+          <Text style={globalStyles.sign_out_text}>Sign out</Text>
+          <Ionicons name='log-out-outline' size={20} ></Ionicons>
         </TouchableOpacity>
       </View>
     </View>
