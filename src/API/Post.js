@@ -1,11 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { View, Text, Image } from "react-native";
-import { ref } from "firebase/storage";
-import { db, storage } from "../../firebase";
-import { collection, doc, getDoc, query, getDocs } from "firebase/firestore";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { async } from "@firebase/util";
-import { getDownloadURL } from "firebase/storage";
 import { globalStyles } from "../styles/global";
 import UserPicName from "./UserPicName";
 

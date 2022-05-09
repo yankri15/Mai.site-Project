@@ -44,7 +44,7 @@ const FeedScreen = ({ navigation }) => {
           keyExtractor={(item, index) => index.toString()}
         />
       ) : (
-        <Text style={globalStyles.empty_feed}>כרגע אין מיזמים להציג, לחצ/י על הפלוס למטה ותזכה/י להיות המיזם הראשון!</Text>
+        <Text>מיד נציג אתכם</Text>
       )}
 
       <Pressable
