@@ -10,8 +10,6 @@ import { globalStyles } from "../styles/global";
 import UserPicName from "./UserPicName";
 
 const Post = ({ post, navigation }) => {
-  //   console.log(post.postText);
-  console.log(post);
   return (
     <SafeAreaView>
       <View style={globalStyles.post}>

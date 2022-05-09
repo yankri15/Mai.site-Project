@@ -5,12 +5,17 @@
 import React, { useState, useEffect } from "react";
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
-import { View, Text, SafeAreaView, Image, ScrollView, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Image,
+  ScrollView,
+  Pressable,
+} from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { globalStyles } from "../../styles/global";
 import { useAuth } from "../../AuthProvider/AuthProvider";
-
-
 
 const ProfileScreen = ({ navigation }) => {
   const { currentUser } = useAuth();
@@ -26,13 +31,13 @@ const ProfileScreen = ({ navigation }) => {
       if (currentUser) {
         const docRef = doc(db, "users", currentUser.uid);
         const docSnap = await getDoc(docRef);
-        const userData = docSnap.data()
-        setName(userData.name)
-        setSchool(userData.school)
-        setNeighborhood(userData.neighborhood)
-        setOrganiztion(userData.organiztion)
-        setClasss(userData.classs)
-        setBirthDate(userData.birthDate)
+        const userData = docSnap.data();
+        setName(userData.name);
+        setSchool(userData.school);
+        setNeighborhood(userData.neighborhood);
+        setOrganiztion(userData.organiztion);
+        setClasss(userData.classs);
+        setBirthDate(userData.birthDate);
       }
     };
     getStatus().catch(console.error);
@@ -44,15 +49,15 @@ const ProfileScreen = ({ navigation }) => {
     today_year = today_date.getFullYear();
     today_month = today_date.getMonth();
     today_day = today_date.getDate();
-    birth_date = birthDate.split('/')
-    birth_day = birth_date[0]
-    birth_month = birth_date[1]
-    birth_year = birth_date[2]
+    birth_date = birthDate.split("/");
+    birth_day = birth_date[0];
+    birth_month = birth_date[1];
+    birth_year = birth_date[2];
     age = today_year - birth_year;
-    if (today_month < (birth_month - 1)) {
+    if (today_month < birth_month - 1) {
       age--;
     }
-    if (((birth_month - 1) == today_month) && (today_day < birth_day)) {
+    if (birth_month - 1 == today_month && today_day < birth_day) {
       age--;
     }
     return age;
@@ -64,18 +69,26 @@ const ProfileScreen = ({ navigation }) => {
         <Pressable
           style={globalStyles.profile_edit_btn}
           title="edit"
-          onPress={() => { navigation.navigate("editProfile") }}
+          onPress={() => {
+            navigation.navigate("EditProfile");
+          }}
         >
           <Text style={globalStyles.profile_edit_btn_text}>עריכה</Text>
         </Pressable>
         <View style={globalStyles.picAndDetails}>
           <View>
             <View style={globalStyles.profile_pic}>
-              <Image source={require('../../../assets/default_profile_pic.jpg')} style={globalStyles.logo_image_area} resizeMode="center"></Image>
+              <Image
+                source={require("../../../assets/default_profile_pic.jpg")}
+                style={globalStyles.logo_image_area}
+                resizeMode="center"
+              ></Image>
             </View>
           </View>
           <View>
-            <Text style={globalStyles.profile_details}>{name} {", "} {calculate_age(birthDate)} {", "} {neighborhood}</Text>
+            <Text style={globalStyles.profile_details}>
+              {name} {", "} {calculate_age(birthDate)} {", "} {neighborhood}
+            </Text>
           </View>
           <View>
             <Text>תחומי עניין</Text>
@@ -88,7 +101,6 @@ const ProfileScreen = ({ navigation }) => {
           <View style={globalStyles.circle_details}>
             <Text style={globalStyles.circle_details_text}>{organiztion}</Text>
           </View>
-
         </View>
       </View>
       <View style={globalStyles.line}></View>
@@ -100,9 +112,7 @@ const ProfileScreen = ({ navigation }) => {
         <Text style={globalStyles.profile_title}>שתפ"ים לחיפוש</Text>
       </View>
     </SafeAreaView>
-
-
-  )
+  );
 };
 
-export default ProfileScreen
+export default ProfileScreen;
