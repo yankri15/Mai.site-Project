@@ -44,7 +44,7 @@ const FeedScreen = ({ navigation }) => {
           keyExtractor={(item, index) => index.toString()}
         />
       ) : (
-        <Text>Nothing to show here</Text>
+        <Text>מיד נציג אתכם</Text>
       )}
 
       <Pressable
