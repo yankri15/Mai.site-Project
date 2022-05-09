@@ -34,6 +34,7 @@ const FeedScreen = ({ navigation }) => {
       {posts && posts.length > 0 ? (
         <FlatList
           data={posts}
+          style={globalStyles.feed}
           renderItem={({ item }) => (
             <Post
               post={item}

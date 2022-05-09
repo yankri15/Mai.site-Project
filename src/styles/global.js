@@ -149,7 +149,7 @@ export const globalStyles = StyleSheet.create({
         height: 85,
         width: 85,
         borderRadius: 100,
-        margin: '4%',
+        margin: '3%',
     },
     drawer_name: {
         color: "#fff",
@@ -191,6 +191,12 @@ export const globalStyles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         marginBottom: 20,
+    },
+    touchable_profile_pic: {
+        height: 50,
+        width: 50,
+        borderRadius: 100,
+        margin: '1%',
     },
     profile_edit_btn: {
         position: 'absolute',
@@ -297,8 +303,8 @@ export const globalStyles = StyleSheet.create({
         fontSize: 25,
         color: "#fdc123",
         fontWeight: "bold",
-        top: '5%',
-        marginBottom: '15%',
+        top: '2%',
+        marginBottom: '10%',
     },
     create_post_text: {
         marginLeft: '4%',
@@ -318,19 +324,24 @@ export const globalStyles = StyleSheet.create({
         borderTopRightRadius: 8,
     },
     choose_img: {
-        width: '45%',
-        left: '51%',
+        width: '15%',
+        left: '80%',
         borderColor: 'black',
         borderStyle: 'solid',
         backgroundColor: "#fdc123",
         textAlign: "center",
         borderWidth: 2,
-        borderRadius: 100,
-        padding: 10,
+        borderRadius: 8,
     },
     choose_img_text: {
-        fontSize: 15,
+        fontSize: 25,
         fontWeight: "bold",
+        textAlign: "center"
+    },
+    create_post_img: {
+        height: '30%',
+        width: '92%',
+        marginLeft: '4%',
     },
     to_post: {
         position: 'absolute',

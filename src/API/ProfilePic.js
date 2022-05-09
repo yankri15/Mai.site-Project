@@ -1,5 +1,6 @@
 import React from "react";
 import { View, TouchableOpacity, Image, SafeAreaView } from "react-native";
+import { globalStyles } from "../styles/global";
 
 const ProfilePic = ({ navigation }) => {
   return (
@@ -8,12 +9,7 @@ const ProfilePic = ({ navigation }) => {
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <Image
             source={require("../../assets/profile-pic.png")}
-            style={{
-              height: 50,
-              width: 50,
-              borderRadius: 40,
-              marginLeft: 10,
-            }}
+            style={globalStyles.touchable_profile_pic}
           />
         </TouchableOpacity>
       </View>
