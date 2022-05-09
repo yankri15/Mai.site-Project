@@ -126,6 +126,9 @@ const EditProfileScreen = ({ navigation }) => {
       <TextInput
         style={globalStyles.textInput}
         value={name}
+        maxLength={16}
+        onChangeText={(text) => setName(text)}
+      />
       <TextInput
         style={globalStyles.textInput}
         value={neighborhood}
