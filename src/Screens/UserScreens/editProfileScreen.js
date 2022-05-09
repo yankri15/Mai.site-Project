@@ -37,8 +37,6 @@ const EditProfileScreen = ({ navigation }) => {
       setNeighborhood(userData.neighborhood);
       setSchool(userData.school);
       setOrganiztion(userData.organiztion);
-      // console.log('Getting data/////////////');
-      // console.log(userData.name)
     };
     getUserData();
   }, []);
@@ -71,8 +69,6 @@ const EditProfileScreen = ({ navigation }) => {
       quality: 1,
     });
 
-    console.log(result);
-
     if (!result.cancelled) {
       setImage(result.uri);
     }
@@ -86,8 +82,6 @@ const EditProfileScreen = ({ navigation }) => {
       aspect: [4, 3],
       quality: 1,
     });
-
-    console.log(result);
 
     if (!result.cancelled) {
       setImage(result.uri);
