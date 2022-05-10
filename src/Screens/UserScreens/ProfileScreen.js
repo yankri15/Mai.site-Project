@@ -25,6 +25,7 @@ const ProfileScreen = ({ navigation }) => {
   const [organiztion, setOrganiztion] = useState("");
   const [classs, setClasss] = useState("");
   const [birthDate, setBirthDate] = useState("");
+  const [profilePicUri, setProfilePicUri] = useState();
 
   useEffect(() => {
     const getStatus = async () => {
@@ -38,6 +39,7 @@ const ProfileScreen = ({ navigation }) => {
         setOrganiztion(userData.organiztion);
         setClasss(userData.classs);
         setBirthDate(userData.birthDate);
+        setProfilePicUri(userData.pic);
       }
     };
     getStatus().catch(console.error);
@@ -45,15 +47,16 @@ const ProfileScreen = ({ navigation }) => {
   }, [currentUser]);
 
   function calculate_age(birthDate) {
-    today_date = new Date();
-    today_year = today_date.getFullYear();
-    today_month = today_date.getMonth();
-    today_day = today_date.getDate();
-    birth_date = birthDate.split("/");
-    birth_day = birth_date[0];
-    birth_month = birth_date[1];
-    birth_year = birth_date[2];
-    age = today_year - birth_year;
+    const today_date = new Date();
+
+    const today_year = today_date.getFullYear();
+    const today_month = today_date.getMonth();
+    const today_day = today_date.getDate();
+    const splitedBirthDate = birthDate.split("/");
+    const birth_day = splitedBirthDate[0];
+    const birth_month = splitedBirthDate[1];
+    const birth_year = splitedBirthDate[2];
+    let age = today_year - birth_year;
     if (today_month < birth_month - 1) {
       age--;
     }
@@ -79,7 +82,7 @@ const ProfileScreen = ({ navigation }) => {
           <View>
             <View style={globalStyles.profile_pic}>
               <Image
-                source={require("../../../assets/default_profile_pic.jpg")}
+                source={{ uri: profilePicUri }}
                 style={globalStyles.logo_image_area}
                 resizeMode="center"
               ></Image>
