@@ -10,6 +10,7 @@ import SettingsScreen from "../Screens/UserScreens/SettingsScreen";
 import WantedScreen from "../Screens/UserScreens/WantedScreen";
 import CreatePost from "../Screens/UserScreens/CreatePost";
 import ProfilePic from "../API/ProfilePic";
+import { useAuth } from "../AuthProvider/AuthProvider";
 
 const UserStack = createStackNavigator();
 

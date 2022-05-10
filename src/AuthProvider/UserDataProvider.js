@@ -1,12 +1,9 @@
-
-
-import { async } from "@firebase/util";
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import React, { useContext, useState, useEffect } from "react";
 import { db } from "../../firebase";
 import { useAuth } from "./AuthProvider";
-const UserDataContext = React.createContext();
 
+const UserDataContext = React.createContext();
 export function useData() {
   return useContext(UserDataContext);
 }
@@ -26,22 +23,50 @@ const UserDataProvider = ({ children }) => {
   };
 
   //Add other registration details (name, school, organization etc.)
-  const addDataToDB = async (uid, name, day, month, year, school, classs, neighborhood, organiztion) => {
+  const addDataToDB = async (
+    uid,
+    name,
+    day,
+    month,
+    year,
+    school,
+    classs,
+    neighborhood,
+    organiztion,
+    uri
+  ) => {
     await updateDoc(
       doc(db, "users", uid),
-      "name", name,
-      "birthDate", day + "/" + month + "/" + year,
-      "school", school,
-      "class", classs,
-      "neighborhood", neighborhood,
-      "organiztion", organiztion,
-      "status", 1
+      "name",
+      name,
+      "birthDate",
+      day + "/" + month + "/" + year,
+      "school",
+      school,
+      "class",
+      classs,
+      "neighborhood",
+      neighborhood,
+      "organiztion",
+      organiztion,
+      "status",
+      1,
+      "pic",
+      uri
     ).then(() => {
       setUserStatus(1);
     });
   };
 
-  const changeData = async (uid, name, school,classs, neighborhood, organiztion) =>{
+  const changeData = async (
+    uid,
+    name,
+    school,
+    classs,
+    neighborhood,
+    organiztion,
+    uri
+  ) => {
     const docRef = doc(db, "users", uid);
     const docSnap = await getDoc(docRef);
     const userData = docSnap.data();
@@ -52,15 +77,22 @@ const UserDataProvider = ({ children }) => {
     // if(classs === "") classs = userData.classs;
     await updateDoc(
       doc(db, "users", uid),
-      "name", name,
-      "school", school,
-      "class", classs,
-      "neighborhood", neighborhood,
-      "organiztion", organiztion,
+      "name",
+      name,
+      "school",
+      school,
+      "class",
+      classs,
+      "neighborhood",
+      neighborhood,
+      "organiztion",
+      organiztion,
+      "pic",
+      uri
     ).then(() => {
       console.log("details updated");
     });
-  }
+  };
 
   //Approve user
   const approveUser = async (uid) => {
@@ -88,7 +120,6 @@ const UserDataProvider = ({ children }) => {
       setName(docSnap.data().name);
     }
   };
-
 
   const value = {
     userStatus,

@@ -1,39 +1,44 @@
-import { View, Text, Image, Pressable } from 'react-native'
+import { View, Text, Image, Pressable } from "react-native";
 import React, { useState, useEffect } from "react";
-import { globalStyles } from '../styles/global'
-import { db } from '../../firebase';
-import { doc, getDoc } from 'firebase/firestore';
-import { useAuth } from '../AuthProvider/AuthProvider';
+import { globalStyles } from "../styles/global";
+import { db } from "../../firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { useAuth } from "../AuthProvider/AuthProvider";
 
 const UserPicName = ({ navigation }) => {
+  const { currentUser } = useAuth();
+  const [image, setImage] = useState(null);
+  const [name, setName] = useState("");
 
-    const { currentUser } = useAuth();
-    const [image, setImage] = useState(null);
-    const [name, setName] = useState("");
+  useEffect(() => {
+    const getUserData = async () => {
+      const docRef = doc(db, "users", currentUser.uid);
+      const docSnap = await getDoc(docRef);
+      const userData = docSnap.data();
+      setName(userData.name);
+      setImage(userData.pic);
+    };
+    getUserData();
+  }, []);
 
-    useEffect(() => {
-        const getUserData = async () => {
-            const docRef = doc(db, "users", currentUser.uid);
-            const docSnap = await getDoc(docRef);
-            const userData = docSnap.data();
-            setName(userData.name);
-        };
-        getUserData();
-    }, []);
+  return (
+    <View style={globalStyles.user_pic_name}>
+      <View style={globalStyles.user_pic}>
+        <Image
+          source={{ uri: image }}
+          style={globalStyles.logo_image_area}
+        ></Image>
+      </View>
+      <Pressable
+        title="to_profile"
+        onPress={() => {
+          navigation.navigate("Profile");
+        }}
+      >
+        <Text style={globalStyles.user_name}>{name}</Text>
+      </Pressable>
+    </View>
+  );
+};
 
-    return (
-        <View style={globalStyles.user_pic_name}>
-            <View style={globalStyles.user_pic}>
-                <Image source={require('../../assets/default_profile_pic.jpg')} style={globalStyles.logo_image_area}></Image>
-            </View>
-            <Pressable
-                title="to_profile"
-                onPress={() => { navigation.navigate("Profile") }}
-            >
-                <Text style={globalStyles.user_name}>{name}</Text>
-            </Pressable>
-        </View>
-    )
-}
-
-export default UserPicName
+export default UserPicName;

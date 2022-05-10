@@ -37,6 +37,7 @@ const EditProfileScreen = ({ navigation }) => {
       setNeighborhood(userData.neighborhood);
       setSchool(userData.school);
       setOrganiztion(userData.organiztion);
+      setImage(userData.pic);
     };
     getUserData();
   }, []);
@@ -46,7 +47,7 @@ const EditProfileScreen = ({ navigation }) => {
       setError("");
       setLoading(true);
       const uid = currentUser.uid;
-      changeData(uid, name, school, classs, neighborhood, organiztion);
+      changeData(uid, name, school, classs, neighborhood, organiztion, image);
       navigation.navigate("Profile");
     } catch (err) {
       setError("Failed to change details");
