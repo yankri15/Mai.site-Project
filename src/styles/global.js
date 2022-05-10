@@ -84,7 +84,7 @@ export const globalStyles = StyleSheet.create({
         marginBottom: 15,
         paddingVertical: 10,
         paddingHorizontal: 35,
-        borderRadius: 4,
+        borderRadius: 10,
         elevation: 3,
         backgroundColor: "#fdc123",
     },
@@ -179,18 +179,18 @@ export const globalStyles = StyleSheet.create({
         alignContent: "space-between",
         alignItems: "center",
         justifyContent: "center",
-        marginTop: 10,
-        marginBottom: 20,
+        marginTop: '2%',
+        marginBottom: '5%',
     },
     stage2: {
         alignItems: "center",
         justifyContent: "center",
-        marginBottom: 20,
+        marginBottom: '5%',
     },
     stage3: {
         alignItems: "center",
         justifyContent: "center",
-        marginBottom: 20,
+        marginBottom: '5%',
     },
     touchable_profile_pic: {
         height: 50,
@@ -215,11 +215,11 @@ export const globalStyles = StyleSheet.create({
     profile_pic: {
         width: 100,
         height: 100,
-        borderRadius: 100,
+        borderRadius: 50,
         overflow: "hidden",
         //alignItems: "center",
         justifyContent: "center",
-        marginBottom: 10,
+        marginBottom: '2%',
     },
     profile_title: {
         fontWeight: "bold",
@@ -228,11 +228,11 @@ export const globalStyles = StyleSheet.create({
     edit_profile_pic: {
         width: 150,
         height: 150,
-        borderRadius: 100,
+        borderRadius: 75,
         overflow: "hidden",
         //alignItems: "center",
         justifyContent: "center",
-        marginBottom: 10,
+        marginBottom: '3%',
     },
     profile_details: {
         fontWeight: "bold",
@@ -263,7 +263,6 @@ export const globalStyles = StyleSheet.create({
         borderRadius: 100,
         justifyContent: "center",
         margin: 5,
-        paddingTop: 5,
     },
     circle_details_text: {
         fontWeight: "bold",
@@ -413,6 +412,7 @@ export const globalStyles = StyleSheet.create({
     take_a_pic_btn: {
         alignItems: 'center',
         justifyContent: 'center',
+        flexDirection: "row",
         padding: 10,
         margin: 10,
         borderRadius: 20,
