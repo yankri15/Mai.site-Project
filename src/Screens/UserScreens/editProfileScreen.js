@@ -15,6 +15,7 @@ import { useData } from "../../AuthProvider/UserDataProvider";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 const EditProfileScreen = ({ navigation }) => {
   const { currentUser } = useAuth();
@@ -66,7 +67,7 @@ const EditProfileScreen = ({ navigation }) => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 1,
     });
 
@@ -80,7 +81,7 @@ const EditProfileScreen = ({ navigation }) => {
     let result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 1,
     });
 
@@ -103,9 +104,8 @@ const EditProfileScreen = ({ navigation }) => {
           onPress={pickImage}
           disabled={loading}
         >
-          <Text style={globalStyles.take_a_pic_btn_text}>
-            בחר/י תמונה מגלריה
-          </Text>
+          <MaterialIcons style={{color: "#fdc123"}} name="photo-library" size={20}></MaterialIcons>
+          <Text style={globalStyles.take_a_pic_btn_text}>תמונה מהגלריה  </Text>
         </Pressable>
         {/* <Button title="בחר/י תמונה מגלריה" onPress={pickImage} /> */}
         <Pressable
@@ -114,7 +114,8 @@ const EditProfileScreen = ({ navigation }) => {
           onPress={pickImageFromCamera}
           disabled={loading}
         >
-          <Text style={globalStyles.take_a_pic_btn_text}>צלם/י תמונה</Text>
+          <Ionicons style={{color: "#fdc123"}} name="camera-outline" size={20}></Ionicons>
+          <Text style={globalStyles.take_a_pic_btn_text}>צלם/י תמונה  </Text>
         </Pressable>
         {/* <Button title="צלם/י תמונה" onPress={pickImageFromCamera} /> */}
       </View>
