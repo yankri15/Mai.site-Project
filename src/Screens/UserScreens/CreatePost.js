@@ -13,13 +13,7 @@ import { globalStyles } from "../../styles/global";
 import { ref, uploadBytes } from "firebase/storage";
 import { db, storage } from "../../../firebase";
 import { useAuth } from "../../AuthProvider/AuthProvider";
-import {
-  doc,
-  setDoc,
-  serverTimestamp,
-  collection,
-  addDoc,
-} from "firebase/firestore";
+import { doc, setDoc, serverTimestamp, collection, addDoc, } from "firebase/firestore";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 const CreatePost = ({ navigation }) => {
@@ -33,7 +27,7 @@ const CreatePost = ({ navigation }) => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 1,
     });
 
@@ -76,7 +70,18 @@ const CreatePost = ({ navigation }) => {
         style={globalStyles.create_post_text}
       />
       {image ? (
-        <Image source={{ uri: image }} style={globalStyles.create_post_img} />
+        <View>
+          <Pressable
+            style={globalStyles.choose_img}
+            title="img"
+            onPress={pickImage}
+          >
+            <Text style={globalStyles.choose_img_text}>
+              <Ionicons name="image-outline" size={25}></Ionicons>+
+            </Text>
+          </Pressable>
+          <Image source={{ uri: image }} style={globalStyles.create_post_img} />
+        </View>
       ) : (
         <Pressable
           style={globalStyles.choose_img}
