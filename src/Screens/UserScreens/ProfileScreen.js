@@ -16,9 +16,11 @@ import {
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { globalStyles } from "../../styles/global";
 import { useAuth } from "../../AuthProvider/AuthProvider";
+import { useIsFocused } from "@react-navigation/native";
 
 const ProfileScreen = ({ navigation }) => {
   const { currentUser } = useAuth();
+  const isFocused = useIsFocused();
   const [name, setName] = useState("");
   const [school, setSchool] = useState("");
   const [neighborhood, setNeighborhood] = useState("");
@@ -44,7 +46,7 @@ const ProfileScreen = ({ navigation }) => {
     };
     getStatus().catch(console.error);
     return;
-  }, [currentUser]);
+  }, [currentUser, isFocused]);
 
   function calculate_age(birthDate) {
     const today_date = new Date();
