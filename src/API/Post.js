@@ -8,12 +8,12 @@ const Post = ({ post, navigation }) => {
   return (
     <SafeAreaView>
       <View style={globalStyles.post}>
-        <UserPicName navigation={navigation} />
-        <Text style={globalStyles.post_text}>{post && post.postText}</Text>
-        {post.downloadURL && (
+        <UserPicName uid={post.id} navigation={navigation} />
+        <Text style={globalStyles.post_text}>{post && post.data.postText}</Text>
+        {post.data.downloadURL && (
           <Image
             style={globalStyles.post_img}
-            source={{ uri: post.downloadURL }}
+            source={{ uri: post.data.downloadURL }}
           />
         )}
       </View>
