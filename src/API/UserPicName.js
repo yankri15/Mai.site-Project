@@ -5,16 +5,16 @@ import { db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { useAuth } from "../AuthProvider/AuthProvider";
 
-const UserPicName = ({ navigation }) => {
-  const { currentUser } = useAuth();
+const UserPicName = ({ uid, navigation }) => {
   const [image, setImage] = useState(null);
   const [name, setName] = useState("");
 
   useEffect(() => {
     const getUserData = async () => {
-      const docRef = doc(db, "users", currentUser.uid);
+      const docRef = doc(db, "users", uid);
       const docSnap = await getDoc(docRef);
       const userData = docSnap.data();
+      console.log(userData.pic);
       setName(userData.name);
       setImage(userData.pic);
     };

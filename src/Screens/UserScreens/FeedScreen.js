@@ -11,22 +11,38 @@ const FeedScreen = ({ navigation }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
+    // const getPostData = async () => {
+    //   const q = collection(db, "posts");
+    //   const docSnap = await getDocs(q);
+    //   console.log(docSnap.docs[0].data());
+    //   const promises = docSnap.docs.map(async (item) => {
+    //     // console.log(item.id); This is the uid's we want
+    //     const tmp = collection(db, "posts", item.id, "userPosts");
+    //     const tmpSnap = await getDocs(tmp);
+    //     return tmpSnap.docs.map((element) => element.data());
+    //   });
+
+    //   const arrayOfPosts = await Promise.all(promises);
+    //   console.log(arrayOfPosts);
+    //   let newPosts = [];
+    //   arrayOfPosts.forEach((posts) => {
+    //     newPosts = [...newPosts, ...posts];
+    //   });
+    //   setPosts(newPosts);
+    //   console.log(newPosts);
+    // };
+
     const getPostData = async () => {
+      setPosts([]);
       const q = collection(db, "posts");
       const docSnap = await getDocs(q);
-      const promises = docSnap.docs.map(async (item) => {
-        // console.log(item.id); This is the uid's we want
+      const promises = docSnap.docs.forEach(async (item) => {
         const tmp = collection(db, "posts", item.id, "userPosts");
         const tmpSnap = await getDocs(tmp);
-        return tmpSnap.docs.map((element) => element.data());
+        return tmpSnap.docs.forEach((element) => {
+          setPosts(prev => [...prev, { "id": item.id, "data": element.data() }]);
+        });
       });
-
-      const arrayOfPosts = await Promise.all(promises);
-      let newPosts = [];
-      arrayOfPosts.forEach((posts) => {
-        newPosts = [...newPosts, ...posts];
-      });
-      setPosts(newPosts);
     };
 
     getPostData().catch(console.error);

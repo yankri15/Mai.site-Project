@@ -21,7 +21,6 @@ const MainContainer = () => {
   const { currentUser } = useAuth();
 
   if (currentUser) {
-    console.log(userStatus);
     if (userStatus == 2) {
       return <HamburgerStack />;
     } else if (userStatus == 1) {
