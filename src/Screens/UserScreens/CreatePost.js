@@ -21,6 +21,7 @@ const CreatePost = ({ navigation }) => {
   const { global } = globalStyles;
   const [image, setImage] = useState(null);
   const [postText, setPostText] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -37,8 +38,10 @@ const CreatePost = ({ navigation }) => {
   };
 
   const uploadPost = async () => {
+    setLoading(true);
     if (!image || !postText) {
       Alert.alert("חובה למלא את כל השדות");
+      setLoading(false);
       return;
     }
     const date = new Date().toLocaleString();
@@ -93,7 +96,7 @@ const CreatePost = ({ navigation }) => {
           </Text>
         </Pressable>
       )}
-      <Pressable style={globalStyles.to_post} title="post" onPress={uploadPost}>
+      <Pressable style={globalStyles.to_post} title="post" onPress={uploadPost} disabled={loading}>
         <Text style={globalStyles.to_post_text}>פרסם אותי!</Text>
       </Pressable>
     </SafeAreaView>
