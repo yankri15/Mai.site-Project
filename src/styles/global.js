@@ -359,7 +359,7 @@ export const globalStyles = StyleSheet.create({
     },
     ////////////////////////////////////////////////
     feed: {
-        bottom: '3%',
+        bottom: '4%',
         backgroundColor: "#d3d3d3",
     },
     empty_feed: {
@@ -376,7 +376,8 @@ export const globalStyles = StyleSheet.create({
     },
     post: {
         width: '100%',
-        marginBottom: '-3%',
+        marginBottom: '-4%',
+        paddingBottom: '1%',
         backgroundColor: "#ffffff"
     },
     post_text: {
@@ -386,7 +387,9 @@ export const globalStyles = StyleSheet.create({
     },
     post_img: {
         width: '100%',
-        height: 300,
+        height: 360,
+        paddingBottom: '2%',
+        resizeMode : 'contain',
     },
     user_pic: {
         width: 40,
@@ -420,5 +423,22 @@ export const globalStyles = StyleSheet.create({
         fontSize: 15,
         color: "#fdc123",
         fontWeight: "bold",
+    },
+    like_comment: {
+        flexDirection: "row",
+        justifyContent: "center",
+        margin: '2%',
+    },
+    like_comment_btn: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: "row",
+        
+    },
+    like_comment_btn_txt: {
+        color: "#000000",
+        fontWeight: "bold",
+        fontSize: 18,
+        marginRight: '8%',
     },
 });
