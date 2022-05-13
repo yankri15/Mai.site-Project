@@ -4,7 +4,8 @@
 
 import React, { useState, useEffect } from "react";
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { ref, getDownloadURL } from "firebase/storage";
+import { db, storage } from "../../../firebase";
 import {
   View,
   Text,
@@ -18,8 +19,10 @@ import { globalStyles } from "../../styles/global";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import { useIsFocused } from "@react-navigation/native";
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = ({ route, navigation }) => {
+  const uid = route.params ? route.params.uid : undefined;
   const { currentUser } = useAuth();
+  const id = uid ? uid : currentUser.uid;
   const isFocused = useIsFocused();
   const [name, setName] = useState("");
   const [school, setSchool] = useState("");
@@ -28,25 +31,30 @@ const ProfileScreen = ({ navigation }) => {
   const [classs, setClasss] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [profilePicUri, setProfilePicUri] = useState();
+  // console.log("currentUser.id: ", currentUser.id)
 
   useEffect(() => {
     const getStatus = async () => {
-      if (currentUser) {
-        const docRef = doc(db, "users", currentUser.uid);
-        const docSnap = await getDoc(docRef);
-        const userData = docSnap.data();
-        setName(userData.name);
-        setSchool(userData.school);
-        setNeighborhood(userData.neighborhood);
-        setOrganiztion(userData.organiztion);
-        setClasss(userData.classs);
-        setBirthDate(userData.birthDate);
-        setProfilePicUri(userData.pic);
-      }
+      // if (currentUser) {
+      const docRef = doc(db, "users", id);
+      const docSnap = await getDoc(docRef);
+      const userData = docSnap.data();
+      setName(userData.name);
+      setSchool(userData.school);
+      setNeighborhood(userData.neighborhood);
+      setOrganiztion(userData.organiztion);
+      setClasss(userData.classs);
+      setBirthDate(userData.birthDate);
+      setProfilePicUri(userData.pic);
+      const imgRef = ref(storage, userData.pic);
+      await getDownloadURL(imgRef).then((img) => {
+        setProfilePicUri(img);
+      });
+      // }
     };
     getStatus().catch(console.error);
     return;
-  }, [currentUser, isFocused]);
+  }, [isFocused]);
 
   function calculate_age(birthDate) {
     const today_date = new Date();
@@ -71,15 +79,17 @@ const ProfileScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={globalStyles.global}>
       <View style={globalStyles.stage1}>
-        <Pressable
-          style={globalStyles.profile_edit_btn}
-          title="edit"
-          onPress={() => {
-            navigation.navigate("EditProfile");
-          }}
-        >
-          <Text style={globalStyles.profile_edit_btn_text}>עריכה</Text>
-        </Pressable>
+        {currentUser.uid == id ? (
+          <Pressable
+            style={globalStyles.profile_edit_btn}
+            title="edit"
+            onPress={() => {
+              navigation.navigate("EditProfile");
+            }}
+          >
+            <Text style={globalStyles.profile_edit_btn_text}>עריכה</Text>
+          </Pressable>
+        ) : null}
         <View style={globalStyles.picAndDetails}>
           <View>
             <View style={globalStyles.profile_pic}>

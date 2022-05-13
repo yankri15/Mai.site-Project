@@ -1,8 +1,9 @@
 import { View, Text, Image, Pressable } from "react-native";
 import React, { useState, useEffect } from "react";
 import { globalStyles } from "../styles/global";
-import { db } from "../../firebase";
+import { db, storage } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
+import { ref, getDownloadURL } from "firebase/storage";
 import { useAuth } from "../AuthProvider/AuthProvider";
 
 const UserPicName = ({ uid, navigation }) => {
@@ -14,9 +15,11 @@ const UserPicName = ({ uid, navigation }) => {
       const docRef = doc(db, "users", uid);
       const docSnap = await getDoc(docRef);
       const userData = docSnap.data();
-      console.log(userData.pic);
       setName(userData.name);
-      setImage(userData.pic);
+      const imgRef = ref(storage, userData.pic);
+      await getDownloadURL(imgRef).then((img) => {
+        setImage(img);
+      });
     };
     getUserData();
   }, []);
@@ -32,7 +35,9 @@ const UserPicName = ({ uid, navigation }) => {
       <Pressable
         title="to_profile"
         onPress={() => {
-          navigation.navigate("Profile");
+          navigation.navigate("Profile", {
+            uid: uid,
+          });
         }}
       >
         <Text style={globalStyles.user_name}>{name}</Text>

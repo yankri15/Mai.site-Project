@@ -15,9 +15,11 @@ import { db, storage } from "../../../firebase";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import { doc, setDoc, serverTimestamp, collection, addDoc, } from "firebase/firestore";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { useData } from "../../AuthProvider/UserDataProvider";
 
 const CreatePost = ({ navigation }) => {
   const { currentUser } = useAuth();
+  const { uploadDataPost, uploadImg } = useData();
   const { global } = globalStyles;
   const [image, setImage] = useState(null);
   const [postText, setPostText] = useState("");
@@ -45,20 +47,24 @@ const CreatePost = ({ navigation }) => {
       return;
     }
     const date = new Date().toLocaleString();
-    const path = "/img/" + currentUser.uid + date + ".jpg";
-    const docRef = ref(storage, path);
-    const img = await fetch(image);
-    const bytes = await img.blob();
-    await uploadBytes(docRef, bytes);
+    const path = "/img/" + currentUser.uid + "/posts/" + date + ".jpg";
 
-    await setDoc(doc(db, "posts", currentUser.uid), {
-      filler: "Think about this problem",
-    });
-    await addDoc(collection(db, "posts", currentUser.uid, "userPosts"), {
-      downloadURL: image,
-      postText: postText,
-      creation: serverTimestamp(),
-    });
+    uploadImg(path, image);
+    // const docRef = ref(storage, path);
+    // const img = await fetch(image);
+    // const bytes = await img.blob();
+    // await uploadBytes(docRef, bytes);
+
+    uploadDataPost(path, postText);
+
+    // await setDoc(doc(db, "posts", currentUser.uid), {
+    //   filler: "Think about this problem",
+    // });
+    // await addDoc(collection(db, "posts", currentUser.uid, "userPosts"), {
+    //   downloadURL: path,
+    //   postText: postText,
+    //   creation: serverTimestamp(),
+    // });
 
     navigation.navigate("Feed");
   };
