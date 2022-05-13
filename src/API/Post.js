@@ -5,6 +5,8 @@ import { globalStyles } from "../styles/global";
 import UserPicName from "./UserPicName";
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../firebase"
+import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+import { Octicons, AntDesign } from "@expo/vector-icons";
 
 const Post = ({ post, navigation }) => {
   const [url, setUrl] = useState();
@@ -31,6 +33,29 @@ const Post = ({ post, navigation }) => {
             source={{ uri: url }}
           />
         )}
+        <View style={globalStyles.like_comment}>
+          <Pressable
+            title="comment"
+            // onPress={() => {
+            //   navigation.navigate("CreatePost", { navigation });
+            // }}
+            style={globalStyles.like_comment_btn}
+          >
+            <Text style={globalStyles.like_comment_btn_txt}>תגובה</Text>
+            <Octicons style={{ color: "black" }} name="comment" size={18}></Octicons>
+          </Pressable>
+          <Pressable
+            title="like"
+            // onPress={() => {
+            //   navigation.navigate("CreatePost", { navigation });
+            // }}
+            style={globalStyles.like_comment_btn}
+          >
+            <Text style={globalStyles.like_comment_btn_txt}>אהבתי</Text>
+            <AntDesign style={{ color: "black" }} name="like2" size={20}></AntDesign>
+          </Pressable>
+        </View>
+
       </View>
     </SafeAreaView>
   );
