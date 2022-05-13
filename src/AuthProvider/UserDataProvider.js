@@ -1,6 +1,7 @@
-import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { ref, uploadBytes } from "firebase/storage";
 import React, { useContext, useState, useEffect } from "react";
-import { db } from "../../firebase";
+import { db, storage } from "../../firebase";
 import { useAuth } from "./AuthProvider";
 
 const UserDataContext = React.createContext();
@@ -94,12 +95,41 @@ const UserDataProvider = ({ children }) => {
     });
   };
 
+
+
   //Approve user
   const approveUser = async (uid) => {
     await updateDoc(doc(db, "users", uid), "status", 2).then(() => {
       setUserStatus(2);
     });
   };
+
+  const getName = async () => {
+    if (currentUser) {
+      const docRef = doc(db, "users", currentUser.uid);
+      const docSnap = await getDoc(docRef);
+      setName(docSnap.data().name);
+    }
+  };
+
+  const uploadDataPost = async (path, postText) => {
+    await setDoc(doc(db, "posts", currentUser.uid), {
+      filler: "Think about this problem",
+    });
+    await addDoc(collection(db, "posts", currentUser.uid, "userPosts"), {
+      downloadURL: path,
+      postText: postText,
+      creation: serverTimestamp(),
+    });
+  }
+
+  const uploadImg = async (path, image) => {
+    const docRef = ref(storage, path);
+    const img = await fetch(image);
+    const bytes = await img.blob();
+    await uploadBytes(docRef, bytes);
+    console.log("Up loaded succeffuly to path: ", path);
+  }
 
   useEffect(() => {
     const getStatus = async () => {
@@ -113,14 +143,6 @@ const UserDataProvider = ({ children }) => {
     return;
   }, [currentUser]);
 
-  const getName = async () => {
-    if (currentUser) {
-      const docRef = doc(db, "users", currentUser.uid);
-      const docSnap = await getDoc(docRef);
-      setName(docSnap.data().name);
-    }
-  };
-
   const value = {
     userStatus,
     name,
@@ -129,6 +151,8 @@ const UserDataProvider = ({ children }) => {
     addDataToDB,
     getName,
     changeData,
+    uploadDataPost,
+    uploadImg,
   };
 
   return (

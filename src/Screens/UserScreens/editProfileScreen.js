@@ -13,13 +13,14 @@ import { useAuth } from "../../AuthProvider/AuthProvider";
 import { globalStyles } from "../../styles/global";
 import { useData } from "../../AuthProvider/UserDataProvider";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { ref, getDownloadURL } from "firebase/storage";
+import { db, storage } from "../../../firebase";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 const EditProfileScreen = ({ navigation }) => {
   const { currentUser } = useAuth();
-  const { changeData } = useData();
+  const { changeData, uploadImg } = useData();
   const [image, setImage] = useState(null);
   const [name, setName] = useState("");
   const [school, setSchool] = useState("");
@@ -38,7 +39,10 @@ const EditProfileScreen = ({ navigation }) => {
       setNeighborhood(userData.neighborhood);
       setSchool(userData.school);
       setOrganiztion(userData.organiztion);
-      setImage(userData.pic);
+      const imgRef = ref(storage, userData.pic);
+      await getDownloadURL(imgRef).then((img) => {
+        setImage(img);
+      });
     };
     getUserData();
   }, []);
@@ -48,7 +52,10 @@ const EditProfileScreen = ({ navigation }) => {
       setError("");
       setLoading(true);
       const uid = currentUser.uid;
-      changeData(uid, name, school, classs, neighborhood, organiztion, image);
+      const date = new Date().toLocaleString();
+      const path = "/img/" + currentUser.uid + "/pofile/" + date + ".jpg";
+      uploadImg(path, image);
+      changeData(uid, name, school, classs, neighborhood, organiztion, path);
       navigation.navigate("Profile");
     } catch (err) {
       setError("Failed to change details");

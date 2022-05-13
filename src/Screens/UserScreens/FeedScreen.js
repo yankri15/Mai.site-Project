@@ -1,9 +1,9 @@
 import { Text, Pressable, FlatList, SafeAreaView } from "react-native";
 import { globalStyles } from "../../styles/global";
 import React, { useState, useEffect } from "react";
-import { db } from "../../../firebase";
+import { db, storage } from "../../../firebase";
 import Post from "../../API/Post";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, ref } from "firebase/firestore";
 import { useIsFocused } from "@react-navigation/native";
 
 const FeedScreen = ({ navigation }) => {
@@ -44,8 +44,9 @@ const FeedScreen = ({ navigation }) => {
         });
       });
     };
-
-    getPostData().catch(console.error);
+    if (!posts || posts.length == 0)
+      getPostData()
+        .catch(console.error);
     return;
   }, [isFocused]);
 
