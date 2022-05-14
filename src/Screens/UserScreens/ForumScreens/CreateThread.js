@@ -24,6 +24,7 @@ const CreateThread = ({ route, navigation }) => {
       collection(db, "forum", subjectData.topicId, subjectData.topicName),
       {
         title: title,
+        uid: currentUser.uid,
       }
     );
 
