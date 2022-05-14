@@ -69,12 +69,8 @@ const ThreadScreen = ({ route, navigation }) => {
 
   return (
     <SafeAreaView>
-      {comments && comments.length > 0 ? (
-        <Text>{comments[0].threadTitle}</Text>
-      ) : (
-        <Text>בטעינה</Text>
-      )}
-      {comments && comments.length > 0 ? (
+      {comments ? <Text>{comments[0].threadTitle}</Text> : <Text>בטעינה</Text>}
+      {comments ? (
         <FlatList
           data={comments}
           renderItem={({ item }) => <Comment commentData={item.commentData} />}
