@@ -10,8 +10,9 @@ import { View, Image, Text, TouchableOpacity } from "react-native";
 import { useData } from "../AuthProvider/UserDataProvider";
 import { globalStyles } from "../styles/global";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { db } from "../../firebase";
+import { db, storage } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
+import { getDownloadURL, ref } from "firebase/storage";
 
 const CustomDrawer = (props) => {
   const { currentUser, logout } = useAuth();
@@ -24,7 +25,10 @@ const CustomDrawer = (props) => {
       const docRef = doc(db, "users", currentUser.uid);
       const docSnap = await getDoc(docRef);
       const userData = docSnap.data();
-      setImage(userData.pic);
+      const imgRef = ref(storage, userData.pic);
+      await getDownloadURL(imgRef).then((img) => {
+        setImage(img);
+      });
     };
     getUserData();
   }, []);
