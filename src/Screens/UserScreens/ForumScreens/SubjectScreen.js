@@ -3,11 +3,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useState, useEffect } from "react";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../../../../firebase";
+import UserPicName from "../../../API/UserPicName";
 
 const SubjectScreen = ({ route, navigation }) => {
   const [thread, setThread] = useState([]);
-  const topicData = route.params.item;
 
+  const topicData = route.params.item;
   useEffect(() => {
     setThread([]);
     const getThread = async () => {
@@ -26,6 +27,7 @@ const SubjectScreen = ({ route, navigation }) => {
             ...topicData,
             threadId: element.id,
             threadTitle: element.data().title,
+            uid: element.data().uid,
           },
         ]);
       });
@@ -36,13 +38,13 @@ const SubjectScreen = ({ route, navigation }) => {
 
   return (
     <SafeAreaView>
-      {thread && thread.length > 0 ? (
+      {thread ? (
         <Pressable
           title="Create thread"
           onPress={() => {
             navigation.navigate("CreateThread", {
-              topicId: thread[0].topicId,
-              topicName: thread[0].topicName,
+              topicId: topicData.topicId,
+              topicName: topicData.topicName,
             });
           }}
         >
@@ -52,18 +54,19 @@ const SubjectScreen = ({ route, navigation }) => {
         <Text>בטעינה</Text>
       )}
 
-      {thread && thread.length > 0 ? (
+      {thread ? (
         <FlatList
           data={thread}
           renderItem={({ item }) => (
             <Pressable onPress={() => navigation.navigate("Thread", { item })}>
+              <UserPicName uid={item.uid} />
               <Text>{item.threadTitle}</Text>
             </Pressable>
           )}
           keyExtractor={(item, index) => index.toString()}
         />
       ) : (
-        <Text>מיד נציג אתכם</Text>
+        <Text>נושאים</Text>
       )}
     </SafeAreaView>
   );
