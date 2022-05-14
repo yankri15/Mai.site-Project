@@ -69,11 +69,17 @@ const ThreadScreen = ({ route, navigation }) => {
 
   return (
     <SafeAreaView>
-      {comments ? <Text>{comments[0].threadTitle}</Text> : <Text>בטעינה</Text>}
+      {comments && comments.length > 0 ? (
+        <Text>{comments[0].threadTitle}</Text>
+      ) : (
+        <Text>בטעינה</Text>
+      )}
       {comments ? (
         <FlatList
           data={comments}
-          renderItem={({ item }) => <Comment commentData={item.commentData} />}
+          renderItem={({ item }) => (
+            <Comment commentData={item.commentData} navigation={navigation} />
+          )}
           keyExtractor={(item, index) => index.toString()}
         />
       ) : (

@@ -59,7 +59,7 @@ const SubjectScreen = ({ route, navigation }) => {
           data={thread}
           renderItem={({ item }) => (
             <Pressable onPress={() => navigation.navigate("Thread", { item })}>
-              <UserPicName uid={item.uid} />
+              <UserPicName uid={item.uid} navigation={navigation} />
               <Text>{item.threadTitle}</Text>
             </Pressable>
           )}
