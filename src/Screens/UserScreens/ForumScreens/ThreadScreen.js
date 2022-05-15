@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import { useAuth } from "../../../AuthProvider/AuthProvider";
+import { globalStyles } from '../../../styles/global';
 import Comment from "./Comment";
 
 const ThreadScreen = ({ route, navigation }) => {
@@ -83,7 +84,7 @@ const ThreadScreen = ({ route, navigation }) => {
   }, []);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={globalStyles.global}>
       {comments && comments.length > 0 ? (
         <Text>{comments[0].threadTitle}</Text>
       ) : (

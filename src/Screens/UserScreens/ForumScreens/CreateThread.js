@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import { useAuth } from "../../../AuthProvider/AuthProvider";
+import { globalStyles } from '../../../styles/global';
 
 const CreateThread = ({ route, navigation }) => {
   const [title, setTitle] = useState("");
@@ -45,7 +46,7 @@ const CreateThread = ({ route, navigation }) => {
     );
   }
   return (
-    <SafeAreaView>
+    <SafeAreaView style={globalStyles.global}>
       <Text>פתח נושא</Text>
       <View>
         <TextInput

@@ -1,4 +1,5 @@
 import { StyleSheet, StatusBar } from "react-native";
+import { shadowOffset } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 
 export const globalStyles = StyleSheet.create({
     global: {
@@ -335,10 +336,11 @@ export const globalStyles = StyleSheet.create({
         textAlign: "center"
     },
     create_post_img: {
-        height: '55%',
+        height: '75%',
+        marginTop: '2%',
         //width: '92%',
         //marginLeft: '4%',
-        resizeMode : 'contain',
+        resizeMode: 'stretch',
     },
     to_post: {
         position: 'absolute',
@@ -387,8 +389,9 @@ export const globalStyles = StyleSheet.create({
     },
     post_img: {
         width: '100%',
-        height: 360,
+        height: 375,
         paddingBottom: '2%',
+        resizeMode : 'stretch',
         resizeMode : 'contain',
     },
     user_pic: {
@@ -428,6 +431,7 @@ export const globalStyles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         margin: '2%',
+        paddingBottom: '2%',
     },
     like_comment_btn: {
         alignItems: 'center',
@@ -441,4 +445,59 @@ export const globalStyles = StyleSheet.create({
         fontSize: 18,
         marginRight: '8%',
     },
+    /////////////////Forum_Topic/////////////////
+    forum_title_text: {
+        color: "#fdc123",
+        fontSize: 40,
+        fontWeight: "bold",
+        textAlign: "center",
+        marginBottom: '2%',
+    },
+    forums_titles: {
+        margin: '2%',
+        alignItems: "center",
+        shadowColor: "black",
+        shadowOpacity: 0.8,
+        shadowOffset: {width: 1, height: 13},
+        shadowRadius: 20,
+    },
+    forums_titles_txt: {
+        fontSize: 35,
+        fontWeight: "bold",
+        color: "#a77ce8",
+    },
+    /////////////////Forum_Subject/////////////////
+    open_sub_btn: {
+        position: 'absolute',
+        top: '2%',
+        right: '3%',
+        borderColor: 'black',
+        borderStyle: 'solid',
+        backgroundColor: "#a77ce8",
+        textAlign: "center",
+        borderWidth: 2,
+        borderRadius: 100,
+        padding: 5,
+    },
+    open_sub_btn_text: {
+        color: "#fdc123",
+        fontSize: 15,
+        fontWeight: "bold",
+        paddingLeft: 10,
+        paddingRight: 10,
+    },
+    subjects: {
+        marginBottom: '3%',
+    },
+    subjects_txt: {
+        fontSize: 15,
+        margin: '2%',
+        marginBottom: '5%',
+    },
+    /////////////////Forum_Create_Thread/////////////////
+
+    /////////////////Forum_Thread/////////////////
+
+    /////////////////Forum_Comment/////////////////
+
 });

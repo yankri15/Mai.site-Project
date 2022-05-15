@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import UserPicName from "../../../API/UserPicName";
+import { globalStyles } from '../../../styles/global';
 
 const SubjectScreen = ({ route, navigation }) => {
   const [thread, setThread] = useState([]);
@@ -48,10 +49,11 @@ const SubjectScreen = ({ route, navigation }) => {
   }, []);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={globalStyles.global}>
       {thread ? (
         <Pressable
           title="Create thread"
+          style={globalStyles.open_sub_btn}
           onPress={() => {
             navigation.navigate("CreateThread", {
               topicId: topicData.topicId,
@@ -59,7 +61,7 @@ const SubjectScreen = ({ route, navigation }) => {
             });
           }}
         >
-          <Text>פתח נושא</Text>
+          <Text style={globalStyles.open_sub_btn_text}>פתח נושא</Text>
         </Pressable>
       ) : (
         <Text>בטעינה</Text>
@@ -69,9 +71,12 @@ const SubjectScreen = ({ route, navigation }) => {
         <FlatList
           data={thread}
           renderItem={({ item }) => (
-            <Pressable onPress={() => navigation.navigate("Thread", { item })}>
+            <Pressable
+              style={globalStyles.subjects}
+              onPress={() => navigation.navigate("Thread", { item })}>
               <UserPicName uid={item.uid} navigation={navigation} />
-              <Text>{item.threadTitle}</Text>
+              <Text style={globalStyles.subjects_txt}>{item.threadTitle}</Text>
+              <View style={globalStyles.line}></View>
             </Pressable>
           )}
           refreshing={refreshing}

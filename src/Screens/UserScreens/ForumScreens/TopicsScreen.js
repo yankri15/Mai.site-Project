@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { async } from '@firebase/util';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from "../../../../firebase"
+import { globalStyles } from '../../../styles/global';
 
 
 const TopicsScreen = ({ navigation }) => {
@@ -40,16 +41,21 @@ const TopicsScreen = ({ navigation }) => {
 
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={globalStyles.global}>
+            <Text style={globalStyles.forum_title_text}>הנושאים שלנו</Text>
             {(
                 <FlatList
                     data={topics}
                     renderItem={({ item }) => (
                         <Pressable
+                            style={globalStyles.forums_titles}
                             onPress={() => navigation.navigate("Subject", { item })}>
-                            <Text>{item.topicName}</Text>
+                            <View style={globalStyles.line}></View>
+                            <Text style={globalStyles.forums_titles_txt}>{item.topicName}</Text>
+
                         </Pressable>
                     )}
+
                     refreshing={refreshing}
                     onRefresh={handleRefresh}
                     ListEmptyComponent={() => {
@@ -59,9 +65,11 @@ const TopicsScreen = ({ navigation }) => {
                             </View>
                         )
                     }}
+
                     keyExtractor={(item, index) => index.toString()}
                 />
             )}
+
         </SafeAreaView>
     )
 }
