@@ -83,7 +83,7 @@ const ProfileScreen = ({ route, navigation }) => {
           style={globalStyles.profile_edit_btn}
           title="edit"
           onPress={() => {
-            navigation.navigate("EditProfile");
+            navigation.navigate("ProfileEdit");
           }}
         >
           <Text style={globalStyles.profile_edit_btn_text}>עריכה</Text>
