@@ -7,6 +7,7 @@ import {
   Pressable,
   Text,
   Picker,
+  Alert,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useAuth } from "../../AuthProvider/AuthProvider";
@@ -48,6 +49,10 @@ const EditProfileScreen = ({ navigation }) => {
   }, []);
 
   async function handleChanges() {
+    if (!name || !school || !classs || !neighborhood || !organiztion) {
+      Alert.alert('אנא מלא את כל השדות');
+      return;
+    }
     try {
       setError("");
       setLoading(true);
