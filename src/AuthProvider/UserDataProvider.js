@@ -114,7 +114,7 @@ const UserDataProvider = ({ children }) => {
 
   const uploadDataPost = async (path, postText) => {
     await setDoc(doc(db, "posts", currentUser.uid), {
-      filler: "bullshit",
+      filler: "Think about this problem",
     });
     await addDoc(collection(db, "posts", currentUser.uid, "userPosts"), {
       downloadURL: path,

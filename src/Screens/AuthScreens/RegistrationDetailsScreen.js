@@ -25,9 +25,7 @@ const RegistrationDetailsScreen = () => {
   const [year, setYear] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const localImageUri = Image.resolveAssetSource(
-    require("../../../assets/profile-pic.png")
-  ).uri;
+  const localImageUri = "/img/MKieJCEazGeqPCoLPLq6X9qNwhh1/pofile/Sun May 15 09:56:26 2022.jpg";
 
   async function handleRegisteration() {
     try {
