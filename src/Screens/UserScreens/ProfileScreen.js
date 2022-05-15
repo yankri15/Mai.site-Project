@@ -3,16 +3,10 @@
 //for change photo(need to add button): https://www.npmjs.com/package/react-native-image-picker
 
 import React, { useState, useEffect } from "react";
-import { doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../../firebase";
-import {
-  View,
-  Text,
-  SafeAreaView,
-  Image,
-  Pressable,
-} from "react-native";
+import { View, Text, SafeAreaView, Image, Pressable } from "react-native";
 import { globalStyles } from "../../styles/global";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import { useIsFocused } from "@react-navigation/native";
@@ -29,7 +23,7 @@ const ProfileScreen = ({ route, navigation }) => {
   const [classs, setClasss] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [profilePicUri, setProfilePicUri] = useState();
-  // console.log("currentUser.id: ", currentUser.id)
+  const [tags, setTags] = useState([]);
 
   useEffect(() => {
     const getStatus = async () => {
@@ -48,9 +42,17 @@ const ProfileScreen = ({ route, navigation }) => {
       await getDownloadURL(imgRef).then((img) => {
         setProfilePicUri(img);
       });
-      // }
     };
+
+    const getTags = async () => {
+      const docRef = doc(db, "posts", id);
+      const docSnap = await getDoc(docRef);
+      setTags(docSnap.data().tags);
+      console.log(docSnap.data().tags);
+    };
+
     getStatus().catch(console.error);
+    getTags().catch(console.error);
     return;
   }, [isFocused]);
 
@@ -104,7 +106,7 @@ const ProfileScreen = ({ route, navigation }) => {
             </Text>
           </View>
           <View>
-            <Text>תחומי עניין</Text>
+            <Text>{tags}</Text>
           </View>
         </View>
         <View style={globalStyles.side_details}>
