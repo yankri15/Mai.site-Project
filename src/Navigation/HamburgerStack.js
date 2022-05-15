@@ -1,6 +1,5 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import React, { useEffect } from "react";
-
 import UserNavbar from "../API/UserNavbar";
 import ForumNavigator from "./ForumNavigator";
 import SettingsScreen from "../Screens/UserScreens/SettingsScreen";
@@ -30,10 +29,11 @@ const HamburgerStack = () => {
         gestureEnabled: false,
       }}
     >
-      <Drawer.Screen name="Home" component={UserNavbar} />
-      <Drawer.Screen name="Profile" component={ProfileNavigator} />
-      <Drawer.Screen name="Forum" component={ForumNavigator} />
-      <Drawer.Screen name="Settings" component={SettingsScreen} />
+      <Drawer.Screen name="בית" component={UserNavbar} />
+      <Drawer.Screen name="פרופיל" component={ProfileNavigator} />
+      <Drawer.Screen name="פורום" component={ForumNavigator} />
+      <Drawer.Screen name="הגדרות" component={SettingsScreen} />
+
       {admin ? (
         <Drawer.Screen name="Admin" component={AdminNavigator} />
       ) : (null)}

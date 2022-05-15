@@ -144,16 +144,18 @@ export const globalStyles = StyleSheet.create({
         fontSize: 10,
     },
     ////////////////////////////////////////////////
+    draw_pic_name: {
+        alignItems: "center",
+        margin: '3%',
+    },
     drawer_pic: {
         height: 85,
         width: 85,
         borderRadius: 100,
-        margin: '3%',
     },
     drawer_name: {
         color: "#fff",
         fontSize: 20,
-        margin: '1%',
     },
     drawer_props: {
         flex: 1,
@@ -199,8 +201,8 @@ export const globalStyles = StyleSheet.create({
     },
     profile_edit_btn: {
         position: 'absolute',
-        left: '2%',
-        top: '2%',
+        left: '5%',
+        bottom: '7%',
         backgroundColor: "#a77ce8",
         borderWidth: 2,
         borderRadius: 100,
@@ -360,7 +362,7 @@ export const globalStyles = StyleSheet.create({
     ////////////////////////////////////////////////
     feed: {
         bottom: '4%',
-        backgroundColor: "#d3d3d3",
+        backgroundColor: "#fee6a7",
     },
     empty_feed: {
         color: "#fdc123",
@@ -381,7 +383,7 @@ export const globalStyles = StyleSheet.create({
         backgroundColor: "#ffffff"
     },
     post_text: {
-        textAlign: "right",
+        textAlign: "left",
         margin: '3%',
         fontSize: 17,
     },
@@ -389,8 +391,8 @@ export const globalStyles = StyleSheet.create({
         width: '100%',
         height: 375,
         paddingBottom: '2%',
-        resizeMode : 'stretch',
-        resizeMode : 'contain',
+        resizeMode: 'stretch',
+        resizeMode: 'contain',
     },
     user_pic: {
         width: 40,
@@ -427,21 +429,44 @@ export const globalStyles = StyleSheet.create({
     },
     like_comment: {
         flexDirection: "row",
-        justifyContent: "center",
-        margin: '2%',
+        justifyContent: "space-between",
+        marginLeft: '8%',
+        marginRight: '8%',
         paddingBottom: '2%',
+        marginTop: '2%',
+    },
+    details_like_comment: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        //marginLeft: '8%',
+        //marginRight: '8%',
+       // paddingBottom: '2%',
+       // marginTop: '2%',
     },
     like_comment_btn: {
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: "row",
-        
     },
     like_comment_btn_txt: {
-        color: "#000000",
+        color: "#c6c6b5",
         fontWeight: "bold",
         fontSize: 18,
-        marginRight: '8%',
+        marginLeft: '5%',
+    },
+    info_like_comment_txt: {
+        color: "#c6c6b5",
+        fontWeight: "bold",
+        fontSize: 15,
+        marginLeft: '2%',
+    },
+    like_comment_line: {
+        width: '94%',
+        marginLeft: '3%',
+        borderWidth: 0.5,
+        borderColor: '#c6c6b5',
+        marginTop: '2%',
+        marginBottom: '0.5%',
     },
     /////////////////Forum_Topic/////////////////
     forum_title_text: {
@@ -456,7 +481,7 @@ export const globalStyles = StyleSheet.create({
         alignItems: "center",
         shadowColor: "black",
         shadowOpacity: 0.8,
-        shadowOffset: {width: 1, height: 13},
+        shadowOffset: { width: 1, height: 13 },
         shadowRadius: 20,
     },
     forums_titles_txt: {
@@ -467,8 +492,8 @@ export const globalStyles = StyleSheet.create({
     /////////////////Forum_Subject/////////////////
     open_sub_btn: {
         position: 'absolute',
-        top: '2%',
-        right: '3%',
+        bottom: '7%',
+        left: '5%',
         borderColor: 'black',
         borderStyle: 'solid',
         backgroundColor: "#a77ce8",
@@ -479,16 +504,18 @@ export const globalStyles = StyleSheet.create({
     },
     open_sub_btn_text: {
         color: "#fdc123",
-        fontSize: 15,
+        fontSize: 18,
         fontWeight: "bold",
         paddingLeft: 10,
         paddingRight: 10,
     },
     subjects: {
-        marginBottom: '3%',
+        marginTop: '1%',
     },
     subjects_txt: {
-        fontSize: 15,
+        fontSize: 18,
+        color: "#a77ce8",
+        fontWeight: "bold",
         margin: '2%',
         marginBottom: '5%',
     },

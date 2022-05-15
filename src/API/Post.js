@@ -6,7 +6,7 @@ import UserPicName from "./UserPicName";
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../firebase"
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
-import { Octicons, AntDesign } from "@expo/vector-icons";
+import { Octicons, AntDesign, FontAwesome } from "@expo/vector-icons";
 
 const Post = ({ post, navigation }) => {
   const [url, setUrl] = useState();
@@ -35,24 +35,48 @@ const Post = ({ post, navigation }) => {
         )}
         <View style={globalStyles.like_comment}>
           <Pressable
-            title="comment"
-            // onPress={() => {
-            //   navigation.navigate("CreatePost", { navigation });
-            // }}
-            style={globalStyles.like_comment_btn}
+            title="like"
+            onPress={() => {
+
+            }}
+            style={globalStyles.details_like_comment}
           >
-            <Text style={globalStyles.like_comment_btn_txt}>תגובה</Text>
-            <Octicons style={{ color: "black" }} name="comment" size={18}></Octicons>
+            <AntDesign style={{ color: "#fdc123" }} name="like1" size={20}></AntDesign>
+            <Text style={globalStyles.info_like_comment_txt}>8</Text>
           </Pressable>
           <Pressable
+            title="comment"
+            onPress={() => {
+
+            }}
+            style={globalStyles.details_like_comment}
+          >
+            <FontAwesome style={{ color: "#fdc123" }} name="commenting" size={20}></FontAwesome>
+            <Text style={globalStyles.info_like_comment_txt}>2 תגובות</Text>
+          </Pressable>
+        </View>
+        <View style={globalStyles.like_comment_line}></View>
+        <View style={globalStyles.like_comment}>
+          <Pressable
             title="like"
-            // onPress={() => {
-            //   navigation.navigate("CreatePost", { navigation });
-            // }}
+            onPress={() => {
+              //navigation.navigate("CreatePost", { navigation });
+
+            }}
             style={globalStyles.like_comment_btn}
           >
+            <AntDesign style={{ color: "#c6c6b5" }} name="like2" size={18}></AntDesign>
             <Text style={globalStyles.like_comment_btn_txt}>אהבתי</Text>
-            <AntDesign style={{ color: "black" }} name="like2" size={20}></AntDesign>
+          </Pressable>
+          <Pressable
+            title="comment"
+            onPress={() => {
+              //navigation.navigate("CreatePost", { navigation });
+            }}
+            style={globalStyles.like_comment_btn}
+          >
+            <FontAwesome style={{ color: "#c6c6b5" }} name="commenting-o" size={18}></FontAwesome>
+            <Text style={globalStyles.like_comment_btn_txt}>הגיבו</Text>
           </Pressable>
         </View>
 
