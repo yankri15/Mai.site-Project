@@ -3,7 +3,7 @@
 //for change photo(need to add button): https://www.npmjs.com/package/react-native-image-picker
 
 import React, { useState, useEffect } from "react";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../../firebase";
 import {
@@ -11,8 +11,10 @@ import {
   Text,
   SafeAreaView,
   Image,
+  ScrollView,
   Pressable,
 } from "react-native";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { globalStyles } from "../../styles/global";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import { useIsFocused } from "@react-navigation/native";
@@ -82,7 +84,7 @@ const ProfileScreen = ({ route, navigation }) => {
             style={globalStyles.profile_edit_btn}
             title="edit"
             onPress={() => {
-              navigation.navigate("ProfileEdit");
+              navigation.navigate("EditProfile");
             }}
           >
             <Text style={globalStyles.profile_edit_btn_text}>עריכה</Text>
