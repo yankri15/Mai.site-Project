@@ -1,5 +1,5 @@
 import { StyleSheet, StatusBar } from "react-native";
-import { shadowOffset } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
+import { borderColor, shadowOffset } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 
 export const globalStyles = StyleSheet.create({
     global: {
@@ -497,5 +497,38 @@ export const globalStyles = StyleSheet.create({
     /////////////////Forum_Thread/////////////////
 
     /////////////////Forum_Comment/////////////////
+    Forum_Comment: {
+        marginBottom: '15%',
+        borderColor: "black",
+        borderWidth: 1,
+        padding: "4%",
+        borderRadius: 20,
+        width: "96%",
+        marginLeft: "3%"
 
+    },
+
+    Forum_Button:{
+        borderColor: "black",
+        borderStyle: 'solid',
+        backgroundColor: "#a77ce8",
+        borderRadius: 50,
+        borderWidth: 3,
+        marginTop: "5%",
+        width: "30%",
+    },
+
+    Forum_Button_Text:{
+        color: "#fdc123",
+        fontSize: 15,
+        fontWeight: "bold",
+        paddingRight: 5,
+        paddingBottom: 5,
+        paddingTop:5,
+
+    },
+
+    Forum_Comment_Text:{
+
+    }
 });

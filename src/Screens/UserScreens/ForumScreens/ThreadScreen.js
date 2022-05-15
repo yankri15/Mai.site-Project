@@ -108,15 +108,15 @@ const ThreadScreen = ({ route, navigation }) => {
           keyExtractor={(item, index) => index.toString()}
         />
       )}
-      <View>
-        <TextInput
+      <View style = {globalStyles.Forum_Comment}>
+        <TextInput style = {globalStyles.Forum_Comment_Text}
           value={newComment}
           placeholder="כתוב תגובה..."
           onChangeText={(text) => setNewComment(text)}
           minLength={20}
         />
-        <Pressable title="publishNewComment" onPress={handleNewComment}>
-          <Text>פרסם תגובה</Text>
+        <Pressable title="publishNewComment" style = {globalStyles.Forum_Button} onPress={handleNewComment}>
+          <Text style = {globalStyles.Forum_Button_Text}>פרסם תגובה</Text>
         </Pressable>
       </View>
     </SafeAreaView>
