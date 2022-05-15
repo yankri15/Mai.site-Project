@@ -34,7 +34,6 @@ const UserNavbar = () => {
                     }
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
-
                 tabBarActiveTintColor: "#f0d24d",
                 tabBarInactiveTintColor: "grey",
             })}

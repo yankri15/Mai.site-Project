@@ -50,34 +50,19 @@ const SubjectScreen = ({ route, navigation }) => {
 
   return (
     <SafeAreaView style={globalStyles.global}>
-      {thread ? (
-        <Pressable
-          title="Create thread"
-          style={globalStyles.open_sub_btn}
-          onPress={() => {
-            navigation.navigate("CreateThread", {
-              topicId: topicData.topicId,
-              topicName: topicData.topicName,
-            });
-          }}
-        >
-          <Text style={globalStyles.open_sub_btn_text}>פתח נושא</Text>
-        </Pressable>
-      ) : (
-        <Text>בטעינה</Text>
-      )}
-
       {(
         <FlatList
+          style={globalStyles.subjects}
           data={thread}
           renderItem={({ item }) => (
-            <Pressable
-              style={globalStyles.subjects}
-              onPress={() => navigation.navigate("Thread", { item })}>
-              <UserPicName uid={item.uid} navigation={navigation} />
-              <Text style={globalStyles.subjects_txt}>{item.threadTitle}</Text>
-              <View style={globalStyles.line}></View>
-            </Pressable>
+            <View >
+              <Pressable
+                onPress={() => navigation.navigate("Thread", { item })}>
+                <UserPicName uid={item.uid} navigation={navigation} />
+                <Text style={globalStyles.subjects_txt}>{item.threadTitle}</Text>
+                <View style={globalStyles.line}></View>
+              </Pressable>
+            </View>
           )}
           refreshing={refreshing}
           onRefresh={handleRefresh}
@@ -91,6 +76,18 @@ const SubjectScreen = ({ route, navigation }) => {
           keyExtractor={(item, index) => index.toString()}
         />
       )}
+      <Pressable
+        title="Create thread"
+        style={globalStyles.open_sub_btn}
+        onPress={() => {
+          navigation.navigate("CreateThread", {
+            topicId: topicData.topicId,
+            topicName: topicData.topicName,
+          });
+        }}
+      >
+        <Text style={globalStyles.open_sub_btn_text}>פתח נושא</Text>
+      </Pressable>
     </SafeAreaView>
   );
 };

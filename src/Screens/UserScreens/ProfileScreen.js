@@ -78,18 +78,18 @@ const ProfileScreen = ({ route, navigation }) => {
 
   return (
     <SafeAreaView style={globalStyles.global}>
+      {currentUser.uid == id ? (
+        <Pressable
+          style={globalStyles.profile_edit_btn}
+          title="edit"
+          onPress={() => {
+            navigation.navigate("EditProfile");
+          }}
+        >
+          <Text style={globalStyles.profile_edit_btn_text}>עריכה</Text>
+        </Pressable>
+      ) : null}
       <View style={globalStyles.stage1}>
-        {currentUser.uid == id ? (
-          <Pressable
-            style={globalStyles.profile_edit_btn}
-            title="edit"
-            onPress={() => {
-              navigation.navigate("EditProfile");
-            }}
-          >
-            <Text style={globalStyles.profile_edit_btn_text}>עריכה</Text>
-          </Pressable>
-        ) : null}
         <View style={globalStyles.picAndDetails}>
           <View>
             <View style={globalStyles.profile_pic}>

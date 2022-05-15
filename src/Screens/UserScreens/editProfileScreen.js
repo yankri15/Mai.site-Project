@@ -111,8 +111,8 @@ const EditProfileScreen = ({ navigation }) => {
           onPress={pickImage}
           disabled={loading}
         >
-          <MaterialIcons style={{ color: "#fdc123" }} name="photo-library" size={20}></MaterialIcons>
           <Text style={globalStyles.take_a_pic_btn_text}>תמונה מהגלריה  </Text>
+          <MaterialIcons style={{ color: "#fdc123" }} name="photo-library" size={20}></MaterialIcons>
         </Pressable>
         {/* <Button title="בחר/י תמונה מגלריה" onPress={pickImage} /> */}
         <Pressable
@@ -121,8 +121,8 @@ const EditProfileScreen = ({ navigation }) => {
           onPress={pickImageFromCamera}
           disabled={loading}
         >
-          <Ionicons style={{ color: "#fdc123" }} name="camera-outline" size={20}></Ionicons>
           <Text style={globalStyles.take_a_pic_btn_text}>צלם/י תמונה  </Text>
+          <Ionicons style={{ color: "#fdc123" }} name="camera-outline" size={20}></Ionicons>
         </Pressable>
         {/* <Button title="צלם/י תמונה" onPress={pickImageFromCamera} /> */}
       </View>
