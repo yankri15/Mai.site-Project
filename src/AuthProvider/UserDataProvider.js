@@ -1,4 +1,4 @@
-import { doc, setDoc, getDoc, updateDoc, addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, addDoc, collection, serverTimestamp, getDocs } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
 import React, { useContext, useState, useEffect } from "react";
 import { db, storage } from "../../firebase";
@@ -13,6 +13,8 @@ const UserDataProvider = ({ children }) => {
   const { currentUser } = useAuth();
   const [userStatus, setUserStatus] = useState();
   const [name, setName] = useState("");
+  const [admin, setAdmin] = useState();
+  const [usersList, setUsersList] = useState([]);
 
   //Add user to db with email and status
   const setUserToDB = async (uid, email) => {
@@ -112,6 +114,26 @@ const UserDataProvider = ({ children }) => {
     }
   };
 
+  const getUsersList = async () => {
+    setUsersList([])
+    const docRef = collection(db, "users");
+    const docSnap = await getDocs(docRef);
+    docSnap.docs.forEach(element => {
+      // setUsersList((prev) => [...prev, { "id": elemet.id, "data": elemet.data() }]);
+      // if (element.data().name.includes(nameToSearch)) {
+      setUsersList((prev) => [...prev, { "id": element.id, "data": element.data() }])
+      // }
+    })
+  };
+
+  const checkAdmin = async () => {
+    if (currentUser) {
+      const docRef = doc(db, "users", currentUser.uid);
+      const docSnap = await getDoc(docRef);
+      setAdmin(docSnap.data().admin);
+    }
+  };
+
   const uploadDataPost = async (path, postText) => {
     await setDoc(doc(db, "posts", currentUser.uid), {
       filler: "Think about this problem",
@@ -146,10 +168,14 @@ const UserDataProvider = ({ children }) => {
   const value = {
     userStatus,
     name,
+    admin,
+    usersList,
     setUserToDB,
     approveUser,
     addDataToDB,
     getName,
+    checkAdmin,
+    getUsersList,
     changeData,
     uploadDataPost,
     uploadImg,
