@@ -6,7 +6,7 @@ import { globalStyles } from '../../../styles/global';
 
 const Comment = ({ navigation, commentData }) => {
   return (
-    <SafeAreaView style={globalStyles.global}>
+    <SafeAreaView>
       <View>
         <UserPicName uid={commentData.uid} navigation={navigation} />
         <Text>{commentData.comment}</Text>

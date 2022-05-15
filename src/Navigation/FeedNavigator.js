@@ -11,7 +11,7 @@ import WantedScreen from "../Screens/UserScreens/WantedScreen";
 import CreatePost from "../Screens/UserScreens/CreatePost";
 import ProfilePic from "../API/ProfilePic";
 import { useAuth } from "../AuthProvider/AuthProvider";
-import EditProfileScreen from "../Screens/UserScreens/EditProfileScreen";
+import ProfileEditScreen from "../Screens/UserScreens/ProfileEditScreen";
 
 const UserStack = createStackNavigator();
 
@@ -27,7 +27,7 @@ const FeedNavigator = ({ navigation }) => {
       />
       <UserStack.Screen name="Map" component={MapScreen} />
       <UserStack.Screen name="Profile" component={ProfileScreen} />
-      <UserStack.Screen name="EditProfile" component={EditProfileScreen} />
+      <UserStack.Screen name="ProfileEdit" component={ProfileEditScreen} />
       <UserStack.Screen name="SearchResult" component={SearchResultScreen} />
       <UserStack.Screen name="Settings" component={SettingsScreen} />
       <UserStack.Screen name="Wanted" component={WantedScreen} />
