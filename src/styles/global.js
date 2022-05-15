@@ -28,9 +28,7 @@ export const globalStyles = StyleSheet.create({
         backgroundColor: "#fffffa",
     },
     loading: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: "#a77ce8",
+        flex: 1,
     },
     ////////////////////////////////////////////////
     landing_imageArea: {
