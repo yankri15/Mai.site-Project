@@ -17,10 +17,21 @@ import Comment from "./Comment";
 const ThreadScreen = ({ route, navigation }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
+  const [refreshing, setRefreshing] = useState(true);
   const subjectData = route.params.item;
   const { currentUser } = useAuth();
 
+  const handleRefresh = () => {
+    getComments().then(() => {
+      setNewComment("");
+      setRefreshing(false);
+    }).catch(console.error);
+  }
+
   const handleNewComment = async () => {
+    if (newComment.length <= 4) {
+      return;
+    }
     await addDoc(
       collection(
         db,
@@ -38,32 +49,36 @@ const ThreadScreen = ({ route, navigation }) => {
     );
   };
 
-  useEffect(() => {
+  const getComments = async () => {
     setComments([]);
-    const getComments = async () => {
-      const docRef = collection(
-        db,
-        "forum",
-        subjectData.topicId,
-        subjectData.topicName,
-        subjectData.threadId,
-        "comments"
-      );
-      const q = query(docRef, orderBy("creation", "asc"));
-      const docSnap = await getDocs(q);
+    const docRef = collection(
+      db,
+      "forum",
+      subjectData.topicId,
+      subjectData.topicName,
+      subjectData.threadId,
+      "comments"
+    );
+    const q = query(docRef, orderBy("creation", "asc"));
+    const docSnap = await getDocs(q);
 
-      docSnap.docs.forEach((element) => {
-        setComments((prev) => [
-          ...prev,
-          {
-            ...subjectData,
-            commentId: element.id,
-            commentData: element.data(),
-          },
-        ]);
-      });
-    };
-    if (!comments || comments.length == 0) getComments().catch(console.error);
+    docSnap.docs.forEach((element) => {
+      setComments((prev) => [
+        ...prev,
+        {
+          ...subjectData,
+          commentId: element.id,
+          commentData: element.data(),
+        },
+      ]);
+    });
+  };
+  useEffect(() => {
+    getComments()
+      .then(() => {
+        setRefreshing(false);
+      })
+      .catch(console.error);
     return;
   }, []);
 
@@ -74,22 +89,30 @@ const ThreadScreen = ({ route, navigation }) => {
       ) : (
         <Text>בטעינה</Text>
       )}
-      {comments ? (
+      {(
         <FlatList
           data={comments}
           renderItem={({ item }) => (
             <Comment commentData={item.commentData} navigation={navigation} />
           )}
+          refreshing={refreshing}
+          onRefresh={handleRefresh}
+          ListEmptyComponent={() => {
+            return (
+              <View>
+                <Text>נראה שאין מה להציג כרגע..</Text>
+              </View>
+            )
+          }}
           keyExtractor={(item, index) => index.toString()}
         />
-      ) : (
-        <Text>בטעינה</Text>
       )}
       <View>
         <TextInput
           value={newComment}
           placeholder="כתוב תגובה..."
           onChangeText={(text) => setNewComment(text)}
+          minLength={20}
         />
         <Pressable title="publishNewComment" onPress={handleNewComment}>
           <Text>פרסם תגובה</Text>

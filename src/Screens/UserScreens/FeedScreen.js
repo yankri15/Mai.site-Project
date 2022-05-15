@@ -1,4 +1,4 @@
-import { Text, Pressable, FlatList, SafeAreaView } from "react-native";
+import { Text, Pressable, FlatList, SafeAreaView, View } from "react-native";
 import { globalStyles } from "../../styles/global";
 import React, { useState, useEffect } from "react";
 import { db, storage } from "../../../firebase";
@@ -6,53 +6,85 @@ import Post from "../../API/Post";
 import { collection, getDocs, ref } from "firebase/firestore";
 import { useIsFocused } from "@react-navigation/native";
 
-const FeedScreen = ({ navigation }) => {
+const FeedScreen = ({ navigation, route }) => {
   const [posts, setPosts] = useState([]);
+  const [refreshing, setRefreshing] = useState(true);
   const isFocused = useIsFocused();
 
-  useEffect(() => {
-    // const getPostData = async () => {
-    //   const q = collection(db, "posts");
-    //   const docSnap = await getDocs(q);
-    //   console.log(docSnap.docs[0].data());
-    //   const promises = docSnap.docs.map(async (item) => {
-    //     // console.log(item.id); This is the uid's we want
-    //     const tmp = collection(db, "posts", item.id, "userPosts");
-    //     const tmpSnap = await getDocs(tmp);
-    //     return tmpSnap.docs.map((element) => element.data());
-    //   });
+  const handleRefresh = () => {
+    getPostData().then(() => {
+      setRefreshing(false);
+    }).catch(console.error);
+  }
 
-    //   const arrayOfPosts = await Promise.all(promises);
-    //   console.log(arrayOfPosts);
-    //   let newPosts = [];
-    //   arrayOfPosts.forEach((posts) => {
-    //     newPosts = [...newPosts, ...posts];
-    //   });
-    //   setPosts(newPosts);
-    //   console.log(newPosts);
-    // };
+  const sortByDates = (post1, post2) => {
+    const creation1 = post1.data.creation;
+    const creation2 = post2.data.creation;
+    if (creation1.seconds > creation2.seconds) {
+      return 1;
+    }
+    else if (creation1.seconds < creation2.seconds) {
+      return -1;
+    }
+    else {
+      if (creation1.nanoseconds > creation2.nanoseconds) {
+        return 1
+      }
+      else if (creation1.nanoseconds < creation2.nanoseconds) {
+        return -1;
+      }
+      else {
+        return 0;
+      }
+    }
+  }
 
-    const getPostData = async () => {
-      setPosts([]);
-      const q = collection(db, "posts");
-      const docSnap = await getDocs(q);
-      const promises = docSnap.docs.forEach(async (item) => {
-        const tmp = collection(db, "posts", item.id, "userPosts");
-        const tmpSnap = await getDocs(tmp);
-        return tmpSnap.docs.forEach((element) => {
-          setPosts(prev => [...prev, { "id": item.id, "data": element.data() }]);
-        });
+  // const getPostData = async () => {
+  //   const q = collection(db, "posts");
+  //   const docSnap = await getDocs(q);
+  //   console.log(docSnap.docs[0].data());
+  //   const promises = docSnap.docs.map(async (item) => {
+  //     // console.log(item.id); This is the uid's we want
+  //     const tmp = collection(db, "posts", item.id, "userPosts");
+  //     const tmpSnap = await getDocs(tmp);
+  //     return tmpSnap.docs.map((element) => element.data());
+  //   });
+
+  //   const arrayOfPosts = await Promise.all(promises);
+  //   console.log(arrayOfPosts);
+  //   let newPosts = [];
+  //   arrayOfPosts.forEach((posts) => {
+  //     newPosts = [...newPosts, ...posts];
+  //   });
+  //   setPosts(newPosts);
+  //   console.log(newPosts);
+  // };
+
+  const getPostData = async () => {
+    setRefreshing(true);
+    setPosts([]);
+    const q = collection(db, "posts");
+    const docSnap = await getDocs(q);
+    docSnap.docs.forEach(async (item) => {
+      const tmp = collection(db, "posts", item.id, "userPosts");
+      const tmpSnap = await getDocs(tmp);
+      return tmpSnap.docs.forEach((element) => {
+        setPosts(prev => [...prev, { "id": item.id, "data": element.data() }]);
       });
-    };
-    if (!posts || posts.length == 0)
-      getPostData()
-        .catch(console.error);
+    });
+    posts.sort(sortByDates);
+  }
+
+  useEffect(() => {
+    getPostData().then(() => {
+      setRefreshing(false);
+    }).catch(console.error);
     return;
-  }, [isFocused]);
+  }, []);
 
   return (
     <SafeAreaView style={globalStyles.global}>
-      {posts && posts.length > 0 ? (
+      {(
         <FlatList
           data={posts}
           style={globalStyles.feed}
@@ -63,10 +95,17 @@ const FeedScreen = ({ navigation }) => {
               style={globalStyles.list_of_posts}
             />
           )}
+          refreshing={refreshing}
+          onRefresh={handleRefresh}
+          ListEmptyComponent={() => {
+            return (
+              <View>
+                <Text>נראה שאין מה להציג כרגע..</Text>
+              </View>
+            )
+          }}
           keyExtractor={(item, index) => index.toString()}
         />
-      ) : (
-        <Text>מיד נציג אתכם</Text>
       )}
 
       <Pressable
