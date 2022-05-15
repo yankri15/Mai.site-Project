@@ -50,21 +50,7 @@ const CreatePost = ({ navigation }) => {
     const path = "/img/" + currentUser.uid + "/posts/" + date + ".jpg";
 
     uploadImg(path, image);
-    // const docRef = ref(storage, path);
-    // const img = await fetch(image);
-    // const bytes = await img.blob();
-    // await uploadBytes(docRef, bytes);
-
     uploadDataPost(path, postText);
-
-    // await setDoc(doc(db, "posts", currentUser.uid), {
-    //   filler: "Think about this problem",
-    // });
-    // await addDoc(collection(db, "posts", currentUser.uid, "userPosts"), {
-    //   downloadURL: path,
-    //   postText: postText,
-    //   creation: serverTimestamp(),
-    // });
 
     navigation.navigate("Feed");
   };

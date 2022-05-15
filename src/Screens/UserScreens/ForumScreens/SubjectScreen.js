@@ -7,32 +7,43 @@ import UserPicName from "../../../API/UserPicName";
 
 const SubjectScreen = ({ route, navigation }) => {
   const [thread, setThread] = useState([]);
+  const [refreshing, setRefreshing] = useState(true);
+
+  const handleRefresh = () => {
+    getThread().then(() => {
+      setRefreshing(false);
+    }).catch(console.error);
+  }
 
   const topicData = route.params.item;
-  useEffect(() => {
+  const getThread = async () => {
     setThread([]);
-    const getThread = async () => {
-      const docRef = collection(
-        db,
-        "forum",
-        topicData.topicId,
-        topicData.topicName
-      );
-      const docSnap = await getDocs(docRef);
+    const docRef = collection(
+      db,
+      "forum",
+      topicData.topicId,
+      topicData.topicName
+    );
+    const docSnap = await getDocs(docRef);
 
-      docSnap.docs.forEach((element) => {
-        setThread((prev) => [
-          ...prev,
-          {
-            ...topicData,
-            threadId: element.id,
-            threadTitle: element.data().title,
-            uid: element.data().uid,
-          },
-        ]);
-      });
-    };
-    if (!thread || thread.length == 0) getThread().catch(console.error);
+    docSnap.docs.forEach((element) => {
+      setThread((prev) => [
+        ...prev,
+        {
+          ...topicData,
+          threadId: element.id,
+          threadTitle: element.data().title,
+          uid: element.data().uid,
+        },
+      ]);
+    });
+  };
+  useEffect(() => {
+    getThread()
+      .then(() => {
+        setRefreshing(false);
+      })
+      .catch(console.error);
     return;
   }, []);
 
@@ -54,7 +65,7 @@ const SubjectScreen = ({ route, navigation }) => {
         <Text>בטעינה</Text>
       )}
 
-      {thread ? (
+      {(
         <FlatList
           data={thread}
           renderItem={({ item }) => (
@@ -63,10 +74,17 @@ const SubjectScreen = ({ route, navigation }) => {
               <Text>{item.threadTitle}</Text>
             </Pressable>
           )}
+          refreshing={refreshing}
+          onRefresh={handleRefresh}
+          ListEmptyComponent={() => {
+            return (
+              <View>
+                <Text>נראה שאין מה להציג כרגע..</Text>
+              </View>
+            )
+          }}
           keyExtractor={(item, index) => index.toString()}
         />
-      ) : (
-        <Text>נושאים</Text>
       )}
     </SafeAreaView>
   );
