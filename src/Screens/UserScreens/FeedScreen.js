@@ -13,34 +13,19 @@ const FeedScreen = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   const handleRefresh = () => {
-    getPosts().then(() => {
-      setRefreshing(false);
-    }).catch(console.error);
-  }
-
-
-  const sortByDates = (post1, post2) => {
-    const creation1 = post1.data.creation;
-    const creation2 = post2.data.creation;
-    if (creation1.seconds > creation2.seconds) {
-      return 1;
-    } else if (creation1.seconds < creation2.seconds) {
-      return -1;
-    } else {
-      if (creation1.nanoseconds > creation2.nanoseconds) {
-        return 1;
-      } else if (creation1.nanoseconds < creation2.nanoseconds) {
-        return -1;
-      } else {
-        return 0;
-      }
-    }
+    getPosts()
+      .then(() => {
+        setRefreshing(false);
+      })
+      .catch(console.error);
   };
 
   useEffect(() => {
-    getPosts().then(() => {
-      setRefreshing(false);
-    }).catch(console.error);
+    getPosts()
+      .then(() => {
+        setRefreshing(false);
+      })
+      .catch(console.error);
 
     return;
   }, []);
