@@ -3,17 +3,12 @@
 //for change photo(need to add button): https://www.npmjs.com/package/react-native-image-picker
 
 import React, { useState, useEffect } from "react";
-import { doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../../firebase";
-import {
-  View,
-  Text,
-  SafeAreaView,
-  Image,
-  Pressable,
-} from "react-native";
+import { View, Text, SafeAreaView, Image, Pressable } from "react-native";
 import { globalStyles } from "../../styles/global";
+import { EvilIcons, Ionicons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import { useIsFocused } from "@react-navigation/native";
 
@@ -29,7 +24,7 @@ const ProfileScreen = ({ route, navigation }) => {
   const [classs, setClasss] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [profilePicUri, setProfilePicUri] = useState();
-  // console.log("currentUser.id: ", currentUser.id)
+  const [tags, setTags] = useState([]);
 
   useEffect(() => {
     const getStatus = async () => {
@@ -48,9 +43,17 @@ const ProfileScreen = ({ route, navigation }) => {
       await getDownloadURL(imgRef).then((img) => {
         setProfilePicUri(img);
       });
-      // }
     };
+
+    const getTags = async () => {
+      const docRef = doc(db, "posts", id);
+      const docSnap = await getDoc(docRef);
+      setTags(docSnap.data().tags);
+      console.log(docSnap.data().tags);
+    };
+
     getStatus().catch(console.error);
+    getTags().catch(console.error);
     return;
   }, [isFocused]);
 
@@ -76,27 +79,25 @@ const ProfileScreen = ({ route, navigation }) => {
 
   return (
     <SafeAreaView style={globalStyles.global}>
+      {currentUser.uid == id ? (
+        <Pressable
+          style={globalStyles.profile_edit_btn}
+          title="edit"
+          onPress={() => {
+            navigation.navigate("ProfileEdit");
+          }}
+        >
+          <Text style={globalStyles.profile_edit_btn_text}><EvilIcons name="pencil" size={35} ></EvilIcons></Text>
+        </Pressable>
+      ) : null}
       <View style={globalStyles.stage1}>
-        {currentUser.uid == id ? (
-          <Pressable
-            style={globalStyles.profile_edit_btn}
-            title="edit"
-            onPress={() => {
-              navigation.navigate("ProfileEdit");
-            }}
-          >
-            <Text style={globalStyles.profile_edit_btn_text}>עריכה</Text>
-          </Pressable>
-        ) : null}
         <View style={globalStyles.picAndDetails}>
-          <View>
-            <View style={globalStyles.profile_pic}>
-              <Image
-                source={{ uri: profilePicUri }}
-                style={globalStyles.logo_image_area}
-                resizeMode="center"
-              ></Image>
-            </View>
+          <View style={globalStyles.profile_pic}>
+            <Image
+              source={{ uri: profilePicUri }}
+              style={globalStyles.logo_image_area}
+              resizeMode="center"
+            ></Image>
           </View>
           <View>
             <Text style={globalStyles.profile_details}>
@@ -104,23 +105,33 @@ const ProfileScreen = ({ route, navigation }) => {
             </Text>
           </View>
           <View>
-            <Text>תחומי עניין</Text>
-          </View>
-        </View>
-        <View style={globalStyles.side_details}>
-          <View style={globalStyles.circle_details}>
-            <Text style={globalStyles.circle_details_text}>{school}</Text>
-          </View>
-          <View style={globalStyles.circle_details}>
-            <Text style={globalStyles.circle_details_text}>{organiztion}</Text>
+            <Text>{tags}</Text>
           </View>
         </View>
       </View>
-      <View style={globalStyles.line}></View>
+      {/*  */}
+      <View style={globalStyles.side_details}>
+        <View style={globalStyles.side_details_comp}>
+          <Ionicons style={{ color: "#a77ce8" }} name="school-outline" size={20} ></Ionicons>
+          <Text style={globalStyles.side_details_text}>בית הספר שלי: </Text>
+          <Text>{school}</Text>
+        </View>
+        <View style={globalStyles.side_details_comp}>
+          <SimpleLineIcons style={{ color: "#a77ce8" }} name="organization" size={20} ></SimpleLineIcons>
+          <Text style={globalStyles.side_details_text}>הארגון שלי: </Text>
+          <Text>{organiztion}</Text>
+        </View>
+        <View style={globalStyles.side_details_comp}>
+          <MaterialCommunityIcons style={{ color: "#a77ce8" }} name="lightbulb-on-outline" size={20} ></MaterialCommunityIcons>
+          <Text style={globalStyles.side_details_text}>תחומי העניין שלי: </Text>
+          <Text>{tags}</Text>
+        </View>
+      </View>
+      <View style={globalStyles.profile_line}></View>
       <View style={globalStyles.stage2}>
         <Text style={globalStyles.profile_title}>המיזמים שלי</Text>
       </View>
-      <View style={globalStyles.line}></View>
+      <View style={globalStyles.profile_line}></View>
       <View style={globalStyles.stage3}>
         <Text style={globalStyles.profile_title}>שתפ"ים לחיפוש</Text>
       </View>

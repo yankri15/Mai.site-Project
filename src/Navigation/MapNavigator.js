@@ -20,6 +20,7 @@ const MapNavigator = ({ navigation }) => {
         component={MapScreen}
         options={{
           headerTitle: () => <ProfilePic navigation={navigation} />,
+          
         }}
       />
       <Stack.Screen name="Feed" component={FeedScreen} />

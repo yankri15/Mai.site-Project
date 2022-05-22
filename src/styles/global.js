@@ -1,5 +1,5 @@
-import { StyleSheet, StatusBar, Dimensions} from "react-native";
-import { shadowOffset } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
+import { StyleSheet, StatusBar } from "react-native";
+import { borderColor, shadowOffset } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 
 export const globalStyles = StyleSheet.create({
     global: {
@@ -154,16 +154,18 @@ export const globalStyles = StyleSheet.create({
         fontSize: 10,
     },
     ////////////////////////////////////////////////
+    draw_pic_name: {
+        alignItems: "center",
+        margin: '3%',
+    },
     drawer_pic: {
         height: 85,
         width: 85,
         borderRadius: 100,
-        margin: '3%',
     },
     drawer_name: {
         color: "#fff",
         fontSize: 20,
-        margin: '1%',
     },
     drawer_props: {
         flex: 1,
@@ -184,12 +186,12 @@ export const globalStyles = StyleSheet.create({
         marginRight: '3%',
     },
     stage1: {
-        flexDirection: "row",
+        flexDirection: "column",
         alignContent: "space-between",
         alignItems: "center",
         justifyContent: "center",
-        marginTop: '2%',
-        marginBottom: '5%',
+        marginTop: '10%',
+        marginBottom: '2%',
     },
     stage2: {
         alignItems: "center",
@@ -202,33 +204,31 @@ export const globalStyles = StyleSheet.create({
         marginBottom: '5%',
     },
     touchable_profile_pic: {
-        height: 50,
-        width: 50,
+        height: 35,
+        width: 35,
+        position: 'absolute',
+        right: '2%',
+        top: '3%',
         borderRadius: 100,
-        margin: '1%',
+    },
+    hamburger_profile_pic: {
+        flexDirection: "row",
     },
     profile_edit_btn: {
         position: 'absolute',
-        left: '2%',
+        left: '3%',
         top: '2%',
-        backgroundColor: "#a77ce8",
-        borderWidth: 2,
-        borderRadius: 100,
-        padding: 5,
     },
     profile_edit_btn_text: {
-        color: "#fdc123",
-        fontSize: 15,
-        fontWeight: "bold",
+        color: "#c8c8c8",
     },
     profile_pic: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
+        width: 200,
+        height: 200,
+        borderRadius: 100,
         overflow: "hidden",
-        //alignItems: "center",
         justifyContent: "center",
-        marginBottom: '2%',
+        marginBottom: '3%',
     },
     profile_title: {
         fontWeight: "bold",
@@ -245,39 +245,48 @@ export const globalStyles = StyleSheet.create({
     },
     profile_details: {
         fontWeight: "bold",
-        fontSize: 13,
+        fontSize: 15,
         alignItems: "center",
         justifyContent: "center",
-        marginBottom: 10,
+        marginBottom: '1%',
+    },
+    profile_line: {
+        width: '100%',
+        borderWidth: 3,
+        borderColor: '#fee6a7',
+        marginTop: '2%',
+        marginBottom: '5%',
     },
     picAndDetails: {
         alignItems: "center",
         justifyContent: "center",
-        // marginRight: 20,
-        width: '70%',
     },
     side_details: {
         flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        //marginLeft: 20,
-        width: '30%',
+        alignItems: "flex-start",
+        marginBottom: '3%',
     },
-    circle_details: {
-        width: '78%',
-        height: 82,
-        backgroundColor: "#fdc123",
-        borderColor: "black",
-        borderWidth: 1,
-        borderRadius: 100,
-        justifyContent: "center",
-        margin: 5,
+    side_details_comp: {
+        flexDirection: "row",
+        marginLeft: '2%',
+        marginBottom: '2%',
     },
-    circle_details_text: {
+    // circle_details: {
+    //     width: '78%',
+    //     height: 82,
+    //     backgroundColor: "#fdc123",
+    //     borderColor: "black",
+    //     borderWidth: 1,
+    //     borderRadius: 100,
+    //     justifyContent: "center",
+    //     margin: 5,
+    // },
+    side_details_text: {
         fontWeight: "bold",
-        textAlign: "center",
+        textAlign: "left",
         justifyContent: "center",
-        fontSize: 12,
+        fontSize: 13,
+        marginLeft: '2%',
         flexWrap: "wrap",
     },
     line: {
@@ -294,43 +303,45 @@ export const globalStyles = StyleSheet.create({
         borderColor: 'black',
         borderStyle: 'solid',
         backgroundColor: "#a77ce8",
-        textAlign: "center",
+        justifyContent: 'center',
+        width: 35,
+        height: 35,
         borderWidth: 2,
         borderRadius: 100,
-        padding: 5,
+        // padding: '1%',
     },
     plus_btn_text: {
+        textAlign: 'center',
         color: "#fdc123",
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: "bold",
-        paddingLeft: 10,
-        paddingRight: 10,
+        padding: '2%',
     },
     title_creat_post: {
         textAlign: "center",
         fontSize: 25,
         color: "#fdc123",
         fontWeight: "bold",
-        top: '2%',
-        marginBottom: '10%',
+        top: '1.5%',
+        marginBottom: '5%',
     },
     create_post_text: {
-        marginLeft: '4%',
-        borderColor: "black",
+        marginLeft: '3%',
         color: "#000000",
-        width: '92%',
-        height: '40%',
+        width: '94%',
+        height: '60%',
         textAlignVertical: 'top',
         marginBottom: '3%',
         padding: 10,
         fontSize: 20,
-        borderWidth: 1,
         textAlign: "right",
         borderRadius: 10,
     },
     choose_img: {
         width: '15%',
-        left: '80%',
+        position: 'absolute',
+        bottom: '8.5%',
+        right: '5%',
         borderColor: 'black',
         borderStyle: 'solid',
         backgroundColor: "#fdc123",
@@ -349,6 +360,7 @@ export const globalStyles = StyleSheet.create({
         //width: '92%',
         //marginLeft: '4%',
         resizeMode: 'stretch',
+        resizeMode: 'contain',
     },
     to_post: {
         position: 'absolute',
@@ -369,8 +381,9 @@ export const globalStyles = StyleSheet.create({
     },
     ////////////////////////////////////////////////
     feed: {
-        bottom: '4%',
-        backgroundColor: "#d3d3d3",
+        marginTop: '-7.5%',
+        bottom: '4.5%',
+        backgroundColor: "#fee6a7",
     },
     empty_feed: {
         color: "#fdc123",
@@ -381,17 +394,20 @@ export const globalStyles = StyleSheet.create({
     },
     list_of_posts: {
         width: '100%',
-        marginBottom: '2%',
+        marginBottom: '1%',
         backgroundColor: "#ffffff"
+    },
+    topic_post: {
+        // flexDirection: "row",
     },
     post: {
         width: '100%',
-        marginBottom: '-4%',
         paddingBottom: '1%',
+        marginTop: '-1%',
         backgroundColor: "#ffffff"
     },
     post_text: {
-        textAlign: "right",
+        textAlign: "left",
         margin: '3%',
         fontSize: 17,
     },
@@ -399,8 +415,15 @@ export const globalStyles = StyleSheet.create({
         width: '100%',
         height: 375,
         paddingBottom: '2%',
-        resizeMode : 'stretch',
-        resizeMode : 'contain',
+        resizeMode: 'stretch',
+        resizeMode: 'contain',
+    },
+    edit_post: {
+        color: "#C8C8C8",
+        alignSelf: 'flex-end',
+        position: 'absolute',
+        top: '1.5%',
+        right: '2.5%',
     },
     user_pic: {
         width: 40,
@@ -437,21 +460,44 @@ export const globalStyles = StyleSheet.create({
     },
     like_comment: {
         flexDirection: "row",
-        justifyContent: "center",
-        margin: '2%',
+        justifyContent: "space-between",
+        marginLeft: '8%',
+        marginRight: '8%',
         paddingBottom: '2%',
+        marginTop: '2%',
+    },
+    details_like_comment: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        //marginLeft: '8%',
+        //marginRight: '8%',
+       // paddingBottom: '2%',
+       // marginTop: '2%',
     },
     like_comment_btn: {
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: "row",
-        
     },
     like_comment_btn_txt: {
-        color: "#000000",
+        color: "#c6c6b5",
         fontWeight: "bold",
-        fontSize: 18,
-        marginRight: '8%',
+        fontSize: 16,
+        marginLeft: '5%',
+    },
+    info_like_comment_txt: {
+        color: "#c6c6b5",
+        fontWeight: "bold",
+        fontSize: 15,
+        marginLeft: '2%',
+    },
+    like_comment_line: {
+        width: '94%',
+        marginLeft: '3%',
+        borderWidth: 0.5,
+        borderColor: '#c6c6b5',
+        marginTop: '2%',
+        marginBottom: '0.5%',
     },
     /////////////////Forum_Topic/////////////////
     forum_title_text: {
@@ -466,7 +512,7 @@ export const globalStyles = StyleSheet.create({
         alignItems: "center",
         shadowColor: "black",
         shadowOpacity: 0.8,
-        shadowOffset: {width: 1, height: 13},
+        shadowOffset: { width: 1, height: 13 },
         shadowRadius: 20,
     },
     forums_titles_txt: {
@@ -477,8 +523,8 @@ export const globalStyles = StyleSheet.create({
     /////////////////Forum_Subject/////////////////
     open_sub_btn: {
         position: 'absolute',
-        top: '2%',
-        right: '3%',
+        bottom: '7%',
+        left: '5%',
         borderColor: 'black',
         borderStyle: 'solid',
         backgroundColor: "#a77ce8",
@@ -489,16 +535,18 @@ export const globalStyles = StyleSheet.create({
     },
     open_sub_btn_text: {
         color: "#fdc123",
-        fontSize: 15,
+        fontSize: 18,
         fontWeight: "bold",
         paddingLeft: 10,
         paddingRight: 10,
     },
     subjects: {
-        marginBottom: '3%',
+        marginTop: '1%',
     },
     subjects_txt: {
-        fontSize: 15,
+        fontSize: 18,
+        color: "#a77ce8",
+        fontWeight: "bold",
         margin: '2%',
         marginBottom: '5%',
     },
@@ -507,5 +555,38 @@ export const globalStyles = StyleSheet.create({
     /////////////////Forum_Thread/////////////////
 
     /////////////////Forum_Comment/////////////////
+    Forum_Comment: {
+        marginBottom: '15%',
+        borderColor: "black",
+        borderWidth: 1,
+        padding: "4%",
+        borderRadius: 20,
+        width: "96%",
+        marginLeft: "3%"
 
+    },
+
+    Forum_Button:{
+        borderColor: "black",
+        borderStyle: 'solid',
+        backgroundColor: "#a77ce8",
+        borderRadius: 50,
+        borderWidth: 3,
+        marginTop: "5%",
+        width: "30%",
+    },
+
+    Forum_Button_Text:{
+        color: "#fdc123",
+        fontSize: 15,
+        fontWeight: "bold",
+        paddingRight: 5,
+        paddingBottom: 5,
+        paddingTop:5,
+
+    },
+
+    Forum_Comment_Text:{
+
+    }
 });

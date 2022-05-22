@@ -51,15 +51,17 @@ const CustomDrawer = (props) => {
         {...props}
         contentContainerStyle={{ backgroundColor: "#a77ce8" }}
       >
-        <Image source={{ uri: image }} style={globalStyles.drawer_pic} />
-        <Text style={globalStyles.drawer_name}>{name}</Text>
+        <View style={globalStyles.draw_pic_name}>
+          <Image source={{ uri: image }} style={globalStyles.drawer_pic} />
+          <Text style={globalStyles.drawer_name}>{name}</Text>
+        </View>
         <View style={globalStyles.drawer_props}>
           <DrawerItemList {...props} />
         </View>
       </DrawerContentScrollView>
       <View style={globalStyles.sign_out_area}>
         <TouchableOpacity style={globalStyles.sign_out} onPress={handleLogout}>
-          <Text style={globalStyles.sign_out_text}>Sign out</Text>
+          <Text style={globalStyles.sign_out_text}>התנתקות</Text>
           <Ionicons name="log-out-outline" size={20}></Ionicons>
         </TouchableOpacity>
       </View>

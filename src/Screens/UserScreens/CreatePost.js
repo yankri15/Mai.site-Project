@@ -19,7 +19,7 @@ import { useData } from "../../AuthProvider/UserDataProvider";
 
 const CreatePost = ({ navigation }) => {
   const { currentUser } = useAuth();
-  const { uploadDataPost, uploadImg } = useData();
+  const { uploadDataPost, uploadImg, getPosts } = useData();
   const { global } = globalStyles;
   const [image, setImage] = useState(null);
   const [postText, setPostText] = useState("");
@@ -57,39 +57,30 @@ const CreatePost = ({ navigation }) => {
 
   return (
     <SafeAreaView style={global}>
-      <Text style={globalStyles.title_creat_post}>שתף/י אותנו במיזם חדש!</Text>
+      <Text style={globalStyles.title_creat_post}>שתפו אותנו במיזם חדש!</Text>
       <TextInput
-        placeholder="דבר/י אלינו"
+        placeholder="דברו אלינו..."
         onChangeText={(text) => setPostText(text)}
         multiline={true}
         style={globalStyles.create_post_text}
       />
+      <View style={globalStyles.profile_line}></View>
       {image ? (
         <View>
-          <Pressable
-            style={globalStyles.choose_img}
-            title="img"
-            onPress={pickImage}
-          >
-            <Text style={globalStyles.choose_img_text}>
-              <Ionicons name="image-outline" size={25}></Ionicons>+
-            </Text>
-          </Pressable>
           <Image source={{ uri: image }} style={globalStyles.create_post_img} />
         </View>
-      ) : (
-        <Pressable
-          style={globalStyles.choose_img}
-          title="img"
-          onPress={pickImage}
-        >
-          <Text style={globalStyles.choose_img_text}>
-            <Ionicons name="image-outline" size={25}></Ionicons>+
-          </Text>
-        </Pressable>
-      )}
+      ) : (null)}
+      <Pressable
+        style={globalStyles.choose_img}
+        title="img"
+        onPress={pickImage}
+      >
+        <Text style={globalStyles.choose_img_text}>
+          <Ionicons name="image-outline" size={25}></Ionicons>+
+        </Text>
+      </Pressable>
       <Pressable style={globalStyles.to_post} title="post" onPress={uploadPost} disabled={loading}>
-        <Text style={globalStyles.to_post_text}>פרסם אותי!</Text>
+        <Text style={globalStyles.to_post_text}>פרסמו אותי!</Text>
       </Pressable>
     </SafeAreaView>
   );
