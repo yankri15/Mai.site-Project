@@ -5,14 +5,16 @@ import { globalStyles } from "../styles/global";
 import UserPicName from "./UserPicName";
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../firebase";
-import { Octicons, AntDesign, FontAwesome } from "@expo/vector-icons";
+import { Octicons, AntDesign, FontAwesome, Entypo } from "@expo/vector-icons";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
+import { useAuth } from "../AuthProvider/AuthProvider";
 
 const Post = ({ post, navigation }) => {
   const [url, setUrl] = useState();
   const [likes, setLikes] = useState(0);
   const [comments, setComments] = useState([]);
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     const getImg = async () => {
@@ -39,23 +41,23 @@ const Post = ({ post, navigation }) => {
     return;
   }, []);
 
-  async function handleLike() {}
+  async function handleLike() { }
   return (
     <SafeAreaView>
       <View style={globalStyles.post}>
         <UserPicName uid={post.uid} navigation={navigation} />
+        {post.uid == currentUser.uid ? <Entypo style={globalStyles.edit_post} name="dots-three-horizontal" size={25}></Entypo> : null}
         <Text style={globalStyles.post_text}>{post && post.postText}</Text>
         {post.downloadURL && (
           <Image
             style={globalStyles.post_img}
             source={{ uri: url }}
           />
-
         )}
         <View style={globalStyles.like_comment}>
           <Pressable
             title="like"
-            onPress={() => {}}
+            onPress={() => { }}
             style={globalStyles.details_like_comment}
           >
             <AntDesign
@@ -67,7 +69,7 @@ const Post = ({ post, navigation }) => {
           </Pressable>
           <Pressable
             title="comment"
-            onPress={() => {}}
+            onPress={() => { }}
             style={globalStyles.details_like_comment}
           >
             <FontAwesome

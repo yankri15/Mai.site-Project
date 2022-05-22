@@ -64,30 +64,21 @@ const CreatePost = ({ navigation }) => {
         multiline={true}
         style={globalStyles.create_post_text}
       />
+      <View style={globalStyles.profile_line}></View>
       {image ? (
         <View>
-          <Pressable
-            style={globalStyles.choose_img}
-            title="img"
-            onPress={pickImage}
-          >
-            <Text style={globalStyles.choose_img_text}>
-              <Ionicons name="image-outline" size={25}></Ionicons>+
-            </Text>
-          </Pressable>
           <Image source={{ uri: image }} style={globalStyles.create_post_img} />
         </View>
-      ) : (
-        <Pressable
-          style={globalStyles.choose_img}
-          title="img"
-          onPress={pickImage}
-        >
-          <Text style={globalStyles.choose_img_text}>
-            <Ionicons name="image-outline" size={25}></Ionicons>+
-          </Text>
-        </Pressable>
-      )}
+      ) : (null)}
+      <Pressable
+        style={globalStyles.choose_img}
+        title="img"
+        onPress={pickImage}
+      >
+        <Text style={globalStyles.choose_img_text}>
+          <Ionicons name="image-outline" size={25}></Ionicons>+
+        </Text>
+      </Pressable>
       <Pressable style={globalStyles.to_post} title="post" onPress={uploadPost} disabled={loading}>
         <Text style={globalStyles.to_post_text}>פרסמו אותי!</Text>
       </Pressable>
