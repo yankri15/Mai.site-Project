@@ -16,21 +16,14 @@ const Post = ({ post, navigation }) => {
 
   useEffect(() => {
     const getImg = async () => {
-      const imgRef = ref(storage, post.downloadURL);
+      const imgRef = ref(storage, post.data.downloadURL);
       await getDownloadURL(imgRef).then((img) => {
         setUrl(img);
       });
     };
 
     const getLikes = async () => {
-      const q = collection(
-        db,
-        "posts",
-        post.id,
-        "userPosts",
-        post.postId,
-        "likes"
-      );
+      const q = collection(db, "posts", post.id, "likes");
       const docSnap = await getDocs(q);
       setLikes(docSnap.docs.length);
     };
@@ -43,14 +36,10 @@ const Post = ({ post, navigation }) => {
   return (
     <SafeAreaView>
       <View style={globalStyles.post}>
-        <UserPicName uid={post.uid} navigation={navigation} />
-        <Text style={globalStyles.post_text}>{post && post.postText}</Text>
-        {post.downloadURL && (
-          <Image
-            style={globalStyles.post_img}
-            source={{ uri: url }}
-          />
-
+        <UserPicName uid={post.data.uid} navigation={navigation} />
+        <Text style={globalStyles.post_text}>{post && post.data.postText}</Text>
+        {post.data.downloadURL && (
+          <Image style={globalStyles.post_img} source={{ uri: url }} />
         )}
         <View style={globalStyles.like_comment}>
           <Pressable
