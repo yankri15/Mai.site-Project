@@ -24,7 +24,8 @@
         "foregroundImage": "./assets/adaptive_icon.png",
         "backgroundColor": "#ffc823"
       },
-      "package": "com.navonsahalo.MaiApp"
+      "package": "com.navonsahalo.MaiApp",
+      "permissions":["ACCESS_FINE_LOCATION","ACCESS_COARSE_LOCATION"]
     },
     "web": {
       "favicon": "./assets/favicon.png"

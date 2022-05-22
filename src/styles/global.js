@@ -31,6 +31,16 @@ export const globalStyles = StyleSheet.create({
     loading: {
         flex: 1,
     },
+    mapScreenContainer: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    map: {
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
+    },
     ////////////////////////////////////////////////
     landing_imageArea: {
         margin: 25,
