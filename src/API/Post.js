@@ -6,7 +6,13 @@ import UserPicName from "./UserPicName";
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../firebase";
 import { Octicons, AntDesign, FontAwesome, Entypo } from "@expo/vector-icons";
-import { collection, getDocs } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  setDoc,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 import { db } from "../../firebase";
 import { useAuth } from "../AuthProvider/AuthProvider";
 
@@ -24,34 +30,49 @@ const Post = ({ post, navigation }) => {
       });
     };
 
+    getImg().catch(console.error);
+    return;
+  }, [likes]);
+
+  useEffect(() => {
     const getLikes = async () => {
       const q = collection(db, "posts", post.id, "likes");
       const docSnap = await getDocs(q);
-      setLikes(docSnap.docs.length);
+      const likeArr = docSnap.docs.map((item) => item.id);
+      setLikes(likeArr);
     };
-    getImg().catch(console.error);
     getLikes().catch(console.error);
     return;
-  }, []);
+  }, [likes]);
 
-  async function handleLike() { }
+  async function handleLike() {
+    if (likes.includes(currentUser.uid)) {
+      await deleteDoc(doc(db, "posts", post.id, "likes", currentUser.uid));
+    } else {
+      await setDoc(doc(db, "posts", post.id, "likes", currentUser.uid), {
+        uid: currentUser.uid,
+      });
+    }
+  }
   return (
     <SafeAreaView>
       <View style={globalStyles.post}>
-
         <UserPicName uid={post.data.uid} navigation={navigation} />
-        {post.uid == currentUser.uid ? <Entypo style={globalStyles.edit_post} name="dots-three-horizontal" size={25}></Entypo> : null}
+        {post.uid == currentUser.uid ? (
+          <Entypo
+            style={globalStyles.edit_post}
+            name="dots-three-horizontal"
+            size={25}
+          ></Entypo>
+        ) : null}
         <Text style={globalStyles.post_text}>{post && post.data.postText}</Text>
         {post.data.downloadURL && (
-          <Image
-            style={globalStyles.post_img}
-            source={{ uri: url }}
-          />
+          <Image style={globalStyles.post_img} source={{ uri: url }} />
         )}
         <View style={globalStyles.like_comment}>
           <Pressable
             title="like"
-            onPress={() => { }}
+            onPress={() => {}}
             style={globalStyles.details_like_comment}
           >
             <AntDesign
@@ -59,11 +80,13 @@ const Post = ({ post, navigation }) => {
               name="like1"
               size={20}
             ></AntDesign>
-            <Text style={globalStyles.info_like_comment_txt}>{likes}</Text>
+            <Text style={globalStyles.info_like_comment_txt}>
+              {likes.length}
+            </Text>
           </Pressable>
           <Pressable
             title="comment"
-            onPress={() => { }}
+            onPress={() => {}}
             style={globalStyles.details_like_comment}
           >
             <FontAwesome
@@ -83,7 +106,7 @@ const Post = ({ post, navigation }) => {
           <Pressable
             title="like"
             onPress={() => {
-              //navigation.navigate("CreatePost", { navigation });
+              handleLike();
             }}
             style={globalStyles.like_comment_btn}
           >
