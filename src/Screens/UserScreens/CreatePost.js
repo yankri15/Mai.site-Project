@@ -19,7 +19,7 @@ import { useData } from "../../AuthProvider/UserDataProvider";
 
 const CreatePost = ({ navigation }) => {
   const { currentUser } = useAuth();
-  const { uploadDataPost, uploadImg } = useData();
+  const { uploadDataPost, uploadImg, getPosts } = useData();
   const { global } = globalStyles;
   const [image, setImage] = useState(null);
   const [postText, setPostText] = useState("");

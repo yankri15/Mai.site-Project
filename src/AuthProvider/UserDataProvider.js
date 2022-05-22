@@ -1,4 +1,4 @@
-import { doc, setDoc, getDoc, updateDoc, addDoc, collection, serverTimestamp, getDocs } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, addDoc, collection, serverTimestamp, getDocs, query, orderBy } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
 import React, { useContext, useState, useEffect } from "react";
 import { db, storage } from "../../firebase";
@@ -15,6 +15,7 @@ const UserDataProvider = ({ children }) => {
   const [name, setName] = useState("");
   const [admin, setAdmin] = useState();
   const [usersList, setUsersList] = useState([]);
+  const [postsList, setPostsList] = useState([]);
 
   //Add user to db with email and status
   const setUserToDB = async (uid, email) => {
@@ -124,6 +125,39 @@ const UserDataProvider = ({ children }) => {
     })
   };
 
+  const sortByDates = (post1, post2) => {
+    const creation1 = post1.data.creation;
+    const creation2 = post2.data.creation;
+    if (creation1.seconds > creation2.seconds) {
+      return 1;
+    }
+    else if (creation1.seconds < creation2.seconds) {
+      return -1;
+    }
+    else {
+      if (creation1.nanoseconds > creation2.nanoseconds) {
+        return 1
+      }
+      else if (creation1.nanoseconds < creation2.nanoseconds) {
+        return -1;
+      }
+      else {
+        return 0;
+      }
+    }
+  }
+
+  const getPosts = async () => {
+    setPostsList([]);
+
+    const q = query(collection(db, "posts"), orderBy("creation", "desc"));
+    const docSnap = await getDocs(q);
+
+    docSnap.docs.forEach(async (item) => {
+      setPostsList(prev => [...prev, item.data()]);
+    });
+  }
+
   const checkAdmin = async () => {
     if (currentUser) {
       const docRef = doc(db, "users", currentUser.uid);
@@ -133,16 +167,14 @@ const UserDataProvider = ({ children }) => {
   };
 
   const uploadDataPost = async (path, postText) => {
-    await setDoc(doc(db, "posts", currentUser.uid), {
-      filler: "Think about this problem",
-    });
-    await addDoc(collection(db, "posts", currentUser.uid, "userPosts"), {
+    await addDoc(collection(db, "posts"), {
       downloadURL: path,
       postText: postText,
       creation: serverTimestamp(),
+      uid: currentUser.uid,
+      tags: [],
     });
   }
-
   const uploadImg = async (path, image) => {
     const docRef = ref(storage, path);
     const img = await fetch(image);
@@ -168,12 +200,14 @@ const UserDataProvider = ({ children }) => {
     name,
     admin,
     usersList,
+    postsList,
     setUserToDB,
     approveUser,
     addDataToDB,
     getName,
     checkAdmin,
     getUsersList,
+    getPosts,
     changeData,
     uploadDataPost,
     uploadImg,
