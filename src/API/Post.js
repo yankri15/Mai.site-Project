@@ -119,9 +119,7 @@ const Post = ({ post, navigation }) => {
           </Pressable>
           <Pressable
             title="comment"
-            onPress={() => {
-              handleLike();
-            }}
+            onPress={() => {}}
             style={globalStyles.like_comment_btn}
           >
             <FontAwesome
