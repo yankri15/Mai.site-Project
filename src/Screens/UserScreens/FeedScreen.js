@@ -5,19 +5,19 @@ import { db, storage } from "../../../firebase";
 import Post from "../../API/Post";
 import { collection, getDocs, ref } from "firebase/firestore";
 import { useIsFocused } from "@react-navigation/native";
+import { useData } from "../../AuthProvider/UserDataProvider";
 
 const FeedScreen = ({ navigation, route }) => {
-  const [posts, setPosts] = useState([]);
   const [refreshing, setRefreshing] = useState(true);
+  const { getPosts, postsList } = useData();
   const isFocused = useIsFocused();
 
   const handleRefresh = () => {
-    getPostData()
-      .then(() => {
-        setRefreshing(false);
-      })
-      .catch(console.error);
-  };
+    getPosts().then(() => {
+      setRefreshing(false);
+    }).catch(console.error);
+  }
+
 
   const sortByDates = (post1, post2) => {
     const creation1 = post1.data.creation;
@@ -37,51 +37,11 @@ const FeedScreen = ({ navigation, route }) => {
     }
   };
 
-  // const getPostData = async () => {
-  //   const q = collection(db, "posts");
-  //   const docSnap = await getDocs(q);
-  //   console.log(docSnap.docs[0].data());
-  //   const promises = docSnap.docs.map(async (item) => {
-  //     // console.log(item.id); This is the uid's we want
-  //     const tmp = collection(db, "posts", item.id, "userPosts");
-  //     const tmpSnap = await getDocs(tmp);
-  //     return tmpSnap.docs.map((element) => element.data());
-  //   });
-
-  //   const arrayOfPosts = await Promise.all(promises);
-  //   console.log(arrayOfPosts);
-  //   let newPosts = [];
-  //   arrayOfPosts.forEach((posts) => {
-  //     newPosts = [...newPosts, ...posts];
-  //   });
-  //   setPosts(newPosts);
-  //   console.log(newPosts);
-  // };
-
-  const getPostData = async () => {
-    setRefreshing(true);
-    setPosts([]);
-    const q = collection(db, "posts");
-    const docSnap = await getDocs(q);
-    docSnap.docs.forEach(async (item) => {
-      const tmp = collection(db, "posts", item.id, "userPosts");
-      const tmpSnap = await getDocs(tmp);
-      return tmpSnap.docs.forEach((element) => {
-        setPosts((prev) => [
-          ...prev,
-          { id: item.id, data: element.data(), postId: element.id },
-        ]);
-      });
-    });
-    posts.sort(sortByDates);
-  };
-
   useEffect(() => {
-    getPostData()
-      .then(() => {
-        setRefreshing(false);
-      })
-      .catch(console.error);
+    getPosts().then(() => {
+      setRefreshing(false);
+    }).catch(console.error);
+
     return;
   }, []);
 
@@ -89,7 +49,7 @@ const FeedScreen = ({ navigation, route }) => {
     <SafeAreaView style={globalStyles.global}>
       {
         <FlatList
-          data={posts}
+          data={postsList}
           style={globalStyles.feed}
           renderItem={({ item }) => (
             <Post
