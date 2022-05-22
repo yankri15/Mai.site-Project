@@ -5,14 +5,15 @@ import { db, storage } from "../../../firebase";
 import Post from "../../API/Post";
 import { collection, getDocs, ref } from "firebase/firestore";
 import { useIsFocused } from "@react-navigation/native";
+import { useData } from "../../AuthProvider/UserDataProvider";
 
 const FeedScreen = ({ navigation, route }) => {
-  const [posts, setPosts] = useState([]);
   const [refreshing, setRefreshing] = useState(true);
+  const { getPosts, postsList } = useData();
   const isFocused = useIsFocused();
 
   const handleRefresh = () => {
-    getPostData().then(() => {
+    getPosts().then(() => {
       setRefreshing(false);
     }).catch(console.error);
   }
@@ -60,23 +61,23 @@ const FeedScreen = ({ navigation, route }) => {
   //   console.log(newPosts);
   // };
 
-  const getPostData = async () => {
-    setRefreshing(true);
-    setPosts([]);
-    const q = collection(db, "posts");
-    const docSnap = await getDocs(q);
-    docSnap.docs.forEach(async (item) => {
-      const tmp = collection(db, "posts", item.id, "userPosts");
-      const tmpSnap = await getDocs(tmp);
-      return tmpSnap.docs.forEach((element) => {
-        setPosts(prev => [...prev, { "id": item.id, "data": element.data() }]);
-      });
-    });
-    posts.sort(sortByDates);
-  }
+  // const getPostData = async () => {
+  //   setRefreshing(true);
+  //   // setPosts([]);
+  //   // const q = collection(db, "posts");
+  //   // const docSnap = await getDocs(q);
+  //   // docSnap.docs.forEach(async (item) => {
+  //   //   const tmp = collection(db, "posts", item.id, "userPosts");
+  //   //   const tmpSnap = await getDocs(tmp);
+  //   //   return tmpSnap.docs.forEach((element) => {
+  //   //     setPosts(prev => [...prev, { "id": item.id, "data": element.data() }]);
+  //   //   });
+  //   // });
+  //   posts.sort(sortByDates);
+  // }
 
   useEffect(() => {
-    getPostData().then(() => {
+    getPosts().then(() => {
       setRefreshing(false);
     }).catch(console.error);
     return;
@@ -86,7 +87,7 @@ const FeedScreen = ({ navigation, route }) => {
     <SafeAreaView style={globalStyles.global}>
       {(
         <FlatList
-          data={posts}
+          data={postsList}
           style={globalStyles.feed}
           renderItem={({ item }) => (
             <Post

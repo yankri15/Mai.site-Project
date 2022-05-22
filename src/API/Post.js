@@ -13,7 +13,7 @@ const Post = ({ post, navigation }) => {
 
   useEffect(() => {
     const getImg = async () => {
-      const imgRef = ref(storage, post.data.downloadURL);
+      const imgRef = ref(storage, post.downloadURL);
       await getDownloadURL(imgRef).then((img) => {
         setUrl(img);
       });
@@ -25,9 +25,9 @@ const Post = ({ post, navigation }) => {
   return (
     <SafeAreaView>
       <View style={globalStyles.post}>
-        <UserPicName uid={post.id} navigation={navigation} />
-        <Text style={globalStyles.post_text}>{post && post.data.postText}</Text>
-        {post.data.downloadURL && (
+        <UserPicName uid={post.uid} navigation={navigation} />
+        <Text style={globalStyles.post_text}>{post && post.postText}</Text>
+        {post.downloadURL && (
           <Image
             style={globalStyles.post_img}
             source={{ uri: url }}
