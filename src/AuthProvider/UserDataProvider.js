@@ -1,4 +1,15 @@
-import { doc, setDoc, getDoc, updateDoc, addDoc, collection, serverTimestamp, getDocs, query, orderBy } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  getDoc,
+  updateDoc,
+  addDoc,
+  collection,
+  serverTimestamp,
+  getDocs,
+  query,
+  orderBy,
+} from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
 import React, { useContext, useState, useEffect } from "react";
 import { db, storage } from "../../firebase";
@@ -72,11 +83,7 @@ const UserDataProvider = ({ children }) => {
     const docRef = doc(db, "users", uid);
     const docSnap = await getDoc(docRef);
     const userData = docSnap.data();
-    // if(name === "") name = userData.name;
-    // if(school=== "") school = userData.school;
-    // if(neighborhood=== "") neighborhood = userData.neighborhood;
-    // if(organiztion === "") organiztion = userData.organization;
-    // if(classs === "") classs = userData.classs;
+
     await updateDoc(
       doc(db, "users", uid),
       "name",
@@ -96,8 +103,6 @@ const UserDataProvider = ({ children }) => {
     });
   };
 
-
-
   //Approve user
   const approveUser = async (uid) => {
     await updateDoc(doc(db, "users", uid), "status", 2).then(() => {
@@ -114,38 +119,19 @@ const UserDataProvider = ({ children }) => {
   };
 
   const getUsersList = async () => {
-    setUsersList([])
+    setUsersList([]);
     const docRef = collection(db, "users");
     const docSnap = await getDocs(docRef);
-    docSnap.docs.forEach(element => {
+    docSnap.docs.forEach((element) => {
       // setUsersList((prev) => [...prev, { "id": elemet.id, "data": elemet.data() }]);
       // if (element.data().name.includes(nameToSearch)) {
-      setUsersList((prev) => [...prev, { "id": element.id, "data": element.data() }])
+      setUsersList((prev) => [
+        ...prev,
+        { id: element.id, data: element.data() },
+      ]);
       // }
-    })
+    });
   };
-
-  const sortByDates = (post1, post2) => {
-    const creation1 = post1.data.creation;
-    const creation2 = post2.data.creation;
-    if (creation1.seconds > creation2.seconds) {
-      return 1;
-    }
-    else if (creation1.seconds < creation2.seconds) {
-      return -1;
-    }
-    else {
-      if (creation1.nanoseconds > creation2.nanoseconds) {
-        return 1
-      }
-      else if (creation1.nanoseconds < creation2.nanoseconds) {
-        return -1;
-      }
-      else {
-        return 0;
-      }
-    }
-  }
 
   const getPosts = async () => {
     setPostsList([]);
@@ -154,9 +140,9 @@ const UserDataProvider = ({ children }) => {
     const docSnap = await getDocs(q);
 
     docSnap.docs.forEach(async (item) => {
-      setPostsList(prev => [...prev, item.data()]);
+      setPostsList((prev) => [...prev, { id: item.id, data: item.data() }]);
     });
-  }
+  };
 
   const checkAdmin = async () => {
     if (currentUser) {
@@ -174,14 +160,14 @@ const UserDataProvider = ({ children }) => {
       uid: currentUser.uid,
       tags: [],
     });
-  }
+  };
   const uploadImg = async (path, image) => {
     const docRef = ref(storage, path);
     const img = await fetch(image);
     const bytes = await img.blob();
     await uploadBytes(docRef, bytes);
     console.log("Up loaded succeffuly to path: ", path);
-  }
+  };
 
   useEffect(() => {
     const getStatus = async () => {
