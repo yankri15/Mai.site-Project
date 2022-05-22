@@ -201,8 +201,8 @@ export const globalStyles = StyleSheet.create({
     },
     profile_edit_btn: {
         position: 'absolute',
-        left: '5%',
-        bottom: '7%',
+        left: '3%',
+        top: '2%',
         backgroundColor: "#a77ce8",
         borderWidth: 2,
         borderRadius: 100,
