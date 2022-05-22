@@ -58,7 +58,7 @@ const Post = ({ post, navigation }) => {
     <SafeAreaView>
       <View style={globalStyles.post}>
         <UserPicName uid={post.data.uid} navigation={navigation} />
-        {post.uid == currentUser.uid ? (
+        {post.data.uid == currentUser.uid ? (
           <Entypo
             style={globalStyles.edit_post}
             name="dots-three-horizontal"
