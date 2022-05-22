@@ -8,6 +8,7 @@ import { ref, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../../firebase";
 import { View, Text, SafeAreaView, Image, Pressable } from "react-native";
 import { globalStyles } from "../../styles/global";
+import { EvilIcons, Ionicons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import { useIsFocused } from "@react-navigation/native";
 
@@ -86,19 +87,17 @@ const ProfileScreen = ({ route, navigation }) => {
             navigation.navigate("ProfileEdit");
           }}
         >
-          <Text style={globalStyles.profile_edit_btn_text}>עריכה</Text>
+          <Text style={globalStyles.profile_edit_btn_text}><EvilIcons name="pencil" size={35} ></EvilIcons></Text>
         </Pressable>
       ) : null}
       <View style={globalStyles.stage1}>
         <View style={globalStyles.picAndDetails}>
-          <View>
-            <View style={globalStyles.profile_pic}>
-              <Image
-                source={{ uri: profilePicUri }}
-                style={globalStyles.logo_image_area}
-                resizeMode="center"
-              ></Image>
-            </View>
+          <View style={globalStyles.profile_pic}>
+            <Image
+              source={{ uri: profilePicUri }}
+              style={globalStyles.logo_image_area}
+              resizeMode="center"
+            ></Image>
           </View>
           <View>
             <Text style={globalStyles.profile_details}>
@@ -109,20 +108,30 @@ const ProfileScreen = ({ route, navigation }) => {
             <Text>{tags}</Text>
           </View>
         </View>
-        <View style={globalStyles.side_details}>
-          <View style={globalStyles.circle_details}>
-            <Text style={globalStyles.circle_details_text}>{school}</Text>
-          </View>
-          <View style={globalStyles.circle_details}>
-            <Text style={globalStyles.circle_details_text}>{organiztion}</Text>
-          </View>
+      </View>
+      {/*  */}
+      <View style={globalStyles.side_details}>
+        <View style={globalStyles.side_details_comp}>
+          <Ionicons style={{ color: "#a77ce8" }} name="school-outline" size={20} ></Ionicons>
+          <Text style={globalStyles.side_details_text}>בית הספר שלי: </Text>
+          <Text>{school}</Text>
+        </View>
+        <View style={globalStyles.side_details_comp}>
+          <SimpleLineIcons style={{ color: "#a77ce8" }} name="organization" size={20} ></SimpleLineIcons>
+          <Text style={globalStyles.side_details_text}>הארגון שלי: </Text>
+          <Text>{organiztion}</Text>
+        </View>
+        <View style={globalStyles.side_details_comp}>
+          <MaterialCommunityIcons style={{ color: "#a77ce8" }} name="lightbulb-on-outline" size={20} ></MaterialCommunityIcons>
+          <Text style={globalStyles.side_details_text}>תחומי העניין שלי: </Text>
+          <Text>{tags}</Text>
         </View>
       </View>
-      <View style={globalStyles.line}></View>
+      <View style={globalStyles.profile_line}></View>
       <View style={globalStyles.stage2}>
         <Text style={globalStyles.profile_title}>המיזמים שלי</Text>
       </View>
-      <View style={globalStyles.line}></View>
+      <View style={globalStyles.profile_line}></View>
       <View style={globalStyles.stage3}>
         <Text style={globalStyles.profile_title}>שתפ"ים לחיפוש</Text>
       </View>
