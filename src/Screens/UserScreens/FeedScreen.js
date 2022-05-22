@@ -12,32 +12,30 @@ const FeedScreen = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   const handleRefresh = () => {
-    getPostData().then(() => {
-      setRefreshing(false);
-    }).catch(console.error);
-  }
+    getPostData()
+      .then(() => {
+        setRefreshing(false);
+      })
+      .catch(console.error);
+  };
 
   const sortByDates = (post1, post2) => {
     const creation1 = post1.data.creation;
     const creation2 = post2.data.creation;
     if (creation1.seconds > creation2.seconds) {
       return 1;
-    }
-    else if (creation1.seconds < creation2.seconds) {
+    } else if (creation1.seconds < creation2.seconds) {
       return -1;
-    }
-    else {
+    } else {
       if (creation1.nanoseconds > creation2.nanoseconds) {
-        return 1
-      }
-      else if (creation1.nanoseconds < creation2.nanoseconds) {
+        return 1;
+      } else if (creation1.nanoseconds < creation2.nanoseconds) {
         return -1;
-      }
-      else {
+      } else {
         return 0;
       }
     }
-  }
+  };
 
   // const getPostData = async () => {
   //   const q = collection(db, "posts");
@@ -69,22 +67,27 @@ const FeedScreen = ({ navigation, route }) => {
       const tmp = collection(db, "posts", item.id, "userPosts");
       const tmpSnap = await getDocs(tmp);
       return tmpSnap.docs.forEach((element) => {
-        setPosts(prev => [...prev, { "id": item.id, "data": element.data() }]);
+        setPosts((prev) => [
+          ...prev,
+          { id: item.id, data: element.data(), postId: element.id },
+        ]);
       });
     });
     posts.sort(sortByDates);
-  }
+  };
 
   useEffect(() => {
-    getPostData().then(() => {
-      setRefreshing(false);
-    }).catch(console.error);
+    getPostData()
+      .then(() => {
+        setRefreshing(false);
+      })
+      .catch(console.error);
     return;
   }, []);
 
   return (
     <SafeAreaView style={globalStyles.global}>
-      {(
+      {
         <FlatList
           data={posts}
           style={globalStyles.feed}
@@ -102,11 +105,11 @@ const FeedScreen = ({ navigation, route }) => {
               <View>
                 <Text>נראה שאין מה להציג כרגע..</Text>
               </View>
-            )
+            );
           }}
           keyExtractor={(item, index) => index.toString()}
         />
-      )}
+      }
 
       <Pressable
         title="edit"
