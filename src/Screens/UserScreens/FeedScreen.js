@@ -18,74 +18,36 @@ const FeedScreen = ({ navigation, route }) => {
     }).catch(console.error);
   }
 
+
   const sortByDates = (post1, post2) => {
     const creation1 = post1.data.creation;
     const creation2 = post2.data.creation;
     if (creation1.seconds > creation2.seconds) {
       return 1;
-    }
-    else if (creation1.seconds < creation2.seconds) {
+    } else if (creation1.seconds < creation2.seconds) {
       return -1;
-    }
-    else {
+    } else {
       if (creation1.nanoseconds > creation2.nanoseconds) {
-        return 1
-      }
-      else if (creation1.nanoseconds < creation2.nanoseconds) {
+        return 1;
+      } else if (creation1.nanoseconds < creation2.nanoseconds) {
         return -1;
-      }
-      else {
+      } else {
         return 0;
       }
     }
-  }
-
-  // const getPostData = async () => {
-  //   const q = collection(db, "posts");
-  //   const docSnap = await getDocs(q);
-  //   console.log(docSnap.docs[0].data());
-  //   const promises = docSnap.docs.map(async (item) => {
-  //     // console.log(item.id); This is the uid's we want
-  //     const tmp = collection(db, "posts", item.id, "userPosts");
-  //     const tmpSnap = await getDocs(tmp);
-  //     return tmpSnap.docs.map((element) => element.data());
-  //   });
-
-  //   const arrayOfPosts = await Promise.all(promises);
-  //   console.log(arrayOfPosts);
-  //   let newPosts = [];
-  //   arrayOfPosts.forEach((posts) => {
-  //     newPosts = [...newPosts, ...posts];
-  //   });
-  //   setPosts(newPosts);
-  //   console.log(newPosts);
-  // };
-
-  // const getPostData = async () => {
-  //   setRefreshing(true);
-  //   // setPosts([]);
-  //   // const q = collection(db, "posts");
-  //   // const docSnap = await getDocs(q);
-  //   // docSnap.docs.forEach(async (item) => {
-  //   //   const tmp = collection(db, "posts", item.id, "userPosts");
-  //   //   const tmpSnap = await getDocs(tmp);
-  //   //   return tmpSnap.docs.forEach((element) => {
-  //   //     setPosts(prev => [...prev, { "id": item.id, "data": element.data() }]);
-  //   //   });
-  //   // });
-  //   posts.sort(sortByDates);
-  // }
+  };
 
   useEffect(() => {
     getPosts().then(() => {
       setRefreshing(false);
     }).catch(console.error);
+
     return;
   }, []);
 
   return (
     <SafeAreaView style={globalStyles.global}>
-      {(
+      {
         <FlatList
           data={postsList}
           style={globalStyles.feed}
@@ -103,11 +65,11 @@ const FeedScreen = ({ navigation, route }) => {
               <View>
                 <Text>נראה שאין מה להציג כרגע..</Text>
               </View>
-            )
+            );
           }}
           keyExtractor={(item, index) => index.toString()}
         />
-      )}
+      }
 
       <Pressable
         title="edit"
