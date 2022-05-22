@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { View, TouchableOpacity, Image, SafeAreaView } from "react-native";
+import { View, TouchableOpacity, Image, SafeAreaView, Pressable } from "react-native";
 import { globalStyles } from "../styles/global";
+import { Ionicons } from "@expo/vector-icons";
 import { useAuth } from "../AuthProvider/AuthProvider";
 import { db, storage } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
@@ -24,15 +25,11 @@ const ProfilePic = ({ navigation }) => {
   }, []);
 
   return (
-    <SafeAreaView>
-      <View>
-        <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <Image
-            source={{ uri: image }}
-            style={globalStyles.touchable_profile_pic}
-          />
-        </TouchableOpacity>
-      </View>
+    <SafeAreaView style={globalStyles.hamburger_profile_pic}>
+      <TouchableOpacity onPress={() => navigation.openDrawer()}>
+        <Ionicons style={{ color: "#c8c8c8" }} name="menu-outline" size={35}></Ionicons>
+      </TouchableOpacity>
+      <Image source={{ uri: image }} style={globalStyles.touchable_profile_pic} />
     </SafeAreaView>
   );
 };

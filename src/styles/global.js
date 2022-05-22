@@ -194,10 +194,15 @@ export const globalStyles = StyleSheet.create({
         marginBottom: '5%',
     },
     touchable_profile_pic: {
-        height: 50,
-        width: 50,
+        height: 35,
+        width: 35,
+        position: 'absolute',
+        right: '2%',
+        top: '3%',
         borderRadius: 100,
-        margin: '1%',
+    },
+    hamburger_profile_pic: {
+        flexDirection: "row",
     },
     profile_edit_btn: {
         position: 'absolute',
@@ -212,7 +217,6 @@ export const globalStyles = StyleSheet.create({
         height: 200,
         borderRadius: 100,
         overflow: "hidden",
-        //alignItems: "center",
         justifyContent: "center",
         marginBottom: '3%',
     },
@@ -380,7 +384,7 @@ export const globalStyles = StyleSheet.create({
     },
     list_of_posts: {
         width: '100%',
-        marginBottom: '2%',
+        marginBottom: '1%',
         backgroundColor: "#ffffff"
     },
     topic_post: {
@@ -388,8 +392,8 @@ export const globalStyles = StyleSheet.create({
     },
     post: {
         width: '100%',
-        marginBottom: '-4%',
-        paddingBottom: '1.5%',
+        paddingBottom: '1%',
+        marginTop: '-1%',
         backgroundColor: "#ffffff"
     },
     post_text: {
