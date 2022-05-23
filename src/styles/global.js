@@ -1,4 +1,4 @@
-import { StyleSheet, StatusBar } from "react-native";
+import { StyleSheet, StatusBar, Dimensions  } from "react-native";
 import { borderColor, shadowOffset } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 
 export const globalStyles = StyleSheet.create({
