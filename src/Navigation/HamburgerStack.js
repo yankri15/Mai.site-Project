@@ -2,7 +2,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import React, { useEffect } from "react";
 import UserNavbar from "../API/UserNavbar";
 import ForumNavigator from "./ForumNavigator";
-import SettingsScreen from "../Screens/UserScreens/SettingsScreen";
+import SettingsNavigator from "./SettingsNavigator";
 import CustomDrawer from "../API/CustomDrawer";
 import ProfileNavigator from "./ProfileNavigator";
 import { useData } from "../AuthProvider/UserDataProvider";
@@ -32,7 +32,7 @@ const HamburgerStack = () => {
       <Drawer.Screen name="בית" component={UserNavbar} />
       <Drawer.Screen name="פרופיל" component={ProfileNavigator} />
       <Drawer.Screen name="פורום" component={ForumNavigator} />
-      <Drawer.Screen name="הגדרות" component={SettingsScreen} />
+      <Drawer.Screen name="הגדרות" component={SettingsNavigator} />
 
       {admin ? (
         <Drawer.Screen name="Admin" component={AdminNavigator} />
