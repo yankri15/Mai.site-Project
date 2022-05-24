@@ -6,7 +6,7 @@ import {
   Button,
   TextInput,
   SafeAreaView,
-  Alert
+  Alert, StyleSheet
 } from "react-native";
 import React, { useState } from "react";
 import { useAuth } from "../../AuthProvider/AuthProvider";
@@ -103,58 +103,59 @@ const SettingsScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView
-      style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+      style={globalStyles.settingsContainer}
     >
-      <Text>הגדרות</Text>
-      <Modal
+      <Modal style={globalStyles.settingsContainer}
         animationType={"slide"}
         transparent={false}
         visible={showModal}
-        onRequestClose={() => {}}
+        onRequestClose={() => {setShowModal(!showModal);}}
       >
         <View>
           <TextInput
+          style = {globalStyles.textInput}
             placeholder="הכנס סיסמה"
             value={currPassword}
             onChangeText={(text) => setCurrPassword(text)}
             secureTextEntry
           />
           <TextInput
+          style = {globalStyles.textInput}
             placeholder="סיסמה חדשה"
             value={newPassword}
             onChangeText={(text) => setNewPassword(text)}
             secureTextEntry
           />
           <TextInput
+          style = {globalStyles.textInput}
             placeholder="אמת סיסמה חדשה"
             value={ConfirmNewPassword}
             onChangeText={(text) => setNewConfirmPassword(text)}
             secureTextEntry
           />
-          <Button title="שנה סיסמה" onPress={handleChangePassword} />
-          <Button
+          <Pressable style = {globalStyles.settingsBtn} title="שנה סיסמה" onPress={handleChangePassword} >
+          <Text style = {globalStyles.settingsBtnText}>שנה סיסמה</Text>
+      </Pressable>
+          <Pressable
+          style = {globalStyles.settingsBtn}
             title="בטל"
             onPress={() => {
               setShowModal(!showModal);
             }}
-          />
+          >
+           <Text style = {globalStyles.settingsBtnText}>בטל</Text>
+      </Pressable>
         </View>
       </Modal>
 
       <Pressable
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          marginTop: 15,
-          marginBottom: 15,
-          borderRadius: 10,
-        }}
+        style={globalStyles.settingsBtn}
         title="change password"
         onPress={() => {
           setShowModal(!showModal);
         }}
       >
-        <Text>שנה סיסמה</Text>
+        <Text style = {globalStyles.settingsBtnText}>שנה סיסמה</Text>
       </Pressable>
 
 
@@ -162,7 +163,7 @@ const SettingsScreen = ({ navigation }) => {
         animationType={"slide"}
         transparent={false}
         visible={showModal2}
-        onRequestClose={() => {}}
+        onRequestClose={() => {setShowModal(!showModal);}}
       >
         <View>
         <Text>הכנס פרטים מחדש</Text>
@@ -187,13 +188,7 @@ const SettingsScreen = ({ navigation }) => {
       </Modal>
 
       <Pressable
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          marginTop: 15,
-          marginBottom: 15,
-          borderRadius: 10,
-        }}
+        style={globalStyles.settingsBtn}
         title="delete"
         onPress={() => {
           Alert.alert(
@@ -210,35 +205,32 @@ const SettingsScreen = ({ navigation }) => {
               cancelable: true})
         }}
       >
-        <Text>מחיקת משתמש</Text>
+        <Text style = {styles.settingsBtnText}>מחיקת משתמש</Text>
       </Pressable>
 
       <Pressable
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          marginTop: 15,
-          marginBottom: 15,
-          borderRadius: 10,
-        }}
+        style={styles.settingsBtn}
         title="edit"
         onPress={() => {
           navigation.navigate("ProfileEdit");
         }}
       >
-        <Text>עריכת פרופיל</Text>
+        <Text style = {styles.settingsBtnText}>עריכת פרופיל</Text>
       </Pressable>
 
       <Pressable
+      style={styles.settingsBtn}
         title="contact"
         onPress={() => {
           navigation.navigate("Contact");
         }}
       >
-        <Text>צור קשר</Text>
+        <Text style = {styles.settingsBtnText}>צור קשר</Text>
       </Pressable>
     </SafeAreaView>
   );
 };
+
+
 
 export default SettingsScreen;

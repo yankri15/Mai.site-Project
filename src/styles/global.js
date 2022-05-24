@@ -598,4 +598,30 @@ export const globalStyles = StyleSheet.create({
         width: 45,
         height: 45,
     },
+
+    /////////////settings////////////////////
+    settingsContainer: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#C4A5F3",
+      },
+    
+      settingsBtn: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: "center",
+        padding: 5,
+        borderColor: "black",
+        borderWidth: 2,
+        marginTop: 15,
+        marginBottom: 15,
+        borderRadius: 10,
+        backgroundColor: "#fdc123",
+      },
+      settingsBtnText:{
+        color: "#000000",
+        fontSize: 20,
+        fontWeight: "bold",
+      },
 });
