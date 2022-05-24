@@ -1,19 +1,12 @@
 import { View, Text, FlatList, Pressable, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useState, useEffect } from "react";
-import {
-  collection,
-  doc,
-  addDoc,
-  getDocs,
-  serverTimestamp,
-  query,
-  orderBy,
-} from "firebase/firestore";
+import { collection, doc, addDoc, getDocs, serverTimestamp, query, orderBy } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import { useAuth } from "../../../AuthProvider/AuthProvider";
 import { globalStyles } from '../../../styles/global';
 import Comment from "./Comment";
+import { Feather } from "@expo/vector-icons";
 
 const ThreadScreen = ({ route, navigation }) => {
   const [comments, setComments] = useState([]);
@@ -86,13 +79,14 @@ const ThreadScreen = ({ route, navigation }) => {
   return (
     <SafeAreaView style={globalStyles.global}>
       {comments && comments.length > 0 ? (
-        <Text>{comments[0].threadTitle}</Text>
+        <Text style={globalStyles.tread_title}>{comments[0].threadTitle}</Text>
       ) : (
         <Text>בטעינה</Text>
       )}
       {(
         <FlatList
           data={comments}
+          style={globalStyles.tread_comments}
           renderItem={({ item }) => (
             <Comment commentData={item.commentData} navigation={navigation} />
           )}
@@ -108,15 +102,16 @@ const ThreadScreen = ({ route, navigation }) => {
           keyExtractor={(item, index) => index.toString()}
         />
       )}
-      <View style = {globalStyles.Forum_Comment}>
-        <TextInput style = {globalStyles.Forum_Comment_Text}
+      <View style={globalStyles.Forum_Comment}>
+        <TextInput
+          style={globalStyles.Forum_Comment_Text}
           value={newComment}
           placeholder="כתוב תגובה..."
           onChangeText={(text) => setNewComment(text)}
           minLength={20}
         />
-        <Pressable title="publishNewComment" style = {globalStyles.Forum_Button} onPress={handleNewComment}>
-          <Text style = {globalStyles.Forum_Button_Text}>פרסם תגובה</Text>
+        <Pressable title="publishNewComment" style={globalStyles.Forum_Button} onPress={handleNewComment}>
+          <Feather style={{ color: "#fdc123" }} name="send" size={30} ></Feather>
         </Pressable>
       </View>
     </SafeAreaView>

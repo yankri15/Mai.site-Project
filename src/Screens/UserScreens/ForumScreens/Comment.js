@@ -7,9 +7,9 @@ import { globalStyles } from '../../../styles/global';
 const Comment = ({ navigation, commentData }) => {
   return (
     <SafeAreaView>
-      <View>
+      <View style={globalStyles.comment}>
         <UserPicName uid={commentData.uid} navigation={navigation} />
-        <Text>{commentData.comment}</Text>
+        <Text style={globalStyles.comment_data}>{commentData.comment}</Text>
       </View>
     </SafeAreaView>
   );

@@ -1,30 +1,13 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  Image,
-  Pressable,
-  Modal,
-  FlatList,
-  TextInput,
-} from "react-native";
+import { View, Text, Image, Pressable, Modal, FlatList, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { globalStyles } from "../styles/global";
 import UserPicName from "./UserPicName";
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../firebase";
-import { AntDesign, FontAwesome, Entypo } from "@expo/vector-icons";
+import { AntDesign, FontAwesome, Entypo, Feather } from "@expo/vector-icons";
 import Comment from "../Screens/UserScreens/ForumScreens/Comment";
-import {
-  collection,
-  getDocs,
-  setDoc,
-  doc,
-  deleteDoc,
-  query,
-  orderBy,
-  serverTimestamp,
-} from "firebase/firestore";
+import { collection, getDocs, setDoc, doc, deleteDoc, query, orderBy, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useAuth } from "../AuthProvider/AuthProvider";
 
@@ -110,7 +93,7 @@ const Post = ({ post, navigation }) => {
           setModalVisible(!modalVisible);
         }}
       >
-        <SafeAreaView>
+        <SafeAreaView style={globalStyles.global}>
           <FlatList
             data={comments}
             renderItem={({ item }) => (
@@ -125,7 +108,6 @@ const Post = ({ post, navigation }) => {
             }}
             keyExtractor={(item, index) => index.toString()}
           />
-
           <View style={globalStyles.Forum_Comment}>
             <TextInput
               style={globalStyles.Forum_Comment_Text}
@@ -134,14 +116,8 @@ const Post = ({ post, navigation }) => {
               onChangeText={(text) => setNewComment(text)}
               minLength={20}
             />
-            <Pressable
-              title="publishNewComment"
-              style={globalStyles.Forum_Button}
-              onPress={() => {
-                handleNewComment();
-              }}
-            >
-              <Text style={globalStyles.Forum_Button_Text}>פרסם תגובה</Text>
+            <Pressable title="publishNewComment" style={globalStyles.Forum_Button} onPress={handleNewComment}>
+              <Feather style={{ color: "#fdc123" }} name="send" size={30} ></Feather>
             </Pressable>
           </View>
         </SafeAreaView>
@@ -162,7 +138,7 @@ const Post = ({ post, navigation }) => {
         <View style={globalStyles.like_comment}>
           <Pressable
             title="like"
-            onPress={() => {}}
+            onPress={() => { }}
             style={globalStyles.details_like_comment}
           >
             <AntDesign
@@ -176,7 +152,7 @@ const Post = ({ post, navigation }) => {
           </Pressable>
           <Pressable
             title="comment"
-            onPress={() => {}}
+            onPress={() => { }}
             style={globalStyles.details_like_comment}
           >
             <FontAwesome
