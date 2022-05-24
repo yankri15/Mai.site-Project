@@ -1,17 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  Pressable,
+  Modal,
+  FlatList,
+  TextInput,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { globalStyles } from "../styles/global";
 import UserPicName from "./UserPicName";
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../firebase";
-import { Octicons, AntDesign, FontAwesome, Entypo } from "@expo/vector-icons";
+import { AntDesign, FontAwesome, Entypo } from "@expo/vector-icons";
+import Comment from "../Screens/UserScreens/ForumScreens/Comment";
 import {
   collection,
   getDocs,
   setDoc,
   doc,
   deleteDoc,
+  query,
+  orderBy,
+  serverTimestamp,
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useAuth } from "../AuthProvider/AuthProvider";
@@ -20,6 +32,8 @@ const Post = ({ post, navigation }) => {
   const [url, setUrl] = useState();
   const [likes, setLikes] = useState(0);
   const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
   const { currentUser } = useAuth();
 
   useEffect(() => {
@@ -45,6 +59,27 @@ const Post = ({ post, navigation }) => {
     return;
   }, []);
 
+  useEffect(() => {
+    setComments([]);
+    const getComments = async () => {
+      const collecRef = collection(db, "posts", post.id, "comments");
+      const q = query(collecRef, orderBy("creation", "asc"));
+      const docSnap = await getDocs(q);
+
+      docSnap.docs.forEach((element) => {
+        setComments((prev) => [
+          ...prev,
+          {
+            commentId: element.id,
+            commentData: element.data(),
+          },
+        ]);
+      });
+    };
+    getComments().catch(console.error);
+    return;
+  }, []);
+
   async function handleLike() {
     if (likes.includes(currentUser.uid)) {
       await deleteDoc(doc(db, "posts", post.id, "likes", currentUser.uid));
@@ -54,8 +89,63 @@ const Post = ({ post, navigation }) => {
       });
     }
   }
+
+  async function handleNewComment() {
+    if (newComment.length <= 4) {
+      return;
+    }
+    const commentsRef = doc(collection(db, "posts", post.id, "comments"));
+    await setDoc(commentsRef, {
+      comment: newComment,
+      creation: serverTimestamp(),
+      uid: currentUser.uid,
+    });
+  }
   return (
     <SafeAreaView>
+      <Modal
+        visible={modalVisible}
+        animationType="slide"
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <SafeAreaView>
+          <FlatList
+            data={comments}
+            renderItem={({ item }) => (
+              <Comment commentData={item.commentData} navigation={navigation} />
+            )}
+            ListEmptyComponent={() => {
+              return (
+                <View>
+                  <Text>עוד אין תגובות להציג</Text>
+                </View>
+              );
+            }}
+            keyExtractor={(item, index) => index.toString()}
+          />
+
+          <View style={globalStyles.Forum_Comment}>
+            <TextInput
+              style={globalStyles.Forum_Comment_Text}
+              value={newComment}
+              placeholder="כתוב תגובה..."
+              onChangeText={(text) => setNewComment(text)}
+              minLength={20}
+            />
+            <Pressable
+              title="publishNewComment"
+              style={globalStyles.Forum_Button}
+              onPress={() => {
+                handleNewComment();
+              }}
+            >
+              <Text style={globalStyles.Forum_Button_Text}>פרסם תגובה</Text>
+            </Pressable>
+          </View>
+        </SafeAreaView>
+      </Modal>
       <View style={globalStyles.post}>
         <UserPicName uid={post.data.uid} navigation={navigation} />
         {post.data.uid == currentUser.uid ? (
@@ -119,7 +209,10 @@ const Post = ({ post, navigation }) => {
           </Pressable>
           <Pressable
             title="comment"
-            onPress={() => {}}
+            onPress={() => {
+              if (modalVisible) setModalVisible(false);
+              else setModalVisible(true);
+            }}
             style={globalStyles.like_comment_btn}
           >
             <FontAwesome
