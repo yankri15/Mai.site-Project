@@ -32,7 +32,7 @@ const Post = ({ post, navigation }) => {
 
     getImg().catch(console.error);
     return;
-  }, [likes]);
+  }, [url]);
 
   useEffect(() => {
     const getLikes = async () => {
@@ -43,7 +43,7 @@ const Post = ({ post, navigation }) => {
     };
     getLikes().catch(console.error);
     return;
-  }, [likes]);
+  }, []);
 
   async function handleLike() {
     if (likes.includes(currentUser.uid)) {
