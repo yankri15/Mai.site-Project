@@ -550,43 +550,52 @@ export const globalStyles = StyleSheet.create({
         margin: '2%',
         marginBottom: '5%',
     },
+    comment: {
+        backgroundColor: "#e2e2e2",
+        paddingBottom: '2%',
+        marginBottom: '2%',
+        width: '92%',
+        marginLeft: '4%',
+        borderRadius: 25,
+    },
+    comment_data: {
+        marginLeft: '15%'
+    },
     /////////////////Forum_Create_Thread/////////////////
 
     /////////////////Forum_Thread/////////////////
-
+    tread_title: {
+        textAlign: "center",
+        fontSize: 18,
+        fontWeight: "bold",
+        color: "#a77ce8",
+    },
+    tread_comments: {
+        marginLeft: '2%',
+    },
     /////////////////Forum_Comment/////////////////
     Forum_Comment: {
-        marginBottom: '15%',
+        flexDirection: "row",
+        marginBottom: '12%',
         borderColor: "black",
         borderWidth: 1,
         padding: "4%",
         borderRadius: 20,
-        width: "96%",
-        marginLeft: "3%"
-
+        width: "92%",
+        marginLeft: "4%",
     },
-
+    Forum_Comment_Text: {
+        width: '80%',
+    },
     Forum_Button:{
-        borderColor: "black",
-        borderStyle: 'solid',
+        position: "absolute",
+        bottom: '22%',
+        right: '3%',
+        justifyContent: "center",
+        alignItems: "center",
         backgroundColor: "#a77ce8",
-        borderRadius: 50,
-        borderWidth: 3,
-        marginTop: "5%",
-        width: "30%",
+        borderRadius: 100,
+        width: 45,
+        height: 45,
     },
-
-    Forum_Button_Text:{
-        color: "#fdc123",
-        fontSize: 15,
-        fontWeight: "bold",
-        paddingRight: 5,
-        paddingBottom: 5,
-        paddingTop:5,
-
-    },
-
-    Forum_Comment_Text:{
-
-    }
 });
