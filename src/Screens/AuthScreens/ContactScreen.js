@@ -1,43 +1,55 @@
-import React from "react";
-import { View, Text, Button, TextInput, StyleSheet } from "react-native";
+import React, { useState }  from "react";
+import {
+  View,
+  Text,
+  Button,
+  TextInput,
+  StyleSheet,
+} from "react-native";
+import email from "react-native-email";
 
-const Contact = () => {
+const Contact = ({ navigation }) => {
+  const [subject, setSubject] = useState("");
+  const [msg, setMsg] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleMsg() {
+    try {
+      setError("");
+      setLoading(true);
+      const to = "maiappjlm@gmail.com";
+      email(to, {
+        subject: subject,
+        body: msg,
+      }).catch(console.error);
+    } catch (err) {
+      console.error;
+    }
+    setLoading(false);
+    navigation.navigate("Settings");
+  }
+
   return (
     <View style={style.container}>
-      <Text>This is the contact page</Text>
+      <Text>צור קשר</Text>
       <TextInput
-        style={style.input}
-        placeholder="Full name"
-        keyboardType="default"
+        placeholder="נושא"
+        value={subject}
+        onChangeText={(text) => setSubject(text)}
       />
+
       <TextInput
-        style={style.input}
-        placeholder="Email"
-        keyboardType="email-address"
+        placeholder="מה תרצו להגיד לנו?"
+        value={msg}
+        onChangeText={(text) => setMsg(text)}
       />
-      <TextInput
-        style={style.input}
-        placeholder="Phone number"
-        keyboardType="decimal-pad"
-      />
-      <TextInput
-        style={style.input}
-        placeholder="Message"
-        keyboardType="default"
-      />
-      <Button title="Send" onPress={() => console.log("Send")}></Button>
+      <Button title="שלח!" onPress={handleMsg} />
     </View>
   );
 };
 
 const style = StyleSheet.create({
-  input: {
-    width: 200,
-    borderColor: "gray",
-    borderWidth: 1,
-    borderRadius: 20,
-    padding: 10,
-  },
   container: {
     flex: 1,
     backgroundColor: "#fff",
