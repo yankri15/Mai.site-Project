@@ -5,6 +5,7 @@ import SubjectScreen from "../Screens/UserScreens/ForumScreens/SubjectScreen";
 import ThreadScreen from "../Screens/UserScreens/ForumScreens/ThreadScreen";
 import CreateThread from "../Screens/UserScreens/ForumScreens/CreateThread";
 import ProfileScreen from "../Screens/UserScreens/ProfileScreen";
+import ProjectScreen from "../Screens/UserScreens/ProjectScreen";
 const Stack = createStackNavigator();
 
 const ForumNavigator = () => {
@@ -15,6 +16,7 @@ const ForumNavigator = () => {
       <Stack.Screen name="Thread" component={ThreadScreen} />
       <Stack.Screen name="CreateThread" component={CreateThread} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="Project" component={ProjectScreen} />
     </Stack.Navigator>
   );
 };
