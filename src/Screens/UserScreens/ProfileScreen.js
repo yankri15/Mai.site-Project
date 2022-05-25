@@ -12,6 +12,7 @@ import { EvilIcons, Ionicons, SimpleLineIcons, MaterialCommunityIcons } from "@e
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import { useIsFocused } from "@react-navigation/native";
 import { useData } from "../../AuthProvider/UserDataProvider";
+import { ScrollView } from "react-native-gesture-handler";
 
 const ProfileScreen = ({ route, navigation }) => {
   const uid = route.params ? route.params.uid : undefined;
@@ -72,75 +73,79 @@ const ProfileScreen = ({ route, navigation }) => {
 
   return (
     <SafeAreaView style={globalStyles.global}>
-      {currentUser.uid == id ? (
-        <Pressable
-          style={globalStyles.profile_edit_btn}
-          title="edit"
-          onPress={() => {
-            navigation.navigate("ProfileEdit");
-          }}
-        >
-          <Text style={globalStyles.profile_edit_btn_text}><EvilIcons name="pencil" size={35} ></EvilIcons></Text>
-        </Pressable>
-      ) : null}
-      <View style={globalStyles.stage1}>
-        <View style={globalStyles.picAndDetails}>
-          <View style={globalStyles.profile_pic}>
-            <Image
-              source={{ uri: profilePicUri }}
-              style={globalStyles.logo_image_area}
-              resizeMode="center"
-            ></Image>
+      <ScrollView style={{backgroundColor: '#ffffff'}}>
+        {currentUser.uid == id ? (
+          <Pressable
+            style={globalStyles.profile_edit_btn}
+            title="edit"
+            onPress={() => {
+              navigation.navigate("ProfileEdit");
+            }}
+          >
+            <Text style={globalStyles.profile_edit_btn_text}><EvilIcons name="pencil" size={35} ></EvilIcons></Text>
+          </Pressable>
+        ) : null}
+        <View style={globalStyles.stage1}>
+          <View style={globalStyles.picAndDetails}>
+            <View style={globalStyles.profile_pic}>
+              <Image
+                source={{ uri: profilePicUri }}
+                style={globalStyles.logo_image_area}
+                resizeMode="center"
+              ></Image>
+            </View>
+            <View>
+              <Text style={globalStyles.profile_details}>
+                {name} {", "} {calculate_age(birthDate)} {", "} {neighborhood}
+              </Text>
+            </View>
           </View>
-          <View>
-            <Text style={globalStyles.profile_details}>
-              {name} {", "} {calculate_age(birthDate)} {", "} {neighborhood}
-            </Text>
+        </View>
+
+        <View style={globalStyles.side_details}>
+          <View style={globalStyles.side_details_comp}>
+            <Ionicons style={{ color: "#a77ce8" }} name="school-outline" size={20} ></Ionicons>
+            <Text style={globalStyles.side_details_text}>בית הספר שלי: </Text>
+            <Text>{school}</Text>
+          </View>
+          <View style={globalStyles.side_details_comp}>
+            <SimpleLineIcons style={{ color: "#a77ce8" }} name="organization" size={20} ></SimpleLineIcons>
+            <Text style={globalStyles.side_details_text}>הארגון שלי: </Text>
+            <Text>{organiztion}</Text>
+          </View>
+          <View style={globalStyles.side_details_comp}>
+            <MaterialCommunityIcons style={{ color: "#a77ce8" }} name="lightbulb-on-outline" size={20} ></MaterialCommunityIcons>
+            <Text style={globalStyles.side_details_text}>תחומי העניין שלי: </Text>
           </View>
         </View>
-      </View>
-      {/*  */}
-      <View style={globalStyles.side_details}>
-        <View style={globalStyles.side_details_comp}>
-          <Ionicons style={{ color: "#a77ce8" }} name="school-outline" size={20} ></Ionicons>
-          <Text style={globalStyles.side_details_text}>בית הספר שלי: </Text>
-          <Text>{school}</Text>
+        <View style={globalStyles.profile_line}></View>
+        <View style={globalStyles.stage2}>
+          <Text style={globalStyles.profile_title}>המיזמים שלי</Text>
+          <FlatList
+            data={projects}
+            renderItem={({ item }) => (
+              <Pressable
+                style={globalStyles.profile_project}
+                onPress={() => navigation.navigate("Project", { project: item })}
+              >
+                <Text style={globalStyles.profile_project_txt}>{item.name}</Text>
+              </Pressable>
+            )}
+            ListEmptyComponent={() => {
+              return (
+                <View>
+                  <Text>נראה שאין מה להציג כרגע..</Text>
+                </View>
+              );
+            }}
+            keyExtractor={(item, index) => index.toString()}
+          />
         </View>
-        <View style={globalStyles.side_details_comp}>
-          <SimpleLineIcons style={{ color: "#a77ce8" }} name="organization" size={20} ></SimpleLineIcons>
-          <Text style={globalStyles.side_details_text}>הארגון שלי: </Text>
-          <Text>{organiztion}</Text>
+        <View style={globalStyles.profile_line}></View>
+        <View style={globalStyles.stage3}>
+          <Text style={globalStyles.profile_title}>שתפ"ים לחיפוש</Text>
         </View>
-        <View style={globalStyles.side_details_comp}>
-          <MaterialCommunityIcons style={{ color: "#a77ce8" }} name="lightbulb-on-outline" size={20} ></MaterialCommunityIcons>
-          <Text style={globalStyles.side_details_text}>תחומי העניין שלי: </Text>
-        </View>
-      </View>
-      <View style={globalStyles.profile_line}></View>
-      <View style={globalStyles.stage2}>
-        <FlatList
-          data={projects}
-          renderItem={({ item }) => (
-            <Pressable
-              onPress={() => navigation.navigate("Project", { project: item })}
-            >
-              <Text>{item.name}</Text>
-            </Pressable>
-          )}
-          ListEmptyComponent={() => {
-            return (
-              <View>
-                <Text>נראה שאין מה להציג כרגע..</Text>
-              </View>
-            );
-          }}
-          keyExtractor={(item, index) => index.toString()}
-        />
-      </View>
-      <View style={globalStyles.profile_line}></View>
-      <View style={globalStyles.stage3}>
-        <Text style={globalStyles.profile_title}>שתפ"ים לחיפוש</Text>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
