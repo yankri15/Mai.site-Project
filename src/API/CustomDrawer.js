@@ -49,7 +49,7 @@ const CustomDrawer = (props) => {
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
         {...props}
-        contentContainerStyle={{ backgroundColor: "#a77ce8" }}
+        contentContainerStyle={{ backgroundColor: "#C4A5F3" }}
       >
         <View style={globalStyles.draw_pic_name}>
           <Image source={{ uri: image }} style={globalStyles.drawer_pic} />

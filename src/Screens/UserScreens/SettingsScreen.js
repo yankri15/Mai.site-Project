@@ -1,22 +1,8 @@
-import {
-  View,
-  Text,
-  Pressable,
-  Modal,
-  Button,
-  TextInput,
-  SafeAreaView,
-  Alert, StyleSheet
-} from "react-native";
+import { View, Text, Pressable, Modal, Button, TextInput, SafeAreaView, Alert, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import { globalStyles } from "../../styles/global";
-import {
-  reauthenticateWithCredential,
-  updatePassword,
-  EmailAuthProvider,
-  deleteUser,
-} from "firebase/auth";
+import { reauthenticateWithCredential, updatePassword, EmailAuthProvider, deleteUser, } from "firebase/auth";
 
 const SettingsScreen = ({ navigation }) => {
   const { currentUser } = useAuth();
@@ -69,7 +55,7 @@ const SettingsScreen = ({ navigation }) => {
         .catch((error) => {
           console.log("reauthenticate failed");
         });
-    } catch (err) {}
+    } catch (err) { }
     alert("סיסמה שונתה בהצלחה", "סיסמה שונתה בהצלחה");
     setShowModal(!showModal);
     setLoading(false);
@@ -79,72 +65,70 @@ const SettingsScreen = ({ navigation }) => {
     try {
       setError("");
       setLoading(true);
-    
-    const credential = EmailAuthProvider.credential(
-      currentUser.email,
-      currPassword
-    );
-    const result = await reauthenticateWithCredential(
-      currentUser,
-      credential
-    )
-  
-    await deleteUser(currentUser).then(() => {
-      console.log("user deleted")
-    }).catch((error) => {
-      console.log(error)
-    });
-  } catch (err) {}
-    
- 
+
+      const credential = EmailAuthProvider.credential(
+        currentUser.email,
+        currPassword
+      );
+      const result = await reauthenticateWithCredential(
+        currentUser,
+        credential
+      )
+
+      await deleteUser(currentUser).then(() => {
+        console.log("user deleted")
+      }).catch((error) => {
+        console.log(error)
+      });
+    } catch (err) { }
+
+
     setLoading(false);
     navigation.navigate("Login");
   }
 
   return (
-    <SafeAreaView
-      style={globalStyles.settingsContainer}
-    >
+    <SafeAreaView style={globalStyles.settingsContainer}>
       <Modal style={globalStyles.settingsContainer}
         animationType={"slide"}
         transparent={false}
         visible={showModal}
-        onRequestClose={() => {setShowModal(!showModal);}}
+        onRequestClose={() => { setShowModal(!showModal); }}
       >
         <View>
           <TextInput
-          style = {globalStyles.textInput}
+            style={globalStyles.textInput}
             placeholder="הכנס סיסמה"
             value={currPassword}
             onChangeText={(text) => setCurrPassword(text)}
             secureTextEntry
           />
           <TextInput
-          style = {globalStyles.textInput}
+            style={globalStyles.textInput}
             placeholder="סיסמה חדשה"
             value={newPassword}
             onChangeText={(text) => setNewPassword(text)}
             secureTextEntry
           />
           <TextInput
-          style = {globalStyles.textInput}
+            style={globalStyles.textInput}
             placeholder="אמת סיסמה חדשה"
             value={ConfirmNewPassword}
             onChangeText={(text) => setNewConfirmPassword(text)}
             secureTextEntry
           />
-          <Pressable style = {globalStyles.settingsBtn} title="שנה סיסמה" onPress={handleChangePassword} >
-          <Text style = {globalStyles.settingsBtnText}>שנה סיסמה</Text>
-      </Pressable>
+          <Pressable style={globalStyles.settingsBtn} title="שנה סיסמה" onPress={handleChangePassword} >
+            <Text style={globalStyles.settingsBtnText}>שנה סיסמה</Text>
+          </Pressable>
           <Pressable
-          style = {globalStyles.settingsBtn}
+            style={globalStyles.settingsBtn}
             title="בטל"
             onPress={() => {
               setShowModal(!showModal);
             }}
           >
-           <Text style = {globalStyles.settingsBtnText}>בטל</Text>
-      </Pressable>
+            <Text style={globalStyles.settingsBtnText}>בטל</Text>
+          </Pressable>
         </View>
       </Modal>
 
@@ -155,28 +139,25 @@ const SettingsScreen = ({ navigation }) => {
           setShowModal(!showModal);
         }}
       >
-        <Text style = {globalStyles.settingsBtnText}>שנה סיסמה</Text>
+        <Text style={globalStyles.settingsBtnText}>שנה סיסמה</Text>
       </Pressable>
-
 
       <Modal
         animationType={"slide"}
         transparent={false}
         visible={showModal2}
-        onRequestClose={() => {setShowModal(!showModal);}}
+        onRequestClose={() => { setShowModal(!showModal); }}
       >
         <View>
-        <Text>הכנס פרטים מחדש</Text>
-        <TextInput
-            placeholder="מייל"
-          />
+          <Text>הכנס פרטים מחדש</Text>
+          <TextInput placeholder="מייל" />
           <TextInput
             placeholder="סיסמה"
             value={currPassword}
             onChangeText={(text) => setCurrPassword(text)}
             secureTextEntry
           />
-          
+
           <Button title="מחק אותי" onPress={handleDelete} />
           <Button
             title="בטל"
@@ -194,43 +175,37 @@ const SettingsScreen = ({ navigation }) => {
           Alert.alert(
             "האם אתה בטוח?",
             "",
-            [
-              {
-                text: "מחק אותי",
-                onPress: () =>  setShowModal2(!showModal2),
-                
-              },
-            ],
-            {
-              cancelable: true})
+            [{
+              text: "מחק אותי",
+              onPress: () => setShowModal2(!showModal2),
+            },],
+            { cancelable: true })
         }}
       >
-        <Text style = {styles.settingsBtnText}>מחיקת משתמש</Text>
+        <Text style={globalStyles.settingsBtnText}>מחיקת משתמש</Text>
       </Pressable>
 
       <Pressable
-        style={styles.settingsBtn}
+        style={globalStyles.settingsBtn}
         title="edit"
         onPress={() => {
           navigation.navigate("ProfileEdit");
         }}
       >
-        <Text style = {styles.settingsBtnText}>עריכת פרופיל</Text>
+        <Text style={globalStyles.settingsBtnText}>עריכת פרופיל</Text>
       </Pressable>
 
       <Pressable
-      style={styles.settingsBtn}
+        style={globalStyles.settingsBtn}
         title="contact"
         onPress={() => {
           navigation.navigate("Contact");
         }}
       >
-        <Text style = {styles.settingsBtnText}>צור קשר</Text>
+        <Text style={globalStyles.settingsBtnText}>צור קשר</Text>
       </Pressable>
     </SafeAreaView>
   );
 };
-
-
 
 export default SettingsScreen;
