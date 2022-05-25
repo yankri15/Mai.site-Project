@@ -29,7 +29,9 @@ const ProfilePic = ({ navigation }) => {
       <TouchableOpacity onPress={() => navigation.openDrawer()}>
         <Ionicons style={{ color: "#c8c8c8" }} name="menu-outline" size={35}></Ionicons>
       </TouchableOpacity>
-      <Image source={{ uri: image }} style={globalStyles.touchable_profile_pic} />
+      <TouchableOpacity style={globalStyles.touchable_profile_pic} onPress={() => { navigation.navigate("Profile") }}>
+        <Image source={{ uri: image }} style={globalStyles.touchable_profile_pic}/>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };

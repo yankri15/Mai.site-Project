@@ -102,7 +102,7 @@ const Post = ({ post, navigation }) => {
             ListEmptyComponent={() => {
               return (
                 <View>
-                  <Text>עוד אין תגובות להציג</Text>
+                  <Text>כתבו תגובה ראשונה</Text>
                 </View>
               );
             }}
@@ -112,6 +112,7 @@ const Post = ({ post, navigation }) => {
             <TextInput
               style={globalStyles.Forum_Comment_Text}
               value={newComment}
+              multiline={true}
               placeholder="כתוב תגובה..."
               onChangeText={(text) => setNewComment(text)}
               minLength={20}
@@ -125,11 +126,7 @@ const Post = ({ post, navigation }) => {
       <View style={globalStyles.post}>
         <UserPicName uid={post.data.uid} navigation={navigation} />
         {post.data.uid == currentUser.uid ? (
-          <Entypo
-            style={globalStyles.edit_post}
-            name="dots-three-horizontal"
-            size={25}
-          ></Entypo>
+          <Entypo style={globalStyles.edit_post} name="dots-three-horizontal" size={25}></Entypo>
         ) : null}
         <Text style={globalStyles.post_text}>{post && post.data.postText}</Text>
         {post.data.downloadURL && (
@@ -141,25 +138,20 @@ const Post = ({ post, navigation }) => {
             onPress={() => { }}
             style={globalStyles.details_like_comment}
           >
-            <AntDesign
-              style={{ color: "#fdc123" }}
-              name="like1"
-              size={20}
-            ></AntDesign>
+            <AntDesign style={{ color: "#fdc123" }} name="like1" size={20}></AntDesign>
             <Text style={globalStyles.info_like_comment_txt}>
               {likes.length}
             </Text>
           </Pressable>
           <Pressable
             title="comment"
-            onPress={() => { }}
+            onPress={() => {
+              if (modalVisible) setModalVisible(false);
+              else setModalVisible(true);
+            }}
             style={globalStyles.details_like_comment}
           >
-            <FontAwesome
-              style={{ color: "#fdc123" }}
-              name="commenting"
-              size={20}
-            ></FontAwesome>
+            <FontAwesome style={{ color: "#fdc123" }} name="commenting" size={20}></FontAwesome>
             <Text style={globalStyles.info_like_comment_txt}>
               {comments.length == 1
                 ? comments.length + " תגובה "
@@ -176,11 +168,7 @@ const Post = ({ post, navigation }) => {
             }}
             style={globalStyles.like_comment_btn}
           >
-            <AntDesign
-              style={{ color: "#c6c6b5" }}
-              name="like2"
-              size={18}
-            ></AntDesign>
+            <AntDesign style={{ color: "#c6c6b5" }} name="like2" size={18}></AntDesign>
             <Text style={globalStyles.like_comment_btn_txt}>אהבתי</Text>
           </Pressable>
           <Pressable
@@ -191,16 +179,12 @@ const Post = ({ post, navigation }) => {
             }}
             style={globalStyles.like_comment_btn}
           >
-            <FontAwesome
-              style={{ color: "#c6c6b5" }}
-              name="commenting-o"
-              size={18}
-            ></FontAwesome>
+            <FontAwesome style={{ color: "#c6c6b5" }} name="commenting-o" size={18}></FontAwesome>
             <Text style={globalStyles.like_comment_btn_txt}>הגיבו</Text>
           </Pressable>
         </View>
       </View>
-    </SafeAreaView>
+    </SafeAreaView >
   );
 };
 

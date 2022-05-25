@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  doc,
-  setDocs,
-  addDoc,
-  collection,
-  setDoc,
-  serverTimestamp,
-  updateDoc,
-} from "firebase/firestore";
+import { doc, setDocs, addDoc, collection, setDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import { useAuth } from "../../../AuthProvider/AuthProvider";
 import { globalStyles } from '../../../styles/global';
@@ -47,18 +39,21 @@ const CreateThread = ({ route, navigation }) => {
   }
   return (
     <SafeAreaView style={globalStyles.global}>
-      <Text>פתח נושא</Text>
-      <View>
+      <Text style={globalStyles.forum_title_text}>בואו נפתח נושא חדש!</Text>
+      <View style={globalStyles.create_thread}>
         <TextInput
           value={title}
           placeholder="כותרת"
+          style={globalStyles.create_thread_title}
           minLength={20}
           maxLength={60}
           onChangeText={(text) => setTitle(text)}
         />
-
         <TextInput
           value={comment}
+          placeholder="תגובה ראשונה"
+          multiline={true}
+          style={globalStyles.create_thread_first_cmnt}
           minLength={20}
           maxLength={600}
           onChangeText={(text) => setComment(text)}
@@ -66,10 +61,11 @@ const CreateThread = ({ route, navigation }) => {
       </View>
       <Pressable
         title="publish"
+        style={globalStyles.open_sub_btn}
         onPress={handleSubmitThread}
-        // disabled={loading}
+      // disabled={loading}
       >
-        <Text>פרסם</Text>
+        <Text style={globalStyles.open_sub_btn_text}>פרסמו אותי</Text>
       </Pressable>
     </SafeAreaView>
   );
