@@ -9,6 +9,7 @@ import {
   getDocs,
   query,
   orderBy,
+  where,
 } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
 import React, { useContext, useState, useEffect } from "react";
@@ -27,6 +28,8 @@ const UserDataProvider = ({ children }) => {
   const [admin, setAdmin] = useState();
   const [usersList, setUsersList] = useState([]);
   const [postsList, setPostsList] = useState([]);
+  const [projects, setProjects] = useState([]);
+
 
   //Add user to db with email and status
   const setUserToDB = async (uid, email) => {
@@ -144,6 +147,17 @@ const UserDataProvider = ({ children }) => {
     });
   };
 
+  const getProjects = async () => {
+    setProjects([]);
+
+    const q = query(collection(db, "Projects"), where("uid", "==", currentUser.uid));
+    const docSnap = await getDocs(q);
+
+    docSnap.docs.forEach(async (item) => {
+      setProjects((prev) => [...prev, item.data()]);
+    });
+  };
+
   const checkAdmin = async () => {
     if (currentUser) {
       const docRef = doc(db, "users", currentUser.uid);
@@ -187,6 +201,7 @@ const UserDataProvider = ({ children }) => {
     admin,
     usersList,
     postsList,
+    projects,
     setUserToDB,
     approveUser,
     addDataToDB,
@@ -194,6 +209,7 @@ const UserDataProvider = ({ children }) => {
     checkAdmin,
     getUsersList,
     getPosts,
+    getProjects,
     changeData,
     uploadDataPost,
     uploadImg,

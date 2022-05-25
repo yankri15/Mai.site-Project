@@ -9,6 +9,7 @@ import SearchResultScreen from "../Screens/UserScreens/SearchResultScreen";
 import SettingsScreen from "../Screens/UserScreens/SettingsScreen";
 import WantedScreen from "../Screens/UserScreens/WantedScreen";
 import ProfilePic from "../API/ProfilePic";
+import ProjectScreen from "../Screens/UserScreens/ProjectScreen";
 
 const Stack = createStackNavigator();
 
@@ -20,7 +21,7 @@ const MapNavigator = ({ navigation }) => {
         component={MapScreen}
         options={{
           headerTitle: () => <ProfilePic navigation={navigation} />,
-          
+
         }}
       />
       <Stack.Screen name="Feed" component={FeedScreen} />
@@ -28,6 +29,7 @@ const MapNavigator = ({ navigation }) => {
       <Stack.Screen name="SearchResult" component={SearchResultScreen} />
       <Stack.Screen name="Settings" component={SettingsScreen} />
       <Stack.Screen name="Wanted" component={WantedScreen} />
+      <Stack.Screen name="Project" component={ProjectScreen} />
     </Stack.Navigator>
   );
 };

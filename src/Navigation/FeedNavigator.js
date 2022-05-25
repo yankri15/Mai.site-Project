@@ -12,6 +12,7 @@ import CreatePost from "../Screens/UserScreens/CreatePost";
 import ProfilePic from "../API/ProfilePic";
 import { useAuth } from "../AuthProvider/AuthProvider";
 import ProfileEditScreen from "../Screens/UserScreens/ProfileEditScreen";
+import ProjectScreen from "../Screens/UserScreens/ProjectScreen";
 
 const UserStack = createStackNavigator();
 
@@ -32,6 +33,7 @@ const FeedNavigator = ({ navigation }) => {
       <UserStack.Screen name="Settings" component={SettingsScreen} />
       <UserStack.Screen name="Wanted" component={WantedScreen} />
       <UserStack.Screen name="CreatePost" component={CreatePost} />
+      <UserStack.Screen name="Project" component={ProjectScreen} />
     </UserStack.Navigator>
   );
 };

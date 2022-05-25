@@ -6,15 +6,17 @@ import React, { useState, useEffect } from "react";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../../firebase";
-import { View, Text, SafeAreaView, Image, Pressable } from "react-native";
+import { View, Text, SafeAreaView, Image, Pressable, FlatList } from "react-native";
 import { globalStyles } from "../../styles/global";
 import { EvilIcons, Ionicons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import { useIsFocused } from "@react-navigation/native";
+import { useData } from "../../AuthProvider/UserDataProvider";
 
 const ProfileScreen = ({ route, navigation }) => {
   const uid = route.params ? route.params.uid : undefined;
   const { currentUser } = useAuth();
+  const { projects, getProjects } = useData();
   const id = uid ? uid : currentUser.uid;
   const isFocused = useIsFocused();
   const [name, setName] = useState("");
@@ -24,7 +26,6 @@ const ProfileScreen = ({ route, navigation }) => {
   const [classs, setClasss] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [profilePicUri, setProfilePicUri] = useState();
-  const [tags, setTags] = useState([]);
 
   useEffect(() => {
     const getStatus = async () => {
@@ -45,25 +46,17 @@ const ProfileScreen = ({ route, navigation }) => {
       });
     };
 
-    const getTags = async () => {
-      const docRef = doc(db, "posts", id);
-      const docSnap = await getDoc(docRef);
-      setTags(docSnap.data().tags);
-      console.log(docSnap.data().tags);
-    };
-
     getStatus().catch(console.error);
-    getTags().catch(console.error);
+    getProjects().catch(console.error);
     return;
   }, [isFocused]);
 
   function calculate_age(birthDate) {
     const today_date = new Date();
-
     const today_year = today_date.getFullYear();
     const today_month = today_date.getMonth();
     const today_day = today_date.getDate();
-    const splitedBirthDate = birthDate.split("/");
+    const splitedBirthDate = birthDate.split('/');
     const birth_day = splitedBirthDate[0];
     const birth_month = splitedBirthDate[1];
     const birth_year = splitedBirthDate[2];
@@ -104,9 +97,6 @@ const ProfileScreen = ({ route, navigation }) => {
               {name} {", "} {calculate_age(birthDate)} {", "} {neighborhood}
             </Text>
           </View>
-          <View>
-            <Text>{tags}</Text>
-          </View>
         </View>
       </View>
       {/*  */}
@@ -124,12 +114,28 @@ const ProfileScreen = ({ route, navigation }) => {
         <View style={globalStyles.side_details_comp}>
           <MaterialCommunityIcons style={{ color: "#a77ce8" }} name="lightbulb-on-outline" size={20} ></MaterialCommunityIcons>
           <Text style={globalStyles.side_details_text}>תחומי העניין שלי: </Text>
-          <Text>{tags}</Text>
         </View>
       </View>
       <View style={globalStyles.profile_line}></View>
       <View style={globalStyles.stage2}>
-        <Text style={globalStyles.profile_title}>המיזמים שלי</Text>
+        <FlatList
+          data={projects}
+          renderItem={({ item }) => (
+            <Pressable
+              onPress={() => navigation.navigate("Project", { project: item })}
+            >
+              <Text>{item.name}</Text>
+            </Pressable>
+          )}
+          ListEmptyComponent={() => {
+            return (
+              <View>
+                <Text>נראה שאין מה להציג כרגע..</Text>
+              </View>
+            );
+          }}
+          keyExtractor={(item, index) => index.toString()}
+        />
       </View>
       <View style={globalStyles.profile_line}></View>
       <View style={globalStyles.stage3}>
