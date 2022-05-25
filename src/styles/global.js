@@ -197,14 +197,15 @@ export const globalStyles = StyleSheet.create({
         marginBottom: '2%',
     },
     stage2: {
+        backgroundColor: "#C4A5F3",
         alignItems: "center",
         justifyContent: "center",
-        marginBottom: '5%',
+        //marginBottom: '5%',
     },
     stage3: {
         alignItems: "center",
         justifyContent: "center",
-        marginBottom: '5%',
+        //marginBottom: '5%',
     },
     touchable_profile_pic: {
         height: 35,
@@ -234,8 +235,10 @@ export const globalStyles = StyleSheet.create({
         marginBottom: '3%',
     },
     profile_title: {
+        color: "#000000",
         fontWeight: "bold",
-        fontSize: 25,
+        fontSize: 30,
+        marginTop: '3%',
     },
     edit_profile_pic: {
         width: 150,
@@ -257,8 +260,8 @@ export const globalStyles = StyleSheet.create({
         width: '100%',
         borderWidth: 3,
         borderColor: '#fee6a7',
-        marginTop: '2%',
-        marginBottom: '5%',
+        //marginTop: '2%',
+        //marginBottom: '5%',
     },
     picAndDetails: {
         alignItems: "center",
@@ -274,16 +277,6 @@ export const globalStyles = StyleSheet.create({
         marginLeft: '2%',
         marginBottom: '2%',
     },
-    // circle_details: {
-    //     width: '78%',
-    //     height: 82,
-    //     backgroundColor: "#fdc123",
-    //     borderColor: "black",
-    //     borderWidth: 1,
-    //     borderRadius: 100,
-    //     justifyContent: "center",
-    //     margin: 5,
-    // },
     side_details_text: {
         fontWeight: "bold",
         textAlign: "left",
@@ -292,11 +285,44 @@ export const globalStyles = StyleSheet.create({
         marginLeft: '2%',
         flexWrap: "wrap",
     },
+    profile_project: {
+        backgroundColor: "#fdc123",
+        borderWidth: 2,
+        borderColor: "black",
+        width: '92%',
+        marginLeft: '4%',
+        borderRadius: 25,
+        marginTop: '10%',
+    },
+    profile_project_txt: {
+        textAlign: "center",
+        fontSize: 20,
+        color: "#000000",
+        fontWeight: "bold",
+        margin: '2%',
+        marginBottom: '5%',
+    },
     line: {
         width: '100%',
         borderWidth: 0.8,
         borderColor: 'black',
         marginBottom: '5%',
+    },
+    //////////////////project///////////////////////
+    project_details_view: {
+        flexDirection: 'row',
+        marginBottom: '3%',
+    },
+    project_title_details: {
+        color: "black",
+        marginLeft: '3%',
+        fontSize: 15,
+        fontWeight: "bold",
+    },
+    project_details: {
+        color: "black",
+        //marginLeft: '1%',
+        fontSize: 15,
     },
     ////////////////////////////////////////////////
     plus_btn: {
