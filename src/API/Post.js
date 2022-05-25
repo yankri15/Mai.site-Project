@@ -10,6 +10,7 @@ import Comment from "../Screens/UserScreens/ForumScreens/Comment";
 import { collection, getDocs, setDoc, doc, deleteDoc, query, orderBy, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useAuth } from "../AuthProvider/AuthProvider";
+import style from "react-native-datepicker/style";
 
 const Post = ({ post, navigation }) => {
   const [url, setUrl] = useState();
@@ -40,7 +41,7 @@ const Post = ({ post, navigation }) => {
     };
     getLikes().catch(console.error);
     return;
-  }, []);
+  }, []);  
 
   useEffect(() => {
     setComments([]);
@@ -62,14 +63,21 @@ const Post = ({ post, navigation }) => {
     getComments().catch(console.error);
     return;
   }, []);
+  
+  // {color: "#c6c6b5"}
+  // let isPress = false;
+  // isPress ? likeColor = {color: "#fdc123"} : {color: "#c6c6b5"}
+  let likeColor = {color: "#c6c6b5"}
 
   async function handleLike() {
     if (likes.includes(currentUser.uid)) {
-      await deleteDoc(doc(db, "posts", post.id, "likes", currentUser.uid));
+      await deleteDoc(doc(db, "posts", post.id, "likes", currentUser.uid))
+      //isPress = false
     } else {
       await setDoc(doc(db, "posts", post.id, "likes", currentUser.uid), {
         uid: currentUser.uid,
-      });
+      })
+      //isPress = true
     }
   }
 
@@ -84,6 +92,7 @@ const Post = ({ post, navigation }) => {
       uid: currentUser.uid,
     });
   }
+
   return (
     <SafeAreaView>
       <Modal
@@ -132,31 +141,28 @@ const Post = ({ post, navigation }) => {
         {post.data.downloadURL && (
           <Image style={globalStyles.post_img} source={{ uri: url }} />
         )}
-        <View style={globalStyles.like_comment}>
+        <View >
           <Pressable
-            title="like"
-            onPress={() => { }}
-            style={globalStyles.details_like_comment}
-          >
-            <AntDesign style={{ color: "#fdc123" }} name="like1" size={20}></AntDesign>
-            <Text style={globalStyles.info_like_comment_txt}>
-              {likes.length}
-            </Text>
-          </Pressable>
-          <Pressable
-            title="comment"
+            title="like_comment"
             onPress={() => {
               if (modalVisible) setModalVisible(false);
               else setModalVisible(true);
             }}
-            style={globalStyles.details_like_comment}
           >
-            <FontAwesome style={{ color: "#fdc123" }} name="commenting" size={20}></FontAwesome>
-            <Text style={globalStyles.info_like_comment_txt}>
-              {comments.length == 1
-                ? comments.length + " תגובה "
-                : comments.length + " תגובות "}
-            </Text>
+            <View style={globalStyles.details_like_comment}>
+              <View style={globalStyles.info_like_comment}>
+                <AntDesign style={{ color: "#fdc123" }} name="like1" size={15}></AntDesign>
+                <Text style={globalStyles.info_like_comment_txt}>{likes.length}</Text>
+              </View>
+              <View style={globalStyles.info_like_comment}>
+                <FontAwesome style={{ color: "#fdc123" }} name="commenting" size={15}></FontAwesome>
+                <Text style={globalStyles.info_like_comment_txt}>
+                  {comments.length == 1
+                    ? comments.length + " תגובה "
+                    : comments.length + " תגובות "}
+                </Text>
+              </View>
+            </View>
           </Pressable>
         </View>
         <View style={globalStyles.like_comment_line}></View>
@@ -168,7 +174,7 @@ const Post = ({ post, navigation }) => {
             }}
             style={globalStyles.like_comment_btn}
           >
-            <AntDesign style={{ color: "#c6c6b5" }} name="like2" size={18}></AntDesign>
+            <AntDesign style={likeColor} name="like2" size={18}></AntDesign>
             <Text style={globalStyles.like_comment_btn_txt}>אהבתי</Text>
           </Pressable>
           <Pressable

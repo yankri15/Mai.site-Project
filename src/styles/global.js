@@ -295,7 +295,7 @@ export const globalStyles = StyleSheet.create({
     },
     line: {
         width: '100%',
-        borderWidth: 1,
+        borderWidth: 0.8,
         borderColor: 'black',
         marginBottom: '5%',
     },
@@ -401,9 +401,6 @@ export const globalStyles = StyleSheet.create({
         marginBottom: '1%',
         backgroundColor: "#ffffff"
     },
-    topic_post: {
-        // flexDirection: "row",
-    },
     post: {
         width: '100%',
         paddingBottom: '1%',
@@ -444,12 +441,21 @@ export const globalStyles = StyleSheet.create({
         margin: '2%',
     },
     user_name: {
+        fontSize: 15,
         fontWeight: "bold",
+    },
+    user_date: {
+        fontSize: 13,
+        color: "#808080",
+        textAlign: "left",
     },
     user_pic_name: {
         flexDirection: "row",
         alignItems: "center",
 
+    },
+    name_date: {
+        flexDirection: "column",
     },
     take_a_pic: {
         flexDirection: "row",
@@ -472,18 +478,19 @@ export const globalStyles = StyleSheet.create({
     like_comment: {
         flexDirection: "row",
         justifyContent: "space-between",
-        marginLeft: '8%',
-        marginRight: '8%',
-        paddingBottom: '2%',
-        marginTop: '2%',
+        marginLeft: '4%',
+        marginRight: '4%',
+        paddingBottom: '1%',
+        marginTop: '1%',
     },
     details_like_comment: {
         flexDirection: "row",
         justifyContent: "space-between",
-        //marginLeft: '8%',
-        //marginRight: '8%',
-       // paddingBottom: '2%',
-       // marginTop: '2%',
+        marginLeft: '4%',
+        marginRight: '1%',
+    },
+    info_like_comment: {
+        flexDirection: "row",
     },
     like_comment_btn: {
         alignItems: 'center',
@@ -491,24 +498,24 @@ export const globalStyles = StyleSheet.create({
         flexDirection: "row",
     },
     like_comment_btn_txt: {
-        color: "#c6c6b5",
+        color: "#cecece",
         fontWeight: "bold",
         fontSize: 16,
         marginLeft: '5%',
     },
     info_like_comment_txt: {
-        color: "#c6c6b5",
+        color: "#cecece",
         fontWeight: "bold",
-        fontSize: 15,
-        marginLeft: '2%',
+        fontSize: 12,
+        marginLeft: '5%',
     },
     like_comment_line: {
         width: '94%',
         marginLeft: '3%',
-        borderWidth: 0.5,
-        borderColor: '#c6c6b5',
-        marginTop: '2%',
-        marginBottom: '0.5%',
+        borderWidth: 0.2,
+        borderColor: '#e2e2e2',
+        marginTop: '1%',
+        marginBottom: '1%',
     },
     /////////////////Forum_Topic/////////////////
     forum_title_text: {
@@ -523,13 +530,13 @@ export const globalStyles = StyleSheet.create({
         backgroundColor: "#e2e2e2",
         padding: '5%',
         marginBottom: '5%',
-        width: '92%',
-        marginLeft: '4%',
+        width: '90%',
+        marginLeft: '5%',
         borderRadius: 25,
 
     },
     forums_titles_txt: {
-        fontSize: 30,
+        fontSize: 20,
         fontWeight: "bold",
         color: "#a77ce8",
     },
@@ -609,7 +616,7 @@ export const globalStyles = StyleSheet.create({
         flexDirection: "row",
         marginBottom: '12%',
         borderColor: "black",
-        borderWidth: 1,
+        //borderWidth: 1,
         padding: "4%",
         borderRadius: 20,
         width: "92%",
