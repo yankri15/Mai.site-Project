@@ -36,9 +36,7 @@ const TopicsScreen = ({ navigation }) => {
     }
         , []);
 
-
     // console.log(topics[0]);
-
 
     return (
         <SafeAreaView style={globalStyles.global}>

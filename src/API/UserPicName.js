@@ -32,16 +32,19 @@ const UserPicName = ({ uid, navigation }) => {
           style={globalStyles.logo_image_area}
         ></Image>
       </View>
-      <Pressable
-        title="to_profile"
-        onPress={() => {
-          navigation.navigate("Profile", {
-            uid: uid,
-          });
-        }}
-      >
-        <Text style={globalStyles.user_name}>{name}</Text>
-      </Pressable>
+      <View style={globalStyles.name_date}>
+        <Pressable
+          title="to_profile"
+          onPress={() => {
+            navigation.navigate("Profile", {
+              uid: uid,
+            });
+          }}
+        >
+          <Text style={globalStyles.user_name}>{name}</Text>
+        </Pressable>
+        <Text style={globalStyles.user_date}>25/05/2022</Text>
+      </View>
     </View>
   );
 };
