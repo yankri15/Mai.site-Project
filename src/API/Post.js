@@ -10,7 +10,6 @@ import Comment from "../Screens/UserScreens/ForumScreens/Comment";
 import { collection, getDocs, setDoc, doc, deleteDoc, query, orderBy, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useAuth } from "../AuthProvider/AuthProvider";
-import style from "react-native-datepicker/style";
 
 const Post = ({ post, navigation }) => {
   const [url, setUrl] = useState();
@@ -151,11 +150,11 @@ const Post = ({ post, navigation }) => {
           >
             <View style={globalStyles.details_like_comment}>
               <View style={globalStyles.info_like_comment}>
-                <AntDesign style={{ color: "#fdc123" }} name="like1" size={15}></AntDesign>
+                <AntDesign style={{ color: "#fdc123" }} name="like1" size={18}></AntDesign>
                 <Text style={globalStyles.info_like_comment_txt}>{likes.length}</Text>
               </View>
               <View style={globalStyles.info_like_comment}>
-                <FontAwesome style={{ color: "#fdc123" }} name="commenting" size={15}></FontAwesome>
+                <FontAwesome style={{ color: "#fdc123" }} name="commenting" size={18}></FontAwesome>
                 <Text style={globalStyles.info_like_comment_txt}>
                   {comments.length == 1
                     ? comments.length + " תגובה "

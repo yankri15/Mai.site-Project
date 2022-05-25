@@ -1,5 +1,4 @@
 import { StyleSheet, StatusBar, Dimensions  } from "react-native";
-import { borderColor, shadowOffset } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 
 export const globalStyles = StyleSheet.create({
     global: {
@@ -10,7 +9,7 @@ export const globalStyles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#a77ce8",
+        backgroundColor: "#C4A5F3",
     },
     textInput: {
         borderColor: "black",
@@ -478,19 +477,20 @@ export const globalStyles = StyleSheet.create({
     like_comment: {
         flexDirection: "row",
         justifyContent: "space-between",
-        marginLeft: '4%',
-        marginRight: '4%',
+        marginLeft: '10%',
+        marginRight: '10%',
         paddingBottom: '1%',
         marginTop: '1%',
     },
     details_like_comment: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        marginLeft: '4%',
-        marginRight: '1%',
+        //flexDirection: "row",
+        //justifyContent: "space-between",
+        marginLeft: '3%',
+        //marginRight: '1%',
     },
     info_like_comment: {
         flexDirection: "row",
+        marginBottom: '1%',
     },
     like_comment_btn: {
         alignItems: 'center',
@@ -506,7 +506,7 @@ export const globalStyles = StyleSheet.create({
     info_like_comment_txt: {
         color: "#cecece",
         fontWeight: "bold",
-        fontSize: 12,
+        fontSize: 13,
         marginLeft: '5%',
     },
     like_comment_line: {
@@ -614,7 +614,7 @@ export const globalStyles = StyleSheet.create({
     /////////////////Forum_Comment/////////////////
     Forum_Comment: {
         flexDirection: "row",
-        marginBottom: '12%',
+        marginBottom: '10%',
         borderColor: "black",
         //borderWidth: 1,
         padding: "4%",
@@ -627,11 +627,12 @@ export const globalStyles = StyleSheet.create({
     },
     Forum_Button:{
         position: "absolute",
-        bottom: '22%',
-        right: '3%',
+        bottom: '25%',
+        right: '4%',
         justifyContent: "center",
         alignItems: "center",
         paddingTop: '10%',
+        paddingLeft: '5%',
         backgroundColor: "#a77ce8",
         borderRadius: 100,
         width: 45,
