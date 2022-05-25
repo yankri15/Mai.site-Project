@@ -50,9 +50,7 @@ const TopicsScreen = ({ navigation }) => {
                         <Pressable
                             style={globalStyles.forums_titles}
                             onPress={() => navigation.navigate("Subject", { item })}>
-                            <View style={globalStyles.line}></View>
                             <Text style={globalStyles.forums_titles_txt}>{item.topicName}</Text>
-
                         </Pressable>
                     )}
 

@@ -15,17 +15,14 @@ export const globalStyles = StyleSheet.create({
     textInput: {
         borderColor: "black",
         color: "#000000",
-        width: '90%',
+        width: '85%',
         padding: 5,
         paddingRight: 10,
         fontSize: 17,
         borderWidth: 2,
-        marginBottom: 4,
+        marginBottom: '2%',
         textAlign: "right",
-        borderBottomLeftRadius: 5,
-        borderBottomRightRadius: 5,
-        borderTopLeftRadius: 5,
-        borderTopRightRadius: 5,
+        borderRadius: 5,
         backgroundColor: "#fffffa",
     },
     loading: {
@@ -143,15 +140,22 @@ export const globalStyles = StyleSheet.create({
         fontSize: 30,
         fontWeight: "bold",
     },
+    reg_bdate: {
+        flexDirection: 'row'
+    },
     datePicker: {
-        flexDirection: "row",
-        alignContent: "center",
-        width: 315,
+        marginLeft: '22%',
     },
     picker: {
         flex: 1,
         margin: 2,
         fontSize: 10,
+    },
+    reg_choose: {
+        textAlign: "right",
+        width: '85%',
+        height: 28,
+        marginLeft: '-19%',
     },
     ////////////////////////////////////////////////
     draw_pic_name: {
@@ -425,6 +429,13 @@ export const globalStyles = StyleSheet.create({
         top: '1.5%',
         right: '2.5%',
     },
+    edit_comment: {
+        color: "#595959",
+        alignSelf: 'flex-end',
+        position: 'absolute',
+        top: '5%',
+        right: '4%',
+    },
     user_pic: {
         width: 40,
         height: 40,
@@ -502,21 +513,23 @@ export const globalStyles = StyleSheet.create({
     /////////////////Forum_Topic/////////////////
     forum_title_text: {
         color: "#fdc123",
-        fontSize: 40,
+        fontSize: 30,
         fontWeight: "bold",
         textAlign: "center",
-        marginBottom: '2%',
+        marginBottom: '5%',
     },
     forums_titles: {
-        margin: '2%',
         alignItems: "center",
-        shadowColor: "black",
-        shadowOpacity: 0.8,
-        shadowOffset: { width: 1, height: 13 },
-        shadowRadius: 20,
+        backgroundColor: "#e2e2e2",
+        padding: '5%',
+        marginBottom: '5%',
+        width: '92%',
+        marginLeft: '4%',
+        borderRadius: 25,
+
     },
     forums_titles_txt: {
-        fontSize: 35,
+        fontSize: 30,
         fontWeight: "bold",
         color: "#a77ce8",
     },
@@ -558,11 +571,29 @@ export const globalStyles = StyleSheet.create({
         marginLeft: '4%',
         borderRadius: 25,
     },
+    first_comment: {
+        backgroundColor: "#fff89e",
+        paddingBottom: '2%',
+        marginBottom: '2%',
+        width: '92%',
+        marginLeft: '4%',
+        borderRadius: 25,
+    },
     comment_data: {
         marginLeft: '15%'
     },
     /////////////////Forum_Create_Thread/////////////////
-
+    create_thread: {
+        marginTop: '15%',
+        marginLeft: '5%',
+    },
+    create_thread_title: {
+        fontSize: 25,
+        marginBottom: '20%',
+    },
+    create_thread_first_cmnt: {
+        fontSize: 20,
+    },
     /////////////////Forum_Thread/////////////////
     tread_title: {
         textAlign: "center",
@@ -593,6 +624,7 @@ export const globalStyles = StyleSheet.create({
         right: '3%',
         justifyContent: "center",
         alignItems: "center",
+        paddingTop: '10%',
         backgroundColor: "#a77ce8",
         borderRadius: 100,
         width: 45,

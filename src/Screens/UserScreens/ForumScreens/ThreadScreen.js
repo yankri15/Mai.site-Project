@@ -87,8 +87,8 @@ const ThreadScreen = ({ route, navigation }) => {
         <FlatList
           data={comments}
           style={globalStyles.tread_comments}
-          renderItem={({ item }) => (
-            <Comment commentData={item.commentData} navigation={navigation} />
+          renderItem={({ item, index }) => (
+            (index == 0 ? <Comment commentData={item.commentData} navigation={navigation} first={true}/> : <Comment commentData={item.commentData} navigation={navigation} />)
           )}
           refreshing={refreshing}
           onRefresh={handleRefresh}

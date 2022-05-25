@@ -86,7 +86,7 @@ const SubjectScreen = ({ route, navigation }) => {
           });
         }}
       >
-        <Text style={globalStyles.open_sub_btn_text}>פתח נושא</Text>
+        <Text style={globalStyles.open_sub_btn_text}>נושא חדש</Text>
       </Pressable>
     </SafeAreaView>
   );
