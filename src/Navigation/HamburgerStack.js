@@ -26,7 +26,7 @@ const HamburgerStack = () => {
         drawerActiveBackgroundColor: "#552583",
         drawerActiveTintColor: "#fff",
         drawerInactiveColor: "#333",
-        gestureEnabled: false,
+        swipeEnabled: false,
       }}
     >
       <Drawer.Screen name="בית" component={UserNavbar} />
