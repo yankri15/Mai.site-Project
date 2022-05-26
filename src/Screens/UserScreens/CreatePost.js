@@ -57,7 +57,7 @@ const CreatePost = ({ navigation }) => {
 
   return (
     <SafeAreaView style={global}>
-      <Text style={globalStyles.title_creat_post}>שתפו אותנו במיזם חדש!</Text>
+      <Text style={globalStyles.title_creat_post}>אז מה חדש במיזם שלכם?</Text>
       <TextInput
         placeholder="דברו אלינו..."
         onChangeText={(text) => setPostText(text)}
