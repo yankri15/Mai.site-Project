@@ -1,7 +1,8 @@
-import { StyleSheet, StatusBar, Dimensions  } from "react-native";
+import { StyleSheet, StatusBar, Dimensions } from "react-native";
 
 export const globalStyles = StyleSheet.create({
-    global: {
+
+  global: {
         marginTop: StatusBar.currentHeight,
         height: '100%',
     },
@@ -477,217 +478,266 @@ export const globalStyles = StyleSheet.create({
     user_pic_name: {
         flexDirection: "row",
         alignItems: "center",
+    },
+  name_date: {
+    flexDirection: "column",
+  },
+  take_a_pic: {
+    flexDirection: "row",
+    marginBottom: "7%",
+  },
+  take_a_pic_btn: {
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    padding: 10,
+    margin: 10,
+    borderRadius: 20,
+    backgroundColor: "#000000",
+  },
+  take_a_pic_btn_text: {
+    fontSize: 15,
+    color: "#fdc123",
+    fontWeight: "bold",
+  },
+  like_comment: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginLeft: "10%",
+    marginRight: "10%",
+    paddingBottom: "1%",
+    marginTop: "1%",
+  },
+  details_like_comment: {
+    //flexDirection: "row",
+    //justifyContent: "space-between",
+    marginLeft: "3%",
+    //marginRight: '1%',
+  },
+  info_like_comment: {
+    flexDirection: "row",
+    marginBottom: "1%",
+  },
+  like_comment_btn: {
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  like_comment_btn_txt: {
+    color: "#cecece",
+    fontWeight: "bold",
+    fontSize: 16,
+    marginLeft: "5%",
+  },
+  info_like_comment_txt: {
+    color: "#cecece",
+    fontWeight: "bold",
+    fontSize: 13,
+    marginLeft: "5%",
+  },
+  like_comment_line: {
+    width: "94%",
+    marginLeft: "3%",
+    borderWidth: 0.2,
+    borderColor: "#e2e2e2",
+    marginTop: "1%",
+    marginBottom: "1%",
+  },
+  /////////////////Forum_Topic/////////////////
+  forum_title_text: {
+    color: "#fdc123",
+    fontSize: 30,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: "5%",
+  },
+  forums_titles: {
+    alignItems: "center",
+    backgroundColor: "#e2e2e2",
+    padding: "5%",
+    marginBottom: "5%",
+    width: "90%",
+    marginLeft: "5%",
+    borderRadius: 25,
+  },
+  forums_titles_txt: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#a77ce8",
+  },
+  /////////////////Forum_Subject/////////////////
+  open_sub_btn: {
+    position: "absolute",
+    bottom: "7%",
+    left: "5%",
+    borderColor: "black",
+    borderStyle: "solid",
+    backgroundColor: "#a77ce8",
+    textAlign: "center",
+    borderWidth: 2,
+    borderRadius: 100,
+    padding: 5,
+  },
+  open_sub_btn_text: {
+    color: "#fdc123",
+    fontSize: 18,
+    fontWeight: "bold",
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  subjects: {
+    marginTop: "1%",
+  },
+  subjects_txt: {
+    fontSize: 18,
+    color: "#a77ce8",
+    fontWeight: "bold",
+    margin: "2%",
+    marginBottom: "5%",
+  },
+  comment: {
+    backgroundColor: "#e2e2e2",
+    paddingBottom: "2%",
+    marginBottom: "2%",
+    width: "92%",
+    marginLeft: "4%",
+    borderRadius: 25,
+  },
+  first_comment: {
+    backgroundColor: "#fff89e",
+    paddingBottom: "2%",
+    marginBottom: "2%",
+    width: "92%",
+    marginLeft: "4%",
+    borderRadius: 25,
+  },
+  comment_data: {
+    marginLeft: "15%",
+  },
+  /////////////////Forum_Create_Thread/////////////////
+  create_thread: {
+    marginTop: "15%",
+    marginLeft: "5%",
+  },
+  create_thread_title: {
+    fontSize: 25,
+    marginBottom: "20%",
+  },
+  create_thread_first_cmnt: {
+    fontSize: 20,
+  },
+  /////////////////Forum_Thread/////////////////
+  tread_title: {
+    textAlign: "center",
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#a77ce8",
+  },
+  tread_comments: {
+    marginLeft: "2%",
+  },
+  /////////////////Forum_Comment/////////////////
+  Forum_Comment: {
+    flexDirection: "row",
+    marginBottom: "10%",
+    borderColor: "black",
+    //borderWidth: 1,
+    padding: "4%",
+    borderRadius: 20,
+    width: "92%",
+    marginLeft: "4%",
+  },
+  Forum_Comment_Text: {
+    width: "80%",
+  },
+  Forum_Button: {
+    position: "absolute",
+    bottom: "25%",
+    right: "4%",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: "10%",
+    paddingLeft: "5%",
+    backgroundColor: "#a77ce8",
+    borderRadius: 100,
+    width: 45,
+    height: 45,
+  },
 
-    },
-    name_date: {
-        flexDirection: "column",
-    },
-    take_a_pic: {
-        flexDirection: "row",
-        marginBottom: '7%',
-    },
-    take_a_pic_btn: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: "row",
-        padding: 10,
-        margin: 10,
-        borderRadius: 20,
-        backgroundColor: "#000000",
-    },
-    take_a_pic_btn_text: {
-        fontSize: 15,
-        color: "#fdc123",
-        fontWeight: "bold",
-    },
-    like_comment: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        marginLeft: '10%',
-        marginRight: '10%',
-        paddingBottom: '1%',
-        marginTop: '1%',
-    },
-    details_like_comment: {
-        //flexDirection: "row",
-        //justifyContent: "space-between",
-        marginLeft: '3%',
-        //marginRight: '1%',
-    },
-    info_like_comment: {
-        flexDirection: "row",
-        marginBottom: '1%',
-    },
-    like_comment_btn: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: "row",
-    },
-    like_comment_btn_txt: {
-        color: "#cecece",
-        fontWeight: "bold",
-        fontSize: 16,
-        marginLeft: '5%',
-    },
-    info_like_comment_txt: {
-        color: "#cecece",
-        fontWeight: "bold",
-        fontSize: 13,
-        marginLeft: '5%',
-    },
-    like_comment_line: {
-        width: '94%',
-        marginLeft: '3%',
-        borderWidth: 0.2,
-        borderColor: '#e2e2e2',
-        marginTop: '1%',
-        marginBottom: '1%',
-    },
-    /////////////////Forum_Topic/////////////////
-    forum_title_text: {
-        color: "#fdc123",
-        fontSize: 30,
-        fontWeight: "bold",
-        textAlign: "center",
-        marginBottom: '5%',
-    },
-    forums_titles: {
-        alignItems: "center",
-        backgroundColor: "#e2e2e2",
-        padding: '5%',
-        marginBottom: '5%',
-        width: '90%',
-        marginLeft: '5%',
-        borderRadius: 25,
+  /////////////settings////////////////////
+  settingsContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#C4A5F3",
+  },
 
-    },
-    forums_titles_txt: {
-        fontSize: 20,
-        fontWeight: "bold",
-        color: "#a77ce8",
-    },
-    /////////////////Forum_Subject/////////////////
-    open_sub_btn: {
-        position: 'absolute',
-        bottom: '7%',
-        left: '5%',
-        borderColor: 'black',
-        borderStyle: 'solid',
-        backgroundColor: "#a77ce8",
-        textAlign: "center",
-        borderWidth: 2,
-        borderRadius: 100,
-        padding: 5,
-    },
-    open_sub_btn_text: {
-        color: "#fdc123",
-        fontSize: 18,
-        fontWeight: "bold",
-        paddingLeft: 10,
-        paddingRight: 10,
-    },
-    subjects: {
-        marginTop: '1%',
-    },
-    subjects_txt: {
-        fontSize: 18,
-        color: "#a77ce8",
-        fontWeight: "bold",
-        margin: '2%',
-        marginBottom: '5%',
-    },
-    comment: {
-        backgroundColor: "#e2e2e2",
-        paddingBottom: '2%',
-        marginBottom: '2%',
-        width: '92%',
-        marginLeft: '4%',
-        borderRadius: 25,
-    },
-    first_comment: {
-        backgroundColor: "#fff89e",
-        paddingBottom: '2%',
-        marginBottom: '2%',
-        width: '92%',
-        marginLeft: '4%',
-        borderRadius: 25,
-    },
-    comment_data: {
-        marginLeft: '15%'
-    },
-    /////////////////Forum_Create_Thread/////////////////
-    create_thread: {
-        marginTop: '15%',
-        marginLeft: '5%',
-    },
-    create_thread_title: {
-        fontSize: 25,
-        marginBottom: '20%',
-    },
-    create_thread_first_cmnt: {
-        fontSize: 20,
-    },
-    /////////////////Forum_Thread/////////////////
-    tread_title: {
-        textAlign: "center",
-        fontSize: 18,
-        fontWeight: "bold",
-        color: "#a77ce8",
-    },
-    tread_comments: {
-        marginLeft: '2%',
-    },
-    /////////////////Forum_Comment/////////////////
-    Forum_Comment: {
-        flexDirection: "row",
-        marginBottom: '10%',
-        borderColor: "black",
-        //borderWidth: 1,
-        padding: "4%",
-        borderRadius: 20,
-        width: "92%",
-        marginLeft: "4%",
-    },
-    Forum_Comment_Text: {
-        width: '80%',
-    },
-    Forum_Button:{
-        position: "absolute",
-        bottom: '25%',
-        right: '4%',
-        justifyContent: "center",
-        alignItems: "center",
-        paddingTop: '10%',
-        paddingLeft: '5%',
-        backgroundColor: "#a77ce8",
-        borderRadius: 100,
-        width: 45,
-        height: 45,
-    },
+  settingsBtn: {
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    padding: 5,
+    borderColor: "black",
+    borderWidth: 2,
+    marginTop: 17,
+    marginBottom: 17,
+    borderRadius: 10,
+    backgroundColor: "#FFD260",
+    width: "45%",
+  },
+  settingsBtnText: {
+    color: "#000000",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  modal: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
 
-    /////////////settings////////////////////
-    settingsContainer: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#C4A5F3",
-      },
-    
-      settingsBtn: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: "center",
-        padding: 5,
-        borderColor: "black",
-        borderWidth: 2,
-        marginTop: 15,
-        marginBottom: 15,
-        borderRadius: 10,
-        backgroundColor: "#fdc123",
-      },
-      settingsBtnText:{
-        color: "#000000",
-        fontSize: 20,
-        fontWeight: "bold",
-      },
+  modalView: {
+    flex: 1,
+    backgroundColor: "#C4A5F3",
+    paddingTop: "30%",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+  },
+  modal_btn: {
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    padding: 5,
+    borderColor: "black",
+    borderWidth: 2,
+    marginTop: 17,
+    marginBottom: 17,
+    borderRadius: 10,
+    backgroundColor: "#FFD260",
+    width: "45%",
+  },
+
+  delete_text: {
+    textAlign: "center",
+    fontSize: 25,
+    fontWeight: "bold",
+    marginBottom: "10%"
+  },
+  msg_text:{
+    borderColor: "black",
+    color: "#000000",
+    width: "85%",
+    height: "25%",
+    padding: 5,
+    paddingRight: 10,
+    fontSize: 17,
+    borderWidth: 2,
+    textAlign: "right",
+    borderRadius: 5,
+    backgroundColor: "#fffffa", 
+    textAlignVertical: "top"
+  }
 });

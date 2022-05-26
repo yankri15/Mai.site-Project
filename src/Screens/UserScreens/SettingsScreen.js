@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Modal, Button, TextInput, SafeAreaView, Alert, StyleSheet } from "react-native";
+import { View, Text, Pressable, Modal, TextInput, SafeAreaView, Alert} from "react-native";
 import React, { useState } from "react";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import { globalStyles } from "../../styles/global";
@@ -89,13 +89,13 @@ const SettingsScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={globalStyles.settingsContainer}>
-      <Modal style={globalStyles.settingsContainer}
+      <Modal style={globalStyles.modal}
         animationType={"slide"}
         transparent={false}
         visible={showModal}
         onRequestClose={() => { setShowModal(!showModal); }}
       >
-        <View>
+        <View style={globalStyles.modalView}>
           <TextInput
             style={globalStyles.textInput}
             placeholder="הכנס סיסמה"
@@ -117,11 +117,11 @@ const SettingsScreen = ({ navigation }) => {
             onChangeText={(text) => setNewConfirmPassword(text)}
             secureTextEntry
           />
-          <Pressable style={globalStyles.settingsBtn} title="שנה סיסמה" onPress={handleChangePassword} >
+          <Pressable style={globalStyles.modal_btn} title="שנה סיסמה" onPress={handleChangePassword} >
             <Text style={globalStyles.settingsBtnText}>שנה סיסמה</Text>
           </Pressable>
           <Pressable
-            style={globalStyles.settingsBtn}
+            style={globalStyles.modal_btn}
             title="בטל"
             onPress={() => {
               setShowModal(!showModal);
@@ -142,29 +142,41 @@ const SettingsScreen = ({ navigation }) => {
         <Text style={globalStyles.settingsBtnText}>שנה סיסמה</Text>
       </Pressable>
 
-      <Modal
+      <Modal style={globalStyles.modal}
         animationType={"slide"}
         transparent={false}
         visible={showModal2}
         onRequestClose={() => { setShowModal(!showModal); }}
       >
-        <View>
-          <Text>הכנס פרטים מחדש</Text>
-          <TextInput placeholder="מייל" />
+        <View style={globalStyles.modalView}>
+          <Text style={globalStyles.delete_text}>הכנס פרטים מחדש</Text>
           <TextInput
+          style={globalStyles.textInput}
+          placeholder="מייל" />
+          <TextInput
+          style={globalStyles.textInput}
             placeholder="סיסמה"
             value={currPassword}
             onChangeText={(text) => setCurrPassword(text)}
             secureTextEntry
           />
-
-          <Button title="מחק אותי" onPress={handleDelete} />
-          <Button
-            title="בטל"
-            onPress={() => {
-              setShowModal2(!showModal2);
-            }}
-          />
+ <Pressable
+        style={globalStyles.settingsBtn}
+        title="delete me"
+        onPress={handleDelete}
+      >
+        <Text style={globalStyles.settingsBtnText}>מחק אותי</Text>
+      </Pressable>
+      <Pressable
+        style={globalStyles.settingsBtn}
+        title="abort"
+        onPress={() => {
+          setShowModal2(!showModal2);
+        }}
+      >
+        <Text style={globalStyles.settingsBtnText}>לא, זאת טעות</Text>
+      </Pressable>
+          
         </View>
       </Modal>
 

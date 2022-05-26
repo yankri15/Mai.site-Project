@@ -1,12 +1,7 @@
-import React, { useState }  from "react";
-import {
-  View,
-  Text,
-  Button,
-  TextInput,
-  StyleSheet,
-} from "react-native";
+import React, { useState } from "react";
+import { View, Text, Pressable, TextInput } from "react-native";
 import email from "react-native-email";
+import { globalStyles } from "../../styles/global";
 
 const Contact = ({ navigation }) => {
   const [subject, setSubject] = useState("");
@@ -31,31 +26,30 @@ const Contact = ({ navigation }) => {
   }
 
   return (
-    <View style={style.container}>
-      <Text>צור קשר</Text>
+    <View style={globalStyles.settingsContainer}>
+      <Text style={globalStyles.delete_text}>צור קשר</Text>
       <TextInput
+      style={globalStyles.textInput}
         placeholder="נושא"
         value={subject}
         onChangeText={(text) => setSubject(text)}
       />
 
       <TextInput
+        style={globalStyles.msg_text}
         placeholder="מה תרצו להגיד לנו?"
         value={msg}
         onChangeText={(text) => setMsg(text)}
       />
-      <Button title="שלח!" onPress={handleMsg} />
+      <Pressable
+        style={globalStyles.settingsBtn}
+        title="send"
+        onPress={handleMsg}
+      >
+        <Text style={globalStyles.settingsBtnText}>שלח!</Text>
+      </Pressable>
     </View>
   );
 };
-
-const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
 
 export default Contact;
