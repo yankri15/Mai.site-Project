@@ -150,7 +150,7 @@ const UserDataProvider = ({ children }) => {
   const getProjects = async () => {
     setProjects([]);
 
-    const q = query(collection(db, "Projects"), where("uid", "==", currentUser.uid));
+    const q = query(collection(db, "projects"), where("uid", "==", currentUser.uid));
     const docSnap = await getDocs(q);
 
     docSnap.docs.forEach(async (item) => {
@@ -175,12 +175,26 @@ const UserDataProvider = ({ children }) => {
       tags: [],
     });
   };
+
+  const uploadProject = async (name, organization, collaborators, images, tags, description) => {
+    await addDoc(collection(db, "projects"), {
+      name: name,
+      organization: organization,
+      creation: serverTimestamp(),
+      uid: currentUser.uid,
+      tags: tags,
+      collaborators: collaborators,
+      images: images,
+      description: description,
+    });
+  };
+
+
   const uploadImg = async (path, image) => {
     const docRef = ref(storage, path);
     const img = await fetch(image);
     const bytes = await img.blob();
     await uploadBytes(docRef, bytes);
-    console.log("Up loaded succeffuly to path: ", path);
   };
 
   useEffect(() => {
@@ -203,6 +217,7 @@ const UserDataProvider = ({ children }) => {
     postsList,
     projects,
     setUserToDB,
+    setPostsList,
     approveUser,
     addDataToDB,
     getName,
@@ -212,6 +227,7 @@ const UserDataProvider = ({ children }) => {
     getProjects,
     changeData,
     uploadDataPost,
+    uploadProject,
     uploadImg,
   };
 
