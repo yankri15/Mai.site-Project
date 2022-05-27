@@ -19,65 +19,60 @@ const Post = ({ post, navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const { currentUser } = useAuth();
 
-  useEffect(() => {
-    const getImg = async () => {
-      const imgRef = ref(storage, post.data.downloadURL);
-      await getDownloadURL(imgRef).then((img) => {
-        setUrl(img);
-      });
-    };
+  const getImg = async () => {
+    console.log(post.data);
+    const imgRef = ref(storage, post.data.downloadURL);
+    await getDownloadURL(imgRef).then((img) => {
+      setUrl(img);
+    });
+  };
 
-    getImg().catch(console.error);
-    return;
-  }, [url]);
+  const getLikes = async () => {
+    console.log('get likes!!!!');
+    const q = collection(db, "posts", post.id, "likes");
+    const docSnap = await getDocs(q);
+    const likeArr = docSnap.docs.map((item) => item.id);
+    setLikes(likeArr);
+  };
 
-  useEffect(() => {
-    const getLikes = async () => {
-      const q = collection(db, "posts", post.id, "likes");
-      const docSnap = await getDocs(q);
-      const likeArr = docSnap.docs.map((item) => item.id);
-      setLikes(likeArr);
-    };
-    getLikes().catch(console.error);
-    return;
-  }, []);  
-
-  useEffect(() => {
+  const getComments = async () => {
     setComments([]);
-    const getComments = async () => {
-      const collecRef = collection(db, "posts", post.id, "comments");
-      const q = query(collecRef, orderBy("creation", "asc"));
-      const docSnap = await getDocs(q);
+    const collecRef = collection(db, "posts", post.id, "comments");
+    const q = query(collecRef, orderBy("creation", "asc"));
+    const docSnap = await getDocs(q);
 
-      docSnap.docs.forEach((element) => {
-        setComments((prev) => [
-          ...prev,
-          {
-            commentId: element.id,
-            commentData: element.data(),
-          },
-        ]);
-      });
-    };
+    docSnap.docs.forEach((element) => {
+      setComments((prev) => [
+        ...prev,
+        {
+          commentId: element.id,
+          commentData: element.data(),
+        },
+      ]);
+    });
+  };
+
+  useEffect(() => {
+    getImg().catch(console.error);
+    getLikes().catch(console.error);
     getComments().catch(console.error);
     return;
   }, []);
-  
+
   // {color: "#c6c6b5"}
   // let isPress = false;
   // isPress ? likeColor = {color: "#fdc123"} : {color: "#c6c6b5"}
-  let likeColor = {color: "#c6c6b5"}
+  let likeColor = { color: "#c6c6b5" }
 
   async function handleLike() {
     if (likes.includes(currentUser.uid)) {
       await deleteDoc(doc(db, "posts", post.id, "likes", currentUser.uid))
-      //isPress = false
     } else {
       await setDoc(doc(db, "posts", post.id, "likes", currentUser.uid), {
         uid: currentUser.uid,
       })
-      //isPress = true
     }
+    getLikes();
   }
 
   async function handleNewComment() {
@@ -90,6 +85,8 @@ const Post = ({ post, navigation }) => {
       creation: serverTimestamp(),
       uid: currentUser.uid,
     });
+    setNewComment('');
+    getComments();
   }
 
   return (

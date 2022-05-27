@@ -49,10 +49,13 @@ const CreatePost = ({ navigation }) => {
     const date = new Date().toLocaleString();
     const path = "/img/" + currentUser.uid + "/posts/" + date + ".jpg";
 
-    uploadImg(path, image);
-    uploadDataPost(path, postText);
+    uploadImg(path, image).then(() => {
+      uploadDataPost(path, postText).then(() => {
+        getPosts();
+        navigation.navigate("Feed");
+      });
+    });
 
-    navigation.navigate("Feed");
   };
 
   return (

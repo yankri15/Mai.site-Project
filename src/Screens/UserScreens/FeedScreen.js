@@ -59,7 +59,7 @@ const FeedScreen = ({ navigation, route }) => {
       <Pressable
         title="edit"
         onPress={() => {
-          navigation.navigate("CreatePost", { navigation });
+          navigation.navigate("CreatePost");
         }}
         style={globalStyles.plus_btn}
       >
