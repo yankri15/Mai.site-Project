@@ -30,6 +30,7 @@ const EditProfileScreen = ({ navigation }) => {
       setName(userData.name);
       setNeighborhood(userData.neighborhood);
       setSchool(userData.school);
+      setClasss(userData.class);
       setOrganiztion(userData.organiztion);
       const imgRef = ref(storage, userData.pic);
       await getDownloadURL(imgRef).then((img) => {
