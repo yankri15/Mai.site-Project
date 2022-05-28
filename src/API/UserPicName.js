@@ -6,7 +6,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import { useAuth } from "../AuthProvider/AuthProvider";
 
-const UserPicName = ({ uid, navigation }) => {
+const UserPicName = ({ uid, navigation, posted }) => {
   const [image, setImage] = useState(null);
   const [name, setName] = useState("");
 
@@ -43,7 +43,7 @@ const UserPicName = ({ uid, navigation }) => {
         >
           <Text style={globalStyles.user_name}>{name}</Text>
         </Pressable>
-        <Text style={globalStyles.user_date}>25/05/2022</Text>
+        <Text style={globalStyles.user_date}>{posted}</Text>
       </View>
     </View>
   );
