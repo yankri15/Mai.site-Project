@@ -9,6 +9,7 @@ import { useAuth } from "../AuthProvider/AuthProvider";
 const UserPicName = ({ uid, navigation, posted }) => {
   const [image, setImage] = useState(null);
   const [name, setName] = useState("");
+  const defaultImage = require("../../assets/default_profile_pic.jpg");
 
   useEffect(() => {
     const getUserData = async () => {
@@ -16,10 +17,12 @@ const UserPicName = ({ uid, navigation, posted }) => {
       const docSnap = await getDoc(docRef);
       const userData = docSnap.data();
       setName(userData.name);
-      const imgRef = ref(storage, userData.pic);
-      await getDownloadURL(imgRef).then((img) => {
-        setImage(img);
-      });
+      if (userData.pic !== "") {
+        const imgRef = ref(storage, userData.pic);
+        await getDownloadURL(imgRef).then((img) => {
+          setImage(img);
+        });
+      }
     };
     getUserData();
   }, []);
@@ -36,7 +39,7 @@ const UserPicName = ({ uid, navigation, posted }) => {
           }}
         >
           <Image
-            source={{ uri: image }}
+            source={image ? { uri: image } : { defaultImage }}
             style={globalStyles.logo_image_area}
           ></Image>
         </Pressable>
