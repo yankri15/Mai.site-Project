@@ -77,7 +77,7 @@ const ThreadScreen = ({ route, navigation }) => {
   }, []);
 
   return (
-    <SafeAreaView style={globalStyles.global}>
+    <View style={{ flex: 1 }}>
       {comments && comments.length > 0 ? (
         <Text style={globalStyles.tread_title}>{comments[0].threadTitle}</Text>
       ) : (
@@ -88,7 +88,7 @@ const ThreadScreen = ({ route, navigation }) => {
           data={comments}
           style={globalStyles.tread_comments}
           renderItem={({ item, index }) => (
-            (index == 0 ? <Comment commentData={item.commentData} navigation={navigation} first={true}/> : <Comment commentData={item.commentData} navigation={navigation} />)
+            (index == 0 ? <Comment commentData={item.commentData} navigation={navigation} first={true} /> : <Comment commentData={item.commentData} navigation={navigation} />)
           )}
           refreshing={refreshing}
           onRefresh={handleRefresh}
@@ -114,7 +114,7 @@ const ThreadScreen = ({ route, navigation }) => {
           <Feather style={{ color: "#fdc123" }} name="send" size={30} ></Feather>
         </Pressable>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

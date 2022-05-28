@@ -126,13 +126,9 @@ const UserDataProvider = ({ children }) => {
     const docRef = collection(db, "users");
     const docSnap = await getDocs(docRef);
     docSnap.docs.forEach((element) => {
-      // setUsersList((prev) => [...prev, { "id": elemet.id, "data": elemet.data() }]);
-      // if (element.data().name.includes(nameToSearch)) {
-      setUsersList((prev) => [
-        ...prev,
-        { id: element.id, data: element.data() },
-      ]);
-      // }
+      if (currentUser.uid !== element.id) {
+        setUsersList((prev) => [...prev, { id: element.id, data: element.data() }]);
+      }
     });
   };
 

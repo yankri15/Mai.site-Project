@@ -36,12 +36,14 @@ const TopicsScreen = ({ navigation }) => {
     }
         , []);
 
-    // console.log(topics[0]);
-
     return (
-        <SafeAreaView style={globalStyles.global}>
+        <View
+            style={{ flex: 1 }}
+        >
             <Text style={globalStyles.forum_title_text}>הנושאים שלנו</Text>
-            {(
+            <View
+                style={{ flex: 12 }}
+            >
                 <FlatList
                     data={topics}
                     renderItem={({ item }) => (
@@ -51,7 +53,14 @@ const TopicsScreen = ({ navigation }) => {
                             <Text style={globalStyles.forums_titles_txt}>{item.topicName}</Text>
                         </Pressable>
                     )}
-
+                    ItemSeparatorComponent={() => {
+                        return (
+                            <View
+                                style={{ height: 15 }}
+                            >
+                            </View>
+                        )
+                    }}
                     refreshing={refreshing}
                     onRefresh={handleRefresh}
                     ListEmptyComponent={() => {
@@ -64,9 +73,8 @@ const TopicsScreen = ({ navigation }) => {
 
                     keyExtractor={(item, index) => index.toString()}
                 />
-            )}
-
-        </SafeAreaView>
+            </View>
+        </View>
     )
 }
 

@@ -49,7 +49,9 @@ const SubjectScreen = ({ route, navigation }) => {
   }, []);
 
   return (
-    <SafeAreaView style={globalStyles.global}>
+    <View
+      style={{ flex: 1 }}
+    >
       {(
         <FlatList
           style={globalStyles.subjects}
@@ -88,7 +90,7 @@ const SubjectScreen = ({ route, navigation }) => {
       >
         <Text style={globalStyles.open_sub_btn_text}>נושא חדש</Text>
       </Pressable>
-    </SafeAreaView>
+    </View>
   );
 };
 

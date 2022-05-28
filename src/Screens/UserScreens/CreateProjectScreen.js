@@ -5,6 +5,8 @@ import { useData } from '../../AuthProvider/UserDataProvider';
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import * as ImagePicker from "expo-image-picker";
 import { useAuth } from '../../AuthProvider/AuthProvider';
+import Ionicons from "react-native-vector-icons/Ionicons";
+import DropdownSearch from '../../API/DropdownSearch';
 
 const CreateProjectScreen = ({ navigation }) => {
     const { currentUser } = useAuth();
@@ -12,22 +14,16 @@ const CreateProjectScreen = ({ navigation }) => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [collaborators, setCollaborators] = useState([]);
+    const [usersData, setUsersData] = useState([]);
     const [images, setImages] = useState([]);
     const [organization, setOrganization] = useState([]);
     const [tags, setTags] = useState([]);
+    const [filteredTags, setFilteredTags] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [usersData, setUsersData] = useState([]);
-    const [display, setDisplay] = useState('none');
+    const [displayUsers, setDisplayUsers] = useState('none');
 
     useEffect(() => {
-        getUsersList()
-            .then(() => {
-                const users = usersList.map(user => {
-                    return { id: user.id, name: user.data.name };
-                });
-                setUsersData(users);
-            })
-            .catch(console.error);
+        getUsersList();
     }, [])
 
     const pickImage = async () => {
@@ -64,8 +60,22 @@ const CreateProjectScreen = ({ navigation }) => {
         });
     }
 
-    const handleSelect = (userData) => {
-        console.log('handler!\n');
+    const handleSearchUser = (text) => {
+        if (!text) {
+            return setUsersData([]);
+        }
+        const users = [];
+        usersList.forEach(user => {
+            if (user.data.name.includes(text)) {
+                users.push({ id: user.id, name: user.data.name });
+            }
+        });
+        setUsersData(users);
+        setDisplayUsers('flex');
+    }
+
+    const handleSelectUser = (userData) => {
+        //console.log('handler!\n');
         let found = false;
         collaborators.forEach(user => {
             if (user.id === userData.id) {
@@ -75,12 +85,17 @@ const CreateProjectScreen = ({ navigation }) => {
         if (!found) {
             setCollaborators(prev => [...prev, userData]);
         }
-        setDisplay('none')
-        console.log('done: ', collaborators);
+        setDisplayUsers('none');
+        //console.log('done: ', collaborators);
+    }
+
+    const handleUnselectUser = (userData) => {
+        const users = collaborators.filter(user => user.id !== userData.id);
+        setCollaborators(users);
     }
 
     return (
-        <SafeAreaView style={globalStyles.global}>
+        <View style={{ flex: 1 }}>
             <TextInput
                 placeholder="שם הפרוייקט"
                 onChangeText={(text) => setName(text)}
@@ -91,50 +106,29 @@ const CreateProjectScreen = ({ navigation }) => {
 
             />
             <TextInput
-                placeholder='שותפים'
-                onFocus={() => setDisplay('flex')}
-                onBlur={() => setDisplay('none')}
-            />
-            {<View
-                style={{ position: 'relative', display: display }}
-            >
-                <View
-                    style={{ position: 'absolute', backgroundColor: 'gray', zIndex: 3, width: '100%' }}
-                >
-                    <FlatList
-                        data={usersData}
-                        renderItem={({ item }) => (
-                            <Pressable
-                                onPress={() => { handleSelect(item) }}
-                                style={{ width: '100%', padding: 5 }}
-                            >
-                                <Text>{item.name}</Text>
-                            </Pressable>
-                        )}
-                        ListEmptyComponent={() => {
-                            return (
-                                <View>
-                                    <Text>לא נמצאו משתמשים</Text>
-                                </View>
-                            );
-                        }}
-                        ItemSeparatorComponent={() => {
-                            return (
-                                <View
-                                    style={{ height: 1, backgroundColor: 'black' }}
-                                >
-                                </View>
-                            )
-                        }}
-                        keyExtractor={(item, index) => index.toString()}
-                    />
-                </View>
-            </View>}
-            <TextInput
-                placeholder="ספרו לנו על הפרוייקט"
+                placeholder="ספרו לנו על הפרויקט"
                 onChangeText={(text) => setDescription(text)}
-            // multiline={true}
             />
+            <DropdownSearch
+                placeHolder={'שותפים'}
+                selectedItems={collaborators}
+                filteredList={usersData}
+                handleSearch={handleSearchUser}
+                handleSelect={handleSelectUser}
+                handleUnselect={handleUnselectUser}
+                display={displayUsers}
+                setDisplay={setDisplayUsers}
+            />
+            {/* <DropdownSearch
+                placeHolder={'נושא/י הפרויקט'}
+                selectedItems={tags}
+                filteredList={filteredTags}
+                handleSearch={handleSearch}
+                handleSelect={handleSelect}
+                handleUnselect={handleUnselect}
+                display={display}
+                setDisplay={setDisplay}
+            /> */}
             <Pressable
                 onPress={pickImage}
             >
@@ -174,11 +168,11 @@ const CreateProjectScreen = ({ navigation }) => {
                 title="post"
                 onPress={handleUploadProject}
                 disabled={loading}
-                style={{ width: 80, height: 10, position: 'absolute', top: '50%', right: '70%' }}
+                style={{ position: 'absolute', alignItems: 'center', justifyContent: 'center', width: 80, height: 30, bottom: 20, left: 10, backgroundColor: 'gray' }}
             >
                 <Text >פרסמו אותי!</Text>
             </Pressable>
-        </SafeAreaView>
+        </View>
     )
 }
 

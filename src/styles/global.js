@@ -545,17 +545,18 @@ export const globalStyles = StyleSheet.create({
   },
   /////////////////Forum_Topic/////////////////
   forum_title_text: {
+    flex: 1,
     color: "#fdc123",
     fontSize: 30,
     fontWeight: "bold",
     textAlign: "center",
-    marginBottom: "5%",
+    // marginBottom: "5%",
   },
   forums_titles: {
     alignItems: "center",
     backgroundColor: "#e2e2e2",
     padding: "5%",
-    marginBottom: "5%",
+    // marginBottom: "5%",
     width: "90%",
     marginLeft: "5%",
     borderRadius: 25,
@@ -568,7 +569,7 @@ export const globalStyles = StyleSheet.create({
   /////////////////Forum_Subject/////////////////
   open_sub_btn: {
     position: "absolute",
-    bottom: "7%",
+    bottom: "3%",
     left: "5%",
     borderColor: "black",
     borderStyle: "solid",
@@ -639,7 +640,7 @@ export const globalStyles = StyleSheet.create({
   /////////////////Forum_Comment/////////////////
   Forum_Comment: {
     flexDirection: "row",
-    marginBottom: "10%",
+    marginBottom: "1%",
     borderColor: "black",
     //borderWidth: 1,
     padding: "4%",
