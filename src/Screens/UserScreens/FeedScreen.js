@@ -31,7 +31,7 @@ const FeedScreen = ({ navigation, route }) => {
   }, []);
 
   return (
-    <SafeAreaView style={globalStyles.global}>
+    <View>
       {
         <FlatList
           data={postsList}
@@ -52,6 +52,13 @@ const FeedScreen = ({ navigation, route }) => {
               </View>
             );
           }}
+          ItemSeparatorComponent={() => {
+            return (
+              <View
+                style={{ height: 12 }}
+              >
+              </View>)
+          }}
           keyExtractor={(item, index) => index.toString()}
         />
       }
@@ -59,13 +66,13 @@ const FeedScreen = ({ navigation, route }) => {
       <Pressable
         title="edit"
         onPress={() => {
-          navigation.navigate("CreatePost");
+          navigation.navigate("CreateProject");
         }}
         style={globalStyles.plus_btn}
       >
         <Text style={globalStyles.plus_btn_text}>+</Text>
       </Pressable>
-    </SafeAreaView>
+    </View>
   );
 };
 
