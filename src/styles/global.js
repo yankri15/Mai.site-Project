@@ -741,5 +741,76 @@ export const globalStyles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "#fffffa",
     textAlignVertical: "top"
-  }
+  },
+
+  //////////wanted/////////
+  wanted_container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 20,
+    marginBottom: 40,
+    marginRight: '10%',
+    marginLeft: '10%',
+  },
+  wanted_list_item: {
+    margin: 10,
+    padding: 5,
+    borderColor: "black",
+    borderWidth: 3,
+    borderRadius: 4,
+  },
+  wanted_text_title: {
+    fontSize: 17,
+    fontWeight: "bold", 
+    textAlign: "center",
+    alignItems: "center",
+    backgroundColor: "#e2e2e2",
+    borderRadius: 20,
+    margin: 2,
+  },
+  wanted_text: {
+    fontSize: 17,
+    fontWeight: "bold", 
+    textAlign: "center",
+    alignItems: "center",
+  },
+  wanted_header: {
+    color: "#fdc123",
+    fontSize: 30,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  wanted_add_container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#C4A5F3",
+  },
+  wanted_new_title: {
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "bold",
+    marginLeft: "55%",
+    marginBottom: "5%",
+    marginTop: "8%"
+  },
+
+  wanted_text_input: {
+    borderColor: "black",
+    color: "#000000",
+    width: '85%',
+    padding: 5,
+    paddingRight: 10,
+    fontSize: 17,
+    borderWidth: 2,
+    marginBottom: '2%',
+    textAlign: "right",
+    borderRadius: 5,
+    backgroundColor: "#fffffa",
+  },
+  wanted_btn: {
+    color: "#000000",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
 });

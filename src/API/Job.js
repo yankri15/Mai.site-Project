@@ -11,6 +11,7 @@ import {
 import { globalStyles } from "../styles/global";
 import email from "react-native-email";
 import { useAuth } from "../AuthProvider/AuthProvider";
+import { borderColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 
 const Job = ({ job, navigation }) => {
   const { currentUser } = useAuth();
@@ -107,17 +108,16 @@ const Job = ({ job, navigation }) => {
           <Text>{job.data.jobTitle}</Text>
         </View>
       </Pressable> */}
-
-      <Pressable onPress={showAlert}>
-        <View>
-          <Text>דרוש/ה</Text>
-          <Text>{job.data.jobTitle}</Text>
-        </View>
+      <View style = {globalStyles.wanted_list_item}>
+        <Pressable style = {globalStyles.wanted_text_title} onPress={showAlert}>
+          <Text style = {globalStyles.wanted_text}>דרוש/ה</Text>
+          <Text style = {globalStyles.wanted_text}>{job.data.jobTitle}</Text>
       </Pressable>
-
-      <Pressable onPress={() => setContactModalVisible(!contactModalVisible)}>
-        <Text>השאר פרטים</Text>
+      
+      <Pressable style = {globalStyles.wanted_text_title} onPress={() => setContactModalVisible(!contactModalVisible)}>
+        <Text style = {globalStyles.wanted_text}>השאר פרטים</Text>
       </Pressable>
+      </View>
     </SafeAreaView>
   );
 };
