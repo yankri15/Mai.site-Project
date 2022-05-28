@@ -19,7 +19,9 @@ const WantedScreen = ({ navigation }) => {
   const { currentUser } = useAuth();
   const { jobs, getJobs, uploadJob } = useData();
   const [createModalVisible, setCreateModalVisible] = useState(false);
-  const [description, setDescription] = useState("");
+  const [jobTitle, setJobTitle] = useState("");
+  const [jobDescription, setJobDescription] = useState("");
+  const [projectName, setDescription] = useState("");
   useEffect(() => {
     getJobs();
 
@@ -27,7 +29,8 @@ const WantedScreen = ({ navigation }) => {
   }, []);
 
   const handleSubmit = async () => {
-    uploadJob(description);
+    if(!jobTitle || !jobDescription || !projectName) return;
+    uploadJob(jobTitle, jobDescription, projectName);
     setCreateModalVisible(!createModalVisible);
     getJobs();
   };
@@ -41,10 +44,30 @@ const WantedScreen = ({ navigation }) => {
         }}
       >
         <View>
-          <Text>מי אתה מחפש</Text>
+          {/* <Text>מי אתה מחפש</Text>
           <TextInput
             placeholder="בכמה מילים"
             value={description}
+            onChangeText={(text) => setDescription(text)}
+          /> */}
+          <Text>שם התפקיד</Text>
+          <TextInput
+            placeholder="הכנס שם תפקיד"
+            value={jobTitle}
+            onChangeText={(text) => setJobTitle(text)}
+          />
+
+          <Text>תאור תפקיד</Text>
+          <TextInput
+            placeholder="הכנס פירוט על התפקיד"
+            value={jobDescription}
+            onChangeText={(text) => setJobDescription(text)}
+          />
+
+          <Text>פרטי עמותה</Text>
+          <TextInput
+            placeholder="הכנס שם עמותה והרחב מעט על פועלה"
+            value={projectName}
             onChangeText={(text) => setDescription(text)}
           />
         </View>

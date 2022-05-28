@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   View,
   TextInput,
+  Alert,
 } from "react-native";
 import { globalStyles } from "../styles/global";
 import email from "react-native-email";
@@ -14,15 +15,18 @@ import { useAuth } from "../AuthProvider/AuthProvider";
 const Job = ({ job, navigation }) => {
   const { currentUser } = useAuth();
   const [contactModalVisible, setContactModalVisible] = useState(false);
+  const [jobModalVisible, setJobModalVisible] = useState(false);
 
   const [msgBody, setMsgBody] = useState("");
-  const [msgTitle, setMsgTitle] = useState(job.data.description);
+  const [jobTitle, setJobTitle] = useState(job.data.jobTitle);
+  const [jobDescription] = useState(job.data.jobDescription);
+  const [projectName] = useState(job.data.projectName);
 
   async function handleMsg() {
     try {
       const to = currentUser.email;
       email(to, {
-        subject: msgTitle,
+        subject: jobTitle,
         body: msgBody,
       }).catch(console.error);
     } catch (err) {
@@ -30,6 +34,39 @@ const Job = ({ job, navigation }) => {
     }
     setContactModalVisible(!contactModalVisible);
   }
+
+  // const CustomAlert = (props) => {
+  //   return (
+  //     <Modal
+  //         animationType="fade"
+  //         transparent={true}
+  //         visible={props.jobModalVisible}
+  //         onRequestClose={() => {
+  //           props.setJobModalVisible(false);
+  //         }}
+  //       >
+  //         <Pressable onPress={() => props.setJobModalVisible(false)} />
+  //         <View>
+  
+  //         </View>
+  //       </Modal>
+  //   )
+  // }
+
+
+  const showAlert = () =>
+    Alert.alert(
+      "פרטי התפקיד",
+      "שם הפרויקט: " + projectName + "\n" + "שם התפקיד: " + jobTitle + "\n" + "תאור התפקיד: " + jobDescription + "\n",
+      [
+        {
+          text: "Ok",
+        },
+      ],
+      {
+        cancelable: true,
+      }
+    );
 
   return (
     <SafeAreaView>
@@ -45,10 +82,9 @@ const Job = ({ job, navigation }) => {
           <TextInput
             style={globalStyles.textInput}
             placeholder="נושא"
-            value={msgTitle}
-            onChangeText={(text) => setMsgTitle(text)}
+            value={jobTitle}
+            onChangeText={(text) => setJobTitle(text)}
           />
-
           <TextInput
             style={globalStyles.msg_text}
             placeholder="ספר/י על עצמך מעט ואל תשכח/י להוסיף אימייל"
@@ -65,10 +101,20 @@ const Job = ({ job, navigation }) => {
         </View>
       </Modal>
 
-      <View>
-        <Text>דרושה/ה</Text>
-        <Text>{job.data.description}</Text>
-      </View>
+      {/* <Pressable onPress={() => setJobModalVisible(!jobModalVisible)}>
+        <View>
+          <Text>דרוש/ה</Text>
+          <Text>{job.data.jobTitle}</Text>
+        </View>
+      </Pressable> */}
+
+      <Pressable onPress={showAlert}>
+        <View>
+          <Text>דרוש/ה</Text>
+          <Text>{job.data.jobTitle}</Text>
+        </View>
+      </Pressable>
+
       <Pressable onPress={() => setContactModalVisible(!contactModalVisible)}>
         <Text>השאר פרטים</Text>
       </Pressable>

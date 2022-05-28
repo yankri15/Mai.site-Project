@@ -168,9 +168,11 @@ const UserDataProvider = ({ children }) => {
     );
   };
 
-  const uploadJob = async (description) => {
+  const uploadJob = async (jobTitle, jobDescription, projectName) => {
     await addDoc(collection(db, "jobs"), {
-      description: description,
+      projectName: projectName,
+      jobTitle: jobTitle,
+      jobDescription: jobDescription,
       uid: currentUser.uid,
       creation: serverTimestamp(),
     });
