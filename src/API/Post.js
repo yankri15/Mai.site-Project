@@ -102,7 +102,7 @@ const Post = ({ post, navigation }) => {
   }
 
   return (
-    <SafeAreaView>
+    <View>
       <Modal
         visible={modalVisible}
         animationType="slide"
@@ -110,43 +110,41 @@ const Post = ({ post, navigation }) => {
           setModalVisible(!modalVisible);
         }}
       >
-        <SafeAreaView style={globalStyles.global}>
-          <FlatList
-            data={comments}
-            renderItem={({ item }) => (
-              <Comment commentData={item.commentData} navigation={navigation} />
-            )}
-            ListEmptyComponent={() => {
-              return (
-                <View>
-                  <Text>כתבו תגובה ראשונה</Text>
-                </View>
-              );
-            }}
-            keyExtractor={(item, index) => index.toString()}
+        <FlatList
+          data={comments}
+          renderItem={({ item }) => (
+            <Comment commentData={item.commentData} navigation={navigation} />
+          )}
+          ListEmptyComponent={() => {
+            return (
+              <View>
+                <Text>כתבו תגובה ראשונה</Text>
+              </View>
+            );
+          }}
+          keyExtractor={(item, index) => index.toString()}
+        />
+        <View style={globalStyles.Forum_Comment}>
+          <TextInput
+            style={globalStyles.Forum_Comment_Text}
+            value={newComment}
+            multiline={true}
+            placeholder="כתוב תגובה..."
+            onChangeText={(text) => setNewComment(text)}
+            minLength={20}
           />
-          <View style={globalStyles.Forum_Comment}>
-            <TextInput
-              style={globalStyles.Forum_Comment_Text}
-              value={newComment}
-              multiline={true}
-              placeholder="כתוב תגובה..."
-              onChangeText={(text) => setNewComment(text)}
-              minLength={20}
-            />
-            <Pressable
-              title="publishNewComment"
-              style={globalStyles.Forum_Button}
-              onPress={handleNewComment}
-            >
-              <Feather
-                style={{ color: "#fdc123" }}
-                name="send"
-                size={30}
-              ></Feather>
-            </Pressable>
-          </View>
-        </SafeAreaView>
+          <Pressable
+            title="publishNewComment"
+            style={globalStyles.Forum_Button}
+            onPress={handleNewComment}
+          >
+            <Feather
+              style={{ color: "#fdc123" }}
+              name="send"
+              size={30}
+            ></Feather>
+          </Pressable>
+        </View>
       </Modal>
       <View style={globalStyles.post}>
         <UserPicName
@@ -236,7 +234,7 @@ const Post = ({ post, navigation }) => {
           </Pressable>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
