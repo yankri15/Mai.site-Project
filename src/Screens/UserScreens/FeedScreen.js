@@ -10,7 +10,6 @@ import { useData } from "../../AuthProvider/UserDataProvider";
 const FeedScreen = ({ navigation, route }) => {
   const [refreshing, setRefreshing] = useState(true);
   const { getPosts, postsList } = useData();
-  const isFocused = useIsFocused();
 
   const handleRefresh = () => {
     getPosts()
@@ -53,11 +52,7 @@ const FeedScreen = ({ navigation, route }) => {
             );
           }}
           ItemSeparatorComponent={() => {
-            return (
-              <View
-                style={{ height: 12 }}
-              >
-              </View>)
+            return <View style={{ height: 12 }}></View>;
           }}
           keyExtractor={(item, index) => index.toString()}
         />

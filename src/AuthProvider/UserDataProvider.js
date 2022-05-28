@@ -10,6 +10,7 @@ import {
   query,
   orderBy,
   where,
+  deleteDoc,
 } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
 import React, { useContext, useState, useEffect } from "react";
@@ -128,11 +129,21 @@ const UserDataProvider = ({ children }) => {
     const docSnap = await getDocs(docRef);
     docSnap.docs.forEach((element) => {
       if (currentUser.uid !== element.id) {
-        setUsersList((prev) => [...prev, { id: element.id, data: element.data() }]);
+        setUsersList((prev) => [
+          ...prev,
+          { id: element.id, data: element.data() },
+        ]);
       }
     });
   };
 
+  const deleteComment = async (commentLocation, commentId) => {
+    await deleteDoc(doc(commentLocation, commentId));
+  };
+
+  const deletePost = async (postId) => {
+    await deleteDoc(doc(db, "posts", postId));
+  };
   const getPosts = async () => {
     setPostsList([]);
 
@@ -179,9 +190,12 @@ const UserDataProvider = ({ children }) => {
     })
   };
 
-  const uploadJob = async (description) => {
+  const uploadJob = async (jobTitle, jobDescription, projectName) => {
+
     await addDoc(collection(db, "jobs"), {
-      description: description,
+      projectName: projectName,
+      jobTitle: jobTitle,
+      jobDescription: jobDescription,
       uid: currentUser.uid,
       creation: serverTimestamp(),
     });
@@ -263,6 +277,10 @@ const UserDataProvider = ({ children }) => {
     userStatus,
     name,
     admin,
+    changeData,
+    checkAdmin,
+    deleteComment,
+    deletePost,
     jobs,
     usersList,
     postsList,
@@ -274,7 +292,6 @@ const UserDataProvider = ({ children }) => {
     addDataToDB,
     getName,
     getJobs,
-    checkAdmin,
     getUsersList,
     getPosts,
     getProjects,
