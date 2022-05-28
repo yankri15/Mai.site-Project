@@ -5,13 +5,14 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 //Navigators
 import FeedNavigator from "../Navigation/FeedNavigator";
+import MapNavigator from "../Navigation/MapNavigator";
 import WantedNavigator from "../Navigation/WantedNavigator";
 import ForumNavigator from "../Navigation/ForumNavigator";
 
 //Navigators names
-const feedName = "פיד";
-const forumName = "פורום";
-const wantedName = "דרושים";
+const feedName = "Feed";
+const forumName = "Forum";
+const wantedName = "Wanted";
 
 const Tab = createBottomTabNavigator();
 
