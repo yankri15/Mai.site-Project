@@ -6,13 +6,26 @@ import React, { useState, useEffect } from "react";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../../firebase";
-import { View, Text, SafeAreaView, Image, Pressable, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Image,
+  Pressable,
+  FlatList,
+} from "react-native";
 import { globalStyles } from "../../styles/global";
-import { EvilIcons, Ionicons, SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  EvilIcons,
+  Ionicons,
+  SimpleLineIcons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import { useIsFocused } from "@react-navigation/native";
 import { useData } from "../../AuthProvider/UserDataProvider";
 import { ScrollView } from "react-native-gesture-handler";
+const defaultImage = require("../../../assets/default_profile_pic.jpg");
 
 const ProfileScreen = ({ route, navigation }) => {
   const uid = route.params ? route.params.uid : undefined;
@@ -39,11 +52,12 @@ const ProfileScreen = ({ route, navigation }) => {
       setOrganiztion(userData.organiztion);
       setClasss(userData.classs);
       setBirthDate(userData.birthDate);
-      setProfilePicUri(userData.pic);
-      const imgRef = ref(storage, userData.pic);
-      await getDownloadURL(imgRef).then((img) => {
-        setProfilePicUri(img);
-      });
+      if (userData.pic !== "") {
+        const imgRef = ref(storage, userData.pic);
+        await getDownloadURL(imgRef).then((img) => {
+          setProfilePicUri(img);
+        });
+      }
     };
 
     getStatus().catch(console.error);
@@ -56,7 +70,7 @@ const ProfileScreen = ({ route, navigation }) => {
     const today_year = today_date.getFullYear();
     const today_month = today_date.getMonth();
     const today_day = today_date.getDate();
-    const splitedBirthDate = birthDate.split('/');
+    const splitedBirthDate = birthDate.split("/");
     const birth_day = splitedBirthDate[0];
     const birth_month = splitedBirthDate[1];
     const birth_year = splitedBirthDate[2];
@@ -71,7 +85,7 @@ const ProfileScreen = ({ route, navigation }) => {
   }
 
   return (
-    <ScrollView style={{ backgroundColor: '#ffffff' }}>
+    <ScrollView style={{ backgroundColor: "#ffffff" }}>
       {currentUser.uid == id ? (
         <Pressable
           style={globalStyles.profile_edit_btn}
@@ -80,14 +94,16 @@ const ProfileScreen = ({ route, navigation }) => {
             navigation.navigate("ProfileEdit");
           }}
         >
-          <Text style={globalStyles.profile_edit_btn_text}><EvilIcons name="pencil" size={35} ></EvilIcons></Text>
+          <Text style={globalStyles.profile_edit_btn_text}>
+            <EvilIcons name="pencil" size={35}></EvilIcons>
+          </Text>
         </Pressable>
       ) : null}
       <View style={globalStyles.stage1}>
         <View style={globalStyles.picAndDetails}>
           <View style={globalStyles.profile_pic}>
             <Image
-              source={{ uri: profilePicUri }}
+              source={profilePicUri ? { uri: profilePicUri } : defaultImage}
               style={globalStyles.logo_image_area}
               resizeMode="center"
             ></Image>
@@ -102,17 +118,29 @@ const ProfileScreen = ({ route, navigation }) => {
 
       <View style={globalStyles.side_details}>
         <View style={globalStyles.side_details_comp}>
-          <Ionicons style={{ color: "#a77ce8" }} name="school-outline" size={20} ></Ionicons>
+          <Ionicons
+            style={{ color: "#a77ce8" }}
+            name="school-outline"
+            size={20}
+          ></Ionicons>
           <Text style={globalStyles.side_details_text}>בית הספר שלי: </Text>
           <Text>{school}</Text>
         </View>
         <View style={globalStyles.side_details_comp}>
-          <SimpleLineIcons style={{ color: "#a77ce8" }} name="organization" size={20} ></SimpleLineIcons>
+          <SimpleLineIcons
+            style={{ color: "#a77ce8" }}
+            name="organization"
+            size={20}
+          ></SimpleLineIcons>
           <Text style={globalStyles.side_details_text}>הארגון שלי: </Text>
           <Text>{organiztion}</Text>
         </View>
         <View style={globalStyles.side_details_comp}>
-          <MaterialCommunityIcons style={{ color: "#a77ce8" }} name="lightbulb-on-outline" size={20} ></MaterialCommunityIcons>
+          <MaterialCommunityIcons
+            style={{ color: "#a77ce8" }}
+            name="lightbulb-on-outline"
+            size={20}
+          ></MaterialCommunityIcons>
           <Text style={globalStyles.side_details_text}>תחומי העניין שלי: </Text>
         </View>
       </View>

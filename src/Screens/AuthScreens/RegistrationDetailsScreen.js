@@ -1,9 +1,17 @@
-import { View, Text, TextInput, Picker, Pressable, Image, Alert, } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Picker,
+  Pressable,
+  Image,
+  Alert,
+} from "react-native";
 import { globalStyles } from "../../styles/global";
 import React, { useState } from "react";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import { useData } from "../../AuthProvider/UserDataProvider";
-import DatePicker from 'react-native-datepicker'
+import DatePicker from "react-native-datepicker";
 import style from "react-native-datepicker/style";
 
 const RegistrationDetailsScreen = () => {
@@ -17,7 +25,6 @@ const RegistrationDetailsScreen = () => {
   const [birthDate, setBirthdate] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const localImageUri = "/img/MKieJCEazGeqPCoLPLq6X9qNwhh1/pofile/Sun May 15 09:56:26 2022.jpg";
 
   async function handleRegisteration() {
     try {
@@ -40,7 +47,7 @@ const RegistrationDetailsScreen = () => {
           classs,
           neighborhood,
           organiztion,
-          localImageUri
+          ""
         );
       } else {
         throw "אופס! נראה שלא הכל הושלם..";
@@ -102,7 +109,10 @@ const RegistrationDetailsScreen = () => {
       <View style={globalStyles.textInput}>
         <Picker
           selectedValue={classs}
-          style={[isPlaceholder(classs) ? { color: "#999" } : { color: "black" }, globalStyles.reg_choose]}
+          style={[
+            isPlaceholder(classs) ? { color: "#999" } : { color: "black" },
+            globalStyles.reg_choose,
+          ]}
           onValueChange={(itemValue) => setClasss(itemValue)}
         >
           <Picker.Item label="בחר כיתה" value="choose" />
@@ -115,7 +125,12 @@ const RegistrationDetailsScreen = () => {
       <View style={globalStyles.textInput}>
         <Picker
           selectedValue={neighborhood}
-          style={[isPlaceholder(neighborhood) ? { color: "#999" } : { color: "black" }, globalStyles.reg_choose]}
+          style={[
+            isPlaceholder(neighborhood)
+              ? { color: "#999" }
+              : { color: "black" },
+            globalStyles.reg_choose,
+          ]}
           onValueChange={(itemValue) => setNeighborhood(itemValue)}
         >
           <Picker.Item label="בחר שכונה" value="choose" />

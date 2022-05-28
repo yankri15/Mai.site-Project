@@ -13,6 +13,7 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { db, storage } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { getDownloadURL, ref } from "firebase/storage";
+const defaultImage = require("../../assets/default_profile_pic.jpg");
 
 const CustomDrawer = (props) => {
   const { currentUser, logout } = useAuth();
@@ -25,10 +26,12 @@ const CustomDrawer = (props) => {
       const docRef = doc(db, "users", currentUser.uid);
       const docSnap = await getDoc(docRef);
       const userData = docSnap.data();
-      const imgRef = ref(storage, userData.pic);
-      await getDownloadURL(imgRef).then((img) => {
-        setImage(img);
-      });
+      if (userData.pic !== "") {
+        const imgRef = ref(storage, userData.pic);
+        await getDownloadURL(imgRef).then((img) => {
+          setImage(img);
+        });
+      }
     };
     getUserData();
   }, []);
@@ -52,7 +55,10 @@ const CustomDrawer = (props) => {
         contentContainerStyle={{ backgroundColor: "#C4A5F3" }}
       >
         <View style={globalStyles.draw_pic_name}>
-          <Image source={{ uri: image }} style={globalStyles.drawer_pic} />
+          <Image
+            source={image ? { uri: image } : defaultImage}
+            style={globalStyles.drawer_pic}
+          />
           <Text style={globalStyles.drawer_name}>{name}</Text>
         </View>
         <View style={globalStyles.drawer_props}>
