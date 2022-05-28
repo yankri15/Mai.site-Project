@@ -43,52 +43,61 @@ const WantedScreen = ({ navigation }) => {
           setCreateModalVisible(!createModalVisible);
         }}
       >
-        <View>
+        <View style={globalStyles.wanted_add_container}>
           {/* <Text>מי אתה מחפש</Text>
           <TextInput
             placeholder="בכמה מילים"
             value={description}
             onChangeText={(text) => setDescription(text)}
           /> */}
-          <Text>שם התפקיד</Text>
+          <Text style={globalStyles.wanted_new_title}>שם התפקיד</Text>
           <TextInput
             placeholder="הכנס שם תפקיד"
+            style={globalStyles.wanted_text_input}
             value={jobTitle}
             onChangeText={(text) => setJobTitle(text)}
           />
 
-          <Text>תאור תפקיד</Text>
+          <Text style={globalStyles.wanted_new_title}>תאור תפקיד</Text>
           <TextInput
             placeholder="הכנס פירוט על התפקיד"
+            style={globalStyles.wanted_text_input}
             value={jobDescription}
             onChangeText={(text) => setJobDescription(text)}
           />
 
-          <Text>פרטי עמותה</Text>
+          <Text style={globalStyles.wanted_new_title}>פרטי עמותה</Text>
           <TextInput
             placeholder="הכנס שם עמותה והרחב מעט על פועלה"
+            style={globalStyles.wanted_text_input}
             value={projectName}
             onChangeText={(text) => setDescription(text)}
           />
+          <Pressable style={globalStyles.settingsBtn} onPress={handleSubmit}>
+            <Text style={globalStyles.wanted_btn}>פרסם</Text>
+          </Pressable>
         </View>
-        <Pressable style={globalStyles.settingsBtn} onPress={handleSubmit}>
-          <Text style={globalStyles.settingsBtnText}>פרסם</Text>
-        </Pressable>
+        
       </Modal>
-      <Text>שת"פים</Text>
-      <FlatList
-        data={jobs}
-        numColumns={2}
-        renderItem={({ item }) => <Job job={item} />}
-        ListEmptyComponent={() => {
-          return (
-            <View>
-              <Text>נראה שאין מה להציג כרגע..</Text>
-            </View>
-          );
-        }}
-        keyExtractor={(item, index) => index.toString()}
+      <Text style = {globalStyles.wanted_header}>שת"פים</Text>
+      <View style = {globalStyles.wanted_container}>
+        <FlatList
+          columnWrapperStyle={{justifyContent: 'space-between'}}
+          data={jobs}
+          numColumns={2}
+          renderItem={({ item }) => <Job job={item} />}
+          //columnWrapperStyle={{borderWidth: 2, borderColor: 'red'}}
+          ListEmptyComponent={() => {
+            return (
+              <View>
+                <Text>נראה שאין מה להציג כרגע..</Text>
+              </View>
+            );
+          }}
+          keyExtractor={(item, index) => index.toString()}
       />
+      </View>
+      
       <Pressable
         onPress={() => {
           setCreateModalVisible(!createModalVisible);
