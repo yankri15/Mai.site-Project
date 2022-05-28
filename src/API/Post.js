@@ -15,6 +15,7 @@ import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../firebase";
 import { AntDesign, FontAwesome, Entypo, Feather } from "@expo/vector-icons";
 import Comment from "../Screens/UserScreens/ForumScreens/Comment";
+import { MenuProvider } from "react-native-popup-menu";
 import {
   collection,
   getDocs,
@@ -25,9 +26,16 @@ import {
   orderBy,
   serverTimestamp,
 } from "firebase/firestore";
+import {
+  Menu,
+  MenuOptions,
+  MenuTrigger,
+  renderers,
+} from "react-native-popup-menu";
 import { db } from "../../firebase";
 import { useAuth } from "../AuthProvider/AuthProvider";
 import moment from "moment";
+import { useData } from "../AuthProvider/UserDataProvider";
 
 const Post = ({ post, navigation }) => {
   const [url, setUrl] = useState();
@@ -35,8 +43,11 @@ const Post = ({ post, navigation }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const [commentLocation, setCommentLocation] = useState("");
 
+  const { Popover } = renderers;
   const { currentUser } = useAuth();
+  const { deletePost } = useData();
 
   const getImg = async () => {
     const imgRef = ref(storage, post.data.downloadURL);
@@ -55,6 +66,7 @@ const Post = ({ post, navigation }) => {
   const getComments = async () => {
     setComments([]);
     const collecRef = collection(db, "posts", post.id, "comments");
+    setCommentLocation(collecRef);
     const q = query(collecRef, orderBy("creation", "asc"));
     const docSnap = await getDocs(q);
 
@@ -110,41 +122,49 @@ const Post = ({ post, navigation }) => {
           setModalVisible(!modalVisible);
         }}
       >
-        <FlatList
-          data={comments}
-          renderItem={({ item }) => (
-            <Comment commentData={item.commentData} navigation={navigation} />
-          )}
-          ListEmptyComponent={() => {
-            return (
-              <View>
-                <Text>כתבו תגובה ראשונה</Text>
-              </View>
-            );
-          }}
-          keyExtractor={(item, index) => index.toString()}
-        />
-        <View style={globalStyles.Forum_Comment}>
-          <TextInput
-            style={globalStyles.Forum_Comment_Text}
-            value={newComment}
-            multiline={true}
-            placeholder="כתוב תגובה..."
-            onChangeText={(text) => setNewComment(text)}
-            minLength={20}
+        <MenuProvider skipInstanceCheck>
+          <FlatList
+            data={comments}
+            extraData={comments}
+            renderItem={({ item }) => (
+              <Comment
+                commentData={item.commentData}
+                commentId={item.commentId}
+                commentLocation={commentLocation}
+                navigation={navigation}
+              />
+            )}
+            ListEmptyComponent={() => {
+              return (
+                <View>
+                  <Text>כתבו תגובה ראשונה</Text>
+                </View>
+              );
+            }}
+            keyExtractor={(item, index) => index.toString()}
           />
-          <Pressable
-            title="publishNewComment"
-            style={globalStyles.Forum_Button}
-            onPress={handleNewComment}
-          >
-            <Feather
-              style={{ color: "#fdc123" }}
-              name="send"
-              size={30}
-            ></Feather>
-          </Pressable>
-        </View>
+          <View style={globalStyles.Forum_Comment}>
+            <TextInput
+              style={globalStyles.Forum_Comment_Text}
+              value={newComment}
+              multiline={true}
+              placeholder="כתוב תגובה..."
+              onChangeText={(text) => setNewComment(text)}
+              minLength={20}
+            />
+            <Pressable
+              title="publishNewComment"
+              style={globalStyles.Forum_Button}
+              onPress={handleNewComment}
+            >
+              <Feather
+                style={{ color: "#fdc123" }}
+                name="send"
+                size={30}
+              ></Feather>
+            </Pressable>
+          </View>
+        </MenuProvider>
       </Modal>
       <View style={globalStyles.post}>
         <UserPicName
@@ -152,13 +172,26 @@ const Post = ({ post, navigation }) => {
           navigation={navigation}
           posted={moment(new Date(post.data.creation.seconds * 1000)).fromNow()}
         />
-        {post.data.uid == currentUser.uid ? (
-          <Entypo
-            style={globalStyles.edit_post}
-            name="dots-three-horizontal"
-            size={25}
-          ></Entypo>
-        ) : null}
+        <Menu
+          renderer={Popover}
+          rendererProps={{ preferredPlacement: "right" }}
+        >
+          <MenuTrigger>
+            {post.data.uid == currentUser.uid ? (
+              <Entypo name="dots-three-horizontal" size={20}></Entypo>
+            ) : null}
+          </MenuTrigger>
+          <MenuOptions>
+            <Pressable
+              style={globalStyles.edit_comment}
+              onPress={() => {
+                deletePost(post.id);
+              }}
+            >
+              <Text>מחק</Text>
+            </Pressable>
+          </MenuOptions>
+        </Menu>
         <Text style={globalStyles.post_text}>{post && post.data.postText}</Text>
         {post.data.downloadURL && (
           <Image style={globalStyles.post_img} source={{ uri: url }} />
