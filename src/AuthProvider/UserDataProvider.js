@@ -29,7 +29,7 @@ const UserDataProvider = ({ children }) => {
   const [usersList, setUsersList] = useState([]);
   const [postsList, setPostsList] = useState([]);
   const [projects, setProjects] = useState([]);
-
+  const [jobs, setJobs] = useState([]);
 
   //Add user to db with email and status
   const setUserToDB = async (uid, email) => {
@@ -150,7 +150,10 @@ const UserDataProvider = ({ children }) => {
   const getProjects = async () => {
     setProjects([]);
 
-    const q = query(collection(db, "projects"), where("uid", "==", currentUser.uid));
+    const q = query(
+      collection(db, "projects"),
+      where("uid", "==", currentUser.uid)
+    );
     const docSnap = await getDocs(q);
 
     docSnap.docs.forEach(async (item) => {
@@ -158,6 +161,24 @@ const UserDataProvider = ({ children }) => {
     });
   };
 
+  const getJobs = async () => {
+    setJobs([]);
+
+    const q = query(collection(db, "jobs"), orderBy("creation", "desc"));
+    const docSnap = await getDocs(q);
+
+    docSnap.docs.forEach(async (item) =>
+      setJobs((prev) => [...prev, { id: item.id, data: item.data() }])
+    );
+  };
+
+  const uploadJob = async (description) => {
+    await addDoc(collection(db, "jobs"), {
+      description: description,
+      uid: currentUser.uid,
+      creation: serverTimestamp(),
+    });
+  };
   const checkAdmin = async () => {
     if (currentUser) {
       const docRef = doc(db, "users", currentUser.uid);
@@ -176,7 +197,14 @@ const UserDataProvider = ({ children }) => {
     });
   };
 
-  const uploadProject = async (name, organization, collaborators, images, tags, description) => {
+  const uploadProject = async (
+    name,
+    organization,
+    collaborators,
+    images,
+    tags,
+    description
+  ) => {
     await addDoc(collection(db, "projects"), {
       name: name,
       organization: organization,
@@ -188,7 +216,6 @@ const UserDataProvider = ({ children }) => {
       description: description,
     });
   };
-
 
   const uploadImg = async (path, image) => {
     const docRef = ref(storage, path);
@@ -213,6 +240,7 @@ const UserDataProvider = ({ children }) => {
     userStatus,
     name,
     admin,
+    jobs,
     usersList,
     postsList,
     projects,
@@ -221,11 +249,13 @@ const UserDataProvider = ({ children }) => {
     approveUser,
     addDataToDB,
     getName,
+    getJobs,
     checkAdmin,
     getUsersList,
     getPosts,
     getProjects,
     changeData,
+    uploadJob,
     uploadDataPost,
     uploadProject,
     uploadImg,
