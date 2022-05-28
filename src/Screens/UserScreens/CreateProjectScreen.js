@@ -88,7 +88,7 @@ const CreateProjectScreen = ({ navigation }) => {
         });
         setImages(imageURLs);
         uploadProject(name, organization, collaborators, imageURLs, tags, description).then(pid => {
-            uploadProjectPost(pid, '', imageURLs, 'create').then(() => navigation.navigate("Feed"));
+            uploadProjectPost(pid, 'פרויקט חדש באוויר!', imageURLs, 'create').then(() => navigation.navigate("Feed"));
         });
     }
 
