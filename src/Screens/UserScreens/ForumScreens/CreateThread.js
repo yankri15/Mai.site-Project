@@ -36,9 +36,12 @@ const CreateThread = ({ route, navigation }) => {
         uid: currentUser.uid,
       }
     );
+    navigation.navigate("Subject", { subjectData });
   }
   return (
-    <SafeAreaView style={globalStyles.global}>
+    <View
+      style={{ flex: 1 }}
+    >
       <Text style={globalStyles.forum_title_text}>בואו נפתח נושא חדש!</Text>
       <View style={globalStyles.create_thread}>
         <TextInput
@@ -67,7 +70,7 @@ const CreateThread = ({ route, navigation }) => {
       >
         <Text style={globalStyles.open_sub_btn_text}>פרסמו אותי</Text>
       </Pressable>
-    </SafeAreaView>
+    </View>
   );
 };
 

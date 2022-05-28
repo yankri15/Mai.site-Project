@@ -30,6 +30,7 @@ const UserDataProvider = ({ children }) => {
   const [postsList, setPostsList] = useState([]);
   const [projects, setProjects] = useState([]);
   const [jobs, setJobs] = useState([]);
+  const [tagsList, setTagsList] = useState([]);
 
   //Add user to db with email and status
   const setUserToDB = async (uid, email) => {
@@ -168,6 +169,16 @@ const UserDataProvider = ({ children }) => {
     );
   };
 
+  const getTags = async () => {
+    setTagsList([]);
+    const docRef = collection(db, "tags");
+    const docSnap = await getDocs(docRef);
+
+    docSnap.docs[0].data().tags.forEach((tag, index) => {
+      setTagsList(prev => [...prev, { id: index, name: tag }])
+    })
+  };
+
   const uploadJob = async (description) => {
     await addDoc(collection(db, "jobs"), {
       description: description,
@@ -193,6 +204,21 @@ const UserDataProvider = ({ children }) => {
     });
   };
 
+  const uploadProjectPost = async (pid, postText, images, stage) => {
+    await addDoc(collection(db, "posts1"), {
+      pid: pid,
+      uid: currentUser.uid,
+      postText: postText,
+      images: images,
+      creation: serverTimestamp(),
+      stage: stage,
+    });
+
+    if (stage === 'create') {
+      //addImagesToProject(images);
+    }
+  };
+
   const uploadProject = async (
     name,
     organization,
@@ -201,7 +227,7 @@ const UserDataProvider = ({ children }) => {
     tags,
     description
   ) => {
-    await addDoc(collection(db, "projects"), {
+    const temp = await addDoc(collection(db, "projects"), {
       name: name,
       organization: organization,
       creation: serverTimestamp(),
@@ -211,6 +237,7 @@ const UserDataProvider = ({ children }) => {
       images: images,
       description: description,
     });
+    return temp.id;
   };
 
   const uploadImg = async (path, image) => {
@@ -240,6 +267,7 @@ const UserDataProvider = ({ children }) => {
     usersList,
     postsList,
     projects,
+    tagsList,
     setUserToDB,
     setPostsList,
     approveUser,
@@ -250,10 +278,12 @@ const UserDataProvider = ({ children }) => {
     getUsersList,
     getPosts,
     getProjects,
+    getTags,
     changeData,
     uploadJob,
     uploadDataPost,
     uploadProject,
+    uploadProjectPost,
     uploadImg,
   };
 

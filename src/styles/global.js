@@ -617,12 +617,13 @@ export const globalStyles = StyleSheet.create({
   },
   /////////////////Forum_Create_Thread/////////////////
   create_thread: {
-    marginTop: "15%",
-    marginLeft: "5%",
+    flex: 13,
+    // marginTop: "15%",
+    // marginLeft: "5%",
   },
   create_thread_title: {
     fontSize: 25,
-    marginBottom: "20%",
+    marginBottom: 20,
   },
   create_thread_first_cmnt: {
     fontSize: 20,
