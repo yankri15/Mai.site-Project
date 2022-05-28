@@ -27,10 +27,19 @@ const UserPicName = ({ uid, navigation, posted }) => {
   return (
     <View style={globalStyles.user_pic_name}>
       <View style={globalStyles.user_pic}>
-        <Image
-          source={{ uri: image }}
-          style={globalStyles.logo_image_area}
-        ></Image>
+        <Pressable
+          style={globalStyles.user_pic}
+          onPress={() => {
+            navigation.navigate("Profile", {
+              uid: uid,
+            });
+          }}
+        >
+          <Image
+            source={{ uri: image }}
+            style={globalStyles.logo_image_area}
+          ></Image>
+        </Pressable>
       </View>
       <View style={globalStyles.name_date}>
         <Pressable
