@@ -504,7 +504,7 @@ export const globalStyles = StyleSheet.create({
     justifyContent: "space-between",
     marginLeft: "10%",
     marginRight: "10%",
-    paddingBottom: "1%",
+    // paddingBottom: "1%",
     marginTop: "1%",
   },
   details_like_comment: {
