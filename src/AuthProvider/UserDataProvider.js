@@ -32,6 +32,7 @@ const UserDataProvider = ({ children }) => {
   const [projects, setProjects] = useState([]);
   const [jobs, setJobs] = useState([]);
   const [tagsList, setTagsList] = useState([]);
+  const [project, setProject] = useState([]);
 
   //Add user to db with email and status
   const setUserToDB = async (uid, email) => {
@@ -116,11 +117,9 @@ const UserDataProvider = ({ children }) => {
   };
 
   const getName = async () => {
-    if (currentUser) {
-      const docRef = doc(db, "users", currentUser.uid);
-      const docSnap = await getDoc(docRef);
-      setName(docSnap.data().name);
-    }
+    const docRef = doc(db, "users", currentUser.uid);
+    const docSnap = await getDoc(docRef);
+    setName(docSnap.data().name);
   };
 
   const getUsersList = async () => {
@@ -147,7 +146,7 @@ const UserDataProvider = ({ children }) => {
   const getPosts = async () => {
     setPostsList([]);
 
-    const q = query(collection(db, "posts"), orderBy("creation", "desc"));
+    const q = query(collection(db, "posts1"), orderBy("creation", "desc"));
     const docSnap = await getDocs(q);
 
     docSnap.docs.forEach(async (item) => {
@@ -179,6 +178,12 @@ const UserDataProvider = ({ children }) => {
       setJobs((prev) => [...prev, { id: item.id, data: item.data() }])
     );
   };
+
+  const getProject = async (pid) => {
+    const docRef = doc(db, 'projects', pid);
+    const docSnap = await getDoc(docRef);
+    setProject(docSnap.data());
+  }
 
   const getTags = async () => {
     setTagsList([]);
@@ -285,6 +290,7 @@ const UserDataProvider = ({ children }) => {
     usersList,
     postsList,
     projects,
+    project,
     tagsList,
     setUserToDB,
     setPostsList,
@@ -296,6 +302,7 @@ const UserDataProvider = ({ children }) => {
     getPosts,
     getProjects,
     getTags,
+    getProject,
     changeData,
     uploadJob,
     uploadDataPost,

@@ -36,6 +36,7 @@ import { db } from "../../firebase";
 import { useAuth } from "../AuthProvider/AuthProvider";
 import moment from "moment";
 import { useData } from "../AuthProvider/UserDataProvider";
+import ProjectPost from "./ProjectPost";
 
 const Post = ({ post, navigation }) => {
   const [url, setUrl] = useState();
@@ -50,7 +51,7 @@ const Post = ({ post, navigation }) => {
   const { deletePost } = useData();
 
   const getImg = async () => {
-    const imgRef = ref(storage, post.data.downloadURL);
+    const imgRef = ref(storage, post.data.images[0]);
     await getDownloadURL(imgRef).then((img) => {
       setUrl(img);
     });
@@ -193,9 +194,10 @@ const Post = ({ post, navigation }) => {
           </MenuOptions>
         </Menu>
         <Text style={globalStyles.post_text}>{post && post.data.postText}</Text>
-        {post.data.downloadURL && (
+        {post.data.images && (
           <Image style={globalStyles.post_img} source={{ uri: url }} />
         )}
+        <ProjectPost pid={post.data.pid} navigation={navigation} />
         <View>
           <Pressable
             title="like_comment"

@@ -1,27 +1,42 @@
 import { View, Text, Pressable } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { globalStyles } from "../../styles/global";
 import { ScrollView } from 'react-native-gesture-handler';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../../firebase';
 
 const ProjectScreen = ({ route, navigation }) => {
     const project = route.params.project;
-    console.log(project);
+    const [name, setName] = useState('');
+
+    const getName = async (uid) => {
+        const docRef = doc(db, "users", uid);
+        const docSnap = await getDoc(docRef);
+        setName(docSnap.data().name);
+    };
+
+    useEffect(() => {
+        getName(project.uid);
+        return;
+    }, [])
+
     return (
-        <SafeAreaView style={globalStyles.global}>
+        <View
+            style={{ flex: 1 }}
+        >
             <ScrollView>
                 <Text style={globalStyles.forum_title_text}>{project.name}</Text>
                 <View style={globalStyles.project_details_view}>
                     <Text style={globalStyles.project_title_details}>יוצר המיזם: </Text>
                     <Text style={globalStyles.project_details}>
-                        {project.uid}
+                        {name}
                     </Text>
                 </View>
                 <View style={globalStyles.project_details_view}>
                     <Text style={globalStyles.project_title_details}>שותפים: </Text>
                     <Text style={globalStyles.project_details}>
-                        {/*!!! להציג את השותפים עם פסיק בינהם !!!*/}
-                        {project.collaborators}
+                        {/* {project.collaborators} */}
                     </Text>
                 </View>
                 <View style={globalStyles.project_details_view}>
@@ -31,8 +46,7 @@ const ProjectScreen = ({ route, navigation }) => {
                 <View style={globalStyles.project_details_view}>
                     <Text style={globalStyles.project_title_details}>נושאי המיזם: </Text>
                     <Text style={globalStyles.project_details}>
-                        {/*!!! להציג את התגיות עם פסיק בינהן !!!*/}
-                        {project.tags}
+                        {/* {project.tags} */}
                     </Text>
                 </View>
                 <View style={globalStyles.project_details_view}>
@@ -51,7 +65,7 @@ const ProjectScreen = ({ route, navigation }) => {
             >
                 <Text style={globalStyles.plus_btn_text}>+</Text>
             </Pressable>
-        </SafeAreaView>
+        </View>
     )
 }
 

@@ -30,7 +30,9 @@ const FeedScreen = ({ navigation, route }) => {
   }, []);
 
   return (
-    <View>
+    <View
+      style={{ flex: 1 }}
+    >
       {
         <FlatList
           data={postsList}
