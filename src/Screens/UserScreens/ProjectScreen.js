@@ -22,36 +22,36 @@ const ProjectScreen = ({ route, navigation }) => {
     }, [])
 
     return (
-        <View
-            style={{ flex: 1 }}
-        >
+        <View style={globalStyles.global}>
             <ScrollView>
                 <Text style={globalStyles.forum_title_text}>{project.name}</Text>
-                <View style={globalStyles.project_details_view}>
-                    <Text style={globalStyles.project_title_details}>יוצר המיזם: </Text>
-                    <Text style={globalStyles.project_details}>
-                        {name}
-                    </Text>
-                </View>
-                <View style={globalStyles.project_details_view}>
-                    <Text style={globalStyles.project_title_details}>שותפים: </Text>
-                    <Text style={globalStyles.project_details}>
-                        {/* {project.collaborators} */}
-                    </Text>
-                </View>
-                <View style={globalStyles.project_details_view}>
-                    <Text style={globalStyles.project_title_details}>ארגון: </Text>
-                    <Text style={globalStyles.project_details}>{project.organization}</Text>
-                </View>
-                <View style={globalStyles.project_details_view}>
-                    <Text style={globalStyles.project_title_details}>נושאי המיזם: </Text>
-                    <Text style={globalStyles.project_details}>
-                        {/* {project.tags} */}
-                    </Text>
-                </View>
-                <View style={globalStyles.project_details_view}>
-                    <Text style={globalStyles.project_title_details}>תיאור המיזם: </Text>
-                    <Text style={globalStyles.project_details}>{project.description}</Text>
+                <View style={globalStyles.project_screen_details}>
+                    <View style={globalStyles.project_details_view}>
+                        <Text style={globalStyles.project_title_details}>יוצר המיזם: </Text>
+                        <Text style={globalStyles.project_details}>
+                            {name}
+                        </Text>
+                    </View>
+                    <View style={globalStyles.project_details_view}>
+                        <Text style={globalStyles.project_title_details}>שותפים: </Text>
+                        <Text style={globalStyles.project_details}>
+                            {/* {project.collaborators} */}
+                        </Text>
+                    </View>
+                    <View style={globalStyles.project_details_view}>
+                        <Text style={globalStyles.project_title_details}>ארגון: </Text>
+                        <Text style={globalStyles.project_details}>{project.organization}</Text>
+                    </View>
+                    <View style={globalStyles.project_details_view}>
+                        <Text style={globalStyles.project_title_details}>נושאי המיזם: </Text>
+                        <Text style={globalStyles.project_details}>
+                            {/* {project.tags} */}
+                        </Text>
+                    </View>
+                    <View style={globalStyles.project_details_view}>
+                        <Text style={globalStyles.project_title_details}>תיאור המיזם: </Text>
+                        <Text style={globalStyles.project_details}>{project.description}</Text>
+                    </View>
                 </View>
                 <View style={globalStyles.profile_line}></View>
                 {/*!!! Posts here !!!*/}
