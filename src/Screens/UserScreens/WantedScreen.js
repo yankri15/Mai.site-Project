@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  Pressable,
-  FlatList,
-  SafeAreaView,
-  View,
-  Modal,
-  TextInput,
-} from "react-native";
+import { Text, Pressable, FlatList, SafeAreaView, View, Modal, TextInput } from "react-native";
 import ProfilePic from "../../API/ProfilePic";
 import Job from "../../API/Job";
 import { globalStyles } from "../../styles/global";
@@ -25,17 +17,17 @@ const WantedScreen = ({ navigation }) => {
   useEffect(() => {
     getJobs();
 
-    return () => {};
+    return () => { };
   }, []);
 
   const handleSubmit = async () => {
-    if(!jobTitle || !jobDescription || !projectName) return;
+    if (!jobTitle || !jobDescription || !projectName) return;
     uploadJob(jobTitle, jobDescription, projectName);
     setCreateModalVisible(!createModalVisible);
     getJobs();
   };
   return (
-    <SafeAreaView>
+    <SafeAreaView style={globalStyles.global}>
       <Modal
         visible={createModalVisible}
         animationType="slide"
@@ -50,39 +42,35 @@ const WantedScreen = ({ navigation }) => {
             value={description}
             onChangeText={(text) => setDescription(text)}
           /> */}
-          <Text style={globalStyles.wanted_new_title}>שם התפקיד</Text>
+          <Text style={globalStyles.wanted_new_title}>דרושים חדשים</Text>
           <TextInput
-            placeholder="הכנס שם תפקיד"
+            placeholder="שם התפקיד אותו אתם מחפשים"
             style={globalStyles.wanted_text_input}
             value={jobTitle}
             onChangeText={(text) => setJobTitle(text)}
           />
-
-          <Text style={globalStyles.wanted_new_title}>תאור תפקיד</Text>
           <TextInput
-            placeholder="הכנס פירוט על התפקיד"
+            placeholder="פרטו קצת על התפקיד"
             style={globalStyles.wanted_text_input}
             value={jobDescription}
             onChangeText={(text) => setJobDescription(text)}
           />
-
-          <Text style={globalStyles.wanted_new_title}>פרטי עמותה</Text>
           <TextInput
-            placeholder="הכנס שם עמותה והרחב מעט על פועלה"
+            placeholder="הכניסו שם עמותה והרחיבו מעט על פועלה"
             style={globalStyles.wanted_text_input}
             value={projectName}
             onChangeText={(text) => setDescription(text)}
           />
           <Pressable style={globalStyles.settingsBtn} onPress={handleSubmit}>
-            <Text style={globalStyles.wanted_btn}>פרסם</Text>
+            <Text style={globalStyles.wanted_btn}>פרסמו</Text>
           </Pressable>
         </View>
-        
       </Modal>
-      <Text style = {globalStyles.wanted_header}>שת"פים</Text>
-      <View style = {globalStyles.wanted_container}>
+
+      <Text style={globalStyles.wanted_header}>לוח דרושים</Text>
+      <View style={globalStyles.wanted_container}>
         <FlatList
-          columnWrapperStyle={{justifyContent: 'space-between'}}
+          columnWrapperStyle={{ justifyContent: 'space-between' }}
           data={jobs}
           numColumns={2}
           renderItem={({ item }) => <Job job={item} />}
@@ -95,9 +83,8 @@ const WantedScreen = ({ navigation }) => {
             );
           }}
           keyExtractor={(item, index) => index.toString()}
-      />
+        />
       </View>
-      
       <Pressable
         onPress={() => {
           setCreateModalVisible(!createModalVisible);

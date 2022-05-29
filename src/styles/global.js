@@ -200,8 +200,6 @@ export const globalStyles = StyleSheet.create({
   stage2: {
     backgroundColor: "#C4A5F3",
     alignItems: "center",
-    justifyContent: "center",
-    //marginBottom: '5%',
   },
   stage3: {
     alignItems: "center",
@@ -239,7 +237,7 @@ export const globalStyles = StyleSheet.create({
     color: "#000000",
     fontWeight: "bold",
     fontSize: 30,
-    marginTop: '3%',
+    marginTop: '2%',
   },
   edit_profile_pic: {
     width: 150,
@@ -277,13 +275,13 @@ export const globalStyles = StyleSheet.create({
     flexDirection: "row",
     marginLeft: '2%',
     marginBottom: '2%',
+    flexWrap: "wrap",
   },
   side_details_text: {
     fontWeight: "bold",
     textAlign: "left",
     justifyContent: "center",
     fontSize: 13,
-    marginLeft: '2%',
     flexWrap: "wrap",
   },
   profile_project: {
@@ -293,15 +291,15 @@ export const globalStyles = StyleSheet.create({
     width: '92%',
     marginLeft: '4%',
     borderRadius: 25,
-    marginTop: '10%',
+    marginTop: '5%',
   },
   profile_project_txt: {
     textAlign: "center",
     fontSize: 20,
     color: "#000000",
     fontWeight: "bold",
-    margin: '2%',
-    marginBottom: '5%',
+    padding: '2%',
+    //marginBottom: '5%',
   },
   line: {
     width: '100%',
@@ -310,25 +308,37 @@ export const globalStyles = StyleSheet.create({
     marginBottom: '5%',
   },
   //////////////////project///////////////////////
+  project_screen_details: {
+    padding: '3%',
+    
+  },
   project_details_view: {
     flexDirection: 'row',
-    marginBottom: '3%',
+    marginTop: '3%',
+    flexWrap: 'wrap',
   },
   project_title_details: {
     color: "black",
-    marginLeft: '3%',
     fontSize: 15,
     fontWeight: "bold",
   },
+  project_details_container: {
+    width: '92%',
+    marginLeft: '4%',
+    padding: '1%',
+    marginBottom: '2%',
+    borderWidth: 0.5,
+    borderRadius: 10,
+    backgroundColor: "#E5E7E9"
+  },
   project_details: {
     color: "black",
-    //marginLeft: '1%',
     fontSize: 15,
   },
   ////////////////////////////////////////////////
   plus_btn: {
     position: 'absolute',
-    bottom: '3%',
+    bottom: '6%',
     left: '5%',
     borderColor: 'black',
     borderStyle: 'solid',
@@ -338,7 +348,6 @@ export const globalStyles = StyleSheet.create({
     height: 35,
     borderWidth: 2,
     borderRadius: 100,
-    // padding: '1%',
   },
   plus_btn_text: {
     textAlign: 'center',
@@ -512,7 +521,7 @@ export const globalStyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginLeft: "4%",
-    marginRight: '1%',
+    marginRight: '0.5%',
   },
   info_like_comment: {
     flexDirection: "row",
@@ -532,8 +541,8 @@ export const globalStyles = StyleSheet.create({
   info_like_comment_txt: {
     color: "#cecece",
     fontWeight: "bold",
-    fontSize: 13,
-    marginLeft: "5%",
+    fontSize: 14,
+    marginLeft: "6%",
   },
   like_comment_line: {
     width: "94%",
@@ -760,27 +769,34 @@ export const globalStyles = StyleSheet.create({
   //////////wanted/////////
   wanted_container: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 20,
+    padding: '1%',
     marginBottom: 40,
-    marginRight: '10%',
-    marginLeft: '10%',
   },
   wanted_list_item: {
-    margin: 10,
-    padding: 5,
+    margin: '5%',
+    padding: '1%',
     borderColor: "black",
     borderWidth: 3,
     borderRadius: 4,
   },
   wanted_text_title: {
-    fontSize: 17,
+    fontSize: 15,
     fontWeight: "bold",
     textAlign: "center",
     alignItems: "center",
-    backgroundColor: "#e2e2e2",
-    borderRadius: 20,
-    margin: 2,
+    borderRadius: 10,
+  },
+  wanted_details_text: {
+    fontSize: 15,
+    fontWeight: "bold",
+    textAlign: "center",
+    alignItems: "center",
+    backgroundColor: "#C39BD3",
+    borderColor: "black",
+    borderWidth: 1,
+    borderRadius: 10,
+    margin: '2%',
+    padding: '1.5%'
   },
   wanted_text: {
     fontSize: 17,
@@ -793,6 +809,7 @@ export const globalStyles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     textAlign: "center",
+    marginBottom: '5%',
   },
   wanted_add_container: {
     flex: 1,
@@ -802,11 +819,11 @@ export const globalStyles = StyleSheet.create({
   },
   wanted_new_title: {
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 28,
     fontWeight: "bold",
-    marginLeft: "55%",
-    marginBottom: "5%",
-    marginTop: "8%"
+    marginBottom: "8%",
+    marginTop: "3%",
+    color: '#fdc123',
   },
 
   wanted_text_input: {
@@ -815,7 +832,7 @@ export const globalStyles = StyleSheet.create({
     width: '85%',
     padding: 5,
     paddingRight: 10,
-    fontSize: 17,
+    fontSize: 16,
     borderWidth: 2,
     marginBottom: '2%',
     textAlign: "right",

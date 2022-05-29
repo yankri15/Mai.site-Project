@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  Text,
-  Pressable,
-  Modal,
-  SafeAreaView,
-  View,
-  TextInput,
-  Alert,
-} from "react-native";
+import { Text, Pressable, Modal, SafeAreaView, View, TextInput, Alert } from "react-native";
 import { globalStyles } from "../styles/global";
 import email from "react-native-email";
 import { useAuth } from "../AuthProvider/AuthProvider";
@@ -48,7 +40,7 @@ const Job = ({ job, navigation }) => {
   //       >
   //         <Pressable onPress={() => props.setJobModalVisible(false)} />
   //         <View>
-  
+
   //         </View>
   //       </Modal>
   //   )
@@ -108,15 +100,15 @@ const Job = ({ job, navigation }) => {
           <Text>{job.data.jobTitle}</Text>
         </View>
       </Pressable> */}
-      <View style = {globalStyles.wanted_list_item}>
-        <Pressable style = {globalStyles.wanted_text_title} onPress={showAlert}>
-          <Text style = {globalStyles.wanted_text}>דרוש/ה</Text>
-          <Text style = {globalStyles.wanted_text}>{job.data.jobTitle}</Text>
-      </Pressable>
-      
-      <Pressable style = {globalStyles.wanted_text_title} onPress={() => setContactModalVisible(!contactModalVisible)}>
-        <Text style = {globalStyles.wanted_text}>השאר פרטים</Text>
-      </Pressable>
+      <View style={globalStyles.wanted_list_item}>
+        <Pressable style={globalStyles.wanted_text_title} onPress={showAlert}>
+          <Text style={globalStyles.wanted_text}>דרוש/ה</Text>
+          <Text style={globalStyles.wanted_text}>{job.data.jobTitle}</Text>
+        </Pressable>
+
+        <Pressable style={globalStyles.wanted_text_title} onPress={() => setContactModalVisible(!contactModalVisible)}>
+          <Text style={globalStyles.wanted_details_text}>השאירו פרטים</Text>
+        </Pressable>
       </View>
     </SafeAreaView>
   );

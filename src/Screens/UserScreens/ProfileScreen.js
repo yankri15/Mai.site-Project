@@ -119,7 +119,7 @@ const ProfileScreen = ({ route, navigation }) => {
       <View style={globalStyles.side_details}>
         <View style={globalStyles.side_details_comp}>
           <Ionicons
-            style={{ color: "#a77ce8" }}
+            style={{ color: "#a77ce8", marginRight: '2%' }}
             name="school-outline"
             size={20}
           ></Ionicons>
@@ -128,7 +128,7 @@ const ProfileScreen = ({ route, navigation }) => {
         </View>
         <View style={globalStyles.side_details_comp}>
           <SimpleLineIcons
-            style={{ color: "#a77ce8" }}
+            style={{ color: "#a77ce8", marginRight: '2%' }}
             name="organization"
             size={20}
           ></SimpleLineIcons>
@@ -137,7 +137,7 @@ const ProfileScreen = ({ route, navigation }) => {
         </View>
         <View style={globalStyles.side_details_comp}>
           <MaterialCommunityIcons
-            style={{ color: "#a77ce8" }}
+            style={{ color: "#a77ce8", marginRight: '2%' }}
             name="lightbulb-on-outline"
             size={20}
           ></MaterialCommunityIcons>
@@ -149,6 +149,7 @@ const ProfileScreen = ({ route, navigation }) => {
         <Text style={globalStyles.profile_title}>המיזמים שלי</Text>
         <FlatList
           data={projects}
+          //style={{flexDirection: 'row'}}
           renderItem={({ item }) => (
             <Pressable
               style={globalStyles.profile_project}
