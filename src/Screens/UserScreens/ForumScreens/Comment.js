@@ -40,21 +40,21 @@ const Comment = ({
         <Menu
           renderer={Popover}
           rendererProps={{ preferredPlacement: "right" }}
-          style={{ position: 'absolute', top: '10%', right: '2%' }}
+          style={globalStyles.dots}
         >
           <MenuTrigger>
             {commentData.uid == currentUser.uid ? (
               <Entypo name="dots-three-horizontal" size={20}></Entypo>
             ) : null}
           </MenuTrigger>
-          <MenuOptions>
+          <MenuOptions style={globalStyles.delete_dots_btn}>
             <Pressable
               style={globalStyles.edit_comment}
               onPress={() => {
                 deleteComment(commentLocation, commentId);
               }}
             >
-              <Text>מחק</Text>
+              <Text style={globalStyles.delete_dots_text}>מחק</Text>
             </Pressable>
           </MenuOptions>
         </Menu>

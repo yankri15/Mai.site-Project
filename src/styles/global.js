@@ -328,7 +328,7 @@ export const globalStyles = StyleSheet.create({
   ////////////////////////////////////////////////
   plus_btn: {
     position: 'absolute',
-    bottom: '7%',
+    bottom: '3%',
     left: '5%',
     borderColor: 'black',
     borderStyle: 'solid',
@@ -456,8 +456,8 @@ export const globalStyles = StyleSheet.create({
     color: "#595959",
     alignSelf: 'flex-end',
     position: 'absolute',
-    top: '5%',
-    right: '4%',
+    top: '6%',
+    right: '10%',
   },
   user_pic: {
     width: 40,
@@ -511,8 +511,8 @@ export const globalStyles = StyleSheet.create({
   details_like_comment: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginLeft: "3%",
-    //marginRight: '1%',
+    marginLeft: "4%",
+    marginRight: '1%',
   },
   info_like_comment: {
     flexDirection: "row",
@@ -603,7 +603,12 @@ export const globalStyles = StyleSheet.create({
     marginTop: "2%",
     width: "92%",
     marginLeft: "4%",
-    borderRadius: 25,
+    borderRadius: 20,
+  },
+  dots: {
+    position: 'absolute',
+    top: '2%',
+    right: '3%'
   },
   first_comment: {
     backgroundColor: "#fff89e",
@@ -728,6 +733,14 @@ export const globalStyles = StyleSheet.create({
     fontSize: 25,
     fontWeight: "bold",
     marginBottom: "10%"
+  },
+  delete_dots_btn: {
+    width: 40,
+  },
+  delete_dots_text: {
+    color: 'red',
+    fontSize: 15,
+    textAlign: 'center',
   },
   msg_text: {
     borderColor: "black",
