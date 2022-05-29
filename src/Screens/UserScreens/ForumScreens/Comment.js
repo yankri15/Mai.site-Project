@@ -40,6 +40,7 @@ const Comment = ({
         <Menu
           renderer={Popover}
           rendererProps={{ preferredPlacement: "right" }}
+          style={{ position: 'absolute', top: '10%', right: '2%' }}
         >
           <MenuTrigger>
             {commentData.uid == currentUser.uid ? (

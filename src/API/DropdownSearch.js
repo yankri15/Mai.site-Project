@@ -1,6 +1,7 @@
 import { View, Text, TextInput, Pressable, FlatList } from 'react-native'
 import React, { useState } from 'react'
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { globalStyles } from '../styles/global';
 
 
 const DropdownSearch = ({ placeHolder, selectedItems, filteredList, handleSearch, handleSelect, handleUnselect, display, setDisplay }) => {
@@ -33,18 +34,18 @@ const DropdownSearch = ({ placeHolder, selectedItems, filteredList, handleSearch
                 />
             </View>
             <View
-                style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', }}
+                style={{ position: 'relative', flexDirection: 'row', width: '100%', justifyContent: 'center', }}
             >
                 <TextInput
                     placeholder={placeHolder}
                     onFocus={() => setDisplay('flex')}
                     onChangeText={(text) => handleSearch(text)}
-                    style={{ flex: 16 }}
+                    style={globalStyles.textInputProject}
                 />
                 {display === 'flex' && filteredList && <Ionicons
                     name="close-outline"
-                    style={{ flex: 1, alignSelf: 'flex-end', backgroundColor: '#DEDAD9', zIndex: 3, borderRadius: 10 }}
-                    size={20}
+                    style={{ position: 'absolute', alignSelf: 'center', right: 20, backgroundColor: '#DEDAD9', zIndex: 3, borderRadius: 10 }}
+                    size={30}
                     onPress={() => setDisplay('none')}
                 />}
             </View>
@@ -52,7 +53,7 @@ const DropdownSearch = ({ placeHolder, selectedItems, filteredList, handleSearch
                 style={{ position: 'relative', display: display }}
             >
                 <View
-                    style={{ position: 'absolute', backgroundColor: 'gray', zIndex: 3, width: '100%' }}
+                    style={{ position: 'absolute', backgroundColor: '#EAE7E6', zIndex: 3, width: '100%' }}
                 >
                     <FlatList
                         data={filteredList}
