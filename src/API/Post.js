@@ -51,10 +51,12 @@ const Post = ({ post, navigation }) => {
   const { deletePost } = useData();
 
   const getImg = async () => {
-    const imgRef = ref(storage, post.data.images[0]);
-    await getDownloadURL(imgRef).then((img) => {
-      setUrl(img);
-    });
+    if (post.data.images.length !== 0) {
+      const imgRef = ref(storage, post.data.images[0]);
+      await getDownloadURL(imgRef).then((img) => {
+        setUrl(img);
+      });
+    }
   };
 
   const getLikes = async () => {
@@ -194,7 +196,7 @@ const Post = ({ post, navigation }) => {
           </MenuOptions>
         </Menu>
         <Text style={globalStyles.post_text}>{post && post.data.postText}</Text>
-        {post.data.images && (
+        {post.data.images.length !== 0 && (
           <Image style={globalStyles.post_img} source={{ uri: url }} />
         )}
         <ProjectPost pid={post.data.pid} navigation={navigation} />

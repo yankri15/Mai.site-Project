@@ -10,7 +10,7 @@ import DropdownSearch from '../../API/DropdownSearch';
 
 const CreateProjectScreen = ({ navigation }) => {
     const { currentUser } = useAuth();
-    const { uploadProject, uploadProjectPost, uploadImg, usersList, getUsersList, tagsList, getTags } = useData();
+    const { uploadProject, uploadProjectPost, uploadImg, usersList, getUsersList, tagsList, getTags, getPosts } = useData();
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [collaborators, setCollaborators] = useState([]);
@@ -68,19 +68,6 @@ const CreateProjectScreen = ({ navigation }) => {
             setLoading(false);
             return;
         }
-        console.log('Starting!!!!!!!!!!');
-        // let imageURLs = [];
-        // images.forEach((image, index, arr) => {
-        //     const path = "/img/" + currentUser.uid + "/projects/" + new Date().getTime() + ".jpg";
-        //     imageURLs = [...imageURLs, path];
-        //     uploadImg(path, image).then(() => {
-        //         if ((index + 1) == arr.length) {
-        //             setImages(imageURLs);
-        //             uploadProject(name, organization, collaborators, imageURLs, tags, description);
-        //             navigation.navigate("Feed");
-        //         }
-        //     });
-        // });
         const imageURLs = images.map((image, index) => {
             const path = "/img/" + currentUser.uid + "/projects/" + new Date().getTime() + index + ".jpg";
             uploadImg(path, image);
@@ -88,7 +75,10 @@ const CreateProjectScreen = ({ navigation }) => {
         });
         setImages(imageURLs);
         uploadProject(name, organization, collaborators, imageURLs, tags, description).then(pid => {
-            uploadProjectPost(pid, 'פרויקט חדש באוויר!', imageURLs, 'create').then(() => navigation.navigate("Feed"));
+            uploadProjectPost(pid, 'פרויקט חדש באוויר!', imageURLs, 'create').then(() => {
+                getPosts();
+                navigation.navigate("Feed");
+            });
         });
     }
 
@@ -160,18 +150,24 @@ const CreateProjectScreen = ({ navigation }) => {
 
     return (
         <View style={{ flex: 1 }}>
+            <Text
+                style={globalStyles.title_creat_post}
+            >{"פרסמו את הפרויקט שלכם"}</Text>
             <TextInput
                 placeholder="שם הפרוייקט"
+                style={globalStyles.textInput}
                 onChangeText={(text) => setName(text)}
             />
             <TextInput
                 placeholder="ארגון"
                 onChangeText={(text) => setOrganization(text)}
-
+                style={globalStyles.textInput}
             />
             <TextInput
                 placeholder="ספרו לנו על הפרויקט"
                 onChangeText={(text) => setDescription(text)}
+                style={globalStyles.msg_text}
+
             />
             <DropdownSearch
                 placeHolder={'שותפים'}
