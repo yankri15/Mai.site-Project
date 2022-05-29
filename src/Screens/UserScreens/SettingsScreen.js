@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { useAuth } from "../../AuthProvider/AuthProvider";
+import {useData} from "../../AuthProvider/UserDataProvider"
 import { globalStyles } from "../../styles/global";
 import {
   reauthenticateWithCredential,
@@ -19,6 +20,7 @@ import {
 
 const SettingsScreen = ({ navigation }) => {
   const { currentUser } = useAuth();
+  const {deleteSelf}  = useData();
   const [showModalCP, setShowModalCP] = useState(false);
   const [showModalDel, setShowModalDel] = useState(false);
   const [currPassword, setCurrPassword] = useState("");
@@ -88,8 +90,8 @@ const SettingsScreen = ({ navigation }) => {
         credential
       );
 
-      // delete user from firebase
-      
+      deleteSelf();
+
 
       //delete user from firebase authentication
       await deleteUser(currentUser)
