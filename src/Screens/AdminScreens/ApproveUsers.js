@@ -3,7 +3,7 @@ import { where, query, collection, getDocs } from "firebase/firestore";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { db } from "../../../firebase";
 import { DataTable } from "react-native-paper";
-import { Button, View } from "react-native";
+import { Button, View, FlatList, Text } from "react-native";
 import { doc, updateDoc } from "firebase/firestore";
 
 const ApproveUsers = () => {
@@ -18,7 +18,7 @@ const ApproveUsers = () => {
     };
     getSnapshot().catch(console.error);
     return;
-  }, [snapshot]);
+  }, []);
 
   //Set user status to 2 - Approved
   const approveUser = async (uid) => {
@@ -37,16 +37,51 @@ const ApproveUsers = () => {
           <DataTable.Title>Full Name</DataTable.Title>
           <DataTable.Title>Approve\Decline</DataTable.Title>
         </DataTable.Header>
-
-        {snapshot && snapshot.length > 0 ? (
+        <FlatList
+          data={snapshot}
+          renderItem={({ item }) => (
+            <View
+              style={{ flexDirection: 'row' }}
+            >
+              <Text>{item.data().name}</Text>
+              <Button
+                title="V"
+                style={{ alignSelf: 'flex-end' }}
+                onPress={() => {
+                  approveUser(item.id);
+                }}
+              />
+              <Button
+                title="X"
+                style={{ alignSelf: 'flex-end' }}
+                onPress={() => {
+                  declineUser(item.id);
+                }}
+              />
+            </View>
+          )}
+          ListEmptyComponent={() => {
+            return (
+              <View>
+                <Text>אין משתמשים ממתינים</Text>
+              </View>
+            );
+          }}
+          ItemSeparatorComponent={() => {
+            return <View style={{ height: 3 }}></View>;
+          }}
+          keyExtractor={(item, index) => index.toString()}
+        />
+        {/* {snapshot && snapshot.length > 0 ? (
           snapshot.map((item, index) => {
             return (
               <DataTable.Row key={index}>
                 <DataTable.Cell>{item.data().name}</DataTable.Cell>
                 <DataTable.Cell>
-                  <View style={{ flexDirection: "row" }}>
+                  <View style={{ flexDirection: "row", }}>
                     <Button
                       title="V"
+                      style={{ backgroundColor: 'red' }}
                       onPress={() => {
                         approveUser(item.id);
                       }}
@@ -66,7 +101,7 @@ const ApproveUsers = () => {
           <DataTable.Row>
             <DataTable.Cell>No pending users</DataTable.Cell>
           </DataTable.Row>
-        )}
+        )} */}
       </DataTable>
     </SafeAreaView>
   );

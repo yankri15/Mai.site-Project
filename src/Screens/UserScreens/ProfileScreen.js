@@ -61,7 +61,7 @@ const ProfileScreen = ({ route, navigation }) => {
     };
 
     getStatus().catch(console.error);
-    getProjects().catch(console.error);
+    getProjects(id).catch(console.error);
     return;
   }, [isFocused]);
 

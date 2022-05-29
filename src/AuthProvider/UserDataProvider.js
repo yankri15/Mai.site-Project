@@ -154,12 +154,12 @@ const UserDataProvider = ({ children }) => {
     });
   };
 
-  const getProjects = async () => {
+  const getProjects = async (uid) => {
     setProjects([]);
 
     const q = query(
       collection(db, "projects"),
-      where("uid", "==", currentUser.uid)
+      where("uid", "==", uid ? uid : currentUser.uid)
     );
     const docSnap = await getDocs(q);
 
