@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Image, View, TextInput, Pressable, Text, Picker, Alert } from "react-native";
+import {
+  Image,
+  View,
+  TextInput,
+  Pressable,
+  Text,
+  Picker,
+  Alert,
+} from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import { globalStyles } from "../../styles/global";
@@ -21,6 +29,7 @@ const EditProfileScreen = ({ navigation }) => {
   const [organiztion, setOrganiztion] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const defaultImage = require("../../../assets/default_profile_pic.jpg");
 
   useEffect(() => {
     const getUserData = async () => {
@@ -32,17 +41,21 @@ const EditProfileScreen = ({ navigation }) => {
       setSchool(userData.school);
       setClasss(userData.class);
       setOrganiztion(userData.organiztion);
-      const imgRef = ref(storage, userData.pic);
-      await getDownloadURL(imgRef).then((img) => {
-        setImage(img);
-      });
+      if (userData.pic !== "") {
+        const imgRef = ref(storage, userData.pic);
+        await getDownloadURL(imgRef).then((img) => {
+          setImage(img);
+        });
+      }
     };
     getUserData();
   }, []);
 
   async function handleChanges() {
+    setLoading(true);
     if (!name || !school || !classs || !neighborhood || !organiztion) {
-      Alert.alert('אנא מלא את כל השדות');
+      Alert.alert("אנא מלא את כל השדות");
+      setLoading(false);
       return;
     }
     try {
@@ -51,9 +64,10 @@ const EditProfileScreen = ({ navigation }) => {
       const uid = currentUser.uid;
       const date = new Date().toLocaleString();
       const path = "/img/" + currentUser.uid + "/pofile/" + date + ".jpg";
-      uploadImg(path, image);
       changeData(uid, name, school, classs, neighborhood, organiztion, path);
-      navigation.navigate("Profile");
+      uploadImg(path, image).then(() => {
+        navigation.navigate("Profile");
+      });
     } catch (err) {
       setError("Failed to change details");
       console.log(error + ":\n " + err);
@@ -99,7 +113,10 @@ const EditProfileScreen = ({ navigation }) => {
       style={[globalStyles.global, globalStyles.container_enter_screens]}
     >
       {image && (
-        <Image source={{ uri: image }} style={globalStyles.edit_profile_pic} />
+        <Image
+          source={image ? { uri: image } : defaultImage}
+          style={globalStyles.edit_profile_pic}
+        />
       )}
       <View style={globalStyles.take_a_pic}>
         <Pressable
@@ -108,8 +125,12 @@ const EditProfileScreen = ({ navigation }) => {
           onPress={pickImage}
           disabled={loading}
         >
-          <Text style={globalStyles.take_a_pic_btn_text}>תמונה מהגלריה  </Text>
-          <MaterialIcons style={{ color: "#fdc123" }} name="photo-library" size={20}></MaterialIcons>
+          <Text style={globalStyles.take_a_pic_btn_text}>תמונה מהגלריה </Text>
+          <MaterialIcons
+            style={{ color: "#fdc123" }}
+            name="photo-library"
+            size={20}
+          ></MaterialIcons>
         </Pressable>
         {/* <Button title="בחר/י תמונה מגלריה" onPress={pickImage} /> */}
         <Pressable
@@ -118,8 +139,12 @@ const EditProfileScreen = ({ navigation }) => {
           onPress={pickImageFromCamera}
           disabled={loading}
         >
-          <Text style={globalStyles.take_a_pic_btn_text}>צלם/י תמונה  </Text>
-          <Ionicons style={{ color: "#fdc123" }} name="camera-outline" size={20}></Ionicons>
+          <Text style={globalStyles.take_a_pic_btn_text}>צלם/י תמונה </Text>
+          <Ionicons
+            style={{ color: "#fdc123" }}
+            name="camera-outline"
+            size={20}
+          ></Ionicons>
         </Pressable>
         {/* <Button title="צלם/י תמונה" onPress={pickImageFromCamera} /> */}
       </View>
@@ -133,7 +158,9 @@ const EditProfileScreen = ({ navigation }) => {
         <Picker
           selectedValue={neighborhood}
           style={[
-            isPlaceholder(neighborhood) ? { color: "#999" } : { color: "black" },
+            isPlaceholder(neighborhood)
+              ? { color: "#999" }
+              : { color: "black" },
             { width: "105%" },
             { height: 28 },
           ]}
