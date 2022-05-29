@@ -178,20 +178,21 @@ const Post = ({ post, navigation }) => {
         <Menu
           renderer={Popover}
           rendererProps={{ preferredPlacement: "right" }}
+          style={globalStyles.dots}
         >
           <MenuTrigger>
             {post.data.uid == currentUser.uid ? (
               <Entypo name="dots-three-horizontal" size={20}></Entypo>
             ) : null}
           </MenuTrigger>
-          <MenuOptions>
+          <MenuOptions style={globalStyles.delete_dots_btn}>
             <Pressable
-              style={globalStyles.edit_comment}
+              //style={globalStyles.edit_comment}
               onPress={() => {
                 deletePost(post.id);
               }}
             >
-              <Text>מחק</Text>
+              <Text style={globalStyles.delete_dots_text}>מחק</Text>
             </Pressable>
           </MenuOptions>
         </Menu>
@@ -249,10 +250,16 @@ const Post = ({ post, navigation }) => {
                   ? { color: "#fdc123" }
                   : { color: "#c6c6b5" }
               }
-              name="like2"
+              name={
+                likes.includes(currentUser.uid)
+                  ? "like1"
+                  : "like2"
+              }
               size={18}
             ></AntDesign>
-            <Text style={globalStyles.like_comment_btn_txt}>אהבתי</Text>
+            <Text style={[globalStyles.like_comment_btn_txt, likes.includes(currentUser.uid)
+              ? { color: "#fdc123" }
+              : { color: "#c6c6b5" }]}>אהבתי</Text>
           </Pressable>
           <Pressable
             title="comment"
