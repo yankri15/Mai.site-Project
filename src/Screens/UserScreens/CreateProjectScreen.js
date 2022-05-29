@@ -149,26 +149,30 @@ const CreateProjectScreen = ({ navigation }) => {
     }
 
     return (
-        <View style={{ flex: 1 }}>
-            <Text
-                style={globalStyles.title_creat_post}
-            >{"פרסמו את הפרויקט שלכם"}</Text>
-            <TextInput
-                placeholder="שם הפרוייקט"
-                style={globalStyles.textInput}
-                onChangeText={(text) => setName(text)}
-            />
-            <TextInput
-                placeholder="ארגון"
-                onChangeText={(text) => setOrganization(text)}
-                style={globalStyles.textInput}
-            />
-            <TextInput
-                placeholder="ספרו לנו על הפרויקט"
-                onChangeText={(text) => setDescription(text)}
-                style={globalStyles.msg_text}
-
-            />
+        <ScrollView style={{ flex: 1 }}>
+            <View
+                style={{ alignItems: 'center' }}
+            >
+                <Text
+                    style={globalStyles.title_creat_post}
+                >{"פרסמו את הפרויקט שלכם"}</Text>
+                <TextInput
+                    placeholder="שם הפרוייקט"
+                    style={globalStyles.textInputProject}
+                    onChangeText={(text) => setName(text)}
+                />
+                <TextInput
+                    placeholder="ארגון"
+                    onChangeText={(text) => setOrganization(text)}
+                    style={globalStyles.textInputProject}
+                />
+                <TextInput
+                    placeholder="ספרו לנו על הפרויקט"
+                    onChangeText={(text) => setDescription(text)}
+                    style={globalStyles.msg_text_project}
+                    multiline={true}
+                />
+            </View>
             <DropdownSearch
                 placeHolder={'שותפים'}
                 selectedItems={collaborators}
@@ -191,8 +195,12 @@ const CreateProjectScreen = ({ navigation }) => {
             />
             <Pressable
                 onPress={pickImage}
+                style={globalStyles.choose_img_project}
             >
-                <Text>העלו תמונות</Text>
+                {/* <Text>העלו תמונות</Text> */}
+                <Text style={globalStyles.choose_img_text}>
+                    <Ionicons name="image-outline" size={25}></Ionicons>+
+                </Text>
             </Pressable>
             <FlatList
                 data={images}
@@ -215,7 +223,9 @@ const CreateProjectScreen = ({ navigation }) => {
                 )}
                 ListEmptyComponent={() => {
                     return (
-                        <View>
+                        <View
+                            style={{ marginTop: 20 }}
+                        >
                             <Text>התמונות שתעלו יוצגו כאן..</Text>
                         </View>
                     );
@@ -236,11 +246,22 @@ const CreateProjectScreen = ({ navigation }) => {
                 title="post"
                 onPress={handleUploadProject}
                 disabled={loading}
-                style={{ position: 'absolute', alignItems: 'center', justifyContent: 'center', width: 80, height: 30, bottom: 20, left: 10, backgroundColor: 'gray' }}
+                style={{
+                    position: 'absolute', justifyContent: 'center', width: 80, height: 50, bottom: 20, right: 10, borderColor: 'black',
+                    borderStyle: 'solid',
+                    backgroundColor: "#a77ce8",
+                    textAlign: "center",
+                }}
             >
-                <Text >פרסמו אותי!</Text>
+                <Text
+                    style={{
+                        color: 'black', color: "#fdc123",
+                        fontWeight: "bold",
+                        fontSize: 20,
+                    }}
+                >{'פרסמו אותי!'}</Text>
             </Pressable>
-        </View>
+        </ScrollView>
     )
 }
 
