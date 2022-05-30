@@ -140,6 +140,11 @@ const UserDataProvider = ({ children }) => {
     await deleteDoc(doc(commentLocation, commentId));
   };
 
+  const deleteSelf = async () =>{
+    //We should delete image from the storage
+    await deleteDoc(doc(db, "users", currentUser.uid));
+  }
+
   const deletePost = async (postId) => {
     await deleteDoc(doc(db, "posts", postId));
   };
@@ -296,6 +301,7 @@ const UserDataProvider = ({ children }) => {
     checkAdmin,
     deleteComment,
     deletePost,
+    deleteSelf,
     jobs,
     usersList,
     postsList,

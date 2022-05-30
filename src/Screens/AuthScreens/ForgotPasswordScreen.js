@@ -15,7 +15,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
       setError("");
       setLoading(true);
       await resetPassword(email);
-      alert("איפוס סיסמה","בדוק את האימייל: "+ email)
+      Alert.alert("איפוס סיסמה נשלח אליך ברגעים אלה", "בדוק את המייל: "+ email)
       navigation.navigate('Login');
     } catch (err) {
       setError("Failed to reaet password");
@@ -23,10 +23,10 @@ const ForgotPasswordScreen = ({ navigation }) => {
       console.log(err.code);
       switch (err.code) {
         case 'auth/invalid-email':
-          alert("שגיאה","אימייל לא נכון")
+          Alert.alert("אופסי..", "המייל שהוכנס לא תקין")
           break;
         case 'auth/user-not-found':
-          alert("שגיאה",'משתמש לא קיים')
+          Alert.alert("אופסי..", "משתמש זה לא קיים")
           break;
       }
     }

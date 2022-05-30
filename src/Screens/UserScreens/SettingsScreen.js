@@ -1,13 +1,28 @@
-import { View, Text, Pressable, Modal, TextInput, SafeAreaView, Alert} from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  Modal,
+  TextInput,
+  SafeAreaView,
+  Alert,
+} from "react-native";
 import React, { useState } from "react";
 import { useAuth } from "../../AuthProvider/AuthProvider";
+import {useData} from "../../AuthProvider/UserDataProvider"
 import { globalStyles } from "../../styles/global";
-import { reauthenticateWithCredential, updatePassword, EmailAuthProvider, deleteUser, } from "firebase/auth";
+import {
+  reauthenticateWithCredential,
+  updatePassword,
+  EmailAuthProvider,
+  deleteUser,
+} from "firebase/auth";
 
 const SettingsScreen = ({ navigation }) => {
   const { currentUser } = useAuth();
-  const [showModal, setShowModal] = useState(false);
-  const [showModal2, setShowModal2] = useState(false);
+  const {deleteSelf}  = useData();
+  const [showModalCP, setShowModalCP] = useState(false);
+  const [showModalDel, setShowModalDel] = useState(false);
   const [currPassword, setCurrPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [ConfirmNewPassword, setNewConfirmPassword] = useState("");
@@ -55,9 +70,9 @@ const SettingsScreen = ({ navigation }) => {
         .catch((error) => {
           console.log("reauthenticate failed");
         });
-    } catch (err) { }
+    } catch (err) {}
     alert("סיסמה שונתה בהצלחה", "סיסמה שונתה בהצלחה");
-    setShowModal(!showModal);
+    setShowModalCP(!showModalCP);
     setLoading(false);
   }
 
@@ -73,15 +88,20 @@ const SettingsScreen = ({ navigation }) => {
       const result = await reauthenticateWithCredential(
         currentUser,
         credential
-      )
+      );
 
-      await deleteUser(currentUser).then(() => {
-        console.log("user deleted")
-      }).catch((error) => {
-        console.log(error)
-      });
-    } catch (err) { }
+      deleteSelf();
 
+
+      //delete user from firebase authentication
+      await deleteUser(currentUser)
+        .then(() => {
+          console.log("user deleted");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (err) {}
 
     setLoading(false);
     navigation.navigate("Login");
@@ -89,16 +109,20 @@ const SettingsScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={globalStyles.settingsContainer}>
-      <Modal style={globalStyles.modal}
+      {/* MOdal for change password */}
+      <Modal
+        style={globalStyles.modal}
         animationType={"slide"}
         transparent={false}
-        visible={showModal}
-        onRequestClose={() => { setShowModal(!showModal); }}
+        visible={showModalCP}
+        onRequestClose={() => {
+          setShowModalCP(!showModalCP);
+        }}
       >
         <View style={globalStyles.modalView}>
           <TextInput
             style={globalStyles.textInput}
-            placeholder="הכנס סיסמה"
+            placeholder="סיסמה נוכחית"
             value={currPassword}
             onChangeText={(text) => setCurrPassword(text)}
             secureTextEntry
@@ -117,14 +141,18 @@ const SettingsScreen = ({ navigation }) => {
             onChangeText={(text) => setNewConfirmPassword(text)}
             secureTextEntry
           />
-          <Pressable style={globalStyles.modal_btn} title="שנה סיסמה" onPress={handleChangePassword} >
+          <Pressable
+            style={globalStyles.modal_btn}
+            title="שנה סיסמה"
+            onPress={handleChangePassword}
+          >
             <Text style={globalStyles.settingsBtnText}>שנה סיסמה</Text>
           </Pressable>
           <Pressable
             style={globalStyles.modal_btn}
             title="בטל"
             onPress={() => {
-              setShowModal(!showModal);
+              setShowModalCP(!showModalCP);
             }}
           >
             <Text style={globalStyles.settingsBtnText}>בטל</Text>
@@ -136,47 +164,48 @@ const SettingsScreen = ({ navigation }) => {
         style={globalStyles.settingsBtn}
         title="change password"
         onPress={() => {
-          setShowModal(!showModal);
+          setShowModalCP(!showModalCP);
         }}
       >
-        <Text style={globalStyles.settingsBtnText}>שנה סיסמה</Text>
+        <Text style={globalStyles.settingsBtnText}>שינוי סיסמה</Text>
       </Pressable>
 
-      <Modal style={globalStyles.modal}
+      {/* Modal for delete user */}
+      <Modal
+        style={globalStyles.modal}
         animationType={"slide"}
         transparent={false}
-        visible={showModal2}
-        onRequestClose={() => { setShowModal(!showModal); }}
+        visible={showModalDel}
+        onRequestClose={() => {
+          setShowModalDel(!showModalDel);
+        }}
       >
         <View style={globalStyles.modalView}>
           <Text style={globalStyles.delete_text}>הכנס פרטים מחדש</Text>
+          <TextInput style={globalStyles.textInput} placeholder="מייל" />
           <TextInput
-          style={globalStyles.textInput}
-          placeholder="מייל" />
-          <TextInput
-          style={globalStyles.textInput}
+            style={globalStyles.textInput}
             placeholder="סיסמה"
             value={currPassword}
             onChangeText={(text) => setCurrPassword(text)}
             secureTextEntry
           />
- <Pressable
-        style={globalStyles.settingsBtn}
-        title="delete me"
-        onPress={handleDelete}
-      >
-        <Text style={globalStyles.settingsBtnText}>מחק אותי</Text>
-      </Pressable>
-      <Pressable
-        style={globalStyles.settingsBtn}
-        title="abort"
-        onPress={() => {
-          setShowModal2(!showModal2);
-        }}
-      >
-        <Text style={globalStyles.settingsBtnText}>לא, זאת טעות</Text>
-      </Pressable>
-          
+          <Pressable
+            style={globalStyles.settingsBtn}
+            title="delete me"
+            onPress={handleDelete}
+          >
+            <Text style={globalStyles.settingsBtnText}>מחק אותי</Text>
+          </Pressable>
+          <Pressable
+            style={globalStyles.settingsBtn}
+            title="abort"
+            onPress={() => {
+              setShowModalDel(!showModalDel);
+            }}
+          >
+            <Text style={globalStyles.settingsBtnText}>לא, זאת טעות</Text>
+          </Pressable>
         </View>
       </Modal>
 
@@ -187,11 +216,14 @@ const SettingsScreen = ({ navigation }) => {
           Alert.alert(
             "האם אתה בטוח?",
             "",
-            [{
-              text: "מחק אותי",
-              onPress: () => setShowModal2(!showModal2),
-            },],
-            { cancelable: true })
+            [
+              {
+                text: "מחק אותי",
+                onPress: () => setShowModalDel(!showModalDel),
+              },
+            ],
+            { cancelable: true }
+          );
         }}
       >
         <Text style={globalStyles.settingsBtnText}>מחיקת משתמש</Text>

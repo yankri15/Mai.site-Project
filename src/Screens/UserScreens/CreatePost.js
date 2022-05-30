@@ -1,12 +1,4 @@
-import {
-  View,
-  Text,
-  Pressable,
-  TextInput,
-  Image,
-  SafeAreaView,
-  Alert,
-} from "react-native";
+import { View, Text, Pressable, TextInput, Image, SafeAreaView, Alert, FlatList, ScrollView } from "react-native";
 import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { globalStyles } from "../../styles/global";
@@ -24,20 +16,25 @@ const CreatePost = ({ navigation }) => {
   const [image, setImage] = useState(null);
   const [postText, setPostText] = useState("");
   const [loading, setLoading] = useState(false);
+  const [images, setImages] = useState([]);
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
     });
-
     if (!result.cancelled) {
-      setImage(result.uri);
+        setImages(prev => [...prev, result.uri]);
     }
-  };
+};
+
+  const handleRemovePic = (image) => {
+    const temp = images.filter(currImage => image !== currImage);
+    setImages(temp);
+  }
 
   const uploadPost = async () => {
     setLoading(true);
@@ -59,7 +56,7 @@ const CreatePost = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={global}>
+    <SafeAreaView style={{flex: 1}}>
       <Text style={globalStyles.title_creat_post}>אז מה חדש במיזם שלכם?</Text>
       <TextInput
         placeholder="דברו אלינו..."
@@ -68,11 +65,11 @@ const CreatePost = ({ navigation }) => {
         style={globalStyles.create_post_text}
       />
       <View style={globalStyles.profile_line}></View>
-      {image ? (
+      {/* {image ? (
         <View>
           <Image source={{ uri: image }} style={globalStyles.create_post_img} />
         </View>
-      ) : (null)}
+      ) : (null)} */}
       <Pressable
         style={globalStyles.choose_img}
         title="img"
@@ -82,6 +79,42 @@ const CreatePost = ({ navigation }) => {
           <Ionicons name="image-outline" size={25}></Ionicons>+
         </Text>
       </Pressable>
+      <FlatList
+        data={images}
+        horizontal={true}
+        renderItem={({ item }) => (
+          <View
+            style={{ position: 'relative'}}
+          >
+            <Ionicons
+              name="close-outline"
+              style={globalStyles.del_img}
+              size={20}
+              onPress={() => { handleRemovePic(item) }}
+            />
+            <Image
+              source={{ uri: item }}
+              style={globalStyles.img_horizontal}
+            />
+          </View>
+        )}
+        // ListEmptyComponent={() => {
+        //     return (
+        //         <View
+        //             style={{ marginTop: 20 }}
+        //         >
+        //             <Text>התמונות שתעלו יוצגו כאן..</Text>
+        //         </View>
+        //     );
+        // }}
+        ItemSeparatorComponent={() => {
+          return (
+            <View style={{ width: 5, height: 100 }}></View>
+          )
+        }}
+        keyExtractor={(item, index) => index.toString()}
+      >
+      </FlatList >
       <Pressable style={globalStyles.to_post} title="post" onPress={uploadPost} disabled={loading}>
         <Text style={globalStyles.to_post_text}>פרסמו אותי!</Text>
       </Pressable>

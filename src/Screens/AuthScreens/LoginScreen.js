@@ -21,16 +21,16 @@ const LoginScreen = ({ navigation }) => {
             console.log(error + ":\n " + err);
             switch (err.code) {
                 case 'auth/invalid-email':
-                    Alert.alert('מייל לא תקין')
+                    Alert.alert("אופסי..", "המייל שהוכנס לא תקין");
                     break;
                 case 'auth/user-not-found':
-                    Alert.alert('משתמש לא קיים')
+                    Alert.alert("אופסי..", "משתמש זה לא קיים");
                     break;
                 case 'auth/wrong-password':
-                    Alert.alert('סיסמה לא נכונה')
+                    Alert.alert("אופסי..", "הסיסמה לא נכונה");
                     break;
                 case 'auth/internal-error':
-                    Alert.alert('נראה שיש בעיה באחד השדות')
+                    Alert.alert("אופסי..", "נראה שיש בעיה באחד השדות");
                     break;
             }
         }

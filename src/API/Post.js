@@ -7,8 +7,8 @@ import {
   Modal,
   FlatList,
   TextInput,
+  Alert
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { globalStyles } from "../styles/global";
 import UserPicName from "./UserPicName";
 import { getDownloadURL, ref } from "firebase/storage";
@@ -178,20 +178,30 @@ const Post = ({ post, navigation }) => {
         <Menu
           renderer={Popover}
           rendererProps={{ preferredPlacement: "right" }}
+          style={globalStyles.dots}
         >
           <MenuTrigger>
             {post.data.uid == currentUser.uid ? (
               <Entypo name="dots-three-horizontal" size={20}></Entypo>
             ) : null}
           </MenuTrigger>
-          <MenuOptions>
+          <MenuOptions style={globalStyles.delete_dots_btn}>
             <Pressable
-              style={globalStyles.edit_comment}
               onPress={() => {
-                deletePost(post.id);
+                Alert.alert(
+                  "האם אתה בטוח?",
+                  "",
+                  [
+                    {
+                      text: "מחק אותי",
+                      onPress: () =>  deletePost(post.id),
+                    },
+                  ],
+                  { cancelable: true }
+                );
               }}
             >
-              <Text>מחק</Text>
+              <Text style={globalStyles.delete_dots_text}>מחק</Text>
             </Pressable>
           </MenuOptions>
         </Menu>
@@ -247,12 +257,18 @@ const Post = ({ post, navigation }) => {
               style={
                 likes.includes(currentUser.uid)
                   ? { color: "#fdc123" }
-                  : { color: "#c6c6b5" }
+                  : { color: "#cecece" }
               }
-              name="like2"
+              name={
+                likes.includes(currentUser.uid)
+                  ? "like1"
+                  : "like2"
+              }
               size={18}
             ></AntDesign>
-            <Text style={globalStyles.like_comment_btn_txt}>אהבתי</Text>
+            <Text style={[globalStyles.like_comment_btn_txt, likes.includes(currentUser.uid)
+              ? { color: "#fdc123" }
+              : { color: "#cecece" }]}>אהבתי</Text>
           </Pressable>
           <Pressable
             title="comment"
@@ -263,7 +279,7 @@ const Post = ({ post, navigation }) => {
             style={globalStyles.like_comment_btn}
           >
             <FontAwesome
-              style={{ color: "#c6c6b5" }}
+              style={{ color: "#cecece" }}
               name="commenting-o"
               size={18}
             ></FontAwesome>
