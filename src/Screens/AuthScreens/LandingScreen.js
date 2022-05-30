@@ -26,6 +26,9 @@ const LandingScreen = ({ navigation }) => {
             <Pressable style={globalStyles.landing_reg_button} title="Register" onPress={() => { navigation.navigate("Register"); }}>
                 <Text style={globalStyles.landing_reg_btn_text}>אופסי.. עוד לא נרשמתי</Text>
             </Pressable>
+            <Pressable  title="Guest" onPress={() => { navigation.navigate("GuestHome"); }}>
+                <Text>המשך כאורח</Text>
+            </Pressable>
         </View>
     )
 }
