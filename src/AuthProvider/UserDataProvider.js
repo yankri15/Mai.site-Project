@@ -195,6 +195,14 @@ const UserDataProvider = ({ children }) => {
     })
   };
 
+  const getNeighborhoods = async () => {
+    setTagsList([]);
+    const docRef = collection(db, "neighborhoods");
+    const docSnap = await getDocs(docRef);
+
+    return docSnap.docs[0].data().neighborhoods;
+  }
+
   const uploadJob = async (jobTitle, jobDescription, projectName) => {
 
     await addDoc(collection(db, "jobs"), {
@@ -242,6 +250,7 @@ const UserDataProvider = ({ children }) => {
     name,
     organization,
     collaborators,
+    neighborhood,
     images,
     tags,
     description
@@ -253,6 +262,7 @@ const UserDataProvider = ({ children }) => {
       uid: currentUser.uid,
       tags: tags,
       collaborators: collaborators,
+      neighborhood: neighborhood,
       images: images,
       description: description,
     });
@@ -303,6 +313,7 @@ const UserDataProvider = ({ children }) => {
     getProjects,
     getTags,
     getProject,
+    getNeighborhoods,
     changeData,
     uploadJob,
     uploadDataPost,

@@ -1,4 +1,4 @@
-import { View, Text, Image, Alert, TextInput, Pressable, SafeAreaView, ScrollView, FlatList } from 'react-native'
+import { View, Text, Image, Alert, TextInput, Pressable, SafeAreaView, ScrollView, FlatList, Picker } from 'react-native'
 import React, { useState, useEffect, Fragment } from 'react'
 import { globalStyles } from '../../styles/global';
 import { useData } from '../../AuthProvider/UserDataProvider';
@@ -10,10 +10,12 @@ import DropdownSearch from '../../API/DropdownSearch';
 
 const CreateProjectScreen = ({ navigation }) => {
     const { currentUser } = useAuth();
-    const { uploadProject, uploadProjectPost, uploadImg, usersList, getUsersList, tagsList, getTags, getPosts } = useData();
+    const { uploadProject, uploadProjectPost, uploadImg, usersList, getUsersList, tagsList, getTags, getPosts, getNeighborhoods } = useData();
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [collaborators, setCollaborators] = useState([]);
+    const [neighborhood, setNeighborhood] = useState("");
+    const [neighborhoods, setNeighborhoods] = useState([]);
     const [usersData, setUsersData] = useState([]);
     const [images, setImages] = useState([]);
     const [organization, setOrganization] = useState([]);
@@ -26,6 +28,7 @@ const CreateProjectScreen = ({ navigation }) => {
     useEffect(() => {
         getUsersList();
         getTags();
+        getNeighborhoods().then(res => setNeighborhoods(res));
     }, [])
 
     const pickImage = async () => {
@@ -39,6 +42,18 @@ const CreateProjectScreen = ({ navigation }) => {
         if (!result.cancelled) {
             setImages(prev => [...prev, result.uri]);
         }
+    };
+
+    const renderNeighborhoods = () => {
+        return neighborhoods.map(element => {
+            return (
+                <Picker.Item label={element} value={element} />
+            )
+        })
+    }
+
+    const isPlaceholder = (value) => {
+        return value == "";
     };
 
     const handleRemovePic = (image) => {
@@ -68,13 +83,18 @@ const CreateProjectScreen = ({ navigation }) => {
             setLoading(false);
             return;
         }
+        if (!neighborhood || neighborhood === "choose") {
+            Alert.alert("אנא בחרו שכונה");
+            setLoading(false);
+            return;
+        }
         const imageURLs = images.map((image, index) => {
             const path = "/img/" + currentUser.uid + "/projects/" + new Date().getTime() + index + ".jpg";
             uploadImg(path, image);
             return path;
         });
         setImages(imageURLs);
-        uploadProject(name, organization, collaborators, imageURLs, tags, description).then(pid => {
+        uploadProject(name, organization, collaborators, neighborhood, imageURLs, tags, description).then(pid => {
             uploadProjectPost(pid, 'פרויקט חדש באוויר!', imageURLs, 'create').then(() => {
                 getPosts();
                 navigation.navigate("Feed");
@@ -97,7 +117,6 @@ const CreateProjectScreen = ({ navigation }) => {
     }
 
     const handleSelectUser = (userData) => {
-        //console.log('handler!\n');
         let found = false;
         collaborators.forEach(user => {
             if (user.id === userData.id) {
@@ -108,26 +127,11 @@ const CreateProjectScreen = ({ navigation }) => {
             setCollaborators(prev => [...prev, userData]);
         }
         setDisplayUsers('none');
-        //console.log('done: ', collaborators);
     }
 
     const handleUnselectUser = (userData) => {
         const users = collaborators.filter(user => user.id !== userData.id);
         setCollaborators(users);
-    }
-
-    const handleSearchTag = (text) => {
-        if (!text) {
-            return setFilteredTags(tagsList);
-        }
-        const currTags = [];
-        tagsList.forEach(tag => {
-            if (tag.name.includes(text)) {
-                currTags.push(tag);
-            }
-        });
-        setFilteredTags(currTags);
-        setDisplayTags('flex');
     }
 
     const handleSelectTag = (tag) => {
@@ -149,7 +153,10 @@ const CreateProjectScreen = ({ navigation }) => {
     }
 
     return (
-        <ScrollView style={{ flex: 1 }}>
+        <ScrollView
+            style={{ flex: 1 }}
+            keyboardShouldPersistTaps='always'
+        >
             <View
                 style={{ alignItems: 'center' }}
             >
@@ -183,16 +190,63 @@ const CreateProjectScreen = ({ navigation }) => {
                 display={displayUsers}
                 setDisplay={setDisplayUsers}
             />
-            <DropdownSearch
-                placeHolder={'נושא/י הפרויקט'}
-                selectedItems={tags}
-                filteredList={filteredTags}
-                handleSearch={handleSearchTag}
-                handleSelect={handleSelectTag}
-                handleUnselect={handleUnselectTag}
-                display={displayTags}
-                setDisplay={setDisplayTags}
-            />
+            <View
+                style={{ width: '90%', marginLeft: '5%', }}
+            >
+                <SearchableDropdown
+                    multi={true}
+                    selectedItems={tags}
+                    onItemSelect={handleSelectTag}
+                    containerStyle={{ paddingBottom: 10 }}
+                    onRemoveItem={handleUnselectTag}
+                    itemStyle={{
+                        padding: 10,
+                        marginTop: 2,
+                        fontSize: 17,
+                        backgroundColor: '#fffffa',
+                        borderColor: '#bbb',
+                        borderWidth: 1,
+                        borderRadius: 5,
+                    }}
+                    itemTextStyle={{ color: '#222' }}
+                    itemsContainerStyle={{ maxHeight: 140 }}
+                    items={tagsList}
+                    defaultIndex={2}
+                    chip={true}
+                    resetValue={false}
+                    textInputProps={
+                        {
+                            placeholder: "נושא/י הפרויקט",
+                            underlineColorAndroid: "transparent",
+                            style: {
+                                padding: 12,
+                                fontSize: 17,
+                                borderWidth: 2,
+                                borderColor: 'black',
+                                borderRadius: 5,
+                                backgroundColor: "#fffffa",
+                            },
+                        }
+                    }
+                    listProps={
+                        {
+                            nestedScrollEnabled: true,
+                        }
+                    }
+                />
+                <View
+                    style={globalStyles.textInputProjectNieg}
+                >
+                    <Picker
+                        selectedValue={neighborhood}
+                        style={{ color: isPlaceholder(neighborhood) ? "#999" : "black", }}
+                        onValueChange={(itemValue) => setNeighborhood(itemValue)}
+                    >
+                        <Picker.Item label="בחר שכונה" value="choose" />
+                        {renderNeighborhoods()}
+                    </Picker>
+                </View>
+            </View>
             <Pressable
                 onPress={pickImage}
                 style={globalStyles.choose_img_project}
@@ -240,6 +294,7 @@ const CreateProjectScreen = ({ navigation }) => {
                     )
                 }}
                 keyExtractor={(item, index) => index.toString()}
+                nestedScrollEnabled={true}
             >
             </FlatList >
             <Pressable
@@ -247,10 +302,16 @@ const CreateProjectScreen = ({ navigation }) => {
                 onPress={handleUploadProject}
                 disabled={loading}
                 style={{
-                    position: 'absolute', justifyContent: 'center', width: 80, height: 50, bottom: 20, right: 10, borderColor: 'black',
+                    alignSelf: 'flex-end',
+                    justifyContent: 'center',
+                    width: 80,
+                    height: 50,
                     borderStyle: 'solid',
+                    borderWidth: 2,
+                    borderRadius: 5,
                     backgroundColor: "#a77ce8",
                     textAlign: "center",
+                    margin: '5%',
                 }}
             >
                 <Text
@@ -258,6 +319,7 @@ const CreateProjectScreen = ({ navigation }) => {
                         color: 'black', color: "#fdc123",
                         fontWeight: "bold",
                         fontSize: 20,
+                        textAlign: 'center',
                     }}
                 >{'פרסמו אותי!'}</Text>
             </Pressable>
