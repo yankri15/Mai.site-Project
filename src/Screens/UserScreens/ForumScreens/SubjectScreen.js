@@ -71,7 +71,7 @@ const SubjectScreen = ({ route, navigation }) => {
           ListEmptyComponent={() => {
             return (
               <View>
-                <Text>נראה שאין מה להציג כרגע..</Text>
+                <Text style={globalStyles.be_first}>נראה שאין מה להציג כרגע..</Text>
               </View>
             )
           }}
