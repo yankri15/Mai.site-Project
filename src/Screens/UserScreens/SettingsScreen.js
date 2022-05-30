@@ -122,7 +122,7 @@ const SettingsScreen = ({ navigation }) => {
         <View style={globalStyles.modalView}>
           <TextInput
             style={globalStyles.textInput}
-            placeholder="הכנס סיסמה"
+            placeholder="סיסמה נוכחית"
             value={currPassword}
             onChangeText={(text) => setCurrPassword(text)}
             secureTextEntry
@@ -167,7 +167,7 @@ const SettingsScreen = ({ navigation }) => {
           setShowModalCP(!showModalCP);
         }}
       >
-        <Text style={globalStyles.settingsBtnText}>שנה סיסמה</Text>
+        <Text style={globalStyles.settingsBtnText}>שינוי סיסמה</Text>
       </Pressable>
 
       {/* Modal for delete user */}
