@@ -27,7 +27,7 @@ const Contact = ({ navigation }) => {
 
   return (
     <View style={globalStyles.settingsContainer}>
-      <Text style={globalStyles.delete_text}>צור קשר</Text>
+      <Text style={globalStyles.forum_title_text}>צור קשר</Text>
       <TextInput
       style={globalStyles.textInput}
         placeholder="נושא"
