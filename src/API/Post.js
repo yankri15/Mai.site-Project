@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  Image,
-  Pressable,
-  Modal,
-  FlatList,
-  TextInput,
-  Alert
-} from "react-native";
+import { View, Text, Image, Pressable, Modal, FlatList, TextInput, Alert } from "react-native";
 import { globalStyles } from "../styles/global";
 import UserPicName from "./UserPicName";
 import { getDownloadURL, ref } from "firebase/storage";
@@ -16,22 +7,8 @@ import { storage } from "../../firebase";
 import { AntDesign, FontAwesome, Entypo, Feather } from "@expo/vector-icons";
 import Comment from "../Screens/UserScreens/ForumScreens/Comment";
 import { MenuProvider } from "react-native-popup-menu";
-import {
-  collection,
-  getDocs,
-  setDoc,
-  doc,
-  deleteDoc,
-  query,
-  orderBy,
-  serverTimestamp,
-} from "firebase/firestore";
-import {
-  Menu,
-  MenuOptions,
-  MenuTrigger,
-  renderers,
-} from "react-native-popup-menu";
+import { collection, getDocs, setDoc, doc, deleteDoc, query, orderBy, serverTimestamp } from "firebase/firestore";
+import { Menu, MenuOptions, MenuTrigger, renderers } from "react-native-popup-menu";
 import { db } from "../../firebase";
 import { useAuth } from "../AuthProvider/AuthProvider";
 import moment from "moment";
@@ -140,7 +117,7 @@ const Post = ({ post, navigation }) => {
             ListEmptyComponent={() => {
               return (
                 <View>
-                  <Text>כתבו תגובה ראשונה</Text>
+                  <Text style={globalStyles.be_first}>כתבו תגובה ראשונה</Text>
                 </View>
               );
             }}
@@ -194,7 +171,7 @@ const Post = ({ post, navigation }) => {
                   [
                     {
                       text: "מחק אותי",
-                      onPress: () =>  deletePost(post.id),
+                      onPress: () => deletePost(post.id),
                     },
                   ],
                   { cancelable: true }

@@ -167,6 +167,7 @@ const CreateProjectScreen = ({ navigation }) => {
                     placeholder="שם הפרוייקט"
                     style={globalStyles.textInputProject}
                     onChangeText={(text) => setName(text)}
+                    maxLength={25}
                 />
                 <TextInput
                     placeholder="ארגון"
@@ -202,8 +203,9 @@ const CreateProjectScreen = ({ navigation }) => {
                     itemStyle={{
                         padding: 10,
                         marginTop: 2,
-                        fontSize: 17,
-                        backgroundColor: '#fffffa',
+                        fontSize: 20,
+                        fontWidth: "bold",
+                        backgroundColor: '#C4A5F3',
                         borderColor: '#bbb',
                         borderWidth: 1,
                         borderRadius: 5,

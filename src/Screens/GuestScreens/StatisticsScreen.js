@@ -1,11 +1,12 @@
-import { View, Text } from 'react-native'
+import { View, Text, SafeAreaView } from 'react-native'
 import React from 'react'
+import { globalStyles } from '../../styles/global'
 
 const StatisticsScreen = () => {
     return (
-        <View>
+        <SafeAreaView style={globalStyles.global}>
             <Text>StatisticsScreen</Text>
-        </View>
+        </SafeAreaView>
     )
 }
 
