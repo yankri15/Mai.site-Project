@@ -11,10 +11,10 @@ const LandingScreen = ({ navigation }) => {
                     <Text style={globalStyles.landing_title_text}>מנהיגות</Text>
                 </View>
                 <View>
-                    <Text style={[globalStyles.landing_title_text, { paddingRight: 40 }]}>אקטיביזם</Text>
+                    <Text style={[globalStyles.landing_title_text, { paddingRight: '11%' }]}>אקטיביזם</Text>
                 </View>
                 <View>
-                    <Text style={[globalStyles.landing_title_text, { paddingRight: 92 }]}>יזמות</Text>
+                    <Text style={[globalStyles.landing_title_text, { paddingRight: '37%' }]}>יזמות</Text>
                 </View>
             </View>
             <View style={globalStyles.landing_imageArea}>
@@ -27,7 +27,7 @@ const LandingScreen = ({ navigation }) => {
                 <Text style={globalStyles.landing_reg_btn_text}>אופסי.. עוד לא נרשמתי</Text>
             </Pressable>
             <Pressable  title="Guest" onPress={() => { navigation.navigate("GuestHome"); }}>
-                <Text>המשך כאורח</Text>
+                <Text style={globalStyles.blue_btn}>המשך כאורח</Text>
             </Pressable>
         </View>
     )
