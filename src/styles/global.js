@@ -906,4 +906,15 @@ export const globalStyles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 8,
   },
+  textInputProjectNieg: {
+    backgroundColor: "#fffffa",
+    borderColor: "black",
+    borderRadius: 5,
+    padding: 2,
+    paddingRight: 10,
+    fontSize: 17,
+    borderWidth: 2,
+    marginBottom: 5,
+    textAlign: "right",
+  },
 });
