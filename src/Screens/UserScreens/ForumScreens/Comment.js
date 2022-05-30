@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, Image, Pressable, StyleSheet } from "react-native";
+import React from "react";
+import { View, Text, Pressable} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import UserPicName from "../../../API/UserPicName";
 import { Entypo } from "@expo/vector-icons";
