@@ -36,7 +36,6 @@ const UserDataProvider = ({ children }) => {
 
   //Add user to db with email and status
   const setUserToDB = async (uid, email) => {
-    console.log("Creating collection for user " + uid + "......");
     await setDoc(doc(db, "users", uid), {
       email: email,
       status: 0,
@@ -109,6 +108,10 @@ const UserDataProvider = ({ children }) => {
     });
   };
 
+  const updateAdmin = async (uid, admin) => {
+    await updateDoc(doc(db, "users", uid), "admin", admin);
+  }
+
   //Approve user
   const approveUser = async (uid) => {
     await updateDoc(doc(db, "users", uid), "status", 2).then(() => {
@@ -140,7 +143,7 @@ const UserDataProvider = ({ children }) => {
     await deleteDoc(doc(commentLocation, commentId));
   };
 
-  const deleteSelf = async () =>{
+  const deleteSelf = async () => {
     //We should delete image from the storage
     await deleteDoc(doc(db, "users", currentUser.uid));
   }
@@ -326,6 +329,7 @@ const UserDataProvider = ({ children }) => {
     uploadProject,
     uploadProjectPost,
     uploadImg,
+    updateAdmin,
   };
 
   return (

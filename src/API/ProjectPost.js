@@ -17,9 +17,7 @@ const ProjectPost = ({ pid, navigation }) => {
 
 
     useEffect(() => {
-        getProject(pid).then(() => {
-            console.log(project);
-        });
+        getProject(pid);
     }, [])
 
     return (
