@@ -7,7 +7,7 @@ import { ref, getDownloadURL } from "firebase/storage";
 import { useAuth } from "../AuthProvider/AuthProvider";
 
 const UserPicName = ({ uid, navigation, posted }) => {
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState();
   const [name, setName] = useState("");
   const defaultImage = require("../../assets/default_profile_pic.jpg");
 
@@ -55,7 +55,7 @@ const UserPicName = ({ uid, navigation, posted }) => {
         >
           <Text style={globalStyles.user_name}>{name}</Text>
         </Pressable>
-        <Text style={globalStyles.user_date}>{posted}</Text>
+        {posted ? <Text style={globalStyles.user_date}>{posted}</Text> : null}
       </View>
     </View>
   );

@@ -34,7 +34,7 @@ const HamburgerStack = () => {
       <Drawer.Screen name="מפה" component={MapNavigator} />
       <Drawer.Screen name="הגדרות" component={SettingsNavigator} />
 
-      {admin ? <Drawer.Screen name="Admin" component={AdminNavigator} /> : null}
+      {admin == 1 ? <Drawer.Screen name="ניהול" component={AdminNavigator} /> : null}
     </Drawer.Navigator>
   );
 };
