@@ -7,8 +7,8 @@ import {
   Modal,
   FlatList,
   TextInput,
+  Alert
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { globalStyles } from "../styles/global";
 import UserPicName from "./UserPicName";
 import { getDownloadURL, ref } from "firebase/storage";
@@ -187,9 +187,18 @@ const Post = ({ post, navigation }) => {
           </MenuTrigger>
           <MenuOptions style={globalStyles.delete_dots_btn}>
             <Pressable
-              //style={globalStyles.edit_comment}
               onPress={() => {
-                deletePost(post.id);
+                Alert.alert(
+                  "האם אתה בטוח?",
+                  "",
+                  [
+                    {
+                      text: "מחק אותי",
+                      onPress: () =>  deletePost(post.id),
+                    },
+                  ],
+                  { cancelable: true }
+                );
               }}
             >
               <Text style={globalStyles.delete_dots_text}>מחק</Text>
