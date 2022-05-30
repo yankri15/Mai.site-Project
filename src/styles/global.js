@@ -290,18 +290,22 @@ export const globalStyles = StyleSheet.create({
   profile_project: {
     backgroundColor: "#fdc123",
     borderColor: "black",
-    width: '70%',
-    marginLeft: '15%',
-    marginBottom: '3%',
+    justifyContent: 'center',
+    width: 115,
+    height: 80,
+    //marginLeft: '17%',
+    //marginRight: '17%',
+    marginBottom: '8%',
     borderWidth: 2,
     borderRadius: 15,
   },
   profile_project_txt: {
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 17,
     color: "#000000",
     fontWeight: "bold",
     padding: '2%',
+    flexWrap: 'wrap',
   },
   line: {
     width: '100%',
@@ -312,7 +316,7 @@ export const globalStyles = StyleSheet.create({
   //////////////////project///////////////////////
   project_screen_details: {
     padding: '3%',
-    
+
   },
   project_details_view: {
     flexDirection: 'row',
@@ -492,6 +496,12 @@ export const globalStyles = StyleSheet.create({
     top: '6%',
     right: '10%',
   },
+  be_first: {
+    textAlign: 'center',
+    fontSize: 20,
+    color: "#a77ce8",
+    padding: '2%',
+  },
   user_pic: {
     width: 40,
     height: 40,
@@ -578,20 +588,19 @@ export const globalStyles = StyleSheet.create({
   },
   /////////////////Forum_Topic/////////////////
   forum_title_text: {
-    flex: 1,
     color: "#fdc123",
     fontSize: 30,
     fontWeight: "bold",
     textAlign: "center",
-    // marginBottom: "5%",
+    marginTop: "5%",
   },
   forums_titles: {
     alignItems: "center",
     backgroundColor: "#e2e2e2",
     padding: "5%",
-    // marginBottom: "5%",
-    width: "90%",
-    marginLeft: "5%",
+    marginBottom: "1.5%",
+    marginRight: '10%',
+    marginLeft: "10%",
     borderRadius: 25,
   },
   forums_titles_txt: {
@@ -644,25 +653,28 @@ export const globalStyles = StyleSheet.create({
     right: '3%'
   },
   first_comment: {
+    justifyContent: 'center',
     backgroundColor: "#fff89e",
     paddingBottom: "2%",
     marginBottom: "2%",
-    width: "92%",
-    marginLeft: "4%",
+    //width: "92%",
+    marginLeft: "5%",
+    marginRight: '5%',
     borderRadius: 25,
   },
   comment_data: {
     marginLeft: "15%",
+    marginRight: '3%',
   },
   /////////////////Forum_Create_Thread/////////////////
   create_thread: {
     flex: 13,
-    // marginTop: "15%",
-    // marginLeft: "5%",
+    marginTop: "15%",
+    marginLeft: "5%",
   },
   create_thread_title: {
     fontSize: 25,
-    marginBottom: 20,
+    marginBottom: '10%',
   },
   create_thread_first_cmnt: {
     fontSize: 20,
@@ -670,9 +682,10 @@ export const globalStyles = StyleSheet.create({
   /////////////////Forum_Thread/////////////////
   tread_title: {
     textAlign: "center",
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: "bold",
     color: "#a77ce8",
+    marginTop: '5%',
   },
   tread_comments: {
     marginLeft: "2%",
@@ -717,14 +730,14 @@ export const globalStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
-    padding: 5,
+    padding: '1.5%',
     borderColor: "black",
     borderWidth: 2,
-    marginTop: 17,
-    marginBottom: 17,
+    marginTop: '4%',
+    marginBottom: '4%',
     borderRadius: 10,
     backgroundColor: "#FFD260",
-    width: "45%",
+    width: "50%",
   },
   settingsBtnText: {
     color: "#000000",
