@@ -22,8 +22,8 @@ const ProjectScreen = ({ route, navigation }) => {
     }, [])
 
     return (
-        <View style={globalStyles.global}>
-            <ScrollView>
+        <View style={{ flex: 1 }}>
+            <ScrollView style={globalStyles.global}>
                 <Text style={globalStyles.forum_title_text}>{project.name}</Text>
                 <View style={globalStyles.project_screen_details}>
                     <View style={globalStyles.project_details_view}>
@@ -55,6 +55,7 @@ const ProjectScreen = ({ route, navigation }) => {
                 </View>
                 <View style={globalStyles.profile_line}></View>
                 {/*!!! Posts here !!!*/}
+
             </ScrollView>
             <Pressable
                 title="edit"
