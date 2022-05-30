@@ -85,7 +85,7 @@ const ProfileScreen = ({ route, navigation }) => {
   }
 
   return (
-    <ScrollView style={{ backgroundColor: "#ffffff" }}>
+    <ScrollView style={globalStyles.global}>
       {currentUser.uid == id ? (
         <Pressable
           style={globalStyles.profile_edit_btn}

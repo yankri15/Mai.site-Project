@@ -149,10 +149,8 @@ const CreateProjectScreen = ({ navigation }) => {
     }
 
     return (
-        <ScrollView style={{ flex: 1 }}>
-            <View
-                style={{ alignItems: 'center' }}
-            >
+        <ScrollView style={globalStyles.global}>
+            <View style={{ alignItems: 'center' }}>
                 <Text
                     style={globalStyles.title_creat_post}
                 >{"פרסמו את הפרויקט שלכם"}</Text>
@@ -195,7 +193,7 @@ const CreateProjectScreen = ({ navigation }) => {
             />
             <Pressable
                 onPress={pickImage}
-                style={globalStyles.choose_img_project}
+                style={globalStyles.choose_img}
             >
                 {/* <Text>העלו תמונות</Text> */}
                 <Text style={globalStyles.choose_img_text}>
@@ -211,38 +209,38 @@ const CreateProjectScreen = ({ navigation }) => {
                     >
                         <Ionicons
                             name="close-outline"
-                            style={{ position: 'absolute', top: 5, left: 5, backgroundColor: '#DEDAD9', zIndex: 3, borderRadius: 10 }}
+                            style={globalStyles.del_img}
                             size={20}
                             onPress={() => { handleRemovePic(item) }}
                         />
                         <Image
                             source={{ uri: item }}
-                            style={{ width: 150, height: 150 }}
+                            style={globalStyles.img_horizontal}
                         />
                     </View>
                 )}
-                ListEmptyComponent={() => {
-                    return (
-                        <View
-                            style={{ marginTop: 20 }}
-                        >
-                            <Text>התמונות שתעלו יוצגו כאן..</Text>
-                        </View>
-                    );
-                }}
+                // ListEmptyComponent={() => {
+                //     return (
+                //         <View
+                //             style={{ marginTop: 20 }}
+                //         >
+                //             <Text>התמונות שתעלו יוצגו כאן..</Text>
+                //         </View>
+                //     );
+                // }}
                 ItemSeparatorComponent={() => {
                     return (
-                        <View
-                            style={{ width: 5, height: 100 }}
-                        >
-
-                        </View>
+                        <View style={{ width: 5, height: 100 }}></View>
                     )
                 }}
                 keyExtractor={(item, index) => index.toString()}
             >
             </FlatList >
-            <Pressable
+            <Pressable style={globalStyles.to_post} title="post" onPress={handleUploadProject} disabled={loading}>
+                <Text style={globalStyles.to_post_text}>פרסמו אותי!</Text>
+            </Pressable>
+
+            {/* <Pressable
                 title="post"
                 onPress={handleUploadProject}
                 disabled={loading}
@@ -260,7 +258,7 @@ const CreateProjectScreen = ({ navigation }) => {
                         fontSize: 20,
                     }}
                 >{'פרסמו אותי!'}</Text>
-            </Pressable>
+            </Pressable> */}
         </ScrollView>
     )
 }
