@@ -12,7 +12,7 @@ import ApprovalWatingScreen from "../Screens/UserScreens/ApprovalWatingScreen";
 import BlockedScreen from "../Screens/UserScreens/BlockedScreen";
 import { useData } from "../AuthProvider/UserDataProvider";
 import RegistrationDetailsScreen from "../Screens/AuthScreens/RegistrationDetailsScreen";
-import ProfileScreen from "../Screens/UserScreens/ProfileScreen";
+import GuestNavigator from "../Navigation/GuestNavigator";
 
 const Stack = createStackNavigator();
 
@@ -42,6 +42,7 @@ const MainContainer = () => {
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
         <Stack.Screen name="RegistrationDetails" component={RegistrationDetailsScreen} />
         <Stack.Screen name="Loading" component={LoadingScreen} />
+        <Stack.Screen name="GuestHome" component={GuestNavigator} />
       </Stack.Navigator>
     );
   }
