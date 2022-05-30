@@ -257,7 +257,7 @@ const Post = ({ post, navigation }) => {
               style={
                 likes.includes(currentUser.uid)
                   ? { color: "#fdc123" }
-                  : { color: "#c6c6b5" }
+                  : { color: "#cecece" }
               }
               name={
                 likes.includes(currentUser.uid)
@@ -268,7 +268,7 @@ const Post = ({ post, navigation }) => {
             ></AntDesign>
             <Text style={[globalStyles.like_comment_btn_txt, likes.includes(currentUser.uid)
               ? { color: "#fdc123" }
-              : { color: "#c6c6b5" }]}>אהבתי</Text>
+              : { color: "#cecece" }]}>אהבתי</Text>
           </Pressable>
           <Pressable
             title="comment"
@@ -279,7 +279,7 @@ const Post = ({ post, navigation }) => {
             style={globalStyles.like_comment_btn}
           >
             <FontAwesome
-              style={{ color: "#c6c6b5" }}
+              style={{ color: "#cecece" }}
               name="commenting-o"
               size={18}
             ></FontAwesome>

@@ -17,12 +17,12 @@ const RegisterScreen = ({ navigation }) => {
   //function deal with password, need to alert the user
   function confirm(password, ConfirmPassword) {
     if (password.length == 0 || ConfirmPassword.length == 0) {
-      alert("שגיאה", "הכנס סיסמה");
+      Alert.alert("אופסי..", "אנא הכנס סיסמה");
       return false;
     }
 
     else if (password !== ConfirmPassword) {
-      alert("שגיאה", "סיסמה לא תואמת");
+      Alert.alert("אופסי..", "סיסמה לא תואמת");
       return false;
     }
     return true;
@@ -44,10 +44,10 @@ const RegisterScreen = ({ navigation }) => {
       console.log(error + ":\n " + err);
       switch (err.code) {
         case "auth/invalid-email":
-          alert("שגיאה", "אימייל לא נכון");
+          Alert.alert("אופסי..", "המייל שהוכנס אינו תקין");
           break;
         case "auth/weak-password":
-          alert("שגיאה", "סיסמה חלשה מדי");
+          Alert.alert("אופסי..", "הסיסמה חלשה מדי");
           break;
       }
     }
