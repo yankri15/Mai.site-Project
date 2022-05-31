@@ -42,7 +42,7 @@ const EditProfileScreen = ({ navigation }) => {
       setSchool(userData.school);
       setClasss(userData.class);
       setOrganiztion(userData.organiztion);
-      getNeighborhoods().then(res => setNeighborhoods(res));
+      getNeighborhoods().then((res) => setNeighborhoods(res));
       if (userData.pic !== "") {
         const imgRef = ref(storage, userData.pic);
         await getDownloadURL(imgRef).then((img) => {
@@ -111,17 +111,13 @@ const EditProfileScreen = ({ navigation }) => {
   };
 
   const renderNeighborhoods = () => {
-    return neighborhoods.map(element => {
-      return (
-        <Picker.Item label={element} value={element} />
-      )
-    })
-  }
+    return neighborhoods.map((element, index) => {
+      return <Picker.Item label={element} value={element} key={index} />;
+    });
+  };
 
   return (
-    <SafeAreaView
-      style={globalStyles.container_enter_screens}
-    >
+    <SafeAreaView style={globalStyles.container_enter_screens}>
       {image && (
         <Image
           source={image ? { uri: image } : defaultImage}
