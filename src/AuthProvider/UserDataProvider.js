@@ -33,6 +33,7 @@ const UserDataProvider = ({ children }) => {
   const [jobs, setJobs] = useState([]);
   const [tagsList, setTagsList] = useState([]);
   const [project, setProject] = useState([]);
+  const [markers, setMarkers] = useState([]);
 
   //Add user to db with email and status
   const setUserToDB = async (uid, email) => {
@@ -146,7 +147,7 @@ const UserDataProvider = ({ children }) => {
   const deleteSelf = async () => {
     //We should delete image from the storage
     await deleteDoc(doc(db, "users", currentUser.uid));
-  }
+  };
 
   const deletePost = async (postId) => {
     await deleteDoc(doc(db, "posts", postId));
@@ -176,6 +177,12 @@ const UserDataProvider = ({ children }) => {
     });
   };
 
+  const getMarkers = async () => {
+    setMarkers([]);
+    const docRef = doc(db, "neighborhoods", "mfZyKVFznFxlcSqn0WQe");
+    const docSnap = await getDoc(docRef);
+    setMarkers(docSnap.data()["neighborhoodsMap"]);
+  };
   const getJobs = async () => {
     setJobs([]);
 
@@ -188,10 +195,10 @@ const UserDataProvider = ({ children }) => {
   };
 
   const getProject = async (pid) => {
-    const docRef = doc(db, 'projects', pid);
+    const docRef = doc(db, "projects", pid);
     const docSnap = await getDoc(docRef);
     setProject(docSnap.data());
-  }
+  };
 
   const getTags = async () => {
     setTagsList([]);
@@ -199,8 +206,8 @@ const UserDataProvider = ({ children }) => {
     const docSnap = await getDocs(docRef);
 
     docSnap.docs[0].data().tags.forEach((tag, index) => {
-      setTagsList(prev => [...prev, { id: index, name: tag }])
-    })
+      setTagsList((prev) => [...prev, { id: index, name: tag }]);
+    });
   };
 
   const getNeighborhoods = async () => {
@@ -212,7 +219,6 @@ const UserDataProvider = ({ children }) => {
   }
 
   const uploadJob = async (jobTitle, jobDescription, projectName) => {
-
     await addDoc(collection(db, "jobs"), {
       projectName: projectName,
       jobTitle: jobTitle,
@@ -249,7 +255,7 @@ const UserDataProvider = ({ children }) => {
       stage: stage,
     });
 
-    if (stage === 'create') {
+    if (stage === "create") {
       //addImagesToProject(images);
     }
   };
@@ -310,12 +316,14 @@ const UserDataProvider = ({ children }) => {
     postsList,
     projects,
     project,
+    markers,
     tagsList,
     setUserToDB,
     setPostsList,
     approveUser,
     addDataToDB,
     getName,
+    getMarkers,
     getJobs,
     getUsersList,
     getPosts,
