@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, Pressable, Modal, FlatList, TextInput, Alert } from "react-native";
+import { View, Text, Image, Pressable, Modal, FlatList, TextInput, Alert, Vibration, Keyboard } from "react-native";
 import { globalStyles } from "../styles/global";
 import UserPicName from "./UserPicName";
 import { getDownloadURL, ref } from "firebase/storage";
@@ -135,7 +135,11 @@ const Post = ({ post, navigation }) => {
             <Pressable
               title="publishNewComment"
               style={globalStyles.Forum_Button}
-              onPress={handleNewComment}
+              onPress={() => {
+                handleNewComment();
+                Vibration.vibrate(15)
+                Keyboard.dismiss()
+              }}
             >
               <Feather
                 style={{ color: "#fdc123" }}
@@ -165,6 +169,7 @@ const Post = ({ post, navigation }) => {
           <MenuOptions style={globalStyles.delete_dots_btn}>
             <Pressable
               onPress={() => {
+                Vibration.vibrate(15)
                 Alert.alert(
                   "האם אתה בטוח?",
                   "",
@@ -226,6 +231,7 @@ const Post = ({ post, navigation }) => {
           <Pressable
             title="like"
             onPress={() => {
+              Vibration.vibrate(15)
               handleLike();
             }}
             style={globalStyles.like_comment_btn}

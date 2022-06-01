@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Text, Pressable, Modal, SafeAreaView, View, TextInput, Alert } from "react-native";
+import { Text, Pressable, Modal, SafeAreaView, View, TextInput, Alert, Vibration } from "react-native";
 import { globalStyles } from "../styles/global";
 import email from "react-native-email";
 import { useAuth } from "../AuthProvider/AuthProvider";
-import { borderColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 
 const Job = ({ job, navigation }) => {
   const { currentUser } = useAuth();
@@ -62,7 +61,7 @@ const Job = ({ job, navigation }) => {
     );
 
   return (
-    <SafeAreaView>
+    <View>
       <Modal
         visible={contactModalVisible}
         animationType="slide"
@@ -71,7 +70,7 @@ const Job = ({ job, navigation }) => {
         }}
       >
         <View style={globalStyles.settingsContainer}>
-          <Text style={globalStyles.delete_text}>צור קשר</Text>
+          <Text style={globalStyles.wanted_header}>צור קשר</Text>
           <TextInput
             style={globalStyles.textInput}
             placeholder="נושא"
@@ -80,14 +79,17 @@ const Job = ({ job, navigation }) => {
           />
           <TextInput
             style={globalStyles.msg_text}
-            placeholder="ספר/י על עצמך מעט ואל תשכח/י להוסיף אימייל"
+            placeholder="ספר/י על עצמך מעט ואל תשכח/י להוסיף אימייל שנוכל לחזור אליך במידת הצורך"
             value={msgBody}
             onChangeText={(text) => setMsgBody(text)}
           />
           <Pressable
             style={globalStyles.settingsBtn}
             title="send"
-            onPress={handleMsg}
+            onPress={() => {
+              handleMsg();
+              Vibration.vibrate(15)
+            }}
           >
             <Text style={globalStyles.settingsBtnText}>שלח!</Text>
           </Pressable>
@@ -101,16 +103,28 @@ const Job = ({ job, navigation }) => {
         </View>
       </Pressable> */}
       <View style={globalStyles.wanted_list_item}>
-        <Pressable style={globalStyles.wanted_text_title} onPress={showAlert}>
-          <Text style={globalStyles.wanted_text}>דרוש/ה</Text>
-          <Text style={globalStyles.wanted_text}>{job.data.jobTitle}</Text>
-        </Pressable>
-
-        <Pressable style={globalStyles.wanted_text_title} onPress={() => setContactModalVisible(!contactModalVisible)}>
-          <Text style={globalStyles.wanted_details_text}>השאירו פרטים</Text>
-        </Pressable>
+        <Text style={globalStyles.wanted_text}>דרוש/ה</Text>
+        <Text style={globalStyles.wanted_text}>{job.data.jobTitle}</Text>
+        <View style={globalStyles.wanted_btns}>
+          <Pressable
+            style={globalStyles.wanted_text_title}
+            onPress={() => {
+              showAlert();
+              Vibration.vibrate(15)
+            }}>
+            <Text style={globalStyles.wanted_details_text_info}>לפרטים נוספים</Text>
+          </Pressable>
+          <Pressable
+            style={globalStyles.wanted_text_title}
+            onPress={() => {
+              setContactModalVisible(!contactModalVisible);
+              Vibration.vibrate(15)
+            }}>
+            <Text style={globalStyles.wanted_details_text}>השאירו פרטים</Text>
+          </Pressable>
+        </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

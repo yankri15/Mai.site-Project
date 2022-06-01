@@ -1,4 +1,4 @@
-import { View, Text, Image, Alert, TextInput, Pressable, SafeAreaView, ScrollView, FlatList, Picker } from 'react-native'
+import { View, Text, Image, Alert, TextInput, Pressable, SafeAreaView, ScrollView, FlatList, Picker, Vibration } from 'react-native'
 import React, { useState, useEffect, Fragment } from 'react'
 import { globalStyles } from '../../styles/global';
 import { useData } from '../../AuthProvider/UserDataProvider';
@@ -250,7 +250,10 @@ const CreateProjectScreen = ({ navigation }) => {
                 </View>
             </View>
             <Pressable
-                onPress={pickImage}
+                onPress={() => {
+                    pickImage();
+                    Vibration.vibrate(15)
+                }}
                 style={globalStyles.choose_img}
             >
                 {/* <Text>העלו תמונות</Text> */}
@@ -295,7 +298,13 @@ const CreateProjectScreen = ({ navigation }) => {
                 nestedScrollEnabled={true}
             >
             </FlatList >
-            <Pressable style={globalStyles.to_post} title="post" onPress={handleUploadProject} disabled={loading}>
+            <Pressable
+                style={globalStyles.to_post} title="post"
+                onPress={() => {
+                    handleUploadProject();
+                    Vibration.vibrate(15)
+                }}
+                disabled={loading}>
                 <Text style={globalStyles.to_post_text}>פרסמו אותי!</Text>
             </Pressable>
 
