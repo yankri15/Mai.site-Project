@@ -16,8 +16,8 @@ const RegisterScreen = ({ navigation }) => {
 
   //function deal with password, need to alert the user
   function confirm(password, ConfirmPassword) {
-    if (password.length == 0 || ConfirmPassword.length == 0) {
-      Alert.alert("אופסי..", "אנא הכנס סיסמה");
+    if (password.length == 0 || ConfirmPassword.length == 0 || email.length == 0) {
+      Alert.alert("אופסי..", "חובה למלא את כל השדות");
       return false;
     }
 
