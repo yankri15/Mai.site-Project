@@ -43,6 +43,7 @@ const ThreadScreen = ({ route, navigation }) => {
         uid: currentUser.uid,
       }
     );
+    handleRefresh();
   };
 
   const getComments = async () => {
