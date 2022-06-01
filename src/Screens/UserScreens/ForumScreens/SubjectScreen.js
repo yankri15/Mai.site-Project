@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Pressable } from "react-native";
+import { View, Text, FlatList, Pressable, Vibration } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useState, useEffect } from "react";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
@@ -86,6 +86,7 @@ const SubjectScreen = ({ route, navigation }) => {
             topicId: topicData.topicId,
             topicName: topicData.topicName,
           });
+          Vibration.vibrate(15)
         }}
       >
         <Text style={globalStyles.open_sub_btn_text}>נושא חדש</Text>

@@ -1,4 +1,4 @@
-import { Text, Pressable, FlatList, SafeAreaView, View } from "react-native";
+import { Text, Pressable, FlatList, SafeAreaView, View, Vibration } from "react-native";
 import { globalStyles } from "../../styles/global";
 import React, { useState, useEffect } from "react";
 import { db, storage } from "../../../firebase";
@@ -49,7 +49,7 @@ const FeedScreen = ({ navigation, route }) => {
           ListEmptyComponent={() => {
             return (
               <View>
-                <Text>נראה שאין מה להציג כרגע..</Text>
+                <Text style={globalStyles.be_first}>נראה שאין מה להציג כרגע..</Text>
               </View>
             );
           }}
@@ -64,6 +64,7 @@ const FeedScreen = ({ navigation, route }) => {
         title="edit"
         onPress={() => {
           navigation.navigate("CreateProject");
+          Vibration.vibrate(15)
         }}
         style={globalStyles.plus_btn}
       >

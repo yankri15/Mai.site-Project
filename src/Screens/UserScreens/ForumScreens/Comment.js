@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Pressable} from "react-native";
+import { View, Text, Pressable, Vibration } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import UserPicName from "../../../API/UserPicName";
 import { Entypo } from "@expo/vector-icons";
@@ -7,12 +7,8 @@ import { globalStyles } from "../../../styles/global";
 import { useAuth } from "../../../AuthProvider/AuthProvider";
 import { useData } from "../../../AuthProvider/UserDataProvider";
 import moment from "moment";
-import {
-  Menu,
-  MenuOptions,
-  MenuTrigger,
-  renderers,
-} from "react-native-popup-menu";
+import { Menu, MenuOptions, MenuTrigger, renderers } from "react-native-popup-menu";
+
 const Comment = ({
   navigation,
   commentId,
@@ -52,6 +48,7 @@ const Comment = ({
               style={globalStyles.edit_comment}
               onPress={() => {
                 deleteComment(commentLocation, commentId);
+                Vibration.vibrate(15)
               }}
             >
               <Text style={globalStyles.delete_dots_text}>מחק</Text>

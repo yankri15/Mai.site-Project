@@ -1,4 +1,4 @@
-import { View, Text, Pressable, TextInput, Image, SafeAreaView, Alert, FlatList, ScrollView } from "react-native";
+import { View, Text, Pressable, TextInput, Image, SafeAreaView, Alert, FlatList, ScrollView, Vibration } from "react-native";
 import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { globalStyles } from "../../styles/global";
@@ -73,7 +73,10 @@ const CreatePost = ({ navigation }) => {
       <Pressable
         style={globalStyles.choose_img}
         title="img"
-        onPress={pickImage}
+        onPress={()=>{
+          pickImage();
+          Vibration.vibrate(15)
+        }}
       >
         <Text style={globalStyles.choose_img_text}>
           <Ionicons name="image-outline" size={25}></Ionicons>+
@@ -115,7 +118,14 @@ const CreatePost = ({ navigation }) => {
         keyExtractor={(item, index) => index.toString()}
       >
       </FlatList >
-      <Pressable style={globalStyles.to_post} title="post" onPress={uploadPost} disabled={loading}>
+      <Pressable
+      style={globalStyles.to_post}
+      title="post"
+      onPress={()=>{
+        uploadPost();
+        Vibration.vibrat(15)
+      }}
+      disabled={loading}>
         <Text style={globalStyles.to_post_text}>פרסמו אותי!</Text>
       </Pressable>
     </SafeAreaView>

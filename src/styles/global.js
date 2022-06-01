@@ -43,7 +43,7 @@ export const globalStyles = StyleSheet.create({
     margin: 25,
   },
   landing_title_text: {
-    color: "#fdc123",
+    color: "#faba11",
     fontSize: 50,
     fontWeight: "bold",
     margin: -5,
@@ -329,13 +329,16 @@ export const globalStyles = StyleSheet.create({
     fontWeight: "bold",
   },
   project_details_container: {
-    width: '92%',
+    //alignContent: 'center',
+    //alignItems: 'center',
+    //width: '92%',
     marginLeft: '4%',
-    padding: '1%',
-    marginBottom: '2%',
-    borderWidth: 0.5,
+    marginRight: '4%',
+    padding: '2%',
+    marginBottom: '3%',
+    borderWidth: 1,
     borderRadius: 10,
-    backgroundColor: "#E5E7E9"
+    borderColor: '#e2e2e2',
   },
   project_details: {
     color: "black",
@@ -466,8 +469,9 @@ export const globalStyles = StyleSheet.create({
   },
   post: {
     width: '100%',
-    paddingBottom: '1%',
-    marginTop: '-1%',
+    paddingBottom: '1.5%',
+    marginBottom: '1%',
+    //marginTop: '0%',
     backgroundColor: "#ffffff"
   },
   post_text: {
@@ -593,6 +597,7 @@ export const globalStyles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     marginTop: "5%",
+    marginBottom: '5%',
   },
   forums_titles: {
     alignItems: "center",
@@ -703,6 +708,7 @@ export const globalStyles = StyleSheet.create({
   },
   Forum_Comment_Text: {
     width: "80%",
+    fontSize: 15,
   },
   Forum_Button: {
     position: "absolute",
@@ -807,31 +813,45 @@ export const globalStyles = StyleSheet.create({
   wanted_container: {
     flexDirection: 'row',
     padding: '1%',
-    marginBottom: 40,
+    marginBottom: '3%',
   },
   wanted_list_item: {
-    margin: '5%',
-    padding: '1%',
+    marginLeft: '7%',
+    marginRight: '7%',
+    marginBottom: '5%',
+    padding: '2%',
     borderColor: "black",
     borderWidth: 3,
     borderRadius: 4,
+    backgroundColor: '#fee6a7',
   },
   wanted_text_title: {
     fontSize: 15,
     fontWeight: "bold",
     textAlign: "center",
     alignItems: "center",
-    borderRadius: 10,
+  },
+  wanted_details_text_info: {
+    fontSize: 15,
+    fontWeight: "bold",
+    textAlign: "center",
+    alignItems: "center",
+    backgroundColor: "#60b5ff",
+    borderColor: "black",
+    borderWidth: 1,
+    borderRadius: 5,
+    margin: '2%',
+    padding: '1.5%'
   },
   wanted_details_text: {
     fontSize: 15,
     fontWeight: "bold",
     textAlign: "center",
     alignItems: "center",
-    backgroundColor: "#C39BD3",
+    backgroundColor: "#bf92d1",
     borderColor: "black",
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 5,
     margin: '2%',
     padding: '1.5%'
   },
@@ -862,7 +882,6 @@ export const globalStyles = StyleSheet.create({
     marginTop: "3%",
     color: '#fdc123',
   },
-
   wanted_text_input: {
     borderColor: "black",
     color: "#000000",
@@ -880,6 +899,13 @@ export const globalStyles = StyleSheet.create({
     color: "#000000",
     fontSize: 20,
     fontWeight: "bold",
+  },
+  wanted_btns: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginLeft: '5%',
+    marginRight: '5%',
+    marginTop: '3%',
   },
   textInputProject: {
     borderColor: "black",
@@ -929,5 +955,29 @@ export const globalStyles = StyleSheet.create({
     borderWidth: 2,
     marginBottom: 5,
     textAlign: "right",
+  },
+  /////////////Admin///////////////
+  admin_title: {
+    position: 'absolute',
+    top: '20%',
+    color: "#fdc123",
+    fontSize: 40,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  admin_btn: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '70%',
+    padding: '3%',
+    borderWidth: 2,
+    borderRadius: 10,
+    backgroundColor: "#fdc123",
+    margin: '3%',
+  },
+  admin_btn_txt: {
+    color: "black",
+    fontSize: 20,
+    fontWeight: "bold",
   },
 });
