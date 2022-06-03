@@ -28,7 +28,7 @@ const WantedScreen = ({ navigation }) => {
   };
   return (
     <View style={{ flex: 1 }}>
-      <ScrollView style={globalStyles.global}>
+      <ScrollView >
         <Modal
           visible={createModalVisible}
           animationType="slide"

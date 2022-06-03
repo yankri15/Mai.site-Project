@@ -1,4 +1,4 @@
-import { View, Text, TextInput, FlatList, Pressable } from 'react-native'
+import { View, Text, TextInput, FlatList, Pressable, Image } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { globalStyles } from '../../styles/global'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -10,7 +10,9 @@ import UserPicName from '../../API/UserPicName'
 const NominateAdmin = ({ navigation }) => {
 
     const [searchList, setSearchList] = useState([]);
+    const [render, setRender] = useState(1);
     const { usersList, getUsersList, updateAdmin } = useData();
+    const defaultImage = require("../../../assets/default_profile_pic.jpg");
 
     useEffect(() => {
         getUsersList().then(() => {
@@ -29,18 +31,22 @@ const NominateAdmin = ({ navigation }) => {
 
     const handleNominate = (uid, index) => {
         if (searchList[index].data.admin && searchList[index].data.admin == 1) {
-            searchList[index].data['admin'] = 0;
-            updateAdmin(uid, 0);
+            updateAdmin(uid, 0).then(() => {
+                searchList[index].data['admin'] = 0;
+                setRender(prev => prev + 1)
+            });
         }
         else {
-            searchList[index].data['admin'] = 1;
-            updateAdmin(uid, 1);
+            updateAdmin(uid, 1).then(() => {
+                searchList[index].data['admin'] = 1;
+                setRender(prev => prev + 1)
+            });
         }
     }
 
     return (
-        <SafeAreaView style={globalStyles.global}>
-            <Text>{"הפוך משתמש למנהל"}</Text>
+        <SafeAreaView style={{ ...globalStyles.global, alignItems: 'center' }}>
+            <Text style={{ fontSize: 22, fontWeight: "bold", marginBottom: 5 }}>{"הפוך משתמש למנהל"}</Text>
             <TextInput
                 style={globalStyles.textInput}
                 placeholder="הקלד שם לחיפוש"
@@ -48,14 +54,6 @@ const NominateAdmin = ({ navigation }) => {
                 onChangeText={(text) => {
                     getUsers(text);
                 }}
-                // style={{
-                //     padding: 5,
-                //     borderWidth: 2,
-                //     borderStyle: 'solid',
-                //     borderColor: 'black',
-                //     borderRadius: 10,
-                //     fontSize: 15,
-                // }}
             />
             <View
                 style={{
@@ -67,17 +65,32 @@ const NominateAdmin = ({ navigation }) => {
                 <FlatList
                     data={searchList}
                     renderItem={({ item, index }) => (
-                        // <Text>{item.data.name}</Text>
                         <View
-                            style={{ flexDirection: 'row', width: '90%', justifyContent: 'space-between', alignItems: 'center' }}
+                            style={{ flexDirection: 'row', width: '90%', paddingLeft: '5%', justifyContent: 'space-between', alignItems: 'center' }}
                         >
-                            <UserPicName
-                                uid={item.id}
-                                navigation={navigation}
-                            />
+                            <Pressable
+                                style={{ flexDirection: 'row', alignItems: 'center' }}
+                                onPress={() => {
+                                    navigation.navigate("Profile", {
+                                        uid: item.id,
+                                    });
+                                }}
+                            >
+                                <View
+                                    style={globalStyles.user_pic}
+                                >
+                                    <Image
+                                        source={item.data.profilePic ? { uri: item.data.profilePic } : { defaultImage }}
+                                        style={globalStyles.logo_image_area}
+                                    />
+                                </View>
+                                <Text
+                                    style={{ fontSize: 15, fontWeight: "bold", }}
+                                >{item.data.name}</Text>
+                            </Pressable>
                             <Pressable
                                 onPress={() => { handleNominate(item.id, index) }}>
-                                {item.data.admin && item.data.admin == 1 ? (
+                                {item.data.admin && item.data.admin == 1 && render ? (
                                     <Ionicons
                                         name="close-circle-outline"
                                         style={{ color: 'red' }}
