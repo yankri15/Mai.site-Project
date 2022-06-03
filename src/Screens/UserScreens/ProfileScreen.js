@@ -39,7 +39,7 @@ const ProfileScreen = ({ route, navigation }) => {
   const [organiztion, setOrganiztion] = useState("");
   const [classs, setClasss] = useState("");
   const [birthDate, setBirthDate] = useState("");
-  const [profilePicUri, setProfilePicUri] = useState();
+  const [profilePicUri, setProfilePicUri] = useState("");
 
   useEffect(() => {
     const getStatus = async () => {
@@ -53,10 +53,10 @@ const ProfileScreen = ({ route, navigation }) => {
       setClasss(userData.classs);
       setBirthDate(userData.birthDate);
       if (userData.pic !== "") {
-        const imgRef = ref(storage, userData.pic);
-        await getDownloadURL(imgRef).then((img) => {
-          setProfilePicUri(img);
-        });
+        setProfilePicUri(userData.profilePic);
+        // const imgRef = ref(storage, userData.pic);
+        // await getDownloadURL(imgRef).then((img) => {
+        // });
       }
     };
 
@@ -151,7 +151,7 @@ const ProfileScreen = ({ route, navigation }) => {
           data={projects}
           numColumns={2}
           columnWrapperStyle={{ justifyContent: 'space-between' }}
-          style={{paddingRight: '15%', paddingLeft: '15%'}}
+          style={{ paddingRight: '15%', paddingLeft: '15%' }}
           renderItem={({ item }) => (
             <Pressable
               style={globalStyles.profile_project}

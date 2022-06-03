@@ -20,7 +20,7 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 const EditProfileScreen = ({ navigation }) => {
   const { currentUser } = useAuth();
-  const { changeData, uploadImg, getNeighborhoods } = useData();
+  const { changeData, uploadImg, getNeighborhoods, saveDownloadURL } = useData();
   const [image, setImage] = useState(null);
   const [name, setName] = useState("");
   const [school, setSchool] = useState("");
@@ -64,12 +64,26 @@ const EditProfileScreen = ({ navigation }) => {
       setError("");
       setLoading(true);
       const uid = currentUser.uid;
-      const date = new Date().toLocaleString();
-      const path = "/img/" + currentUser.uid + "/pofile/" + date + ".jpg";
-      changeData(uid, name, school, classs, neighborhood, organiztion, path);
-      uploadImg(path, image).then(() => {
-        navigation.navigate("Profile");
-      });
+      let path = '';
+      if (image) {
+        const date = new Date().getTime();
+        path = "/img/" + currentUser.uid + "/pofile/" + date + ".jpg";
+        uploadImg(path, image).then(() => {
+          changeData(uid, name, school, classs, neighborhood, organiztion, path).then(() => {
+            saveDownloadURL(path).then(() => {
+              navigation.navigate("Profile");
+            })
+          });
+        });
+      }
+      else {
+        changeData(uid, name, school, classs, neighborhood, organiztion, path).then(() => {
+          navigation.navigate("Profile");
+        });
+      }
+
+
+
     } catch (err) {
       setError("Failed to change details");
       console.log(error + ":\n " + err);

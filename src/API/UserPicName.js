@@ -7,22 +7,23 @@ import { ref, getDownloadURL } from "firebase/storage";
 import { useAuth } from "../AuthProvider/AuthProvider";
 
 const UserPicName = ({ uid, navigation, posted }) => {
-  const [image, setImage] = useState();
-  const [name, setName] = useState("");
+  // const [image, setImage] = useState();
+  // const [name, setName] = useState("");
+  const [userData, setUserData] = useState("");
   const defaultImage = require("../../assets/default_profile_pic.jpg");
 
   useEffect(() => {
     const getUserData = async () => {
       const docRef = doc(db, "users", uid);
       const docSnap = await getDoc(docRef);
-      const userData = docSnap.data();
-      setName(userData.name);
-      if (userData.pic !== "") {
-        const imgRef = ref(storage, userData.pic);
-        await getDownloadURL(imgRef).then((img) => {
-          setImage(img);
-        });
-      }
+      setUserData(docSnap.data());
+      // setName(userData.name);
+      // if (userData.pic !== "") {
+      //   const imgRef = ref(storage, userData.pic);
+      //   await getDownloadURL(imgRef).then((img) => {
+      //     setImage(img);
+      //   });
+      // }
     };
     getUserData();
   }, []);
@@ -39,7 +40,7 @@ const UserPicName = ({ uid, navigation, posted }) => {
           }}
         >
           <Image
-            source={image ? { uri: image } : { defaultImage }}
+            source={userData.pic !== "" ? { uri: userData.profilePic } : { defaultImage }}
             style={globalStyles.logo_image_area}
           ></Image>
         </Pressable>
@@ -53,7 +54,7 @@ const UserPicName = ({ uid, navigation, posted }) => {
             });
           }}
         >
-          <Text style={globalStyles.user_name}>{name}</Text>
+          <Text style={globalStyles.user_name}>{userData.name}</Text>
         </Pressable>
         {posted ? <Text style={globalStyles.user_date}>{posted}</Text> : null}
       </View>

@@ -12,7 +12,7 @@ import {
   where,
   deleteDoc,
 } from "firebase/firestore";
-import { ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import React, { useContext, useState, useEffect } from "react";
 import { db, storage } from "../../firebase";
 import { useAuth } from "./AuthProvider";
@@ -111,6 +111,13 @@ const UserDataProvider = ({ children }) => {
 
   const updateAdmin = async (uid, admin) => {
     await updateDoc(doc(db, "users", uid), "admin", admin);
+  }
+
+  const saveDownloadURL = async (path) => {
+    const imgRef = ref(storage, path);
+    await getDownloadURL(imgRef).then(async (img) => {
+      await updateDoc(doc(db, "users", currentUser.uid), "profilePic", img);
+    });
   }
 
   //Approve user
@@ -338,6 +345,7 @@ const UserDataProvider = ({ children }) => {
     uploadProjectPost,
     uploadImg,
     updateAdmin,
+    saveDownloadURL,
   };
 
   return (
