@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Modal, View, FlatList, Text, Pressable } from "react-native";
-import MapView, { Callout, Marker } from "react-native-maps";
+import { Modal, View, FlatList, Text } from "react-native";
+import MapView, { Marker } from "react-native-maps";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { globalStyles } from "../../styles/global";
 import { useData } from "../../AuthProvider/UserDataProvider";
@@ -12,12 +12,12 @@ const MapScreen = () => {
   const [markersArr, setMarkersArr] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [currentProjects, setCurrentProjects] = useState([]);
-  const [mapRegion, setMapRegion] = useState({
+  const mapRegion = {
     latitude: 31.7851951925,
     longitude: 35.2060641757,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
-  });
+  };
 
   const handleMarkerPressed = async (title) => {
     setCurrentProjects([]);

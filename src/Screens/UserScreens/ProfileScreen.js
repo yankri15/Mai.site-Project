@@ -172,7 +172,7 @@ const ProfileScreen = ({ route, navigation }) => {
       </View>
       <View style={globalStyles.profile_line}></View>
       <View style={globalStyles.stage3}>
-        <Text style={globalStyles.profile_title}>שתפ"ים לחיפוש</Text>
+        <Text style={globalStyles.profile_title}>הדרושים שלי</Text>
       </View>
     </ScrollView>
   );

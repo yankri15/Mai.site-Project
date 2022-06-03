@@ -1,20 +1,22 @@
-import { View, Text, FlatList, Pressable } from "react-native";
+import { View, Text, FlatList, Pressable, Vibration } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useState, useEffect } from "react";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import UserPicName from "../../../API/UserPicName";
-import { globalStyles } from '../../../styles/global';
+import { globalStyles } from "../../../styles/global";
 
 const SubjectScreen = ({ route, navigation }) => {
   const [thread, setThread] = useState([]);
   const [refreshing, setRefreshing] = useState(true);
 
   const handleRefresh = () => {
-    getThread().then(() => {
-      setRefreshing(false);
-    }).catch(console.error);
-  }
+    getThread()
+      .then(() => {
+        setRefreshing(false);
+      })
+      .catch(console.error);
+  };
 
   const topicData = route.params.item;
   const getThread = async () => {
@@ -40,28 +42,32 @@ const SubjectScreen = ({ route, navigation }) => {
     });
   };
   useEffect(() => {
-    getThread()
-      .then(() => {
-        setRefreshing(false);
-      })
-      .catch(console.error);
-    return;
-  }, []);
+    console.log("Subject useEffect");
+    const unsubscribe = navigation.addListener("focus", () => {
+      getThread()
+        .then(() => {
+          setRefreshing(false);
+        })
+        .catch(console.error);
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   return (
-    <View
-      style={{ flex: 1 }}
-    >
-      {(
+    <View style={{ flex: 1 }}>
+      {
         <FlatList
           style={globalStyles.subjects}
           data={thread}
           renderItem={({ item }) => (
-            <View >
+            <View>
               <Pressable
-                onPress={() => navigation.navigate("Thread", { item })}>
+                onPress={() => navigation.navigate("Thread", { item })}
+              >
                 <UserPicName uid={item.uid} navigation={navigation} />
-                <Text style={globalStyles.subjects_txt}>{item.threadTitle}</Text>
+                <Text style={globalStyles.subjects_txt}>
+                  {item.threadTitle}
+                </Text>
                 <View style={globalStyles.line}></View>
               </Pressable>
             </View>
@@ -71,13 +77,15 @@ const SubjectScreen = ({ route, navigation }) => {
           ListEmptyComponent={() => {
             return (
               <View>
-                <Text style={globalStyles.be_first}>נראה שאין מה להציג כרגע..</Text>
+                <Text style={globalStyles.be_first}>
+                  נראה שאין מה להציג כרגע..
+                </Text>
               </View>
-            )
+            );
           }}
           keyExtractor={(item, index) => index.toString()}
         />
-      )}
+      }
       <Pressable
         title="Create thread"
         style={globalStyles.open_sub_btn}
@@ -86,6 +94,7 @@ const SubjectScreen = ({ route, navigation }) => {
             topicId: topicData.topicId,
             topicName: topicData.topicName,
           });
+          Vibration.vibrate(15)
         }}
       >
         <Text style={globalStyles.open_sub_btn_text}>נושא חדש</Text>

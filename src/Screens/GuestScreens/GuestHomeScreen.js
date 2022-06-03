@@ -5,6 +5,10 @@ import { globalStyles } from "../../styles/global";
 const GuestHomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={globalStyles.settingsContainer}>
+     <View>
+     <Text style={[globalStyles.landing_title_text, { marginBottom: '20%' }]}>שלום אורח</Text>
+     </View>
+      
       {/* Register */}
       <Pressable
         style={globalStyles.settingsBtn}

@@ -1,4 +1,4 @@
-import { View, Text, Pressable, FlatList } from 'react-native'
+import { View, Text, Pressable, FlatList, Vibration } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { async } from '@firebase/util';
@@ -49,7 +49,10 @@ const TopicsScreen = ({ navigation }) => {
                     renderItem={({ item }) => (
                         <Pressable
                             style={globalStyles.forums_titles}
-                            onPress={() => navigation.navigate("Subject", { item })}>
+                            onPress={() => {
+                                navigation.navigate("Subject", { item });
+                                Vibration.vibrate(15)
+                            }}>
                             <Text style={globalStyles.forums_titles_txt}>{item.topicName}</Text>
                         </Pressable>
                     )}
@@ -66,7 +69,7 @@ const TopicsScreen = ({ navigation }) => {
                     ListEmptyComponent={() => {
                         return (
                             <View>
-                                <Text>נראה שאין מה להציג כרגע..</Text>
+                                <Text style={globalStyles.be_first}>נראה שאין מה להציג כרגע..</Text>
                             </View>
                         )
                     }}

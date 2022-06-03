@@ -5,6 +5,7 @@ import { db } from "../../../firebase";
 import { DataTable } from "react-native-paper";
 import { Button, View, FlatList, Text } from "react-native";
 import { doc, updateDoc } from "firebase/firestore";
+import { globalStyles } from "../../styles/global";
 
 const ApproveUsers = () => {
   const [snapshot, setSnapshot] = useState([]);
@@ -34,8 +35,8 @@ const ApproveUsers = () => {
     <SafeAreaView>
       <DataTable>
         <DataTable.Header>
-          <DataTable.Title>Full Name</DataTable.Title>
-          <DataTable.Title>Approve\Decline</DataTable.Title>
+          <DataTable.Title>שם מלא</DataTable.Title>
+          <DataTable.Title>אישור/דחייה</DataTable.Title>
         </DataTable.Header>
         <FlatList
           data={snapshot}
@@ -63,7 +64,7 @@ const ApproveUsers = () => {
           ListEmptyComponent={() => {
             return (
               <View>
-                <Text>אין משתמשים ממתינים</Text>
+                <Text style={globalStyles.be_first}>אין משתמשים ממתינים</Text>
               </View>
             );
           }}

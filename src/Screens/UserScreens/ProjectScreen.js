@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from 'react-native'
+import { View, Text, Pressable, Vibration } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { globalStyles } from "../../styles/global";
@@ -61,6 +61,7 @@ const ProjectScreen = ({ route, navigation }) => {
                 title="edit"
                 onPress={() => {
                     navigation.navigate("CreatePost", { navigation });
+                    Vibration.vibrate(15)
                 }}
                 style={globalStyles.plus_btn}
             >

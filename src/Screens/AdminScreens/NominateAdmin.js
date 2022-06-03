@@ -42,19 +42,20 @@ const NominateAdmin = ({ navigation }) => {
         <SafeAreaView style={globalStyles.global}>
             <Text>{"הפוך משתמש למנהל"}</Text>
             <TextInput
+                style={globalStyles.textInput}
                 placeholder="הקלד שם לחיפוש"
                 keyboardType="default"
                 onChangeText={(text) => {
                     getUsers(text);
                 }}
-                style={{
-                    padding: 5,
-                    borderWidth: 2,
-                    borderStyle: 'solid',
-                    borderColor: 'black',
-                    borderRadius: 10,
-                    fontSize: 15,
-                }}
+                // style={{
+                //     padding: 5,
+                //     borderWidth: 2,
+                //     borderStyle: 'solid',
+                //     borderColor: 'black',
+                //     borderRadius: 10,
+                //     fontSize: 15,
+                // }}
             />
             <View
                 style={{

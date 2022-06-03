@@ -1,15 +1,7 @@
-import { View, Text, FlatList, Pressable, TextInput } from "react-native";
+import { View, Text, FlatList, Pressable, TextInput, Vibration, Keyboard } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useState, useEffect } from "react";
-import {
-  collection,
-  doc,
-  addDoc,
-  getDocs,
-  serverTimestamp,
-  query,
-  orderBy,
-} from "firebase/firestore";
+import { collection, doc, addDoc, getDocs, serverTimestamp, query, orderBy } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import { useAuth } from "../../../AuthProvider/AuthProvider";
 import { globalStyles } from "../../../styles/global";
@@ -51,6 +43,7 @@ const ThreadScreen = ({ route, navigation }) => {
         uid: currentUser.uid,
       }
     );
+    handleRefresh();
   };
 
   const getComments = async () => {
@@ -132,14 +125,18 @@ const ThreadScreen = ({ route, navigation }) => {
         <TextInput
           style={globalStyles.Forum_Comment_Text}
           value={newComment}
-          placeholder="כתוב תגובה..."
+          placeholder="הקלידו כאן..."
           onChangeText={(text) => setNewComment(text)}
           minLength={20}
         />
         <Pressable
           title="publishNewComment"
           style={globalStyles.Forum_Button}
-          onPress={handleNewComment}
+          onPress={() => {
+            handleNewComment();
+            Vibration.vibrate(15)
+            Keyboard.dismiss()
+          }}
         >
           <Feather style={{ color: "#fdc123" }} name="send" size={30}></Feather>
         </Pressable>

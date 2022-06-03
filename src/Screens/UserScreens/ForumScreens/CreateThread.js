@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, Pressable } from "react-native";
+import { View, Text, TextInput, Pressable, Vibration } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { doc, setDocs, addDoc, collection, setDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { db } from "../../../../firebase";
@@ -65,7 +65,10 @@ const CreateThread = ({ route, navigation }) => {
       <Pressable
         title="publish"
         style={globalStyles.open_sub_btn}
-        onPress={handleSubmitThread}
+        onPress={() => {
+          Vibration.vibrate(15)
+          handleSubmitThread();
+        }}
       // disabled={loading}
       >
         <Text style={globalStyles.open_sub_btn_text}>פרסמו אותי</Text>
