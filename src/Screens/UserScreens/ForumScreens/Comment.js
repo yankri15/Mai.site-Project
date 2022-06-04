@@ -7,7 +7,12 @@ import { globalStyles } from "../../../styles/global";
 import { useAuth } from "../../../AuthProvider/AuthProvider";
 import { useData } from "../../../AuthProvider/UserDataProvider";
 import moment from "moment";
-import { Menu, MenuOptions, MenuTrigger, renderers } from "react-native-popup-menu";
+import {
+  Menu,
+  MenuOptions,
+  MenuTrigger,
+  renderers,
+} from "react-native-popup-menu";
 
 const Comment = ({
   navigation,
@@ -48,7 +53,6 @@ const Comment = ({
               style={globalStyles.edit_comment}
               onPress={() => {
                 deleteComment(commentLocation, commentId);
-                Vibration.vibrate(15)
               }}
             >
               <Text style={globalStyles.delete_dots_text}>מחק</Text>
