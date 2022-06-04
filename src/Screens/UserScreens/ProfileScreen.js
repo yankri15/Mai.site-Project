@@ -119,7 +119,7 @@ const ProfileScreen = ({ route, navigation }) => {
       <View style={globalStyles.side_details}>
         <View style={globalStyles.side_details_comp}>
           <Ionicons
-            style={{ color: "#a77ce8", marginRight: '2%' }}
+            style={{ color: "#a77ce8", marginRight: "2%" }}
             name="school-outline"
             size={20}
           ></Ionicons>
@@ -128,7 +128,7 @@ const ProfileScreen = ({ route, navigation }) => {
         </View>
         <View style={globalStyles.side_details_comp}>
           <SimpleLineIcons
-            style={{ color: "#a77ce8", marginRight: '2%' }}
+            style={{ color: "#a77ce8", marginRight: "2%" }}
             name="organization"
             size={20}
           ></SimpleLineIcons>
@@ -137,7 +137,7 @@ const ProfileScreen = ({ route, navigation }) => {
         </View>
         <View style={globalStyles.side_details_comp}>
           <MaterialCommunityIcons
-            style={{ color: "#a77ce8", marginRight: '2%' }}
+            style={{ color: "#a77ce8", marginRight: "2%" }}
             name="lightbulb-on-outline"
             size={20}
           ></MaterialCommunityIcons>
@@ -150,14 +150,21 @@ const ProfileScreen = ({ route, navigation }) => {
         <FlatList
           data={projects}
           numColumns={2}
-          columnWrapperStyle={{ justifyContent: 'space-between' }}
-          style={{ paddingRight: '15%', paddingLeft: '15%' }}
+          columnWrapperStyle={{ justifyContent: "space-between" }}
+          style={{ paddingRight: "15%", paddingLeft: "15%" }}
           renderItem={({ item }) => (
             <Pressable
               style={globalStyles.profile_project}
-              onPress={() => navigation.navigate("Project", { project: item })}
+              onPress={() =>
+                navigation.navigate("Project", {
+                  project: item.data,
+                  pid: item.pid,
+                })
+              }
             >
-              <Text style={globalStyles.profile_project_txt}>{item.name}</Text>
+              <Text style={globalStyles.profile_project_txt}>
+                {item.data.name}
+              </Text>
             </Pressable>
           )}
           ListEmptyComponent={() => {
