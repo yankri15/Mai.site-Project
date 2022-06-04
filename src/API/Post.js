@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, Pressable, Modal, FlatList, TextInput, Alert, Vibration, Keyboard } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  Pressable,
+  Modal,
+  FlatList,
+  TextInput,
+  Alert,
+  Vibration,
+  Keyboard,
+} from "react-native";
 import { globalStyles } from "../styles/global";
 import UserPicName from "./UserPicName";
 import { getDownloadURL, ref } from "firebase/storage";
@@ -7,8 +18,22 @@ import { storage } from "../../firebase";
 import { AntDesign, FontAwesome, Entypo, Feather } from "@expo/vector-icons";
 import Comment from "../Screens/UserScreens/ForumScreens/Comment";
 import { MenuProvider } from "react-native-popup-menu";
-import { collection, getDocs, setDoc, doc, deleteDoc, query, orderBy, serverTimestamp } from "firebase/firestore";
-import { Menu, MenuOptions, MenuTrigger, renderers } from "react-native-popup-menu";
+import {
+  collection,
+  getDocs,
+  setDoc,
+  doc,
+  deleteDoc,
+  query,
+  orderBy,
+  serverTimestamp,
+} from "firebase/firestore";
+import {
+  Menu,
+  MenuOptions,
+  MenuTrigger,
+  renderers,
+} from "react-native-popup-menu";
 import { db } from "../../firebase";
 import { useAuth } from "../AuthProvider/AuthProvider";
 import moment from "moment";
@@ -137,8 +162,7 @@ const Post = ({ post, navigation }) => {
               style={globalStyles.Forum_Button}
               onPress={() => {
                 handleNewComment();
-                Vibration.vibrate(15)
-                Keyboard.dismiss()
+                Keyboard.dismiss();
               }}
             >
               <Feather
@@ -169,7 +193,6 @@ const Post = ({ post, navigation }) => {
           <MenuOptions style={globalStyles.delete_dots_btn}>
             <Pressable
               onPress={() => {
-                Vibration.vibrate(15)
                 Alert.alert(
                   "האם אתה בטוח?",
                   "",
@@ -231,7 +254,6 @@ const Post = ({ post, navigation }) => {
           <Pressable
             title="like"
             onPress={() => {
-              Vibration.vibrate(15)
               handleLike();
             }}
             style={globalStyles.like_comment_btn}
@@ -242,16 +264,19 @@ const Post = ({ post, navigation }) => {
                   ? { color: "#fdc123" }
                   : { color: "#cecece" }
               }
-              name={
-                likes.includes(currentUser.uid)
-                  ? "like1"
-                  : "like2"
-              }
+              name={likes.includes(currentUser.uid) ? "like1" : "like2"}
               size={18}
             ></AntDesign>
-            <Text style={[globalStyles.like_comment_btn_txt, likes.includes(currentUser.uid)
-              ? { color: "#fdc123" }
-              : { color: "#cecece" }]}>אהבתי</Text>
+            <Text
+              style={[
+                globalStyles.like_comment_btn_txt,
+                likes.includes(currentUser.uid)
+                  ? { color: "#fdc123" }
+                  : { color: "#cecece" },
+              ]}
+            >
+              אהבתי
+            </Text>
           </Pressable>
           <Pressable
             title="comment"
