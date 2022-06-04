@@ -18,6 +18,8 @@ import { storage } from "../../firebase";
 import { AntDesign, FontAwesome, Entypo, Feather } from "@expo/vector-icons";
 import Comment from "../Screens/UserScreens/ForumScreens/Comment";
 import { MenuProvider } from "react-native-popup-menu";
+import ImageViewer from "react-native-image-zoom-viewer";
+
 import {
   collection,
   getDocs,
@@ -41,22 +43,25 @@ import { useData } from "../AuthProvider/UserDataProvider";
 import ProjectPost from "./ProjectPost";
 
 const Post = ({ post, navigation }) => {
-  const [url, setUrl] = useState();
+  const [images, setImages] = useState([]);
   const [likes, setLikes] = useState([]);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [commentLocation, setCommentLocation] = useState("");
-
+  const [displayImages, setDisplayImages] = useState(false);
   const { Popover } = renderers;
   const { currentUser } = useAuth();
   const { deletePost } = useData();
 
-  const getImg = async () => {
+  const getImages = async () => {
+    setImages([]);
     if (post.data.images.length !== 0) {
-      const imgRef = ref(storage, post.data.images[0]);
-      await getDownloadURL(imgRef).then((img) => {
-        setUrl(img);
+      post.data.images.forEach(async (element) => {
+        const imgRef = ref(storage, element);
+        await getDownloadURL(imgRef).then((img) => {
+          setImages((prev) => [...prev, { url: img }]);
+        });
       });
     }
   };
@@ -87,7 +92,7 @@ const Post = ({ post, navigation }) => {
   };
 
   useEffect(() => {
-    getImg().catch(console.error);
+    getImages().catch(console.error);
     getLikes().catch(console.error);
     getComments().catch(console.error);
     return;
@@ -174,6 +179,7 @@ const Post = ({ post, navigation }) => {
           </View>
         </MenuProvider>
       </Modal>
+
       <View style={globalStyles.post}>
         <UserPicName
           uid={post.data.uid}
@@ -211,9 +217,28 @@ const Post = ({ post, navigation }) => {
           </MenuOptions>
         </Menu>
         <Text style={globalStyles.post_text}>{post && post.data.postText}</Text>
-        {post.data.images.length !== 0 && (
-          <Image style={globalStyles.post_img} source={{ uri: url }} />
+        {images.length !== 0 && (
+          <Pressable
+            onPress={() => {
+              images.length > 1 ? setDisplayImages(!displayImages) : null;
+            }}
+          >
+            <Image
+              style={globalStyles.post_img}
+              source={{ uri: images[0].url }}
+            />
+          </Pressable>
         )}
+        {
+          <Modal
+            visible={displayImages}
+            onRequestClose={() => {
+              setDisplayImages(!displayImages);
+            }}
+          >
+            <ImageViewer imageUrls={images} />
+          </Modal>
+        }
         <ProjectPost pid={post.data.pid} navigation={navigation} />
         <View>
           <Pressable
