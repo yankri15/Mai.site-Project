@@ -30,6 +30,7 @@ const UserDataProvider = ({ children }) => {
   const [usersList, setUsersList] = useState([]);
   const [postsList, setPostsList] = useState([]);
   const [projects, setProjects] = useState([]);
+  const [projectPosts, setProjectPosts] = useState([]);
   const [jobs, setJobs] = useState([]);
   const [tagsList, setTagsList] = useState([]);
   const [project, setProject] = useState([]);
@@ -111,14 +112,14 @@ const UserDataProvider = ({ children }) => {
 
   const updateAdmin = async (uid, admin) => {
     await updateDoc(doc(db, "users", uid), "admin", admin);
-  }
+  };
 
   const saveDownloadURL = async (path) => {
     const imgRef = ref(storage, path);
     await getDownloadURL(imgRef).then(async (img) => {
       await updateDoc(doc(db, "users", currentUser.uid), "profilePic", img);
     });
-  }
+  };
 
   //Approve user
   const approveUser = async (uid) => {
@@ -180,7 +181,7 @@ const UserDataProvider = ({ children }) => {
     const docSnap = await getDocs(q);
 
     docSnap.docs.forEach(async (item) => {
-      setProjects((prev) => [...prev, item.data()]);
+      setProjects((prev) => [...prev, { pid: item.id, data: item.data() }]);
     });
   };
 
@@ -207,6 +208,19 @@ const UserDataProvider = ({ children }) => {
     setProject(docSnap.data());
   };
 
+  const getProjectPosts = async (pid) => {
+    setProjectPosts([]);
+
+    const q = query(
+      collection(db, "posts1"),
+      where("pid", "==", pid),
+      orderBy("creation", "desc")
+    );
+    const docSnap = await getDocs(q);
+    docSnap.docs.forEach(async (item) =>
+      setProjectPosts((prev) => [...prev, { id: item.id, data: item.data() }])
+    );
+  };
   const getTags = async () => {
     setTagsList([]);
     const docRef = collection(db, "tags");
@@ -223,7 +237,7 @@ const UserDataProvider = ({ children }) => {
     const docSnap = await getDocs(docRef);
 
     return docSnap.docs[0].data().neighborhoods;
-  }
+  };
 
   const uploadJob = async (jobTitle, jobDescription, projectName) => {
     await addDoc(collection(db, "jobs"), {
@@ -242,13 +256,13 @@ const UserDataProvider = ({ children }) => {
     }
   };
 
-  const uploadDataPost = async (path, postText) => {
-    await addDoc(collection(db, "posts"), {
-      downloadURL: path,
+  const uploadDataPost = async (postText, pid, images) => {
+    await addDoc(collection(db, "posts1"), {
+      images: images,
       postText: postText,
       creation: serverTimestamp(),
       uid: currentUser.uid,
-      tags: [],
+      pid: pid,
     });
   };
 
@@ -322,6 +336,7 @@ const UserDataProvider = ({ children }) => {
     usersList,
     postsList,
     projects,
+    projectPosts,
     project,
     markers,
     tagsList,
@@ -335,6 +350,7 @@ const UserDataProvider = ({ children }) => {
     getUsersList,
     getPosts,
     getProjects,
+    getProjectPosts,
     getTags,
     getProject,
     getNeighborhoods,
