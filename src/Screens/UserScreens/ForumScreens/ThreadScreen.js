@@ -1,7 +1,23 @@
-import { View, Text, FlatList, Pressable, TextInput, Vibration, Keyboard } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  Pressable,
+  TextInput,
+  Vibration,
+  Keyboard,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useState, useEffect } from "react";
-import { collection, doc, addDoc, getDocs, serverTimestamp, query, orderBy } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  addDoc,
+  getDocs,
+  serverTimestamp,
+  query,
+  orderBy,
+} from "firebase/firestore";
 import { db } from "../../../../firebase";
 import { useAuth } from "../../../AuthProvider/AuthProvider";
 import { globalStyles } from "../../../styles/global";
@@ -84,9 +100,7 @@ const ThreadScreen = ({ route, navigation }) => {
     <View style={{ flex: 1 }}>
       {comments && comments.length > 0 ? (
         <Text style={globalStyles.tread_title}>{comments[0].threadTitle}</Text>
-      ) : (
-        <Text>בטעינה</Text>
-      )}
+      ) : null}
       {
         <FlatList
           data={comments}
@@ -134,8 +148,8 @@ const ThreadScreen = ({ route, navigation }) => {
           style={globalStyles.Forum_Button}
           onPress={() => {
             handleNewComment();
-            Vibration.vibrate(15)
-            Keyboard.dismiss()
+
+            Keyboard.dismiss();
           }}
         >
           <Feather style={{ color: "#fdc123" }} name="send" size={30}></Feather>

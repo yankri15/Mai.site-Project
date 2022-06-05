@@ -5,10 +5,22 @@ import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import UserPicName from "../../../API/UserPicName";
 import { globalStyles } from "../../../styles/global";
-
+import { Entypo } from "@expo/vector-icons";
+import { useAuth } from "../../../AuthProvider/AuthProvider";
+import { useData } from "../../../AuthProvider/UserDataProvider";
+import {
+  Menu,
+  MenuOptions,
+  MenuTrigger,
+  renderers,
+} from "react-native-popup-menu";
 const SubjectScreen = ({ route, navigation }) => {
+  const { currentUser } = useAuth();
+  const { deleteThread } = useData();
   const [thread, setThread] = useState([]);
   const [refreshing, setRefreshing] = useState(true);
+  const [threadLocation, setThreadLocation] = useState("");
+  const { Popover } = renderers;
 
   const handleRefresh = () => {
     getThread()
@@ -27,6 +39,7 @@ const SubjectScreen = ({ route, navigation }) => {
       topicData.topicId,
       topicData.topicName
     );
+    setThreadLocation(docRef);
     const docSnap = await getDocs(docRef);
 
     docSnap.docs.forEach((element) => {
@@ -42,7 +55,6 @@ const SubjectScreen = ({ route, navigation }) => {
     });
   };
   useEffect(() => {
-    console.log("Subject useEffect");
     const unsubscribe = navigation.addListener("focus", () => {
       getThread()
         .then(() => {
@@ -64,6 +76,33 @@ const SubjectScreen = ({ route, navigation }) => {
               <Pressable
                 onPress={() => navigation.navigate("Thread", { item })}
               >
+                {
+                  <Menu
+                    renderer={Popover}
+                    rendererProps={{ preferredPlacement: "right" }}
+                    style={globalStyles.dots}
+                  >
+                    <MenuTrigger>
+                      {item.uid == currentUser.uid ? (
+                        <Entypo name="dots-three-horizontal" size={20}></Entypo>
+                      ) : null}
+                    </MenuTrigger>
+                    <MenuOptions style={globalStyles.delete_dots_btn}>
+                      <Pressable
+                        style={globalStyles.edit_comment}
+                        onPress={() => {
+                          deleteThread(threadLocation, item.threadId).then(
+                            () => {
+                              handleRefresh();
+                            }
+                          );
+                        }}
+                      >
+                        <Text style={globalStyles.delete_dots_text}>מחק</Text>
+                      </Pressable>
+                    </MenuOptions>
+                  </Menu>
+                }
                 <UserPicName uid={item.uid} navigation={navigation} />
                 <Text style={globalStyles.subjects_txt}>
                   {item.threadTitle}

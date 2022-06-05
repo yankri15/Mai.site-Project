@@ -44,7 +44,7 @@ const Comment = ({
           style={globalStyles.dots}
         >
           <MenuTrigger>
-            {commentData.uid == currentUser.uid ? (
+            {commentData.uid == currentUser.uid && !first ? (
               <Entypo name="dots-three-horizontal" size={20}></Entypo>
             ) : null}
           </MenuTrigger>
