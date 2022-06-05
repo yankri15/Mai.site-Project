@@ -11,6 +11,7 @@ const MapScreen = () => {
   const { markers, getMarkers } = useData();
   const [markersArr, setMarkersArr] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [markersLoaded, setMarkersLoaded] = useState(false);
   const [currentProjects, setCurrentProjects] = useState([]);
   const mapRegion = {
     latitude: 31.7851951925,
@@ -34,6 +35,7 @@ const MapScreen = () => {
   };
 
   useEffect(() => {
+    console.log("useEffect");
     getMarkers().then(() => {
       setMarkersArr([]);
       for (const marker in markers) {
@@ -48,10 +50,11 @@ const MapScreen = () => {
           ]);
         }
       }
+      setMarkersLoaded(true);
     });
 
-    return () => {};
-  }, []);
+    return;
+  }, [markersLoaded]);
 
   return (
     <SafeAreaView style={globalStyles.mapScreenContainer}>
