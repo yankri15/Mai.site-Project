@@ -13,9 +13,22 @@ import {
 const StatisticsScreen = () => {
   const [userCount, setUserCount] = useState(0);
   const [projectsCount, setProjectsCount] = useState(0);
-  const [usersNeighborhoods, setUsersNeighborhoods] = useState([]); //Should be neighborhood list
+  const [usersNeighborhoods, setUsersNeighborhoods] = useState([]);
   const [projectsList, setProjectsList] = useState({});
   const [classList, setClassList] = useState({});
+  const supportedClasses = ["ט", "י", "יא", "יב"];
+
+  function generateRGB() {
+    return (
+      "rgb(" +
+      Math.floor(Math.random() * 256) +
+      ", " +
+      Math.floor(Math.random() * 256) +
+      ", " +
+      Math.floor(Math.random() * 256) +
+      ")"
+    );
+  }
   useEffect(() => {
     const getUsers = async () => {
       setUsersNeighborhoods([]);
@@ -24,37 +37,44 @@ const StatisticsScreen = () => {
       const docSnap = await getDocs(q);
       setUserCount(docSnap.docs.length);
 
+      const classesData = supportedClasses.map((item) => {
+        return {
+          name: item,
+          amount: 0,
+          color: generateRGB(),
+          legendFontColor: "#000",
+          legendFontSize: 15,
+        };
+      });
+
       const ref = collection(db, "neighborhoods");
       const snap = await getDocs(ref);
       const neighborhoodsList = snap.docs[0].data().neighborhoods;
-      const data = neighborhoodsList.map((neighborhood) => {
+      const neighborhoodData = neighborhoodsList.map((neighborhood) => {
         return {
           name: neighborhood,
           population: 0,
-          color:
-            "rgb(" +
-            Math.floor(Math.random() * 256) +
-            ", " +
-            Math.floor(Math.random() * 256) +
-            ", " +
-            Math.floor(Math.random() * 256) +
-            ")",
-          legendFontColor: "#7F7F7F",
+          color: generateRGB(),
+          legendFontColor: "#000",
           legendFontSize: 15,
         };
       });
 
       docSnap.docs.forEach((element) => {
-        if (element.data().status == 2) {
-          for (let i = 0; i < data.length; i++) {
-            if (data[i]["name"] == element.data().neighborhood) {
-              data[i]["population"] += 1;
+        for (let i = 0; i < neighborhoodData.length; i++) {
+          if (neighborhoodData[i]["name"] == element.data().neighborhood) {
+            neighborhoodData[i]["population"] += 1;
+          }
+          if (classesData[i]) {
+            if (classesData[i]["name"] == element.data().class) {
+              classesData[i]["amount"] += 1;
             }
           }
         }
       });
+      setClassList(classesData);
       const sortedData = []
-        .concat(data)
+        .concat(neighborhoodData)
         .sort((a, b) => (a.population < b.population ? 1 : -1));
 
       const res = sortedData.slice(4).reduce(function (acc, obj) {
@@ -63,8 +83,8 @@ const StatisticsScreen = () => {
       sortedData.splice(4, 0, {
         name: "אחר",
         population: res,
-        color: sortedData[4].color,
-        legendFontColor: "#7F7F7F",
+        color: generateRGB(),
+        legendFontColor: "#000",
         legendFontSize: 15,
       });
       setUsersNeighborhoods(sortedData.slice(0, 5));
@@ -111,7 +131,7 @@ const StatisticsScreen = () => {
 
         <Text>{projectsCount}</Text>
         <Text>פרויקטים באוויר</Text>
-        <Text>פרויקטים בחלוקה לנושאים:</Text>
+        <Text>התפלגות פרוייקטים לפי נושאים:</Text>
         <BarChart
           data={projectsData}
           width={Dimensions.get("window").width * 0.95}
@@ -152,7 +172,23 @@ const StatisticsScreen = () => {
         />
         <Text>פילוח לפי כיתה:</Text>
 
-        {/* {console.log(classList)} */}
+        <PieChart
+          data={classList}
+          width={Dimensions.get("window").width * 0.95}
+          height={Dimensions.get("window").width * 0.5}
+          chartConfig={{
+            padding: 0,
+            backgroundGradientFrom: "#373F47",
+            backgroundGradientTo: "#373F47",
+            decimalPlaces: 0,
+            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          }}
+          accessor={"amount"}
+          backgroundColor={"transparent"}
+          // paddingLeft={"15"}
+          // center={[10, 50]}
+        />
       </ScrollView>
     </SafeAreaView>
   );
