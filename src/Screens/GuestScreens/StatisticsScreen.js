@@ -15,7 +15,7 @@ const StatisticsScreen = () => {
   const [projectsCount, setProjectsCount] = useState(0);
   const [usersNeighborhoods, setUsersNeighborhoods] = useState([]);
   const [projectsList, setProjectsList] = useState({});
-  const [classList, setClassList] = useState({});
+  const [classList, setClassList] = useState([]);
   const supportedClasses = ["ט", "י", "יא", "יב"];
 
   function generateRGB() {
@@ -108,7 +108,9 @@ const StatisticsScreen = () => {
       setProjectsList(res);
     };
 
-    getUsers().catch(console.error);
+    getUsers()
+      .catch(console.error)
+      .then(() => {});
     getProjectsForStat().catch(console.error);
 
     return;
@@ -171,7 +173,6 @@ const StatisticsScreen = () => {
           // center={[10, 50]}
         />
         <Text>פילוח לפי כיתה:</Text>
-
         <PieChart
           data={classList}
           width={Dimensions.get("window").width}
