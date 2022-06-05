@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Text, Pressable, FlatList, SafeAreaView, View, Modal, TextInput, ScrollView, Vibration } from "react-native";
+import {
+  Text,
+  Pressable,
+  FlatList,
+  SafeAreaView,
+  View,
+  Modal,
+  TextInput,
+  ScrollView,
+  Vibration,
+} from "react-native";
 import ProfilePic from "../../API/ProfilePic";
 import Job from "../../API/Job";
 import { globalStyles } from "../../styles/global";
@@ -17,7 +27,7 @@ const WantedScreen = ({ navigation }) => {
   useEffect(() => {
     getJobs();
 
-    return () => { };
+    return () => {};
   }, []);
 
   const handleSubmit = async () => {
@@ -26,9 +36,13 @@ const WantedScreen = ({ navigation }) => {
     setCreateModalVisible(!createModalVisible);
     getJobs();
   };
+
+  const getHeader = () => {
+    return <Text style={globalStyles.wanted_header}>לוח דרושים</Text>;
+  };
   return (
     <View style={{ flex: 1 }}>
-      <ScrollView >
+      <View style={{ flex: 1 }}>
         <Modal
           visible={createModalVisible}
           animationType="slide"
@@ -37,12 +51,6 @@ const WantedScreen = ({ navigation }) => {
           }}
         >
           <View style={globalStyles.wanted_add_container}>
-            {/* <Text>מי אתה מחפש</Text>
-          <TextInput
-            placeholder="בכמה מילים"
-            value={description}
-            onChangeText={(text) => setDescription(text)}
-          /> */}
             <Text style={globalStyles.wanted_new_title}>אז מה מחפשים?</Text>
             <TextInput
               placeholder="שם התפקיד אותו אתם מחפשים"
@@ -66,39 +74,38 @@ const WantedScreen = ({ navigation }) => {
               style={globalStyles.settingsBtn}
               onPress={() => {
                 handleSubmit();
-                Vibration.vibrate(15)
-              }}>
+              }}
+            >
               <Text style={globalStyles.wanted_btn}>פרסמו</Text>
             </Pressable>
           </View>
         </Modal>
-
-        <Text style={globalStyles.wanted_header}>לוח דרושים</Text>
-        <View style={globalStyles.wanted_container}>
-          <FlatList
-            //columnWrapperStyle={{ justifyContent: 'space-between' }}
-            data={jobs}
-            //numColumns={2}
-            renderItem={({ item }) => <Job job={item} />}
-            //columnWrapperStyle={{borderWidth: 2, borderColor: 'red'}}
-            ListEmptyComponent={() => {
-              return (
-                <View>
-                  <Text style={globalStyles.be_first}>נראה שאין דרושים כרגע..</Text>
-                </View>
-              );
-            }}
-            keyExtractor={(item, index) => index.toString()}
-          />
-        </View>
-      </ScrollView>
+        {/*If we put the Text header here the header will stay in place when we scroll*/}
+        <FlatList
+          //columnWrapperStyle={{ justifyContent: 'space-between' }}
+          data={jobs}
+          //numColumns={2}
+          renderItem={({ item }) => <Job job={item} />}
+          //columnWrapperStyle={{borderWidth: 2, borderColor: 'red'}}
+          ListEmptyComponent={() => {
+            return (
+              <View>
+                <Text style={globalStyles.be_first}>
+                  נראה שאין דרושים כרגע..
+                </Text>
+              </View>
+            );
+          }}
+          keyExtractor={(item, index) => index.toString()}
+          ListHeaderComponent={getHeader}
+        />
+      </View>
       <Pressable
         onPress={() => {
           setCreateModalVisible(!createModalVisible),
             setJobTitle(""),
             setJobDescription(""),
             setDescription("");
-          Vibration.vibrate(15)
         }}
         style={globalStyles.plus_btn}
       >
