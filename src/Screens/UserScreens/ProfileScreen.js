@@ -25,12 +25,13 @@ import { useAuth } from "../../AuthProvider/AuthProvider";
 import { useIsFocused } from "@react-navigation/native";
 import { useData } from "../../AuthProvider/UserDataProvider";
 import { ScrollView } from "react-native-gesture-handler";
+import Job from "../../API/Job";
 const defaultImage = require("../../../assets/default_profile_pic.jpg");
 
 const ProfileScreen = ({ route, navigation }) => {
   const uid = route.params ? route.params.uid : undefined;
   const { currentUser } = useAuth();
-  const { projects, getProjects } = useData();
+  const { projects, getProjects, myJobs, getMyJobs } = useData();
   const id = uid ? uid : currentUser.uid;
   const isFocused = useIsFocused();
   const [name, setName] = useState("");
@@ -62,6 +63,7 @@ const ProfileScreen = ({ route, navigation }) => {
 
     getStatus().catch(console.error);
     getProjects(id).catch(console.error);
+    getMyJobs(id).catch(console.error);
     return;
   }, [isFocused]);
 
@@ -85,7 +87,7 @@ const ProfileScreen = ({ route, navigation }) => {
   }
 
   return (
-    <ScrollView style={globalStyles.global}>
+    <ScrollView /*style={globalStyles.global}*/>
       {currentUser.uid == id ? (
         <Pressable
           style={globalStyles.profile_edit_btn}
@@ -180,6 +182,18 @@ const ProfileScreen = ({ route, navigation }) => {
       <View style={globalStyles.profile_line}></View>
       <View style={globalStyles.stage3}>
         <Text style={globalStyles.profile_title}>הדרושים שלי</Text>
+        <FlatList
+          data={myJobs}
+          renderItem={({ item }) => <Job job={item} />}
+          ListEmptyComponent={() => {
+            return (
+              <View>
+                <Text>נראה שאין דרושים כרגע..</Text>
+              </View>
+            );
+          }}
+          keyExtractor={(item, index) => index.toString()}
+        />
       </View>
     </ScrollView>
   );
