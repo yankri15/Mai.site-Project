@@ -32,6 +32,7 @@ const UserDataProvider = ({ children }) => {
   const [projects, setProjects] = useState([]);
   const [projectPosts, setProjectPosts] = useState([]);
   const [jobs, setJobs] = useState([]);
+  const [myJobs, setMyJobs] = useState([]);
   const [tagsList, setTagsList] = useState([]);
   const [project, setProject] = useState([]);
   const [markers, setMarkers] = useState([]);
@@ -202,6 +203,20 @@ const UserDataProvider = ({ children }) => {
     );
   };
 
+  const getMyJobs = async (uid) => {
+    setMyJobs([]);
+
+    const q = query(
+      collection(db, "jobs"),
+      where("uid", "==", uid),
+      orderBy("creation", "desc")
+    );
+    const docSnap = await getDocs(q);
+
+    docSnap.docs.forEach(async (item) =>
+      setMyJobs((prev) => [...prev, { id: item.id, data: item.data() }])
+    );
+  };
   const getProject = async (pid) => {
     const docRef = doc(db, "projects", pid);
     const docSnap = await getDoc(docRef);
@@ -333,6 +348,7 @@ const UserDataProvider = ({ children }) => {
     deletePost,
     deleteSelf,
     jobs,
+    myJobs,
     usersList,
     postsList,
     projects,
@@ -347,6 +363,7 @@ const UserDataProvider = ({ children }) => {
     getName,
     getMarkers,
     getJobs,
+    getMyJobs,
     getUsersList,
     getPosts,
     getProjects,
