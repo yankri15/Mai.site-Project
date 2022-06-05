@@ -94,7 +94,6 @@ const SubjectScreen = ({ route, navigation }) => {
             topicId: topicData.topicId,
             topicName: topicData.topicName,
           });
-          Vibration.vibrate(15)
         }}
       >
         <Text style={globalStyles.open_sub_btn_text}>נושא חדש</Text>
