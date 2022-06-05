@@ -35,7 +35,6 @@ const MapScreen = () => {
   };
 
   useEffect(() => {
-    console.log("useEffect");
     getMarkers().then(() => {
       setMarkersArr([]);
       for (const marker in markers) {
