@@ -155,7 +155,7 @@ const StatisticsScreen = () => {
         <Text>פילוח לפי שכונת מגורים:</Text>
         <PieChart
           data={usersNeighborhoods}
-          width={Dimensions.get("window").width * 0.95}
+          width={Dimensions.get("window").width}
           height={Dimensions.get("window").width * 0.5}
           chartConfig={{
             padding: 0,
@@ -174,7 +174,7 @@ const StatisticsScreen = () => {
 
         <PieChart
           data={classList}
-          width={Dimensions.get("window").width * 0.95}
+          width={Dimensions.get("window").width}
           height={Dimensions.get("window").width * 0.5}
           chartConfig={{
             padding: 0,
