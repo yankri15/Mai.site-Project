@@ -72,7 +72,7 @@ const StatisticsScreen = () => {
           }
         }
       });
-      setClassList(classesData);
+      setClassList(classesData.sort((a, b) => (a.amount < b.amount ? 1 : -1)));
       const sortedData = []
         .concat(neighborhoodData)
         .sort((a, b) => (a.population < b.population ? 1 : -1));
@@ -108,9 +108,7 @@ const StatisticsScreen = () => {
       setProjectsList(res);
     };
 
-    getUsers()
-      .catch(console.error)
-      .then(() => {});
+    getUsers().catch(console.error);
     getProjectsForStat().catch(console.error);
 
     return;
