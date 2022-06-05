@@ -55,6 +55,7 @@ const SubjectScreen = ({ route, navigation }) => {
     });
   };
   useEffect(() => {
+    console.log("can't push ");
     const unsubscribe = navigation.addListener("focus", () => {
       getThread()
         .then(() => {
