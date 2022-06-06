@@ -56,6 +56,8 @@ const RegisterScreen = ({ navigation }) => {
         case "auth/weak-password":
           Alert.alert("אופסי..", "הסיסמה חלשה מדי");
           break;
+          case "auth/email-already-in-use":
+            Alert.alert("אופסי..", "המייל כבר בשימוש");
       }
     }
     setLoading(false);
