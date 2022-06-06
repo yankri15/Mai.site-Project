@@ -196,7 +196,7 @@ export const globalStyles = StyleSheet.create({
     marginBottom: "2%",
   },
   stage2: {
-    backgroundColor: "#C4A5F3",
+    //backgroundColor: "#C4A5F3",
     textAlign: "center",
     //alignItems: 'center',
   },
@@ -231,6 +231,19 @@ export const globalStyles = StyleSheet.create({
     overflow: "hidden",
     justifyContent: "center",
     marginBottom: "3%",
+  },
+  edit_pic_view: {
+    width: '10%',
+    position: "absolute",
+    top: '70%',
+    left: '6%',
+  },
+  edit_pic: {
+    backgroundColor: '#d8d8d8',
+    borderRadius: 100,
+    height: 35,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   profile_title: {
     textAlign: "center",
@@ -754,8 +767,8 @@ export const globalStyles = StyleSheet.create({
 
   modalView: {
     flex: 1,
+    justifyContent: 'center',
     backgroundColor: "#C4A5F3",
-    paddingTop: "30%",
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
