@@ -600,6 +600,14 @@ export const globalStyles = StyleSheet.create({
     marginTop: "1%",
     marginBottom: "1%",
   },
+  comment_like_info_view: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'black',
+    width: 20,
+    height: 20,
+    borderRadius: 100,
+  },
   /////////////////Forum_Topic/////////////////
   forum_title_text: {
     color: "#fdc123",
@@ -664,7 +672,7 @@ export const globalStyles = StyleSheet.create({
   },
   dots: {
     position: "absolute",
-    top: "2%",
+    top: "1%",
     right: "3%",
   },
   first_comment: {
