@@ -6,8 +6,6 @@ import { globalStyles } from "../../styles/global";
 import {
   BarChart,
   PieChart,
-  ContributionGraph,
-  StackedBarChart,
 } from "react-native-chart-kit";
 
 const StatisticsScreen = () => {
@@ -43,7 +41,7 @@ const StatisticsScreen = () => {
           amount: 0,
           color: generateRGB(),
           legendFontColor: "#000",
-          legendFontSize: 15,
+          legendFontSize: 12.5,
         };
       });
 
@@ -56,7 +54,7 @@ const StatisticsScreen = () => {
           population: 0,
           color: generateRGB(),
           legendFontColor: "#000",
-          legendFontSize: 15,
+          legendFontSize: 12.5,
         };
       });
 
@@ -85,7 +83,7 @@ const StatisticsScreen = () => {
         population: res,
         color: generateRGB(),
         legendFontColor: "#000",
-        legendFontSize: 15,
+        legendFontSize: 12.5,
       });
       setUsersNeighborhoods(sortedData.slice(0, 5));
     };
@@ -124,51 +122,59 @@ const StatisticsScreen = () => {
   };
 
   return (
-    <SafeAreaView style={globalStyles.settingsContainer}>
+    <SafeAreaView style={[globalStyles. wanted_container,{marginTop:"18%"}] }>
       <ScrollView contentContainerStyle={{ alignItems: "center" }}>
-        <Text>{userCount}</Text>
-        <Text>יזמים</Text>
+        <Text style = {globalStyles.stat_det} >{userCount}</Text>
+        <Text style = {globalStyles.stat_txt}>יזמים</Text>
 
-        <Text>{projectsCount}</Text>
-        <Text>פרויקטים באוויר</Text>
-        <Text>התפלגות פרוייקטים לפי נושאים:</Text>
+        <Text style = {globalStyles.stat_det}>{projectsCount}</Text>
+        <Text style = {globalStyles.stat_txt}>פרויקטים באוויר</Text>
+        <Text style = {globalStyles.stat_hedaers}>התפלגות פרוייקטים לפי נושאים</Text>
         <BarChart
           data={projectsData}
           width={Dimensions.get("window").width * 0.95}
           height={350}
           fromZero={true}
           chartConfig={{
-            padding: 0,
-            backgroundGradientFrom: "#373F47",
-            backgroundGradientTo: "#373F47",
+            padding: 0, 
+            backgroundGradientFrom: "#F7F7F7",
+            backgroundGradientTo: "#F7F7F7",
+            fillShadowGradient:'#4C91EB',
+            fillShadowGradientOpacity:1,
             decimalPlaces: 0,
-            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
 
             barPercentage: 0.4,
           }}
           style={{
             borderRadius: 16,
+            marginBottom:"12%",
           }}
           verticalLabelRotation={37}
         />
-        <Text>פילוח לפי שכונת מגורים:</Text>
+        <Text style = {globalStyles.stat_hedaers}>פילוח לפי שכונת מגורים</Text>
         <PieChart
           data={usersNeighborhoods}
           width={Dimensions.get("window").width}
           height={Dimensions.get("window").width * 0.5}
           chartConfig={{
-            padding: 0,
             backgroundGradientFrom: "#373F47",
             backgroundGradientTo: "#373F47",
             decimalPlaces: 0,
             color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
             labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            
           }}
           accessor={"population"}
           backgroundColor={"transparent"}
+          style={{
+            padding: 10,
+            fontWeight: "bold",
+            marginBottom:"12%",
+          }}
         />
-        <Text>פילוח לפי כיתה:</Text>
+        <Text style = {globalStyles.stat_hedaers}>פילוח לפי כיתה</Text>
         <PieChart
           data={classList}
           width={Dimensions.get("window").width}
@@ -183,6 +189,11 @@ const StatisticsScreen = () => {
           }}
           accessor={"amount"}
           backgroundColor={"transparent"}
+          style={{
+            padding: 10,
+            fontWeight: "bold",
+            marginBottom:"12%",
+          }}
         />
       </ScrollView>
     </SafeAreaView>
