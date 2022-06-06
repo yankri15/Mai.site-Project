@@ -24,9 +24,16 @@ const RegisterScreen = ({ navigation }) => {
     else if (password !== ConfirmPassword) {
       Alert.alert("אופסי..", "סיסמה לא תואמת");
       return false;
+    } 
+
+    let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
+    if(!strongPassword.test(password)) {
+      Alert.alert("אופסי..", "סיסמה חלשה מידי. נא להשתמש בסיסמה בעלת 8 תווים לפחות בשימוש של אותיות קטנות, אותיות גדולות, מספרים וסימן מיוחד")
+      return false;
     }
     return true;
   }
+
 
   async function handleSubmit() {
     try {
