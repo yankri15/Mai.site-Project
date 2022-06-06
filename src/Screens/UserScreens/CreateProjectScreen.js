@@ -24,7 +24,7 @@ const CreateProjectScreen = ({ navigation }) => {
   const { currentUser } = useAuth();
   const {
     uploadProject,
-    uploadProjectPost,
+    uploadDataPost,
     uploadImg,
     usersList,
     getUsersList,
@@ -129,7 +129,7 @@ const CreateProjectScreen = ({ navigation }) => {
       tags,
       description
     ).then((pid) => {
-      uploadProjectPost(pid, "פרויקט חדש באוויר!", imageURLs, "create").then(
+      uploadDataPost("פרויקט חדש באוויר!", pid, imageURLs, tags).then(
         () => {
           getPosts();
           navigation.navigate("Feed");
@@ -299,15 +299,6 @@ const CreateProjectScreen = ({ navigation }) => {
             <Image source={{ uri: item }} style={globalStyles.img_horizontal} />
           </View>
         )}
-        // ListEmptyComponent={() => {
-        //     return (
-        //         <View
-        //             style={{ marginTop: 20 }}
-        //         >
-        //             <Text>התמונות שתעלו יוצגו כאן..</Text>
-        //         </View>
-        //     );
-        // }}
         ItemSeparatorComponent={() => {
           return <View style={{ width: 5, height: 100 }}></View>;
         }}
@@ -324,33 +315,6 @@ const CreateProjectScreen = ({ navigation }) => {
       >
         <Text style={globalStyles.to_post_text}>פרסמו אותי!</Text>
       </Pressable>
-
-      {/* <Pressable
-                title="post"
-                onPress={handleUploadProject}
-                disabled={loading}
-                style={{
-                    alignSelf: 'flex-end',
-                    justifyContent: 'center',
-                    width: 80,
-                    height: 50,
-                    borderStyle: 'solid',
-                    borderWidth: 2,
-                    borderRadius: 5,
-                    backgroundColor: "#a77ce8",
-                    textAlign: "center",
-                    margin: '5%',
-                }}
-            >
-                <Text
-                    style={{
-                        color: 'black', color: "#fdc123",
-                        fontWeight: "bold",
-                        fontSize: 20,
-                        textAlign: 'center',
-                    }}
-                >{'פרסמו אותי!'}</Text>
-            </Pressable> */}
     </ScrollView>
   );
 };
