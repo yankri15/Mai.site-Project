@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Vibration } from "react-native";
+import { View, Text, Pressable, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { globalStyles } from "../../styles/global";
@@ -7,19 +7,47 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { useData } from "../../AuthProvider/UserDataProvider";
 import { useAuth } from "../../AuthProvider/AuthProvider";
+import { Entypo } from "@expo/vector-icons";
 import BasicPostDisplay from "../../API/BasicPostDisplay";
+import { MenuProvider } from "react-native-popup-menu";
+import {
+  Menu,
+  MenuOptions,
+  MenuTrigger,
+  renderers,
+} from "react-native-popup-menu";
 
 const ProjectScreen = ({ route, navigation }) => {
   const { currentUser } = useAuth();
-  const { projectPosts, getProjectPosts } = useData();
+  const { projectPosts, getProjectPosts, deleteProject } = useData();
+  const { Popover } = renderers;
+
   const project = route.params.project;
   const pid = route.params.pid;
+  const [collabNames, setCollabNames] = useState([]);
+  const [projectTags, setProjectTags] = useState([]);
   const [name, setName] = useState("");
 
   const getName = async (uid) => {
     const docRef = doc(db, "users", uid);
     const docSnap = await getDoc(docRef);
     setName(docSnap.data().name);
+  };
+
+  const getColabNames = () => {
+    let collabs = [];
+    for (let i = 0; i < project.collaborators.length; i++) {
+      collabs.push(project.collaborators[i].name);
+    }
+    setCollabNames(collabs);
+  };
+
+  const getTags = () => {
+    let tags = [];
+    for (let i = 0; i < project.tags.length; i++) {
+      tags.push(project.tags[i].name);
+    }
+    setProjectTags(tags);
   };
   function isCollab() {
     for (let i = 0; i < project.collaborators.length; i++) {
@@ -32,12 +60,52 @@ const ProjectScreen = ({ route, navigation }) => {
   useEffect(() => {
     getName(project.uid);
     getProjectPosts(pid);
-    return;
+    getColabNames();
+    getTags();
+    return () => {
+      setCollabNames([]);
+      setProjectTags([]);
+    };
   }, []);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View>
       <ScrollView>
+        <Menu
+          renderer={Popover}
+          rendererProps={{ preferredPlacement: "right" }}
+          style={{
+            left: "2%",
+            position: "absolute",
+          }}
+        >
+          <MenuTrigger>
+            {currentUser.uid === project.uid ? (
+              <Entypo name="dots-three-horizontal" size={20}></Entypo>
+            ) : null}
+          </MenuTrigger>
+          <MenuOptions>
+            <Pressable
+              onPress={() => {
+                Alert.alert(
+                  "האם אתה בטוח?",
+                  "",
+                  [
+                    {
+                      text: "מחק אותי",
+                      onPress: () => {
+                        deleteProject(pid);
+                      },
+                    },
+                  ],
+                  { cancelable: true }
+                );
+              }}
+            >
+              <Text style={globalStyles.delete_dots_text}>מחק</Text>
+            </Pressable>
+          </MenuOptions>
+        </Menu>
         <Text style={globalStyles.forum_title_text}>{project.name}</Text>
         <View style={globalStyles.project_screen_details}>
           <View style={globalStyles.project_details_view}>
@@ -46,9 +114,7 @@ const ProjectScreen = ({ route, navigation }) => {
           </View>
           <View style={globalStyles.project_details_view}>
             <Text style={globalStyles.project_title_details}>שותפים: </Text>
-            <Text style={globalStyles.project_details}>
-              {/* {project.collaborators} */}
-            </Text>
+            <Text>{collabNames}</Text>
           </View>
           <View style={globalStyles.project_details_view}>
             <Text style={globalStyles.project_title_details}>ארגון: </Text>
@@ -60,9 +126,7 @@ const ProjectScreen = ({ route, navigation }) => {
             <Text style={globalStyles.project_title_details}>
               נושאי המיזם:{" "}
             </Text>
-            <Text style={globalStyles.project_details}>
-              {/* {project.tags} */}
-            </Text>
+            <Text style={globalStyles.project_details}>{projectTags}</Text>
           </View>
           <View style={globalStyles.project_details_view}>
             <Text style={globalStyles.project_title_details}>
