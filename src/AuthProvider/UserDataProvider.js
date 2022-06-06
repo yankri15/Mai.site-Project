@@ -180,9 +180,13 @@ const UserDataProvider = ({ children }) => {
     const q = query(collection(db, "posts"), orderBy("creation", "desc"));
     const docSnap = await getDocs(q);
 
-    docSnap.docs.forEach(async (item) => {
+    docSnap.docs.forEach((item) => {
       setPostsList((prev) => [...prev, { id: item.id, data: item.data() }]);
     });
+
+    return docSnap.docs.map(item => {
+      return { id: item.id, data: item.data() }
+    })
   };
 
   const getProjects = async (uid) => {
