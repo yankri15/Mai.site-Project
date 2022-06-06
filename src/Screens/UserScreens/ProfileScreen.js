@@ -86,7 +86,6 @@ const ProfileScreen = ({ route, navigation }) => {
       setImage(result.uri);
       setShowModalCP(!showModalCP);
     }
-
   };
 
   const pickImageFromCamera = async () => {
@@ -102,7 +101,6 @@ const ProfileScreen = ({ route, navigation }) => {
       setImage(result.uri);
       setShowModalCP(!showModalCP);
     }
-
   };
   return (
     <ScrollView /*style={globalStyles.global}*/>
@@ -122,7 +120,9 @@ const ProfileScreen = ({ route, navigation }) => {
             onPress={pickImage}
             disabled={loading}
           >
-            <Text style={[globalStyles.take_a_pic_btn_text, { fontSize: 20 }]}>תמונה מהגלריה </Text>
+            <Text style={[globalStyles.take_a_pic_btn_text, { fontSize: 20 }]}>
+              תמונה מהגלריה{" "}
+            </Text>
             <MaterialIcons
               style={{ color: "#fdc123" }}
               name="photo-library"
@@ -135,7 +135,9 @@ const ProfileScreen = ({ route, navigation }) => {
             onPress={pickImageFromCamera}
             disabled={loading}
           >
-            <Text style={[globalStyles.take_a_pic_btn_text, { fontSize: 20 }]}>צלם/י תמונה </Text>
+            <Text style={[globalStyles.take_a_pic_btn_text, { fontSize: 20 }]}>
+              צלם/י תמונה{" "}
+            </Text>
             <Ionicons
               style={{ color: "#fdc123" }}
               name="camera-outline"
@@ -150,7 +152,9 @@ const ProfileScreen = ({ route, navigation }) => {
             }}
             disabled={loading}
           >
-            <Text style={[globalStyles.take_a_pic_btn_text, { fontSize: 20, color: 'black'}]}>ביטול </Text>
+            <Text style={[globalStyles.take_a_pic_btn_text, { fontSize: 20, color: 'black' }]}>
+              ביטול{" "}
+            </Text>
           </Pressable>
         </View>
       </Modal>
@@ -188,7 +192,7 @@ const ProfileScreen = ({ route, navigation }) => {
             <ImageBackground
               source={profilePicUri ? { uri: profilePicUri } : defaultImage}
               style={globalStyles.logo_image_area}
-              resizeMode="center"
+              resizeMode="contain"
             >
             </ImageBackground>
           </View>
