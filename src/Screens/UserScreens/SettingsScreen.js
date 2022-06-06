@@ -30,15 +30,20 @@ const SettingsScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
 
   //The function check if the password and the confirm password is even
-  function confirm(newPassword, ConfirmNewPassword) {
-    if (newPassword.length == 0 || ConfirmNewPassword.length == 0) {
-      alert("שגיאה", "הכנס סיסמה");
-      return false;
+  function confirm() {
+    if (newPassword.length == 0 || ConfirmNewPassword.length == 0 || currPassword.length == 0) {
+      Alert.alert("שגיאה", "חובה למלא את כל השדות");
+      return;
     } else if (newPassword !== ConfirmNewPassword) {
-      alert("שגיאה", "סיסמה לא תואמת");
-      return false;
+      Alert.alert("שגיאה", "סיסמה לא תואמת");
+      return;
     }
-    return true;
+    let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
+    if(!strongPassword.test(newPassword)) {
+      Alert.alert("אופסי..", "סיסמה חלשה מידי. נא להשתמש בסיסמה בעלת 8 תווים לפחות בשימוש של אותיות קטנות, אותיות גדולות, מספרים וסימן מיוחד")
+      return;
+    }
+    handleChangePassword();
   }
 
   //The function handle change password button
@@ -51,17 +56,18 @@ const SettingsScreen = ({ navigation }) => {
         currentUser.email,
         currPassword
       );
-
+        
       reauthenticateWithCredential(currentUser, credential)
         .then(() => {
-          if (confirm(newPassword, ConfirmNewPassword) === false) {
-            throw new error();
-          }
-          //Change the password of the user
-
           updatePassword(currentUser, newPassword)
             .then(() => {
               console.log("changed password");
+              Alert.alert("סיסמתך שונתה בהצלחה!");
+              setCurrPassword("");
+              setNewPassword("");
+              setNewConfirmPassword("");
+              setShowModalCP(!showModalCP);
+              setLoading(false);
             })
             .catch((error) => {
               console.log("cannot change passworod");
@@ -69,11 +75,11 @@ const SettingsScreen = ({ navigation }) => {
         })
         .catch((error) => {
           console.log("reauthenticate failed");
+          console.log(error);
         });
-    } catch (err) {}
-    alert("סיסמה שונתה בהצלחה", "סיסמה שונתה בהצלחה");
-    setShowModalCP(!showModalCP);
-    setLoading(false);
+    } catch (err) {
+      setError("Failed to create an account");
+    }
   }
 
   async function handleDelete() {
@@ -144,7 +150,7 @@ const SettingsScreen = ({ navigation }) => {
           <Pressable
             style={globalStyles.modal_btn}
             title="שנה סיסמה"
-            onPress={handleChangePassword}
+            onPress={confirm}
           >
             <Text style={globalStyles.settingsBtnText}>שנה סיסמה</Text>
           </Pressable>
