@@ -1,33 +1,21 @@
-//need to connect to user and differentiate between user and others taht see the profile
-// need add connect to edit profile
-//for change photo(need to add button): https://www.npmjs.com/package/react-native-image-picker
-
-import React, { useState, useEffect } from "react";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-import { ref, getDownloadURL } from "firebase/storage";
-import { db, storage } from "../../../firebase";
-import {
-  View,
-  Text,
-  Modal,
-  ImageBackground,
-  Pressable,
-  FlatList,
-} from "react-native";
-import { globalStyles } from "../../styles/global";
 import {
   EvilIcons,
-  Ionicons,
-  SimpleLineIcons,
-  MaterialCommunityIcons,
-  MaterialIcons,
+  Ionicons, MaterialCommunityIcons,
+  MaterialIcons, SimpleLineIcons
 } from "@expo/vector-icons";
-import { useAuth } from "../../AuthProvider/AuthProvider";
 import { useIsFocused } from "@react-navigation/native";
-import { useData } from "../../AuthProvider/UserDataProvider";
-import { ScrollView } from "react-native-gesture-handler";
-import Job from "../../API/Job";
 import * as ImagePicker from "expo-image-picker";
+import { doc, getDoc } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import {
+  FlatList, ImageBackground, Modal, Pressable, Text, View
+} from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import { db } from "../../../firebase";
+import Job from "../../API/Job";
+import { useAuth } from "../../AuthProvider/AuthProvider";
+import { useData } from "../../AuthProvider/UserDataProvider";
+import { globalStyles } from "../../styles/global";
 const defaultImage = require("../../../assets/default_profile_pic.jpg");
 
 const ProfileScreen = ({ route, navigation }) => {
