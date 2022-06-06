@@ -25,7 +25,6 @@ const ProjectScreen = ({ route, navigation }) => {
   const project = route.params.project;
   const pid = route.params.pid;
   const [collabNames, setCollabNames] = useState([]);
-  const [projectTags, setProjectTags] = useState([]);
   const [name, setName] = useState("");
 
   const getName = async (uid) => {
@@ -42,13 +41,6 @@ const ProjectScreen = ({ route, navigation }) => {
     setCollabNames(collabs);
   };
 
-  const getTags = () => {
-    let tags = [];
-    for (let i = 0; i < project.tags.length; i++) {
-      tags.push(project.tags[i].name);
-    }
-    setProjectTags(tags);
-  };
   function isCollab() {
     for (let i = 0; i < project.collaborators.length; i++) {
       if (project.collaborators[i].id == currentUser.uid) {
@@ -61,10 +53,8 @@ const ProjectScreen = ({ route, navigation }) => {
     getName(project.uid);
     getProjectPosts(pid);
     getColabNames();
-    getTags();
     return () => {
       setCollabNames([]);
-      setProjectTags([]);
     };
   }, []);
 
@@ -126,7 +116,7 @@ const ProjectScreen = ({ route, navigation }) => {
             <Text style={globalStyles.project_title_details}>
               נושאי המיזם:{" "}
             </Text>
-            <Text style={globalStyles.project_details}>{projectTags}</Text>
+            <Text style={globalStyles.project_details}>{project.tags}</Text>
           </View>
           <View style={globalStyles.project_details_view}>
             <Text style={globalStyles.project_title_details}>

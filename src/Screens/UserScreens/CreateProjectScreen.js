@@ -108,6 +108,7 @@ const CreateProjectScreen = ({ navigation }) => {
       setLoading(false);
       return;
     }
+    const tagNames = tags.map(tag => tag.name);
     const imageURLs = images.map((image, index) => {
       const path =
         "/img/" +
@@ -126,10 +127,10 @@ const CreateProjectScreen = ({ navigation }) => {
       collaborators,
       neighborhood,
       imageURLs,
-      tags,
+      tagNames,
       description
     ).then((pid) => {
-      uploadDataPost("פרויקט חדש באוויר!", pid, imageURLs, tags).then(
+      uploadDataPost("פרויקט חדש באוויר!", pid, imageURLs, tagNames).then(
         () => {
           getPosts();
           navigation.navigate("Feed");
