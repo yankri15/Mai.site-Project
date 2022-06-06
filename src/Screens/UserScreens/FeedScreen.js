@@ -14,7 +14,6 @@ import Post from "../../API/Post";
 import { collection, getDocs, ref } from "firebase/firestore";
 import { useIsFocused } from "@react-navigation/native";
 import { useData } from "../../AuthProvider/UserDataProvider";
-import FilterPost from "../../API/FilterPost";
 
 const FeedScreen = ({ navigation, route }) => {
   const [refreshing, setRefreshing] = useState(true);
