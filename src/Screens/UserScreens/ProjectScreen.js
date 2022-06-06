@@ -37,7 +37,7 @@ const ProjectScreen = ({ route, navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <ScrollView style={globalStyles.global}>
+      <ScrollView>
         <Text style={globalStyles.forum_title_text}>{project.name}</Text>
         <View style={globalStyles.project_screen_details}>
           <View style={globalStyles.project_details_view}>
