@@ -158,17 +158,26 @@ const UserDataProvider = ({ children }) => {
   };
 
   const deleteSelf = async () => {
-    //We should delete image from the storage
+    //We should delete images from the storage
     await deleteDoc(doc(db, "users", currentUser.uid));
   };
 
   const deletePost = async (postId) => {
     await deleteDoc(doc(db, "posts", postId));
   };
+
+  const deleteProject = async (projectId) => {
+    await deleteDoc(doc(db, "projects", projectId));
+    const q = query(collection(db, "posts"), where("pid", "==", projectId));
+    const docSnap = await getDocs(q);
+    docSnap.docs.forEach((doc) => {
+      deleteDoc(doc.ref);
+    });
+  };
   const getPosts = async () => {
     setPostsList([]);
 
-    const q = query(collection(db, "posts1"), orderBy("creation", "desc"));
+    const q = query(collection(db, "posts"), orderBy("creation", "desc"));
     const docSnap = await getDocs(q);
 
     docSnap.docs.forEach(async (item) => {
@@ -231,7 +240,7 @@ const UserDataProvider = ({ children }) => {
     setProjectPosts([]);
 
     const q = query(
-      collection(db, "posts1"),
+      collection(db, "posts"),
       where("pid", "==", pid),
       orderBy("creation", "desc")
     );
@@ -276,7 +285,7 @@ const UserDataProvider = ({ children }) => {
   };
 
   const uploadDataPost = async (postText, pid, images) => {
-    await addDoc(collection(db, "posts1"), {
+    await addDoc(collection(db, "posts"), {
       images: images,
       postText: postText,
       creation: serverTimestamp(),
@@ -286,7 +295,7 @@ const UserDataProvider = ({ children }) => {
   };
 
   const uploadProjectPost = async (pid, postText, images, stage) => {
-    await addDoc(collection(db, "posts1"), {
+    await addDoc(collection(db, "posts"), {
       pid: pid,
       uid: currentUser.uid,
       postText: postText,
@@ -294,10 +303,6 @@ const UserDataProvider = ({ children }) => {
       creation: serverTimestamp(),
       stage: stage,
     });
-
-    if (stage === "create") {
-      //addImagesToProject(images);
-    }
   };
 
   const uploadProject = async (
@@ -352,6 +357,7 @@ const UserDataProvider = ({ children }) => {
     deleteThread,
     deletePost,
     deleteSelf,
+    deleteProject,
     jobs,
     myJobs,
     usersList,
