@@ -284,24 +284,14 @@ const UserDataProvider = ({ children }) => {
     }
   };
 
-  const uploadDataPost = async (postText, pid, images) => {
+  const uploadDataPost = async (postText, pid, images, tags) => {
     await addDoc(collection(db, "posts"), {
       images: images,
       postText: postText,
       creation: serverTimestamp(),
       uid: currentUser.uid,
       pid: pid,
-    });
-  };
-
-  const uploadProjectPost = async (pid, postText, images, stage) => {
-    await addDoc(collection(db, "posts"), {
-      pid: pid,
-      uid: currentUser.uid,
-      postText: postText,
-      images: images,
-      creation: serverTimestamp(),
-      stage: stage,
+      tags: tags,
     });
   };
 
@@ -386,7 +376,6 @@ const UserDataProvider = ({ children }) => {
     uploadJob,
     uploadDataPost,
     uploadProject,
-    uploadProjectPost,
     uploadImg,
     updateAdmin,
     saveDownloadURL,

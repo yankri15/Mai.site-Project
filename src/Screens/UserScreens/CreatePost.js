@@ -73,7 +73,7 @@ const CreatePost = ({ navigation, route }) => {
     });
     setImages(imageURLs);
 
-    uploadDataPost(postText, pid, imageURLs).then(() => {
+    uploadDataPost(postText, pid, imageURLs, project.tags).then(() => {
       getPosts();
       navigation.navigate("Feed");
     });
