@@ -1,14 +1,21 @@
 import {
   EvilIcons,
-  Ionicons, MaterialCommunityIcons,
-  MaterialIcons, SimpleLineIcons
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+  SimpleLineIcons
 } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import {
-  FlatList, ImageBackground, Modal, Pressable, Text, View
+  FlatList,
+  ImageBackground,
+  Modal,
+  Pressable,
+  Text,
+  View
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { db } from "../../../firebase";
@@ -92,7 +99,6 @@ const ProfileScreen = ({ route, navigation }) => {
       setImage(result.uri);
       setShowModalCP(!showModalCP);
     }
-    
   };
 
   const pickImageFromCamera = async () => {
@@ -108,12 +114,11 @@ const ProfileScreen = ({ route, navigation }) => {
       setImage(result.uri);
       setShowModalCP(!showModalCP);
     }
-    
   };
   return (
     <ScrollView /*style={globalStyles.global}*/>
       <Modal
-        style={[globalStyles.modal, {  margin: 0}]}
+        style={[globalStyles.modal, { margin: 0 }]}
         animationType={"slide"}
         transparent={false}
         visible={showModalCP}
@@ -121,14 +126,19 @@ const ProfileScreen = ({ route, navigation }) => {
           setShowModalCP(!showModalCP);
         }}
       >
-        <View style={[globalStyles.modalView,{height:"50%"}]}>
+        <View style={[globalStyles.modalView, { height: "50%" }]}>
           <Pressable
-            style={[globalStyles.take_a_pic_btn, {width: "47%", height: "8%", marginBottom:"4%"}]}
+            style={[
+              globalStyles.take_a_pic_btn,
+              { width: "47%", height: "8%", marginBottom: "4%" },
+            ]}
             title="pickImage"
             onPress={pickImage}
             disabled={loading}
           >
-            <Text style={[globalStyles.take_a_pic_btn_text, {fontSize:20}]}>תמונה מהגלריה </Text>
+            <Text style={[globalStyles.take_a_pic_btn_text, { fontSize: 20 }]}>
+              תמונה מהגלריה{" "}
+            </Text>
             <MaterialIcons
               style={{ color: "#fdc123" }}
               name="photo-library"
@@ -136,12 +146,17 @@ const ProfileScreen = ({ route, navigation }) => {
             ></MaterialIcons>
           </Pressable>
           <Pressable
-            style={[globalStyles.take_a_pic_btn, {width: "47%", height: "8%",marginBottom:"4%"}]}
+            style={[
+              globalStyles.take_a_pic_btn,
+              { width: "47%", height: "8%", marginBottom: "4%" },
+            ]}
             title="pickImageFromCamera"
             onPress={pickImageFromCamera}
             disabled={loading}
           >
-            <Text style={[globalStyles.take_a_pic_btn_text, {fontSize:20}]}>צלם/י תמונה </Text>
+            <Text style={[globalStyles.take_a_pic_btn_text, { fontSize: 20 }]}>
+              צלם/י תמונה{" "}
+            </Text>
             <Ionicons
               style={{ color: "#fdc123" }}
               name="camera-outline"
@@ -149,14 +164,19 @@ const ProfileScreen = ({ route, navigation }) => {
             ></Ionicons>
           </Pressable>
           <Pressable
-            style={[globalStyles.take_a_pic_btn, {width: "47%", height: "8%"}]}
+            style={[
+              globalStyles.take_a_pic_btn,
+              { width: "47%", height: "8%" },
+            ]}
             title="dicard"
             onPress={() => {
               setShowModalCP(!showModalCP);
             }}
             disabled={loading}
           >
-            <Text style={[globalStyles.take_a_pic_btn_text, {fontSize:20}]}>ביטול </Text>
+            <Text style={[globalStyles.take_a_pic_btn_text, { fontSize: 20 }]}>
+              ביטול{" "}
+            </Text>
           </Pressable>
         </View>
       </Modal>
@@ -180,12 +200,13 @@ const ProfileScreen = ({ route, navigation }) => {
             <ImageBackground
               source={profilePicUri ? { uri: profilePicUri } : defaultImage}
               style={globalStyles.logo_image_area}
-              resizeMode="center"
+              resizeMode="contain"
             >
               <View
                 style={{
-                  width: 68,
-                  marginTop: 20,
+                  alignItems: "center",
+                  right: "25%",
+                  top: "10%",
                 }}
               >
                 {currentUser.uid == id ? (
