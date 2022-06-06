@@ -92,14 +92,15 @@ const RegistrationDetailsScreen = () => {
       </Text>
       <TextInput
         style={globalStyles.textInput}
-        placeholder="שם + שם משפחה"
+        placeholder="*שם + שם משפחה"
+        // placeholderTextColor="red" 
         value={name}
         maxLength={20}
         onChangeText={(text) => setName(text)}
       />
       <View style={globalStyles.textInput}>
         <View style={globalStyles.reg_bdate}>
-          <Text style={[{ color: "#999" }, { fontSize: 17 }]}>תאריך לידה:</Text>
+          <Text style={[{ color: "#999" }, { fontSize: 17 }]}>*תאריך לידה:</Text>
           <View style={globalStyles.datePicker}>
             <DatePicker
               date={birthDate}
@@ -115,7 +116,7 @@ const RegistrationDetailsScreen = () => {
       </View>
       <TextInput
         style={globalStyles.textInput}
-        placeholder="בית ספר"
+        placeholder="*בית ספר"
         value={school}
         maxLength={30}
         onChangeText={(text) => setSchool(text)}
@@ -129,7 +130,7 @@ const RegistrationDetailsScreen = () => {
           ]}
           onValueChange={(itemValue) => setClasss(itemValue)}
         >
-          <Picker.Item label="בחר כיתה" value="choose" />
+          <Picker.Item label="*בחר כיתה" value="choose" />
           <Picker.Item label="ט" value="ט" />
           <Picker.Item label="י" value="י" />
           <Picker.Item label="יא" value="יא" />
@@ -147,13 +148,13 @@ const RegistrationDetailsScreen = () => {
           ]}
           onValueChange={(itemValue) => setNeighborhood(itemValue)}
         >
-          <Picker.Item label="בחר שכונה" value="choose" />
+          <Picker.Item label="*בחר שכונה" value="choose" />
           {renderNeighborhoods()}
         </Picker>
       </View>
       <TextInput
         style={globalStyles.textInput}
-        placeholder="ארגון"
+        placeholder="*ארגון"
         value={organiztion}
         maxLength={30}
         onChangeText={(text) => setOrganiztion(text)}
