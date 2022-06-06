@@ -33,6 +33,7 @@ const MapScreen = () => {
     });
     setModalVisible(true);
   };
+  
 
   useEffect(() => {
     getMarkers().then(() => {
@@ -54,7 +55,18 @@ const MapScreen = () => {
 
     return;
   }, [markersLoaded]);
-
+  const ItemDivider = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: "100%",
+          backgroundColor: "#607D8B",
+        }}
+      />
+    );
+  }
+  
   return (
     <SafeAreaView style={globalStyles.mapScreenContainer}>
       <MapView style={globalStyles.map} region={mapRegion} provider={null}>
@@ -82,21 +94,23 @@ const MapScreen = () => {
           );
         })}
       </MapView>
-      <Modal
+      <Modal style={globalStyles.modal}
         visible={modalVisible}
         animationType="slide"
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}
       >
-        <FlatList
+        <FlatList contentContainerStyle = {{alignItems: 'center', marginTop:"4%"}}
           data={currentProjects}
+          
           renderItem={({ item }) => {
-            return <Text>{item.name}</Text>;
+            
+            return <View ><Text style = {{fontSize:20, marginBottom:"8%", fontWeight: "bold"}}>{item.name}</Text></View>;
           }}
           ListEmptyComponent={() => {
             return (
-              <View>
+              <View >
                 <Text>נראה שאין מה להציג כרגע..</Text>
               </View>
             );
