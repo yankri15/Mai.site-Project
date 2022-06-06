@@ -980,4 +980,24 @@ export const globalStyles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
+  stat_det: {
+    margin: 0,
+    padding: 0,
+    fontSize: 90,
+    fontWeight: "bold",
+    color: "#373F47",
+  },
+  stat_txt:{
+    marginBottom: "10%",
+    padding:0,
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#61676E",
+  },
+  stat_hedaers:{
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#61676E",
+  },
+
 });
