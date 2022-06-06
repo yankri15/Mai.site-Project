@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Pressable, FlatList } from 'react-native'
+import { View, Text, TextInput, Pressable, FlatList, Image } from 'react-native'
 import React, { useState } from 'react'
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { globalStyles } from '../styles/global';
@@ -7,31 +7,44 @@ import { globalStyles } from '../styles/global';
 const DropdownSearch = ({ placeHolder, selectedItems, filteredList, handleSearch, handleSelect, handleUnselect, display, setDisplay }) => {
 
     // const [display, setDisplay] = useState('none');
-
+    const defaultImage = require("../../assets/default_profile_pic.jpg");
     return (
         <View>
-            <View>
-                <FlatList
-                    data={selectedItems}
-                    horizontal={true}
-                    renderItem={({ item }) => (
-                        <Pressable
-                            onPress={() => { handleUnselect(item) }}
-                            style={{ backgroundColor: '#DEDAD9', padding: 5 }}
-                        >
-                            <Text>{item.name}</Text>
-                        </Pressable>
-                    )}
-                    ItemSeparatorComponent={() => {
+            <View
+                style={{ width: '90%', paddingBottom: 5, marginLeft: '5%' }}
+            >
+                <View
+                    style={{ flexDirection: 'row', flexWrap: 'wrap', paddingBottom: 10, marginTop: 5 }}
+                >
+                    {selectedItems && selectedItems.length > 0 && selectedItems.map(item => {
                         return (
                             <View
-                                style={{ width: 3 }}
+                                style={{
+                                    width: (item.name.length * 8) + 60,
+                                    justifyContent: 'center',
+                                    flex: 0,
+                                    backgroundColor: '#eee',
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    margin: 5,
+                                    padding: 8,
+                                    borderRadius: 15,
+                                }}
                             >
+                                <Text
+                                    style={{ color: '#555' }}
+                                >{item.name}</Text>
+                                <Pressable
+                                    onPress={() => { handleUnselect(item) }}
+                                    style={{ backgroundColor: '#f16d6b', alignItems: 'center', justifyContent: 'center', width: 25, height: 25, borderRadius: 100, marginLeft: 10 }}
+                                >
+                                    <Text
+                                    >{'X'}</Text>
+                                </Pressable>
                             </View>
                         )
-                    }}
-                    keyExtractor={(item, index) => index.toString()}
-                />
+                    })}
+                </View>
             </View>
             <View
                 style={{ position: 'relative', flexDirection: 'row', width: '100%', justifyContent: 'center', }}
@@ -53,15 +66,23 @@ const DropdownSearch = ({ placeHolder, selectedItems, filteredList, handleSearch
                 style={{ position: 'relative', display: display }}
             >
                 <View
-                    style={{ position: 'absolute', backgroundColor: '#EAE7E6', zIndex: 3, width: '100%' }}
+                    style={{ position: 'absolute', backgroundColor: '#FFFFFA', zIndex: 3, width: '90%', marginLeft: '5%', maxHeight: 120 }}
                 >
                     <FlatList
                         data={filteredList}
                         renderItem={({ item }) => (
                             <Pressable
                                 onPress={() => { handleSelect(item) }}
-                                style={{ width: '100%', padding: 5 }}
+                                style={{ flexDirection: 'row', alignItems: 'center', width: '100%', padding: 5 }}
                             >
+                                <View
+                                    style={globalStyles.user_pic}
+                                >
+                                    <Image
+                                        source={item.profilePic ? { uri: item.profilePic } : { defaultImage }}
+                                        style={globalStyles.logo_image_area}
+                                    />
+                                </View>
                                 <Text>{item.name}</Text>
                             </Pressable>
                         )}
@@ -74,6 +95,7 @@ const DropdownSearch = ({ placeHolder, selectedItems, filteredList, handleSearch
                             )
                         }}
                         keyExtractor={(item, index) => index.toString()}
+                        nestedScrollEnabled={true}
                     />
                 </View>
             </View>

@@ -146,7 +146,7 @@ const CreateProjectScreen = ({ navigation }) => {
     const users = [];
     usersList.forEach((user) => {
       if (user.data.name.includes(text)) {
-        users.push({ id: user.id, name: user.data.name });
+        users.push({ id: user.id, name: user.data.name, profilePic: user.data.profilePic });
       }
     });
     setUsersData(users);
