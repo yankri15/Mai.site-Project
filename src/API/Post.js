@@ -250,21 +250,25 @@ const Post = ({ post, navigation }) => {
           >
             <View style={globalStyles.details_like_comment}>
               <View style={globalStyles.info_like_comment}>
-                <AntDesign
-                  style={{ color: "#fdc123" }}
-                  name="like1"
-                  size={18}
-                ></AntDesign>
+                <View style={globalStyles.comment_like_info_view}>
+                  <AntDesign
+                    style={{ color: "#fdc123" }}
+                    name="like1"
+                    size={12}
+                  ></AntDesign>
+                </View>
                 <Text style={globalStyles.info_like_comment_txt}>
                   {likes.length}
                 </Text>
               </View>
               <View style={globalStyles.info_like_comment}>
-                <FontAwesome
-                  style={{ color: "#fdc123" }}
-                  name="commenting"
-                  size={18}
-                ></FontAwesome>
+                <View style={globalStyles.comment_like_info_view}>
+                  <FontAwesome
+                    style={{ color: "#fdc123" }}
+                    name="commenting"
+                    size={12}
+                  ></FontAwesome>
+                </View>
                 <Text style={globalStyles.info_like_comment_txt}>
                   {comments.length == 1
                     ? comments.length + " תגובה "
@@ -290,7 +294,7 @@ const Post = ({ post, navigation }) => {
                   : { color: "#cecece" }
               }
               name={likes.includes(currentUser.uid) ? "like1" : "like2"}
-              size={18}
+              size={20}
             ></AntDesign>
             <Text
               style={[
@@ -314,7 +318,7 @@ const Post = ({ post, navigation }) => {
             <FontAwesome
               style={{ color: "#cecece" }}
               name="commenting-o"
-              size={18}
+              size={20}
             ></FontAwesome>
             <Text style={globalStyles.like_comment_btn_txt}>הגיבו</Text>
           </Pressable>
