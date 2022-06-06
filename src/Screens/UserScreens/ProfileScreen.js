@@ -9,8 +9,8 @@ import { db, storage } from "../../../firebase";
 import {
   View,
   Text,
-  SafeAreaView,
-  Image,
+  Modal,
+  ImageBackground,
   Pressable,
   FlatList,
 } from "react-native";
@@ -20,12 +20,14 @@ import {
   Ionicons,
   SimpleLineIcons,
   MaterialCommunityIcons,
+  MaterialIcons,
 } from "@expo/vector-icons";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import { useIsFocused } from "@react-navigation/native";
 import { useData } from "../../AuthProvider/UserDataProvider";
 import { ScrollView } from "react-native-gesture-handler";
 import Job from "../../API/Job";
+import * as ImagePicker from "expo-image-picker";
 const defaultImage = require("../../../assets/default_profile_pic.jpg");
 
 const ProfileScreen = ({ route, navigation }) => {
@@ -41,6 +43,9 @@ const ProfileScreen = ({ route, navigation }) => {
   const [classs, setClasss] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [profilePicUri, setProfilePicUri] = useState("");
+  const [showModalCP, setShowModalCP] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     const getStatus = async () => {
@@ -86,8 +91,88 @@ const ProfileScreen = ({ route, navigation }) => {
     return age;
   }
 
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+      setShowModalCP(!showModalCP);
+    }
+    
+  };
+
+  const pickImageFromCamera = async () => {
+    // No permissions request is necessary for launching the image camera
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+      setShowModalCP(!showModalCP);
+    }
+    
+  };
   return (
     <ScrollView /*style={globalStyles.global}*/>
+      <Modal
+        style={[globalStyles.modal, {  margin: 0}]}
+        animationType={"slide"}
+        transparent={false}
+        visible={showModalCP}
+        onRequestClose={() => {
+          setShowModalCP(!showModalCP);
+        }}
+      >
+        <View style={[globalStyles.modalView,{height:"50%"}]}>
+          <Pressable
+            style={[globalStyles.take_a_pic_btn, {width: "47%", height: "8%", marginBottom:"4%"}]}
+            title="pickImage"
+            onPress={pickImage}
+            disabled={loading}
+          >
+            <Text style={[globalStyles.take_a_pic_btn_text, {fontSize:20}]}>תמונה מהגלריה </Text>
+            <MaterialIcons
+              style={{ color: "#fdc123" }}
+              name="photo-library"
+              size={20}
+            ></MaterialIcons>
+          </Pressable>
+          <Pressable
+            style={[globalStyles.take_a_pic_btn, {width: "47%", height: "8%",marginBottom:"4%"}]}
+            title="pickImageFromCamera"
+            onPress={pickImageFromCamera}
+            disabled={loading}
+          >
+            <Text style={[globalStyles.take_a_pic_btn_text, {fontSize:20}]}>צלם/י תמונה </Text>
+            <Ionicons
+              style={{ color: "#fdc123" }}
+              name="camera-outline"
+              size={20}
+            ></Ionicons>
+          </Pressable>
+          <Pressable
+            style={[globalStyles.take_a_pic_btn, {width: "47%", height: "8%"}]}
+            title="dicard"
+            onPress={() => {
+              setShowModalCP(!showModalCP);
+            }}
+            disabled={loading}
+          >
+            <Text style={[globalStyles.take_a_pic_btn_text, {fontSize:20}]}>ביטול </Text>
+          </Pressable>
+        </View>
+      </Modal>
+
       {currentUser.uid == id ? (
         <Pressable
           style={globalStyles.profile_edit_btn}
@@ -104,11 +189,40 @@ const ProfileScreen = ({ route, navigation }) => {
       <View style={globalStyles.stage1}>
         <View style={globalStyles.picAndDetails}>
           <View style={globalStyles.profile_pic}>
-            <Image
+            <ImageBackground
               source={profilePicUri ? { uri: profilePicUri } : defaultImage}
               style={globalStyles.logo_image_area}
               resizeMode="center"
-            ></Image>
+            >
+              <View
+                style={{
+                  width: 68,
+                  marginTop: 20,
+                }}
+              >
+                {currentUser.uid == id ? (
+                  <Pressable
+                    title="editPic"
+                    onPress={() => {
+                      setShowModalCP(!showModalCP);
+                    }}
+                  >
+                    <Text>
+                      <EvilIcons
+                        name="pencil"
+                        size={40}
+                        style={{
+                          position: "absolute",
+                          top: 20,
+                          left: 25,
+                          color: "white",
+                        }}
+                      ></EvilIcons>
+                    </Text>
+                  </Pressable>
+                ) : null}
+              </View>
+            </ImageBackground>
           </View>
           <View>
             <Text style={globalStyles.profile_details}>
