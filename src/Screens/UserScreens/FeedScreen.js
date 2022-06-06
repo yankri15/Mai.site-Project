@@ -23,7 +23,6 @@ const FeedScreen = ({ navigation, route }) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
 
-
   const handleRefresh = () => {
     getPosts()
       .then((posts) => {
@@ -37,22 +36,84 @@ const FeedScreen = ({ navigation, route }) => {
 
   const handleSelectTag = (tag) => {
     if (selectedTags.includes(tag)) {
-      const temp = selectedTags.filter(currTag => currTag !== tag);
+      const temp = selectedTags.filter((currTag) => currTag !== tag);
       setSelectedTags(temp);
-    }
-    else {
-      setSelectedTags(prev => [...prev, tag]);
+    } else {
+      setSelectedTags((prev) => [...prev, tag]);
     }
   };
 
   const filterPosts = (tags) => {
-    if (tags.length === 0)
-      return setFilteredPosts([...postsList]);
-    const temp = postsList.filter(post => post.data.tags.some(t => tags.includes(t)));
+    if (tags.length === 0) return setFilteredPosts([...postsList]);
+    const temp = postsList.filter((post) =>
+      post.data.tags.some((t) => tags.includes(t))
+    );
     // console.log("================================\n", temp);
     setFilteredPosts(temp);
-  }
+  };
 
+  const getHeader = () => {
+    return (
+      <View>
+        <Modal
+          visible={modalVisible}
+          animationType="slide"
+          onRequestClose={() => {
+            setModalVisible((prev) => !prev);
+          }}
+        >
+          <View>
+            <FlatList
+              data={tagsList}
+              renderItem={({ item }) => (
+                <Pressable
+                  style={{
+                    backgroundColor: selectedTags.includes(item.name)
+                      ? "green"
+                      : "#EAE7E6",
+                    padding: 5,
+                    margin: 5,
+                  }}
+                  onPress={() => handleSelectTag(item.name)}
+                >
+                  <Text>{item.name}</Text>
+                </Pressable>
+              )}
+              numColumns={3}
+              ListEmptyComponent={() => {
+                return (
+                  <View>
+                    <Text style={globalStyles.be_first}>
+                      נראה שאין מה להציג כרגע..
+                    </Text>
+                  </View>
+                );
+              }}
+              ItemSeparatorComponent={() => {
+                return <View style={{ height: 12 }}></View>;
+              }}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          </View>
+          <Pressable
+            onPress={() => {
+              filterPosts(selectedTags);
+              setModalVisible(false);
+            }}
+            style={{ marginLeft: 10, width: 50, height: 50 }}
+          >
+            <Text>{"סנן"}</Text>
+          </Pressable>
+        </Modal>
+        <Pressable
+          onPress={() => setModalVisible(true)}
+          style={{ width: "100%", height: 50 }}
+        >
+          <Text>{"open modal"}</Text>
+        </Pressable>
+      </View>
+    );
+  };
   useEffect(() => {
     getPosts()
       .then((posts) => {
@@ -65,61 +126,8 @@ const FeedScreen = ({ navigation, route }) => {
     return;
   }, []);
 
-
   return (
     <View style={{ flex: 1 }}>
-      <Modal
-        visible={modalVisible}
-        animationType="slide"
-        onRequestClose={() => {
-          setModalVisible(prev => !prev);
-        }}
-      >
-        <View>
-          <FlatList
-            data={tagsList}
-            renderItem={({ item }) => (
-              <Pressable
-                style={{ backgroundColor: selectedTags.includes(item.name) ? 'green' : '#EAE7E6', padding: 5, margin: 5 }}
-                onPress={() => handleSelectTag(item.name)}
-              >
-                <Text>{item.name}</Text>
-              </Pressable>
-            )}
-            numColumns={3}
-            refreshing={refreshing}
-            onRefresh={handleRefresh}
-            ListEmptyComponent={() => {
-              return (
-                <View>
-                  <Text style={globalStyles.be_first}>
-                    נראה שאין מה להציג כרגע..
-                  </Text>
-                </View>
-              );
-            }}
-            ItemSeparatorComponent={() => {
-              return <View style={{ height: 12 }}></View>;
-            }}
-            keyExtractor={(item, index) => index.toString()}
-          />
-        </View>
-        <Pressable
-          onPress={() => {
-            filterPosts(selectedTags);
-            setModalVisible(false);
-          }}
-          style={{ marginLeft: 10, width: 50, height: 50 }}
-        >
-          <Text>{"סנן"}</Text>
-        </Pressable>
-      </Modal>
-      <Pressable
-        onPress={() => setModalVisible(true)}
-        style={{ width: '100%', height: 50 }}
-      >
-        <Text>{"open modal"}</Text>
-      </Pressable>
       <FlatList
         data={filteredPosts}
         style={globalStyles.feed}
@@ -145,6 +153,7 @@ const FeedScreen = ({ navigation, route }) => {
           return <View style={{ height: 12 }}></View>;
         }}
         keyExtractor={(item, index) => index.toString()}
+        ListHeaderComponent={getHeader}
       />
       <Pressable
         title="edit"
