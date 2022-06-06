@@ -232,11 +232,11 @@ const CreateProjectScreen = ({ navigation }) => {
           onRemoveItem={handleUnselectTag}
           itemStyle={{
             padding: 10,
-            marginTop: 2,
-            fontSize: 20,
-            fontWidth: "bold",
+            marginTop: 3,
+            //fontSize: 50,
+            //fontWidth: "bold",
             backgroundColor: "#C4A5F3",
-            borderColor: "#bbb",
+            borderColor: "#000",
             borderWidth: 1,
             borderRadius: 5,
           }}

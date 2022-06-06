@@ -65,8 +65,9 @@ const ProjectScreen = ({ route, navigation }) => {
           renderer={Popover}
           rendererProps={{ preferredPlacement: "right" }}
           style={{
-            left: "2%",
             position: "absolute",
+            right: "2%",
+            top: '1%',
           }}
         >
           <MenuTrigger>

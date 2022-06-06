@@ -1,22 +1,9 @@
-import {
-  EvilIcons,
-  Ionicons,
-  MaterialCommunityIcons,
-  MaterialIcons,
-  SimpleLineIcons
-} from "@expo/vector-icons";
+import { EvilIcons, Ionicons, MaterialCommunityIcons, MaterialIcons, SimpleLineIcons, FontAwesome5 } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import {
-  FlatList,
-  ImageBackground,
-  Modal,
-  Pressable,
-  Text,
-  View
-} from "react-native";
+import { FlatList, ImageBackground, Modal, Pressable, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { db } from "../../../firebase";
 import Job from "../../API/Job";
@@ -126,12 +113,9 @@ const ProfileScreen = ({ route, navigation }) => {
           setShowModalCP(!showModalCP);
         }}
       >
-        <View style={[globalStyles.modalView, { height: "50%" }]}>
+        <View style={globalStyles.modalView}>
           <Pressable
-            style={[
-              globalStyles.take_a_pic_btn,
-              { width: "47%", height: "8%", marginBottom: "4%" },
-            ]}
+            style={[globalStyles.take_a_pic_btn, { width: "50%", height: "8%", marginBottom: "4%" }]}
             title="pickImage"
             onPress={pickImage}
             disabled={loading}
@@ -142,14 +126,11 @@ const ProfileScreen = ({ route, navigation }) => {
             <MaterialIcons
               style={{ color: "#fdc123" }}
               name="photo-library"
-              size={20}
+              size={22}
             ></MaterialIcons>
           </Pressable>
           <Pressable
-            style={[
-              globalStyles.take_a_pic_btn,
-              { width: "47%", height: "8%", marginBottom: "4%" },
-            ]}
+            style={[globalStyles.take_a_pic_btn, { width: "50%", height: "8%", marginBottom: "4%" }]}
             title="pickImageFromCamera"
             onPress={pickImageFromCamera}
             disabled={loading}
@@ -160,21 +141,18 @@ const ProfileScreen = ({ route, navigation }) => {
             <Ionicons
               style={{ color: "#fdc123" }}
               name="camera-outline"
-              size={20}
+              size={22}
             ></Ionicons>
           </Pressable>
           <Pressable
-            style={[
-              globalStyles.take_a_pic_btn,
-              { width: "47%", height: "8%" },
-            ]}
+            style={[globalStyles.take_a_pic_btn, { width: "50%", height: "8%", backgroundColor: '#fdc123' }]}
             title="dicard"
             onPress={() => {
               setShowModalCP(!showModalCP);
             }}
             disabled={loading}
           >
-            <Text style={[globalStyles.take_a_pic_btn_text, { fontSize: 20 }]}>
+            <Text style={[globalStyles.take_a_pic_btn_text, { fontSize: 20, color: 'black' }]}>
               ביטול{" "}
             </Text>
           </Pressable>
@@ -190,47 +168,32 @@ const ProfileScreen = ({ route, navigation }) => {
           }}
         >
           <Text style={globalStyles.profile_edit_btn_text}>
-            <EvilIcons name="pencil" size={35}></EvilIcons>
+            <EvilIcons name="pencil" size={35} style={{ color: "#b0b0b0" }}></EvilIcons>
           </Text>
         </Pressable>
       ) : null}
       <View style={globalStyles.stage1}>
         <View style={globalStyles.picAndDetails}>
+          {currentUser.uid == id ? (
+            <View style={globalStyles.edit_pic_view}>
+              <Pressable
+                title="editPic"
+                onPress={() => {
+                  setShowModalCP(!showModalCP);
+                }}
+              >
+                <View style={globalStyles.edit_pic}>
+                  <FontAwesome5 name="camera" size={20} style={{ color: "black" }}></FontAwesome5>
+                </View>
+              </Pressable>
+            </View>
+          ) : null}
           <View style={globalStyles.profile_pic}>
             <ImageBackground
               source={profilePicUri ? { uri: profilePicUri } : defaultImage}
               style={globalStyles.logo_image_area}
               resizeMode="contain"
             >
-              <View
-                style={{
-                  alignItems: "center",
-                  right: "25%",
-                  top: "10%",
-                }}
-              >
-                {currentUser.uid == id ? (
-                  <Pressable
-                    title="editPic"
-                    onPress={() => {
-                      setShowModalCP(!showModalCP);
-                    }}
-                  >
-                    <Text>
-                      <EvilIcons
-                        name="pencil"
-                        size={40}
-                        style={{
-                          position: "absolute",
-                          top: 20,
-                          left: 25,
-                          color: "white",
-                        }}
-                      ></EvilIcons>
-                    </Text>
-                  </Pressable>
-                ) : null}
-              </View>
             </ImageBackground>
           </View>
           <View>
@@ -240,7 +203,6 @@ const ProfileScreen = ({ route, navigation }) => {
           </View>
         </View>
       </View>
-
       <View style={globalStyles.side_details}>
         <View style={globalStyles.side_details_comp}>
           <Ionicons
@@ -295,7 +257,7 @@ const ProfileScreen = ({ route, navigation }) => {
           ListEmptyComponent={() => {
             return (
               <View>
-                <Text>נראה שאין מה להציג כרגע..</Text>
+                <Text style={globalStyles.be_first}>נראה שאין מה להציג כרגע..</Text>
               </View>
             );
           }}
@@ -311,7 +273,7 @@ const ProfileScreen = ({ route, navigation }) => {
           ListEmptyComponent={() => {
             return (
               <View>
-                <Text>נראה שאין דרושים כרגע..</Text>
+                <Text style={globalStyles.be_first}>נראה שאין דרושים כרגע..</Text>
               </View>
             );
           }}
