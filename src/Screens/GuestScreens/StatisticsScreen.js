@@ -167,8 +167,6 @@ const StatisticsScreen = () => {
           }}
           accessor={"population"}
           backgroundColor={"transparent"}
-          // paddingLeft={"15"}
-          // center={[10, 50]}
         />
         <Text>פילוח לפי כיתה:</Text>
         <PieChart
@@ -185,8 +183,6 @@ const StatisticsScreen = () => {
           }}
           accessor={"amount"}
           backgroundColor={"transparent"}
-          // paddingLeft={"15"}
-          // center={[10, 50]}
         />
       </ScrollView>
     </SafeAreaView>

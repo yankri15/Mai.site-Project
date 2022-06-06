@@ -13,7 +13,7 @@ import BlockedScreen from "../Screens/UserScreens/BlockedScreen";
 import { useData } from "../AuthProvider/UserDataProvider";
 import RegistrationDetailsScreen from "../Screens/AuthScreens/RegistrationDetailsScreen";
 import GuestNavigator from "../Navigation/GuestNavigator";
-
+import GuestHomeScreen from "../Screens/GuestScreens/GuestHomeScreen";
 const Stack = createStackNavigator();
 
 const MainContainer = () => {
@@ -24,7 +24,7 @@ const MainContainer = () => {
     if (userStatus == 2) {
       return <HamburgerStack />;
     } else if (userStatus == 1) {
-      return <ApprovalWatingScreen />;
+      return <GuestHomeScreen />;
     } else if (userStatus == 0) {
       return <RegistrationDetailsScreen />;
     } else if (userStatus == -1) {
@@ -32,7 +32,6 @@ const MainContainer = () => {
     } else {
       return <LoadingScreen />;
     }
-    // return <ProfileScreen />;
   } else {
     return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -40,7 +39,10 @@ const MainContainer = () => {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
-        <Stack.Screen name="RegistrationDetails" component={RegistrationDetailsScreen} />
+        <Stack.Screen
+          name="RegistrationDetails"
+          component={RegistrationDetailsScreen}
+        />
         <Stack.Screen name="Loading" component={LoadingScreen} />
         <Stack.Screen name="GuestHome" component={GuestNavigator} />
       </Stack.Navigator>

@@ -1,24 +1,39 @@
+import React, { useEffect } from "react";
 import { View, Text, Pressable, SafeAreaView } from "react-native";
-import React from "react";
 import { globalStyles } from "../../styles/global";
+import { useData } from "../../AuthProvider/UserDataProvider";
 
 const GuestHomeScreen = ({ navigation }) => {
+  const { userStatus, getName, name } = useData();
+
+  useEffect(() => {
+    getName();
+    return;
+  }, []);
+
   return (
     <SafeAreaView style={globalStyles.settingsContainer}>
-     <View>
-     <Text style={[globalStyles.landing_title_text, { marginBottom: '20%' }]}>שלום אורח</Text>
-     </View>
-      
+      <View>
+        <Text style={[globalStyles.landing_title_text]}>
+          שלום {userStatus === 1 ? name.split(" ")[0] : "אורח"}
+        </Text>
+        {userStatus === 1 ? (
+          <Text style={{ alignSelf: "center" }}>אתה ממתין לאישור</Text>
+        ) : null}
+      </View>
+
       {/* Register */}
-      <Pressable
-        style={globalStyles.settingsBtn}
-        title="register"
-        onPress={() => {
-          navigation.navigate("Register");
-        }}
-      >
-        <Text style={globalStyles.settingsBtnText}>אני רוצה להירשם</Text>
-      </Pressable>
+      {userStatus !== 1 ? (
+        <Pressable
+          style={globalStyles.settingsBtn}
+          title="register"
+          onPress={() => {
+            navigation.navigate("Register");
+          }}
+        >
+          <Text style={globalStyles.settingsBtnText}>אני רוצה להירשם</Text>
+        </Pressable>
+      ) : null}
 
       {/* Statistics */}
       <Pressable
