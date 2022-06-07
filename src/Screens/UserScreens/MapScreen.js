@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, View, FlatList, Text } from "react-native";
+import { Modal, View, FlatList, Text, Pressable, Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { globalStyles } from "../../styles/global";
@@ -108,9 +108,21 @@ const MapScreen = () => {
           renderItem={({ item }) => {
 
             return (
-              <View style={globalStyles.forums_titles}>
+              <Pressable
+                style={globalStyles.forums_titles}
+                onPress={() => {
+                  Alert.alert("תיאור הפרוייקט", item.description,
+                    [
+                      {
+                        text: "סגור",
+                      },
+                    ],
+                    { cancelable: true }
+                  );
+                }}
+              >
                 <Text style={globalStyles.forums_titles_txt}>{item.name}</Text>
-              </View>
+              </Pressable>
             );
           }}
           ListEmptyComponent={() => {
