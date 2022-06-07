@@ -18,9 +18,9 @@ const ForumNavigator = ({ navigation }) => {
         options={{
           headerTitle: () => <ProfilePic navigation={navigation} />,
         }} />
-      <Stack.Screen name="Subject" component={SubjectScreen} />
-      <Stack.Screen name="Thread" component={ThreadScreen} />
-      <Stack.Screen name="CreateThread" component={CreateThread} />
+      <Stack.Screen name="פורום" component={SubjectScreen} />
+      <Stack.Screen name="אשכול" component={ThreadScreen} />
+      <Stack.Screen name="יצירת נושא חדש" component={CreateThread} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="Project" component={ProjectScreen} />
     </Stack.Navigator>

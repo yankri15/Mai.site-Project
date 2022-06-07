@@ -36,7 +36,7 @@ const CreateThread = ({ route, navigation }) => {
         uid: currentUser.uid,
       }
     );
-    navigation.navigate("Subject", { subjectData });
+    navigation.navigate("פורום", { subjectData });
   }
   return (
     <View

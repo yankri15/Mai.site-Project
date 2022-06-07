@@ -74,7 +74,7 @@ const SubjectScreen = ({ route, navigation }) => {
           renderItem={({ item }) => (
             <View>
               <Pressable
-                onPress={() => navigation.navigate("Thread", { item })}
+                onPress={() => navigation.navigate("אשכול", { item })}
               >
                 {
                   <Menu
@@ -129,7 +129,7 @@ const SubjectScreen = ({ route, navigation }) => {
         title="Create thread"
         style={globalStyles.open_sub_btn}
         onPress={() => {
-          navigation.navigate("CreateThread", {
+          navigation.navigate("יצירת נושא חדש", {
             topicId: topicData.topicId,
             topicName: topicData.topicName,
           });
