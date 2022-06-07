@@ -118,10 +118,13 @@ const UserDataProvider = ({ children }) => {
 
   const saveDownloadURL = async (path) => {
     const imgRef = ref(storage, path);
+    let res;
     await getDownloadURL(imgRef).then(async (img) => {
-      await updateDoc(doc(db, "users", currentUser.uid), "profilePic", img);
+      await updateDoc(doc(db, "users", currentUser.uid), "pic", path, "profilePic", img);
+      res = img;
       setImage(img);
     });
+    return res;
   };
 
   //Approve user

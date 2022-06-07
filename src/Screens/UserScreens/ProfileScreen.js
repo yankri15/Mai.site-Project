@@ -33,6 +33,7 @@ const ProfileScreen = ({ route, navigation }) => {
   const [organiztion, setOrganiztion] = useState("");
   const [classs, setClasss] = useState("");
   const [birthDate, setBirthDate] = useState("");
+  const [profilePic, setProfilePic] = useState("");
   const [showModalCP, setShowModalCP] = useState(false);
   const [DisplayImages, setDisplayImages] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -48,6 +49,7 @@ const ProfileScreen = ({ route, navigation }) => {
       setOrganiztion(userData.organiztion);
       setClasss(userData.classs);
       setBirthDate(userData.birthDate);
+      setProfilePic(userData.profilePic);
     };
 
     getStatus().catch(console.error);
@@ -89,7 +91,8 @@ const ProfileScreen = ({ route, navigation }) => {
       const path = "/img/" + currentUser.uid + "/pofile/" + date + ".jpg";
       uploadImg(path, result.uri)
         .then(() => {
-          saveDownloadURL(path).then(() => {
+          saveDownloadURL(path).then((img) => {
+            setProfilePic(img);
             setShowModalCP(!showModalCP);
           });
         })
@@ -109,26 +112,23 @@ const ProfileScreen = ({ route, navigation }) => {
         }}
       >
         <View style={globalStyles.modalView}>
-          <Pressable
-            style={[
-              globalStyles.take_a_pic_btn,
-              { width: "50%", height: "8%", marginBottom: "4%" },
-            ]}
-            title="showPic"
-            onPress={() => {
-              setDisplayImages(!DisplayImages);
-            }}
-            disabled={loading}
-          >
-            <Text style={[globalStyles.take_a_pic_btn_text, { fontSize: 20 }]}>
-              לצפייה בתמונה{" "}
-            </Text>
-            <Ionicons
-              style={{ color: "#fdc123" }}
-              name="eye-outline"
-              size={22}
-            ></Ionicons>
-          </Pressable>
+          {profilePic &&
+            <Pressable
+              style={[
+                globalStyles.take_a_pic_btn,
+                { width: "50%", height: "8%", marginBottom: "4%" },
+              ]}
+              title="showPic"
+              onPress={() => {
+                setDisplayImages(!DisplayImages);
+              }}
+              disabled={loading}
+            >
+              <Text style={[globalStyles.take_a_pic_btn_text, { fontSize: 20 }]}>
+                הצג תמונה{" "}
+              </Text>
+            </Pressable>
+          }
           <Pressable
             style={[
               globalStyles.take_a_pic_btn,
@@ -176,7 +176,7 @@ const ProfileScreen = ({ route, navigation }) => {
           setDisplayImages(!DisplayImages);
         }}
       >
-        <ImageViewer imageUrls={[{ url: image }]} />
+        <ImageViewer imageUrls={[{ url: profilePic }]} />
       </Modal>
       {currentUser.uid == id ? (
         <Pressable
@@ -207,7 +207,7 @@ const ProfileScreen = ({ route, navigation }) => {
           >
             <View style={globalStyles.profile_pic}>
               <ImageBackground
-                source={image ? { uri: image } : defaultImage}
+                source={profilePic ? { uri: profilePic } : defaultImage}
                 style={globalStyles.logo_image_area}
                 resizeMode="contain"
               ></ImageBackground>
