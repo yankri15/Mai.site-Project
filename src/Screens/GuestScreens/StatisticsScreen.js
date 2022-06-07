@@ -3,10 +3,7 @@ import React, { useState, useEffect } from "react";
 import { SafeAreaView, Text, Dimensions, ScrollView } from "react-native";
 import { db } from "../../../firebase";
 import { globalStyles } from "../../styles/global";
-import {
-  BarChart,
-  PieChart,
-} from "react-native-chart-kit";
+import { BarChart, PieChart } from "react-native-chart-kit";
 
 const StatisticsScreen = () => {
   const [userCount, setUserCount] = useState(0);
@@ -96,10 +93,10 @@ const StatisticsScreen = () => {
       setProjectsCount(docSnap.docs.length);
       docSnap.docs.forEach((element) => {
         element.data().tags.forEach((tag) => {
-          if (tag.name in res) {
-            res[tag.name] += 1;
+          if (tag in res) {
+            res[tag] += 1;
           } else {
-            res[tag.name] = 1;
+            res[tag] = 1;
           }
         });
       });
@@ -122,25 +119,27 @@ const StatisticsScreen = () => {
   };
 
   return (
-    <SafeAreaView style={[globalStyles. wanted_container,{marginTop:"18%"}] }>
+    <SafeAreaView style={[globalStyles.global]}>
       <ScrollView contentContainerStyle={{ alignItems: "center" }}>
-        <Text style = {globalStyles.stat_det} >{userCount}</Text>
-        <Text style = {globalStyles.stat_txt}>יזמים</Text>
+        <Text style={globalStyles.stat_det}>{userCount}</Text>
+        <Text style={globalStyles.stat_txt}>יזמים</Text>
 
-        <Text style = {globalStyles.stat_det}>{projectsCount}</Text>
-        <Text style = {globalStyles.stat_txt}>פרויקטים באוויר</Text>
-        <Text style = {globalStyles.stat_hedaers}>התפלגות פרוייקטים לפי נושאים</Text>
+        <Text style={globalStyles.stat_det}>{projectsCount}</Text>
+        <Text style={globalStyles.stat_txt}>פרויקטים באוויר</Text>
+        <Text style={globalStyles.stat_hedaers}>
+          התפלגות פרוייקטים לפי נושאים
+        </Text>
         <BarChart
           data={projectsData}
           width={Dimensions.get("window").width * 0.95}
           height={350}
           fromZero={true}
           chartConfig={{
-            padding: 0, 
+            padding: 0,
             backgroundGradientFrom: "#F7F7F7",
             backgroundGradientTo: "#F7F7F7",
-            fillShadowGradient:'#4C91EB',
-            fillShadowGradientOpacity:1,
+            fillShadowGradient: "#4C91EB",
+            fillShadowGradientOpacity: 1,
             decimalPlaces: 0,
             color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
             labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
@@ -149,11 +148,11 @@ const StatisticsScreen = () => {
           }}
           style={{
             borderRadius: 16,
-            marginBottom:"12%",
+            marginBottom: "12%",
           }}
           verticalLabelRotation={37}
         />
-        <Text style = {globalStyles.stat_hedaers}>פילוח לפי שכונת מגורים</Text>
+        <Text style={globalStyles.stat_hedaers}>פילוח לפי שכונת מגורים</Text>
         <PieChart
           data={usersNeighborhoods}
           width={Dimensions.get("window").width}
@@ -164,17 +163,16 @@ const StatisticsScreen = () => {
             decimalPlaces: 0,
             color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
             labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            
           }}
           accessor={"population"}
           backgroundColor={"transparent"}
           style={{
             padding: 10,
             fontWeight: "bold",
-            marginBottom:"12%",
+            marginBottom: "12%",
           }}
         />
-        <Text style = {globalStyles.stat_hedaers}>פילוח לפי כיתה</Text>
+        <Text style={globalStyles.stat_hedaers}>פילוח לפי כיתה</Text>
         <PieChart
           data={classList}
           width={Dimensions.get("window").width}
@@ -192,7 +190,7 @@ const StatisticsScreen = () => {
           style={{
             padding: 10,
             fontWeight: "bold",
-            marginBottom:"12%",
+            marginBottom: "12%",
           }}
         />
       </ScrollView>

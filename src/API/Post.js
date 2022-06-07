@@ -227,6 +227,14 @@ const Post = ({ post, navigation }) => {
               style={globalStyles.post_img}
               source={{ uri: images[0].url }}
             />
+            {images.length > 1 ? (
+              <View style={globalStyles.images_length_view}>
+                <Text style={globalStyles.images_length_txt}>
+                  1/{images.length}
+                </Text>
+              </View>
+            ) : null
+            }
           </Pressable>
         )}
         {
