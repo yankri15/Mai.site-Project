@@ -81,7 +81,7 @@ const Job = ({ job, navigation }) => {
           />
           <TextInput
             style={globalStyles.msg_text}
-            placeholder="ספר/י על עצמך מעט ואל תשכח/י להוסיף אימייל שנוכל לחזור אליך במידת הצורך"
+            placeholder="ספר/י על עצמך מעט"
             value={msgBody}
             onChangeText={(text) => setMsgBody(text)}
           />
