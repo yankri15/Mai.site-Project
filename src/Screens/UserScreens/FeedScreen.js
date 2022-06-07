@@ -76,6 +76,7 @@ const FeedScreen = ({ navigation, route }) => {
               </Text>
             </Pressable>
           )}
+          showsHorizontalScrollIndicator={false}
           ListEmptyComponent={() => {
             return <Text style={globalStyles.be_first}>טוען מסננים</Text>;
           }}
