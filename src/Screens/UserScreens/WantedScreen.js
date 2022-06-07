@@ -1,19 +1,8 @@
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  Pressable,
-  FlatList,
-  SafeAreaView,
-  View,
-  Modal,
-  TextInput,
-  ScrollView,
-  Vibration,
-} from "react-native";
+import { Text, Pressable, FlatList, SafeAreaView, View, Modal, TextInput, ScrollView, Vibration, } from "react-native";
 import ProfilePic from "../../API/ProfilePic";
 import Job from "../../API/Job";
 import { globalStyles } from "../../styles/global";
-
 import { useData } from "../../AuthProvider/UserDataProvider";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 
@@ -27,7 +16,7 @@ const WantedScreen = ({ navigation }) => {
   useEffect(() => {
     getJobs();
 
-    return () => {};
+    return () => { };
   }, []);
 
   const handleSubmit = async () => {
@@ -90,9 +79,7 @@ const WantedScreen = ({ navigation }) => {
           ListEmptyComponent={() => {
             return (
               <View>
-                <Text style={globalStyles.be_first}>
-                  נראה שאין דרושים כרגע..
-                </Text>
+                <Text style={globalStyles.be_first}>נראה שאין דרושים כרגע..</Text>
               </View>
             );
           }}

@@ -1,12 +1,4 @@
-import {
-  Text,
-  Pressable,
-  FlatList,
-  SafeAreaView,
-  View,
-  Vibration,
-  Modal,
-} from "react-native";
+import { Text, Pressable, FlatList, SafeAreaView, View, Vibration, Modal, } from "react-native";
 import { globalStyles } from "../../styles/global";
 import React, { useState, useEffect } from "react";
 import { db, storage } from "../../../firebase";

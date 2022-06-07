@@ -807,7 +807,7 @@ export const globalStyles = StyleSheet.create({
     marginBottom: "10%",
   },
   delete_dots_btn: {
-    width: 40,
+    width: 50,
   },
   delete_dots_text: {
     color: "red",
@@ -839,7 +839,7 @@ export const globalStyles = StyleSheet.create({
     marginLeft: "7%",
     marginRight: "7%",
     marginBottom: "5%",
-    padding: "2%",
+    padding: "3.5%",
     borderColor: "black",
     borderWidth: 3,
     borderRadius: 4,
