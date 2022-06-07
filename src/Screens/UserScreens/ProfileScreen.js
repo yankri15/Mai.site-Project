@@ -5,11 +5,13 @@ import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { FlatList, ImageBackground, Image, Modal, Pressable, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import Position from "react-native/Libraries/Components/Touchable/Position";
 import { db } from "../../../firebase";
 import Job from "../../API/Job";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import { useData } from "../../AuthProvider/UserDataProvider";
 import { globalStyles } from "../../styles/global";
+import ImageViewer from "react-native-image-zoom-viewer";
 const defaultImage = require("../../../assets/default_profile_pic.jpg");
 
 const ProfileScreen = ({ route, navigation }) => {
@@ -26,6 +28,7 @@ const ProfileScreen = ({ route, navigation }) => {
   const [birthDate, setBirthDate] = useState("");
   const [profilePicUri, setProfilePicUri] = useState("");
   const [showModalCP, setShowModalCP] = useState(false);
+  const [DisplayImages, setDisplayImages] = useState(false);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
 
@@ -114,6 +117,19 @@ const ProfileScreen = ({ route, navigation }) => {
         }}
       >
         <View style={globalStyles.modalView}>
+        <Pressable
+            style={[globalStyles.take_a_pic_btn, { width: "50%", height: "8%", marginBottom: "4%" }]}
+            title="showPic"
+            onPress={() => {
+              setDisplayImages(!DisplayImages);
+            }}
+            disabled={loading}
+          >
+            <Text style={[globalStyles.take_a_pic_btn_text, { fontSize: 20 }]}>
+             הראה תמונה{" "}
+            </Text>
+            
+          </Pressable>
           <Pressable
             style={[globalStyles.take_a_pic_btn, { width: "50%", height: "8%", marginBottom: "4%" }]}
             title="pickImage"
@@ -144,6 +160,7 @@ const ProfileScreen = ({ route, navigation }) => {
               size={22}
             ></Ionicons>
           </Pressable>
+          
           <Pressable
             style={[globalStyles.take_a_pic_btn, { width: "50%", height: "8%", backgroundColor: '#fdc123' }]}
             title="dicard"
@@ -158,7 +175,14 @@ const ProfileScreen = ({ route, navigation }) => {
           </Pressable>
         </View>
       </Modal>
-
+      <Modal
+            visible={DisplayImages}
+            onRequestClose={() => {
+              setDisplayImages(!DisplayImages);
+            }}
+          >
+            <ImageViewer imageUrls={[{url:profilePicUri}]} />
+          </Modal>
       {currentUser.uid == id ? (
         <Pressable
           style={globalStyles.profile_edit_btn}
@@ -174,28 +198,29 @@ const ProfileScreen = ({ route, navigation }) => {
       ) : null}
       <View style={globalStyles.stage1}>
         <View style={globalStyles.picAndDetails}>
-          {currentUser.uid == id ? (
-            <View style={globalStyles.edit_pic_view}>
+        
+            
               <Pressable
                 title="editPic"
                 onPress={() => {
-                  setShowModalCP(!showModalCP);
+                  currentUser.uid == id ?
+                  setShowModalCP(!showModalCP): setDisplayImages(!DisplayImages);
                 }}
               >
-                <View style={globalStyles.edit_pic}>
-                  <FontAwesome5 name="camera" size={20} style={{ color: "black" }}></FontAwesome5>
-                </View>
-              </Pressable>
-            </View>
-          ) : null}
-          <View style={globalStyles.profile_pic}>
+                <View style={globalStyles.profile_pic}>
             <ImageBackground
               source={profilePicUri ? { uri: profilePicUri } : defaultImage}
               style={globalStyles.logo_image_area}
               resizeMode="contain"
             >
+              
             </ImageBackground>
+            
           </View>
+              </Pressable>
+            
+         
+          
           <View>
             <Text style={globalStyles.profile_details}>
               {name} {", "} {calculate_age(birthDate)} {", "} {neighborhood}
