@@ -15,12 +15,16 @@ const GuestHomeScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={globalStyles.settingsContainer}>
-      <View>
+      <View style={{ alignItems: 'center' }}>
         <Text style={[globalStyles.landing_title_text]}>
           שלום {userStatus === 1 ? name.split(" ")[0] : "אורח"}
         </Text>
         {userStatus === 1 ? (
-          <Text style={{ alignSelf: "center" }}>אתה ממתין לאישור</Text>
+          <View style={globalStyles.approval_waiting_view}>
+            <Text style={globalStyles.approval_waiting}>
+              אנו מבצעים כעת בדיקת מערכת,{"\n"} עליך להמתין עד לקבלת אישור.{"\n"} ניצור איתך קשר בהקדם,{"\n"} תודה על הסבלנות.
+            </Text>
+          </View>
         ) : null}
       </View>
 

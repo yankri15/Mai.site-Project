@@ -42,7 +42,7 @@ export const globalStyles = StyleSheet.create({
     margin: 25,
   },
   landing_title_text: {
-    color: "#faba11",
+    color: "#FFD260",
     fontSize: 50,
     fontWeight: "bold",
   },
@@ -79,6 +79,21 @@ export const globalStyles = StyleSheet.create({
     color: "#000000",
     fontSize: 15,
     fontWeight: "bold",
+  },
+  approval_waiting_view: {
+    margin: '5%',
+    borderWidth: 2,
+    borderColor: '#FFD260',
+    borderRadius: 20,
+    backgroundColor: '#ffceee',
+  },
+  approval_waiting: {
+    textAlign: 'center',
+    alignSelf: "center",
+    fontWeight: 'bold',
+    fontSize: 16,
+    color: 'black',
+    margin: '5%',
   },
   ////////////////////////////////////////////////
   enter_button: {
@@ -496,6 +511,22 @@ export const globalStyles = StyleSheet.create({
     paddingBottom: "2%",
     resizeMode: "stretch",
     resizeMode: "contain",
+  },
+  images_length_view: {
+    position: 'absolute',
+    top: '4%',
+    right: '3%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'black',
+    width: 30,
+    height: 30,
+    borderRadius: 60,
+  },
+  images_length_txt: {
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold', 
   },
   edit_post: {
     color: "#C8C8C8",
