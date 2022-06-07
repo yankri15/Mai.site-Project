@@ -1,22 +1,9 @@
-import {
-  EvilIcons,
-  Ionicons,
-  MaterialCommunityIcons,
-  MaterialIcons,
-  SimpleLineIcons,
-} from "@expo/vector-icons";
+import { EvilIcons, Ionicons, MaterialCommunityIcons, MaterialIcons, SimpleLineIcons, } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import {
-  FlatList,
-  ImageBackground,
-  Modal,
-  Pressable,
-  Text,
-  View,
-} from "react-native";
+import { FlatList, ImageBackground, Modal, Pressable, Text, View, } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { db } from "../../../firebase";
 import Job from "../../API/Job";
@@ -134,8 +121,13 @@ const ProfileScreen = ({ route, navigation }) => {
             disabled={loading}
           >
             <Text style={[globalStyles.take_a_pic_btn_text, { fontSize: 20 }]}>
-              הראה תמונה{" "}
+              לצפייה בתמונה{" "}
             </Text>
+            <Ionicons
+              style={{ color: "#fdc123" }}
+              name="eye-outline"
+              size={22}
+            ></Ionicons>
           </Pressable>
           <Pressable
             style={[
@@ -147,7 +139,7 @@ const ProfileScreen = ({ route, navigation }) => {
             disabled={loading}
           >
             <Text style={[globalStyles.take_a_pic_btn_text, { fontSize: 20 }]}>
-              העלה תמונה{" "}
+              להעלאת תמונה{" "}
             </Text>
             <MaterialIcons
               style={{ color: "#fdc123" }}
