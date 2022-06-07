@@ -220,7 +220,7 @@ const Post = ({ post, navigation }) => {
         {images.length !== 0 && (
           <Pressable
             onPress={() => {
-              images.length > 1 ? setDisplayImages(!displayImages) : null;
+              images.length > 0 ? setDisplayImages(!displayImages) : null;
             }}
           >
             <Image
