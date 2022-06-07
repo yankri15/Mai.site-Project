@@ -36,6 +36,7 @@ const UserDataProvider = ({ children }) => {
   const [tagsList, setTagsList] = useState([]);
   const [project, setProject] = useState([]);
   const [markers, setMarkers] = useState([]);
+  const [image, setImage] = useState("");
 
   //Add user to db with email and status
   const setUserToDB = async (uid, email) => {
@@ -72,7 +73,7 @@ const UserDataProvider = ({ children }) => {
       organiztion,
       "status",
       1,
-      "pic",
+      "profilePic",
       uri
     ).then(() => {
       setUserStatus(1);
@@ -88,9 +89,9 @@ const UserDataProvider = ({ children }) => {
     organiztion,
     uri
   ) => {
-    const docRef = doc(db, "users", uid);
-    const docSnap = await getDoc(docRef);
-    const userData = docSnap.data();
+    // const docRef = doc(db, "users", uid);
+    // const docSnap = await getDoc(docRef);
+    // const userData = docSnap.data();
 
     await updateDoc(
       doc(db, "users", uid),
@@ -104,7 +105,7 @@ const UserDataProvider = ({ children }) => {
       neighborhood,
       "organiztion",
       organiztion,
-      "pic",
+      "profilePic",
       uri
     ).then(() => {
       console.log("details updated");
@@ -119,6 +120,7 @@ const UserDataProvider = ({ children }) => {
     const imgRef = ref(storage, path);
     await getDownloadURL(imgRef).then(async (img) => {
       await updateDoc(doc(db, "users", currentUser.uid), "profilePic", img);
+      setImage(img);
     });
   };
 
@@ -328,22 +330,23 @@ const UserDataProvider = ({ children }) => {
     return temp.id;
   };
 
-  const uploadImg = async (path, image) => {
+  const uploadImg = async (path, uri) => {
     const docRef = ref(storage, path);
-    const img = await fetch(image);
+    const img = await fetch(uri);
     const bytes = await img.blob();
     await uploadBytes(docRef, bytes);
   };
 
   useEffect(() => {
-    const getStatus = async () => {
+    const getData = async () => {
       if (currentUser) {
         const docRef = doc(db, "users", currentUser.uid);
         const docSnap = await getDoc(docRef);
         setUserStatus(docSnap.data().status);
+        setImage(docSnap.data().profilePic);
       }
     };
-    getStatus().catch(console.error);
+    getData().catch(console.error);
     return;
   }, [currentUser]);
 
@@ -359,6 +362,7 @@ const UserDataProvider = ({ children }) => {
     deleteSelf,
     deleteProject,
     deleteJob,
+    image,
     jobs,
     myJobs,
     usersList,

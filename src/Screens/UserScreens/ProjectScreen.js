@@ -9,7 +9,6 @@ import { useData } from "../../AuthProvider/UserDataProvider";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import { Entypo } from "@expo/vector-icons";
 import BasicPostDisplay from "../../API/BasicPostDisplay";
-import { MenuProvider } from "react-native-popup-menu";
 import {
   Menu,
   MenuOptions,
@@ -67,7 +66,7 @@ const ProjectScreen = ({ route, navigation }) => {
           style={{
             position: "absolute",
             right: "2%",
-            top: '1%',
+            top: "1%",
           }}
         >
           <MenuTrigger>
@@ -131,13 +130,15 @@ const ProjectScreen = ({ route, navigation }) => {
         <View style={globalStyles.profile_line}></View>
         {projectPosts.map((post, index) => {
           return (
-            <View>
-            <BasicPostDisplay
-              post={post}
-              navigation={navigation}
-              key={index}  
-            ></BasicPostDisplay>
-            <View style={[globalStyles.profile_line, {borderWidth: 5}]}></View>
+            <View key={index}>
+              <BasicPostDisplay
+                post={post}
+                navigation={navigation}
+                key={index}
+              ></BasicPostDisplay>
+              <View
+                style={[globalStyles.profile_line, { borderWidth: 5 }]}
+              ></View>
             </View>
           );
         })}

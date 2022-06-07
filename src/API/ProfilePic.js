@@ -8,30 +8,11 @@ import {
 } from "react-native";
 import { globalStyles } from "../styles/global";
 import { Ionicons } from "@expo/vector-icons";
-import { useAuth } from "../AuthProvider/AuthProvider";
-import { db, storage } from "../../firebase";
-import { doc, getDoc } from "firebase/firestore";
-import { getDownloadURL, ref } from "firebase/storage";
+import { useData } from "../AuthProvider/UserDataProvider";
 
 const ProfilePic = ({ navigation }) => {
-  const { currentUser } = useAuth();
-  const [image, setImage] = useState(null);
+  const { image } = useData();
   const defaultImage = require("../../assets/default_profile_pic.jpg");
-
-  useEffect(() => {
-    const getUserData = async () => {
-      const docRef = doc(db, "users", currentUser.uid);
-      const docSnap = await getDoc(docRef);
-      const userData = docSnap.data();
-      if (userData.pic !== "") {
-        const imgRef = ref(storage, userData.pic);
-        await getDownloadURL(imgRef).then((img) => {
-          setImage(img);
-        });
-      }
-    };
-    getUserData();
-  }, []);
 
   return (
     <SafeAreaView style={globalStyles.hamburger_profile_pic}>

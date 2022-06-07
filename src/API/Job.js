@@ -37,7 +37,7 @@ const Job = ({ job, profileScreen }) => {
         body: msgBody,
       }).catch(console.error);
     } catch (err) {
-      console.error;
+      console.log(err);
     }
     setContactModalVisible(!contactModalVisible);
   }
