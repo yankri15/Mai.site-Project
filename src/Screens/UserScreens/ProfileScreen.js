@@ -1,9 +1,24 @@
-import { EvilIcons, Ionicons, MaterialCommunityIcons, MaterialIcons, SimpleLineIcons, FontAwesome5 } from "@expo/vector-icons";
+import {
+  EvilIcons,
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+  SimpleLineIcons,
+  FontAwesome5,
+} from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { FlatList, ImageBackground, Image, Modal, Pressable, Text, View } from "react-native";
+import {
+  FlatList,
+  ImageBackground,
+  Image,
+  Modal,
+  Pressable,
+  Text,
+  View,
+} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { db } from "../../../firebase";
 import Job from "../../API/Job";
@@ -115,7 +130,10 @@ const ProfileScreen = ({ route, navigation }) => {
       >
         <View style={globalStyles.modalView}>
           <Pressable
-            style={[globalStyles.take_a_pic_btn, { width: "50%", height: "8%", marginBottom: "4%" }]}
+            style={[
+              globalStyles.take_a_pic_btn,
+              { width: "50%", height: "8%", marginBottom: "4%" },
+            ]}
             title="pickImage"
             onPress={pickImage}
             disabled={loading}
@@ -130,7 +148,10 @@ const ProfileScreen = ({ route, navigation }) => {
             ></MaterialIcons>
           </Pressable>
           <Pressable
-            style={[globalStyles.take_a_pic_btn, { width: "50%", height: "8%", marginBottom: "4%" }]}
+            style={[
+              globalStyles.take_a_pic_btn,
+              { width: "50%", height: "8%", marginBottom: "4%" },
+            ]}
             title="pickImageFromCamera"
             onPress={pickImageFromCamera}
             disabled={loading}
@@ -145,14 +166,22 @@ const ProfileScreen = ({ route, navigation }) => {
             ></Ionicons>
           </Pressable>
           <Pressable
-            style={[globalStyles.take_a_pic_btn, { width: "50%", height: "8%", backgroundColor: '#fdc123' }]}
+            style={[
+              globalStyles.take_a_pic_btn,
+              { width: "50%", height: "8%", backgroundColor: "#fdc123" },
+            ]}
             title="dicard"
             onPress={() => {
               setShowModalCP(!showModalCP);
             }}
             disabled={loading}
           >
-            <Text style={[globalStyles.take_a_pic_btn_text, { fontSize: 20, color: 'black' }]}>
+            <Text
+              style={[
+                globalStyles.take_a_pic_btn_text,
+                { fontSize: 20, color: "black" },
+              ]}
+            >
               ביטול{" "}
             </Text>
           </Pressable>
@@ -168,7 +197,11 @@ const ProfileScreen = ({ route, navigation }) => {
           }}
         >
           <Text style={globalStyles.profile_edit_btn_text}>
-            <EvilIcons name="pencil" size={35} style={{ color: "#b0b0b0" }}></EvilIcons>
+            <EvilIcons
+              name="pencil"
+              size={35}
+              style={{ color: "#b0b0b0" }}
+            ></EvilIcons>
           </Text>
         </Pressable>
       ) : null}
@@ -183,7 +216,11 @@ const ProfileScreen = ({ route, navigation }) => {
                 }}
               >
                 <View style={globalStyles.edit_pic}>
-                  <FontAwesome5 name="camera" size={20} style={{ color: "black" }}></FontAwesome5>
+                  <FontAwesome5
+                    name="camera"
+                    size={20}
+                    style={{ color: "black" }}
+                  ></FontAwesome5>
                 </View>
               </Pressable>
             </View>
@@ -193,8 +230,7 @@ const ProfileScreen = ({ route, navigation }) => {
               source={profilePicUri ? { uri: profilePicUri } : defaultImage}
               style={globalStyles.logo_image_area}
               resizeMode="contain"
-            >
-            </ImageBackground>
+            ></ImageBackground>
           </View>
           <View>
             <Text style={globalStyles.profile_details}>
@@ -257,7 +293,9 @@ const ProfileScreen = ({ route, navigation }) => {
           ListEmptyComponent={() => {
             return (
               <View>
-                <Text style={globalStyles.be_first}>נראה שאין מה להציג כרגע..</Text>
+                <Text style={globalStyles.be_first}>
+                  נראה שאין מה להציג כרגע..
+                </Text>
               </View>
             );
           }}
@@ -269,11 +307,13 @@ const ProfileScreen = ({ route, navigation }) => {
         <Text style={globalStyles.profile_title}>הדרושים שלי</Text>
         <FlatList
           data={myJobs}
-          renderItem={({ item }) => <Job job={item} />}
+          renderItem={({ item }) => <Job job={item} profileScreen={true} />}
           ListEmptyComponent={() => {
             return (
               <View>
-                <Text style={globalStyles.be_first}>נראה שאין דרושים כרגע..</Text>
+                <Text style={globalStyles.be_first}>
+                  נראה שאין דרושים כרגע..
+                </Text>
               </View>
             );
           }}
