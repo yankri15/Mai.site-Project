@@ -228,11 +228,11 @@ const CreateProjectScreen = ({ navigation }) => {
           multi={true}
           selectedItems={tags}
           onItemSelect={handleSelectTag}
-          containerStyle={{ paddingBottom: 10 }}
+          containerStyle={{ paddingBottom: '1.5%' }}
           onRemoveItem={handleUnselectTag}
           itemStyle={{
             padding: 10,
-            marginTop: 3,
+            marginTop: '1.5%',
             //fontSize: 50,
             //fontWidth: "bold",
             backgroundColor: "#C4A5F3",
@@ -250,7 +250,7 @@ const CreateProjectScreen = ({ navigation }) => {
             placeholder: "נושא/י הפרויקט",
             underlineColorAndroid: "transparent",
             style: {
-              padding: 12,
+              padding: '2%',
               fontSize: 17,
               borderWidth: 2,
               borderColor: "black",
