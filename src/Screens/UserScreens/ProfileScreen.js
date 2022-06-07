@@ -3,7 +3,7 @@ import { useIsFocused } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { FlatList, ImageBackground, Modal, Pressable, Text, View } from "react-native";
+import { FlatList, ImageBackground, Image, Modal, Pressable, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { db } from "../../../firebase";
 import Job from "../../API/Job";

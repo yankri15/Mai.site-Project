@@ -25,7 +25,12 @@
         "backgroundColor": "#ffc823"
       },
       "package": "com.navonsahalo.MaiApp",
-      "permissions":["ACCESS_FINE_LOCATION","ACCESS_COARSE_LOCATION"]
+      "permissions":["ACCESS_FINE_LOCATION","ACCESS_COARSE_LOCATION"],
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCdS7MdfAQedS2sUxNeAWGsPJ44Obqyb8g"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

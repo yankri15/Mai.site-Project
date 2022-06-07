@@ -1,23 +1,22 @@
 import React, { useState } from "react";
-import {
-  Text,
-  Pressable,
-  Modal,
-  View,
-  TextInput,
-  Alert,
-  Vibration,
-} from "react-native";
+import { Text, Pressable, Modal, View, TextInput, Alert, Vibration, } from "react-native";
 import { globalStyles } from "../styles/global";
 import email from "react-native-email";
 import { db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
+import { Menu, MenuOptions, MenuTrigger, renderers } from "react-native-popup-menu";
+import { useAuth } from "../AuthProvider/AuthProvider";
+import { useData } from "../AuthProvider/UserDataProvider";
+import { Entypo } from "@expo/vector-icons";
 
 const Job = ({ job, navigation }) => {
   const [contactModalVisible, setContactModalVisible] = useState(false);
   const [msgBody, setMsgBody] = useState("");
   const [jobTitle, setJobTitle] = useState(job.data.jobTitle);
   const [uidEmail, setUidEmail] = useState("");
+  const { Popover } = renderers;
+  const { currentUser } = useAuth();
+  const { deleteJob } = useData();
 
   const getUidEmail = async (uid) => {
     const docRef = doc(db, "users", uid);
@@ -45,14 +44,14 @@ const Job = ({ job, navigation }) => {
     Alert.alert(
       "פרטי התפקיד",
       "שם הפרויקט: " +
-        job.data.projectName +
-        "\n" +
-        "שם התפקיד: " +
-        jobTitle +
-        "\n" +
-        "תאור התפקיד: " +
-        job.data.jobDescription +
-        "\n",
+      job.data.projectName +
+      "\n" +
+      "שם התפקיד: " +
+      jobTitle +
+      "\n" +
+      "תאור התפקיד: " +
+      job.data.jobDescription +
+      "\n",
       [
         {
           text: "Ok",
@@ -91,7 +90,7 @@ const Job = ({ job, navigation }) => {
             title="send"
             onPress={() => {
               handleMsg();
-              Vibration.vibrate(15);
+              //Vibration.vibrate(15);
             }}
           >
             <Text style={globalStyles.settingsBtnText}>שלח!</Text>
@@ -99,6 +98,36 @@ const Job = ({ job, navigation }) => {
         </View>
       </Modal>
       <View style={globalStyles.wanted_list_item}>
+        <Menu
+          renderer={Popover}
+          rendererProps={{ preferredPlacement: "right" }}
+          style={globalStyles.dots}
+        >
+          <MenuTrigger>
+            {job.data.uid == currentUser.uid ? (
+              <Entypo name="dots-three-horizontal" size={22}></Entypo>
+            ) : null}
+          </MenuTrigger>
+          <MenuOptions style={globalStyles.delete_dots_btn}>
+            <Pressable
+              onPress={() => {
+                Alert.alert(
+                  "האם אתה בטוח?",
+                  "",
+                  [
+                    {
+                      text: "מחק אותי",
+                      //onPress: () => deleteJob(job.id),
+                    },
+                  ],
+                  { cancelable: true }
+                );
+              }}
+            >
+              <Text style={globalStyles.delete_dots_text}>מחק</Text>
+            </Pressable>
+          </MenuOptions>
+        </Menu>
         <Text style={globalStyles.wanted_text}>דרוש/ה</Text>
         <Text style={globalStyles.wanted_text}>{job.data.jobTitle}</Text>
         <View style={globalStyles.wanted_btns}>
@@ -106,7 +135,7 @@ const Job = ({ job, navigation }) => {
             style={globalStyles.wanted_text_title}
             onPress={() => {
               showAlert();
-              Vibration.vibrate(15);
+              //Vibration.vibrate(15);
             }}
           >
             <Text style={globalStyles.wanted_details_text_info}>
@@ -118,7 +147,7 @@ const Job = ({ job, navigation }) => {
             onPress={() => {
               setContactModalVisible(!contactModalVisible);
               getUidEmail(job.data.uid);
-              Vibration.vibrate(15);
+              //Vibration.vibrate(15);
             }}
           >
             <Text style={globalStyles.wanted_details_text}>השאירו פרטים</Text>
