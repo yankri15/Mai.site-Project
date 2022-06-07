@@ -33,7 +33,7 @@ const MapScreen = () => {
     });
     setModalVisible(true);
   };
-  
+
 
   useEffect(() => {
     getMarkers().then(() => {
@@ -66,7 +66,7 @@ const MapScreen = () => {
       />
     );
   }
-  
+
   return (
     <SafeAreaView style={globalStyles.mapScreenContainer}>
       <MapView style={globalStyles.map} region={mapRegion} provider={null}>
@@ -101,12 +101,17 @@ const MapScreen = () => {
           setModalVisible(!modalVisible);
         }}
       >
-        <FlatList contentContainerStyle = {{alignItems: 'center', marginTop:"4%"}}
+        {/* <Text>הפרוייקטים ב{marker.title}</Text> */}
+        <FlatList contentContainerStyle={{ marginTop: "5%" }}
           data={currentProjects}
-          
+
           renderItem={({ item }) => {
-            
-            return <View ><Text style = {{fontSize:20, marginBottom:"8%", fontWeight: "bold"}}>{item.name}</Text></View>;
+
+            return (
+              <View style={globalStyles.forums_titles}>
+                <Text style={globalStyles.forums_titles_txt}>{item.name}</Text>
+              </View>
+            );
           }}
           ListEmptyComponent={() => {
             return (
