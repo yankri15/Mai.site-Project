@@ -16,7 +16,7 @@ export const globalStyles = StyleSheet.create({
     color: "#000000",
     width: "85%",
     padding: 5,
-    paddingRight: '2%',
+    paddingRight: "2%",
     fontSize: 17,
     borderWidth: 2,
     marginBottom: "2%",
@@ -234,18 +234,17 @@ export const globalStyles = StyleSheet.create({
     marginBottom: "3%",
   },
   edit_pic_view: {
-
-    width: '10%',
-    position: 'absolute',
-    top: '70%',
-    left: '7%',
+    width: "10%",
+    position: "absolute",
+    top: "70%",
+    left: "7%",
   },
   edit_pic: {
-    backgroundColor: '#d8d8d8',
+    backgroundColor: "#d8d8d8",
     borderRadius: 100,
     height: 35,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   profile_title: {
     textAlign: "center",
@@ -610,9 +609,9 @@ export const globalStyles = StyleSheet.create({
     marginBottom: "1%",
   },
   comment_like_info_view: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#bc99f0',
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#bc99f0",
     width: 20,
     height: 20,
     borderRadius: 100,
@@ -784,7 +783,7 @@ export const globalStyles = StyleSheet.create({
 
   modalView: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     backgroundColor: "#C4A5F3",
     alignItems: "center",
     shadowColor: "#000",
@@ -841,6 +840,7 @@ export const globalStyles = StyleSheet.create({
     flexDirection: "row",
     padding: "1%",
     marginBottom: "3%",
+    flex: 1,
   },
   wanted_list_item: {
     marginLeft: "7%",
@@ -939,10 +939,10 @@ export const globalStyles = StyleSheet.create({
     color: "#000000",
     width: "90%",
     padding: 5,
-    paddingRight: '2%',
+    paddingRight: "2%",
     fontSize: 17,
     borderWidth: 2,
-    marginBottom: '1.5%',
+    marginBottom: "1.5%",
     textAlign: "right",
     borderRadius: 5,
     backgroundColor: "#fffffa",
@@ -952,7 +952,7 @@ export const globalStyles = StyleSheet.create({
     color: "#000000",
     width: "90%",
     height: 200,
-    padding: '1.5%',
+    padding: "1.5%",
     paddingRight: 10,
     fontSize: 17,
     borderWidth: 2,
@@ -960,7 +960,7 @@ export const globalStyles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "#fffffa",
     textAlignVertical: "top",
-    marginBottom: '1%',
+    marginBottom: "1%",
   },
   choose_img_project: {
     width: "15%",
@@ -976,11 +976,11 @@ export const globalStyles = StyleSheet.create({
     backgroundColor: "#fffffa",
     borderColor: "black",
     borderRadius: 5,
-    padding: '0.5%',
+    padding: "0.5%",
     paddingRight: 10,
     fontSize: 17,
     borderWidth: 2,
-    marginBottom: '1%',
+    marginBottom: "1%",
     textAlign: "right",
   },
   /////////////Admin///////////////
@@ -1015,17 +1015,16 @@ export const globalStyles = StyleSheet.create({
     fontWeight: "bold",
     color: "#373F47",
   },
-  stat_txt:{
+  stat_txt: {
     marginBottom: "10%",
-    padding:0,
+    padding: 0,
     fontSize: 24,
     fontWeight: "bold",
     color: "#61676E",
   },
-  stat_hedaers:{
+  stat_hedaers: {
     fontSize: 20,
     fontWeight: "bold",
     color: "#61676E",
   },
-
 });
