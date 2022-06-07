@@ -103,7 +103,7 @@ const ProfileScreen = ({ route, navigation }) => {
     }
   };
   return (
-    <ScrollView /*style={globalStyles.global}*/>
+    <ScrollView style={globalStyles.global}>
       <Modal
         style={[globalStyles.modal, { margin: 0 }]}
         animationType={"slide"}
