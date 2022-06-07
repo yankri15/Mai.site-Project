@@ -130,9 +130,11 @@ const UserDataProvider = ({ children }) => {
   };
 
   const getName = async () => {
-    const docRef = doc(db, "users", currentUser.uid);
-    const docSnap = await getDoc(docRef);
-    setName(docSnap.data().name);
+    if (currentUser) {
+      const docRef = doc(db, "users", currentUser.uid);
+      const docSnap = await getDoc(docRef);
+      setName(docSnap.data().name);
+    }
   };
 
   const getUsersList = async () => {
@@ -184,9 +186,9 @@ const UserDataProvider = ({ children }) => {
       setPostsList((prev) => [...prev, { id: item.id, data: item.data() }]);
     });
 
-    return docSnap.docs.map(item => {
-      return { id: item.id, data: item.data() }
-    })
+    return docSnap.docs.map((item) => {
+      return { id: item.id, data: item.data() };
+    });
   };
 
   const getProjects = async (uid) => {
