@@ -4,7 +4,6 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
   SimpleLineIcons,
-  FontAwesome5,
 } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
@@ -13,14 +12,12 @@ import React, { useEffect, useState } from "react";
 import {
   FlatList,
   ImageBackground,
-  Image,
   Modal,
   Pressable,
   Text,
   View,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import Position from "react-native/Libraries/Components/Touchable/Position";
 import { db } from "../../../firebase";
 import Job from "../../API/Job";
 import { useAuth } from "../../AuthProvider/AuthProvider";
@@ -32,7 +29,15 @@ const defaultImage = require("../../../assets/default_profile_pic.jpg");
 const ProfileScreen = ({ route, navigation }) => {
   const uid = route.params ? route.params.uid : undefined;
   const { currentUser } = useAuth();
-  const { projects, getProjects, myJobs, getMyJobs } = useData();
+  const {
+    projects,
+    getProjects,
+    myJobs,
+    getMyJobs,
+    saveDownloadURL,
+    image,
+    uploadImg,
+  } = useData();
   const id = uid ? uid : currentUser.uid;
   const isFocused = useIsFocused();
   const [name, setName] = useState("");
@@ -45,7 +50,6 @@ const ProfileScreen = ({ route, navigation }) => {
   const [showModalCP, setShowModalCP] = useState(false);
   const [DisplayImages, setDisplayImages] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [image, setImage] = useState(null);
 
   useEffect(() => {
     const getStatus = async () => {
@@ -58,12 +62,6 @@ const ProfileScreen = ({ route, navigation }) => {
       setOrganiztion(userData.organiztion);
       setClasss(userData.classs);
       setBirthDate(userData.birthDate);
-      if (userData.pic !== "") {
-        setProfilePicUri(userData.profilePic);
-        // const imgRef = ref(storage, userData.pic);
-        // await getDownloadURL(imgRef).then((img) => {
-        // });
-      }
     };
 
     getStatus().catch(console.error);
@@ -94,29 +92,35 @@ const ProfileScreen = ({ route, navigation }) => {
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [1, 1],
       quality: 1,
     });
 
     if (!result.cancelled) {
-      setImage(result.uri);
-      setShowModalCP(!showModalCP);
+      const date = new Date().getTime();
+      const path = "/img/" + currentUser.uid + "/pofile/" + date + ".jpg";
+      uploadImg(path, result.uri)
+        .then(() => {
+          saveDownloadURL(path).then(() => {
+            setShowModalCP(!showModalCP);
+          });
+        })
+        .catch(console.error);
     }
   };
 
   const pickImageFromCamera = async () => {
     // No permissions request is necessary for launching the image camera
     let result = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [1, 1],
       quality: 1,
     });
 
     if (!result.cancelled) {
-      setImage(result.uri);
       setShowModalCP(!showModalCP);
     }
   };
@@ -132,8 +136,11 @@ const ProfileScreen = ({ route, navigation }) => {
         }}
       >
         <View style={globalStyles.modalView}>
-        <Pressable
-            style={[globalStyles.take_a_pic_btn, { width: "50%", height: "8%", marginBottom: "4%" }]}
+          <Pressable
+            style={[
+              globalStyles.take_a_pic_btn,
+              { width: "50%", height: "8%", marginBottom: "4%" },
+            ]}
             title="showPic"
             onPress={() => {
               setDisplayImages(!DisplayImages);
@@ -141,9 +148,8 @@ const ProfileScreen = ({ route, navigation }) => {
             disabled={loading}
           >
             <Text style={[globalStyles.take_a_pic_btn_text, { fontSize: 20 }]}>
-             הראה תמונה{" "}
+              הראה תמונה{" "}
             </Text>
-            
           </Pressable>
           <Pressable
             style={[
@@ -181,7 +187,7 @@ const ProfileScreen = ({ route, navigation }) => {
               size={22}
             ></Ionicons>
           </Pressable>
-          
+
           <Pressable
             style={[
               globalStyles.take_a_pic_btn,
@@ -205,13 +211,13 @@ const ProfileScreen = ({ route, navigation }) => {
         </View>
       </Modal>
       <Modal
-            visible={DisplayImages}
-            onRequestClose={() => {
-              setDisplayImages(!DisplayImages);
-            }}
-          >
-            <ImageViewer imageUrls={[{url:profilePicUri}]} />
-          </Modal>
+        visible={DisplayImages}
+        onRequestClose={() => {
+          setDisplayImages(!DisplayImages);
+        }}
+      >
+        <ImageViewer imageUrls={[{ url: image }]} />
+      </Modal>
       {currentUser.uid == id ? (
         <Pressable
           style={globalStyles.profile_edit_btn}
@@ -231,27 +237,23 @@ const ProfileScreen = ({ route, navigation }) => {
       ) : null}
       <View style={globalStyles.stage1}>
         <View style={globalStyles.picAndDetails}>
-        
-            
-              <Pressable
-                title="editPic"
-                onPress={() => {
-                  currentUser.uid == id ?
-                  setShowModalCP(!showModalCP): setDisplayImages(!DisplayImages);
-                }}
-              >
+          <Pressable
+            title="editPic"
+            onPress={() => {
+              currentUser.uid == id
+                ? setShowModalCP(!showModalCP)
+                : setDisplayImages(!DisplayImages);
+            }}
+          >
+            <View style={globalStyles.profile_pic}>
+              <ImageBackground
+                source={image ? { uri: image } : defaultImage}
+                style={globalStyles.logo_image_area}
+                resizeMode="contain"
+              ></ImageBackground>
+            </View>
+          </Pressable>
 
-                <View style={globalStyles.profile_pic}>
-            <ImageBackground
-              source={profilePicUri ? { uri: profilePicUri } : defaultImage}
-              style={globalStyles.logo_image_area}
-              resizeMode="contain"
-            ></ImageBackground>
-          </View>
-              </Pressable>
-            
-         
-          
           <View>
             <Text style={globalStyles.profile_details}>
               {name} {", "} {calculate_age(birthDate)} {", "} {neighborhood}

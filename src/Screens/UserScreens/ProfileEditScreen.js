@@ -13,15 +13,15 @@ import { useAuth } from "../../AuthProvider/AuthProvider";
 import { globalStyles } from "../../styles/global";
 import { useData } from "../../AuthProvider/UserDataProvider";
 import { doc, getDoc } from "firebase/firestore";
-import { ref, getDownloadURL } from "firebase/storage";
-import { db, storage } from "../../../firebase";
+import { db } from "../../../firebase";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 const EditProfileScreen = ({ navigation }) => {
   const { currentUser } = useAuth();
-  const { changeData, uploadImg, getNeighborhoods, saveDownloadURL } = useData();
-  const [image, setImage] = useState(null);
+  const { changeData, uploadImg, getNeighborhoods, saveDownloadURL, image } =
+    useData();
+  const [imageToBeSet, setImageImageToBeSet] = useState(null);
   const [name, setName] = useState("");
   const [school, setSchool] = useState("");
   const [classs, setClasss] = useState("");
@@ -43,12 +43,6 @@ const EditProfileScreen = ({ navigation }) => {
       setClasss(userData.class);
       setOrganiztion(userData.organiztion);
       getNeighborhoods().then((res) => setNeighborhoods(res));
-      if (userData.pic !== "") {
-        const imgRef = ref(storage, userData.pic);
-        await getDownloadURL(imgRef).then((img) => {
-          setImage(img);
-        });
-      }
     };
     getUserData();
   }, []);
@@ -64,26 +58,38 @@ const EditProfileScreen = ({ navigation }) => {
       setError("");
       setLoading(true);
       const uid = currentUser.uid;
-      let path = '';
-      if (image) {
+      let path = "";
+      if (imageToBeSet) {
         const date = new Date().getTime();
         path = "/img/" + currentUser.uid + "/pofile/" + date + ".jpg";
-        uploadImg(path, image).then(() => {
-          changeData(uid, name, school, classs, neighborhood, organiztion, path).then(() => {
+        uploadImg(path, imageToBeSet).then(() => {
+          changeData(
+            uid,
+            name,
+            school,
+            classs,
+            neighborhood,
+            organiztion,
+            path
+          ).then(() => {
             saveDownloadURL(path).then(() => {
               navigation.navigate("Profile");
-            })
+            });
           });
         });
-      }
-      else {
-        changeData(uid, name, school, classs, neighborhood, organiztion, path).then(() => {
+      } else {
+        changeData(
+          uid,
+          name,
+          school,
+          classs,
+          neighborhood,
+          organiztion,
+          path
+        ).then(() => {
           navigation.navigate("Profile");
         });
       }
-
-
-
     } catch (err) {
       setError("Failed to change details");
       console.log(error + ":\n " + err);
@@ -106,7 +112,7 @@ const EditProfileScreen = ({ navigation }) => {
     });
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      setImageImageToBeSet(result.uri);
     }
   };
 
