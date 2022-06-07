@@ -518,6 +518,13 @@ export const globalStyles = StyleSheet.create({
     color: "#a77ce8",
     padding: "2%",
   },
+  filter_btns: {
+    padding: 8,
+    margin: 7,
+    borderColor: "black",
+    borderWidth: 1,
+    borderRadius: 10,
+  },
   user_pic: {
     width: 40,
     height: 40,
