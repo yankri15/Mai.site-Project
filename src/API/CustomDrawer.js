@@ -9,32 +9,13 @@ import { useAuth } from "../AuthProvider/AuthProvider";
 import { View, Image, Text, TouchableOpacity } from "react-native";
 import { useData } from "../AuthProvider/UserDataProvider";
 import { globalStyles } from "../styles/global";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { db, storage } from "../../firebase";
-import { doc, getDoc } from "firebase/firestore";
-import { getDownloadURL, ref } from "firebase/storage";
+import { Ionicons } from "@expo/vector-icons";
 const defaultImage = require("../../assets/default_profile_pic.jpg");
 
 const CustomDrawer = (props) => {
   const { currentUser, logout } = useAuth();
   const [error, setError] = useState("");
-  const { name, getName } = useData();
-  const [image, setImage] = useState(null);
-
-  useEffect(() => {
-    const getUserData = async () => {
-      const docRef = doc(db, "users", currentUser.uid);
-      const docSnap = await getDoc(docRef);
-      const userData = docSnap.data();
-      if (userData.pic !== "") {
-        const imgRef = ref(storage, userData.pic);
-        await getDownloadURL(imgRef).then((img) => {
-          setImage(img);
-        });
-      }
-    };
-    getUserData();
-  }, []);
+  const { name, getName, image } = useData();
 
   async function handleLogout() {
     try {
