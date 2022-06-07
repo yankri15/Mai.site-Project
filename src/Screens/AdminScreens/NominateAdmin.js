@@ -71,7 +71,7 @@ const NominateAdmin = ({ navigation }) => {
                             <Pressable
                                 style={{ flexDirection: 'row', alignItems: 'center' }}
                                 onPress={() => {
-                                    navigation.navigate("Profile", {
+                                    navigation.navigate("פרופיל", {
                                         uid: item.id,
                                     });
                                 }}

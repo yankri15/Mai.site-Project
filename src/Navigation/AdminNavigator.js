@@ -13,7 +13,7 @@ const AdminNavigator = () => {
             <Stack.Screen name="Select" component={AdminSelectScreen} />
             <Stack.Screen name="Approv" component={ApproveUsers} />
             <Stack.Screen name="Nominate" component={NominateAdmin} />
-            <Stack.Screen name="Profile" component={ProfileScreen} />
+            <Stack.Screen name="פרופיל" component={ProfileScreen} />
             <Stack.Screen name="Project" component={ProjectScreen} />
         </Stack.Navigator>
     );

@@ -25,7 +25,7 @@ const ProfilePic = ({ navigation }) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={globalStyles.touchable_profile_pic}
-        onPress={() => navigation.navigate("Profile")}
+        onPress={() => navigation.navigate("פרופיל")}
       >
         <Image
           source={image ? { uri: image } : defaultImage}

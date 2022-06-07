@@ -14,7 +14,7 @@ const SettingNavigator = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Setting" component={SettingsScreen} />
       <Stack.Screen name="Contact" component={ContactScreen} />
-      <Stack.Screen name="ProfileEdit" component={ProfileEditScreen} />
+      <Stack.Screen name="עריכת פרופיל" component={ProfileEditScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
     </Stack.Navigator>
   );

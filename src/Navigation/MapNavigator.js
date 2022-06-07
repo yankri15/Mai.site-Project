@@ -25,7 +25,7 @@ const MapNavigator = ({ navigation }) => {
         }}
       />
       <Stack.Screen name="Feed" component={FeedScreen} />
-      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="פרופיל" component={ProfileScreen} />
       <Stack.Screen name="SearchResult" component={SearchResultScreen} />
       <Stack.Screen name="Settings" component={SettingsScreen} />
       <Stack.Screen name="Wanted" component={WantedScreen} />

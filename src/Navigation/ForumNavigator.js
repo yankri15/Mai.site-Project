@@ -21,7 +21,7 @@ const ForumNavigator = ({ navigation }) => {
       <Stack.Screen name="פורום" component={SubjectScreen} />
       <Stack.Screen name="אשכול" component={ThreadScreen} />
       <Stack.Screen name="יצירת נושא חדש" component={CreateThread} />
-      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="פרופיל" component={ProfileScreen} />
       <Stack.Screen name="Project" component={ProjectScreen} />
     </Stack.Navigator>
   );
