@@ -166,6 +166,10 @@ const UserDataProvider = ({ children }) => {
     await deleteDoc(doc(db, "posts", postId));
   };
 
+  const deleteJob = async (jobId) => {
+    await deleteDoc(doc(db, "jobs", jobId));
+  };
+
   const deleteProject = async (projectId) => {
     await deleteDoc(doc(db, "projects", projectId));
     const q = query(collection(db, "posts"), where("pid", "==", projectId));
@@ -352,6 +356,7 @@ const UserDataProvider = ({ children }) => {
     deletePost,
     deleteSelf,
     deleteProject,
+    deleteJob,
     jobs,
     myJobs,
     usersList,
