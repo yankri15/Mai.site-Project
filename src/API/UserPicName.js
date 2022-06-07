@@ -25,7 +25,7 @@ const UserPicName = ({ uid, navigation, posted }) => {
         <Pressable
           style={globalStyles.user_pic}
           onPress={() => {
-            navigation.navigate("Profile", {
+            navigation.navigate("פרופיל", {
               uid: uid,
             });
           }}
@@ -44,7 +44,7 @@ const UserPicName = ({ uid, navigation, posted }) => {
         <Pressable
           title="to_profile"
           onPress={() => {
-            navigation.navigate("Profile", {
+            navigation.navigate("פרופיל", {
               uid: uid,
             });
           }}

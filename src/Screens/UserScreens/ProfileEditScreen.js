@@ -73,7 +73,7 @@ const EditProfileScreen = ({ navigation }) => {
             path
           ).then(() => {
             saveDownloadURL(path).then(() => {
-              navigation.navigate("Profile");
+              navigation.navigate("פרופיל");
             });
           });
         });
@@ -87,7 +87,7 @@ const EditProfileScreen = ({ navigation }) => {
           organiztion,
           path
         ).then(() => {
-          navigation.navigate("Profile");
+          navigation.navigate("פרופיל");
         });
       }
     } catch (err) {

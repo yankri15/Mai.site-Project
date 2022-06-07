@@ -239,7 +239,7 @@ const SettingsScreen = ({ navigation }) => {
         style={globalStyles.settingsBtn}
         title="edit"
         onPress={() => {
-          navigation.navigate("ProfileEdit");
+          navigation.navigate("עריכת פרופיל");
         }}
       >
         <Text style={globalStyles.settingsBtnText}>עריכת פרופיל</Text>

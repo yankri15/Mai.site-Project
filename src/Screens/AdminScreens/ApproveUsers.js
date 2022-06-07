@@ -118,7 +118,7 @@ const ApproveUsers = ({ navigation }) => {
           >
             <Pressable
               onPress={() => {
-                navigation.navigate("Profile", {
+                navigation.navigate("פרופיל", {
                   uid: item.id,
                 });
               }}

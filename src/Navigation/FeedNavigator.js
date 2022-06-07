@@ -28,8 +28,8 @@ const FeedNavigator = ({ navigation }) => {
         }}
       />
       <UserStack.Screen name="Map" component={MapScreen} />
-      <UserStack.Screen name="Profile" component={ProfileScreen} />
-      <UserStack.Screen name="ProfileEdit" component={ProfileEditScreen} />
+      <UserStack.Screen name="פרופיל" component={ProfileScreen} />
+      <UserStack.Screen name="עריכת פרופיל" component={ProfileEditScreen} />
       <UserStack.Screen name="SearchResult" component={SearchResultScreen} />
       <UserStack.Screen name="Settings" component={SettingsScreen} />
       <UserStack.Screen name="Wanted" component={WantedScreen} />
