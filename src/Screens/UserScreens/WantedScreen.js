@@ -13,8 +13,21 @@ const WantedScreen = ({ navigation }) => {
   const [jobTitle, setJobTitle] = useState("");
   const [jobDescription, setJobDescription] = useState("");
   const [projectName, setDescription] = useState("");
+  const [refreshing, setRefreshing] = useState(true);
+  const handleRefresh = () => {
+    getJobs()
+      .then(() => {
+       
+        setRefreshing(false);
+      })
+      .catch(console.error);
+  };
+  
   useEffect(() => {
-    getJobs();
+    getJobs().then(() => {
+      setRefreshing(false);
+    })
+    .catch(console.error);
 
     return () => { };
   }, []);
@@ -69,13 +82,14 @@ const WantedScreen = ({ navigation }) => {
             </Pressable>
           </View>
         </Modal>
-        {/*If we put the Text header here the header will stay in place when we scroll*/}
+       
         <FlatList
-          //columnWrapperStyle={{ justifyContent: 'space-between' }}
+          
           data={jobs}
-          //numColumns={2}
+          
           renderItem={({ item }) => <Job job={item} />}
-          //columnWrapperStyle={{borderWidth: 2, borderColor: 'red'}}
+          refreshing={refreshing}
+          onRefresh={handleRefresh}
           ListEmptyComponent={() => {
             return (
               <View>

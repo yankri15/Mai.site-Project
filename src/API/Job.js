@@ -117,7 +117,7 @@ const Job = ({ job, navigation }) => {
                   [
                     {
                       text: "מחק אותי",
-                      //onPress: () => deleteJob(job.id),
+                      onPress: () => deleteJob(job.id),
                     },
                   ],
                   { cancelable: true }

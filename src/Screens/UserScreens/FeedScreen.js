@@ -53,10 +53,7 @@ const FeedScreen = ({ navigation, route }) => {
           horizontal={true}
           renderItem={({ item }) => (
             <Pressable
-              style={{
-                padding: 5,
-                margin: 5,
-              }}
+              style={[{...globalStyles.filter_btns}, {backgroundColor: selectedTags.includes(item.name) ? "#60b5ff" : "#C4A5F3"}]}
               onPress={() => {
                 handleSelectTag(item.name);
                 filterPosts();
@@ -64,7 +61,9 @@ const FeedScreen = ({ navigation, route }) => {
             >
               <Text
                 style={{
-                  color: selectedTags.includes(item.name) ? "green" : "black",
+                  color: selectedTags.includes(item.name) ? "white" : "black",
+                  fontWeight: 'bold',
+                  fontSize: 13
                 }}
               >
                 {item.name}
@@ -73,9 +72,7 @@ const FeedScreen = ({ navigation, route }) => {
           )}
           ListEmptyComponent={() => {
             return (
-              <View>
-                <Text style={globalStyles.be_first}>טוען מסננים</Text>
-              </View>
+              <Text style={globalStyles.be_first}>טוען מסננים</Text>
             );
           }}
           keyExtractor={(item, index) => index.toString()}
