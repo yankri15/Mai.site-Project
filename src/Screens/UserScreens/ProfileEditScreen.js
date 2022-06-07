@@ -116,20 +116,6 @@ const EditProfileScreen = ({ navigation }) => {
     }
   };
 
-  const pickImageFromCamera = async () => {
-    // No permissions request is necessary for launching the image camera
-    let result = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
-
-    if (!result.cancelled) {
-      setImage(result.uri);
-    }
-  };
-
   const renderNeighborhoods = () => {
     return neighborhoods.map((element, index) => {
       return <Picker.Item label={element} value={element} key={index} />;
@@ -151,28 +137,13 @@ const EditProfileScreen = ({ navigation }) => {
           onPress={pickImage}
           disabled={loading}
         >
-          <Text style={globalStyles.take_a_pic_btn_text}>תמונה מהגלריה </Text>
+          <Text style={globalStyles.take_a_pic_btn_text}>העלה תמונה </Text>
           <MaterialIcons
             style={{ color: "#fdc123" }}
             name="photo-library"
             size={20}
           ></MaterialIcons>
         </Pressable>
-        {/* <Button title="בחר/י תמונה מגלריה" onPress={pickImage} /> */}
-        <Pressable
-          style={globalStyles.take_a_pic_btn}
-          title="pickImageFromCamera"
-          onPress={pickImageFromCamera}
-          disabled={loading}
-        >
-          <Text style={globalStyles.take_a_pic_btn_text}>צלם/י תמונה </Text>
-          <Ionicons
-            style={{ color: "#fdc123" }}
-            name="camera-outline"
-            size={20}
-          ></Ionicons>
-        </Pressable>
-        {/* <Button title="צלם/י תמונה" onPress={pickImageFromCamera} /> */}
       </View>
       <TextInput
         style={globalStyles.textInput}
