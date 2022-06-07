@@ -16,7 +16,7 @@ export const globalStyles = StyleSheet.create({
     color: "#000000",
     width: "85%",
     padding: 5,
-    paddingRight: 10,
+    paddingRight: '2%',
     fontSize: 17,
     borderWidth: 2,
     marginBottom: "2%",
@@ -150,10 +150,11 @@ export const globalStyles = StyleSheet.create({
     fontSize: 10,
   },
   reg_choose: {
-    textAlign: "right",
-    width: "85%",
+    //textAlign: "right",
+    //justifyContent: 'flex-start',
+    //width: "80%",
     height: 28,
-    marginLeft: "-19%",
+    marginLeft: "-20%",
   },
   ////////////////////////////////////////////////
   draw_pic_name: {
@@ -233,17 +234,18 @@ export const globalStyles = StyleSheet.create({
     marginBottom: "3%",
   },
   edit_pic_view: {
+
     width: '10%',
-    position: "absolute",
+    position: 'absolute',
     top: '70%',
-    left: '6%',
+    left: '7%',
   },
   edit_pic: {
     backgroundColor: '#d8d8d8',
     borderRadius: 100,
     height: 35,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   profile_title: {
     textAlign: "center",
@@ -603,7 +605,7 @@ export const globalStyles = StyleSheet.create({
   comment_like_info_view: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'black',
+    backgroundColor: '#bc99f0',
     width: 20,
     height: 20,
     borderRadius: 100,
@@ -930,10 +932,10 @@ export const globalStyles = StyleSheet.create({
     color: "#000000",
     width: "90%",
     padding: 5,
-    paddingRight: 10,
+    paddingRight: '2%',
     fontSize: 17,
     borderWidth: 2,
-    marginBottom: 5,
+    marginBottom: '1.5%',
     textAlign: "right",
     borderRadius: 5,
     backgroundColor: "#fffffa",
@@ -943,7 +945,7 @@ export const globalStyles = StyleSheet.create({
     color: "#000000",
     width: "90%",
     height: 200,
-    padding: 5,
+    padding: '1.5%',
     paddingRight: 10,
     fontSize: 17,
     borderWidth: 2,
@@ -951,7 +953,7 @@ export const globalStyles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "#fffffa",
     textAlignVertical: "top",
-    marginBottom: 5,
+    marginBottom: '1%',
   },
   choose_img_project: {
     width: "15%",
@@ -967,11 +969,11 @@ export const globalStyles = StyleSheet.create({
     backgroundColor: "#fffffa",
     borderColor: "black",
     borderRadius: 5,
-    padding: 2,
+    padding: '0.5%',
     paddingRight: 10,
     fontSize: 17,
     borderWidth: 2,
-    marginBottom: 5,
+    marginBottom: '1%',
     textAlign: "right",
   },
   /////////////Admin///////////////
@@ -998,6 +1000,7 @@ export const globalStyles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
+  /////////////Statistic///////////////
   stat_det: {
     margin: 0,
     padding: 0,
