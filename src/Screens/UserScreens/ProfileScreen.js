@@ -46,7 +46,6 @@ const ProfileScreen = ({ route, navigation }) => {
   const [organiztion, setOrganiztion] = useState("");
   const [classs, setClasss] = useState("");
   const [birthDate, setBirthDate] = useState("");
-  const [profilePicUri, setProfilePicUri] = useState("");
   const [showModalCP, setShowModalCP] = useState(false);
   const [DisplayImages, setDisplayImages] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -111,21 +110,8 @@ const ProfileScreen = ({ route, navigation }) => {
     }
   };
 
-  const pickImageFromCamera = async () => {
-    // No permissions request is necessary for launching the image camera
-    let result = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
-
-    if (!result.cancelled) {
-      setShowModalCP(!showModalCP);
-    }
-  };
   return (
-    <ScrollView /*style={globalStyles.global}*/>
+    <ScrollView>
       <Modal
         style={[globalStyles.modal, { margin: 0 }]}
         animationType={"slide"}
@@ -161,31 +147,13 @@ const ProfileScreen = ({ route, navigation }) => {
             disabled={loading}
           >
             <Text style={[globalStyles.take_a_pic_btn_text, { fontSize: 20 }]}>
-              תמונה מהגלריה{" "}
+              העלה תמונה{" "}
             </Text>
             <MaterialIcons
               style={{ color: "#fdc123" }}
               name="photo-library"
               size={22}
             ></MaterialIcons>
-          </Pressable>
-          <Pressable
-            style={[
-              globalStyles.take_a_pic_btn,
-              { width: "50%", height: "8%", marginBottom: "4%" },
-            ]}
-            title="pickImageFromCamera"
-            onPress={pickImageFromCamera}
-            disabled={loading}
-          >
-            <Text style={[globalStyles.take_a_pic_btn_text, { fontSize: 20 }]}>
-              צלם/י תמונה{" "}
-            </Text>
-            <Ionicons
-              style={{ color: "#fdc123" }}
-              name="camera-outline"
-              size={22}
-            ></Ionicons>
           </Pressable>
 
           <Pressable
