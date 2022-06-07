@@ -46,11 +46,11 @@ const BasicPostDisplay = ({ post, navigation }) => {
       {images.length !== 0 && (
         <Pressable
           onPress={() => {
-            images.length > 1 ? setDisplayImages(!displayImages) : null;
+            images.length > 0 ? setDisplayImages(!displayImages) : null;
           }}
         >
           <Image
-            style={globalStyles.post_img}
+            style={[globalStyles.post_img, {marginBottom: '-2%'}]}
             source={{ uri: images[0].url }}
           />
         </Pressable>

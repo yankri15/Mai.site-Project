@@ -7,7 +7,9 @@ const GuestHomeScreen = ({ navigation }) => {
   const { userStatus, getName, name } = useData();
 
   useEffect(() => {
-    getName();
+    if (userStatus) {
+      getName();
+    }
     return;
   }, []);
 

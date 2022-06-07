@@ -1,22 +1,27 @@
 import React, { useState } from "react";
-import { Text, Pressable, Modal, View, TextInput, Alert, Vibration, } from "react-native";
+import { Text, Pressable, Modal, View, TextInput, Alert } from "react-native";
 import { globalStyles } from "../styles/global";
 import email from "react-native-email";
 import { db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { Menu, MenuOptions, MenuTrigger, renderers } from "react-native-popup-menu";
+import {
+  Menu,
+  MenuOptions,
+  MenuTrigger,
+  renderers,
+} from "react-native-popup-menu";
 import { useAuth } from "../AuthProvider/AuthProvider";
 import { useData } from "../AuthProvider/UserDataProvider";
 import { Entypo } from "@expo/vector-icons";
 
-const Job = ({ job, navigation }) => {
+const Job = ({ job, profileScreen }) => {
   const [contactModalVisible, setContactModalVisible] = useState(false);
   const [msgBody, setMsgBody] = useState("");
   const [jobTitle, setJobTitle] = useState(job.data.jobTitle);
   const [uidEmail, setUidEmail] = useState("");
   const { Popover } = renderers;
   const { currentUser } = useAuth();
-  const { deleteJob } = useData();
+  const { deleteJob, getJobs, getMyJobs } = useData();
 
   const getUidEmail = async (uid) => {
     const docRef = doc(db, "users", uid);
@@ -35,23 +40,20 @@ const Job = ({ job, navigation }) => {
       console.error;
     }
     setContactModalVisible(!contactModalVisible);
-    // getUidEmail(job.data.uid).then(() => {
-
-    // });
   }
 
   const showAlert = () =>
     Alert.alert(
       "פרטי התפקיד",
       "שם הפרויקט: " +
-      job.data.projectName +
-      "\n" +
-      "שם התפקיד: " +
-      jobTitle +
-      "\n" +
-      "תאור התפקיד: " +
-      job.data.jobDescription +
-      "\n",
+        job.data.projectName +
+        "\n" +
+        "שם התפקיד: " +
+        jobTitle +
+        "\n" +
+        "תאור התפקיד: " +
+        job.data.jobDescription +
+        "\n",
       [
         {
           text: "Ok",
@@ -81,7 +83,7 @@ const Job = ({ job, navigation }) => {
           />
           <TextInput
             style={globalStyles.msg_text}
-            placeholder="ספר/י על עצמך מעט ואל תשכח/י להוסיף אימייל שנוכל לחזור אליך במידת הצורך"
+            placeholder="ספר/י על עצמך מעט"
             value={msgBody}
             onChangeText={(text) => setMsgBody(text)}
           />
@@ -90,7 +92,6 @@ const Job = ({ job, navigation }) => {
             title="send"
             onPress={() => {
               handleMsg();
-              //Vibration.vibrate(15);
             }}
           >
             <Text style={globalStyles.settingsBtnText}>שלח!</Text>
@@ -117,7 +118,10 @@ const Job = ({ job, navigation }) => {
                   [
                     {
                       text: "מחק אותי",
-                      onPress: () => deleteJob(job.id),
+                      onPress: () =>
+                        deleteJob(job.id).then(() => {
+                          profileScreen ? getMyJobs(job.data.uid) : getJobs();
+                        }),
                     },
                   ],
                   { cancelable: true }
@@ -135,7 +139,6 @@ const Job = ({ job, navigation }) => {
             style={globalStyles.wanted_text_title}
             onPress={() => {
               showAlert();
-              //Vibration.vibrate(15);
             }}
           >
             <Text style={globalStyles.wanted_details_text_info}>
@@ -147,7 +150,6 @@ const Job = ({ job, navigation }) => {
             onPress={() => {
               setContactModalVisible(!contactModalVisible);
               getUidEmail(job.data.uid);
-              //Vibration.vibrate(15);
             }}
           >
             <Text style={globalStyles.wanted_details_text}>השאירו פרטים</Text>
