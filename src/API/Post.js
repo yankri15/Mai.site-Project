@@ -33,7 +33,7 @@ const Post = ({ post, navigation }) => {
   const [displayImages, setDisplayImages] = useState(false);
   const { Popover } = renderers;
   const { currentUser } = useAuth();
-  const { deletePost } = useData();
+  const { deletePost, admin } = useData();
 
   const getImages = async () => {
     setImages([]);
@@ -173,7 +173,7 @@ const Post = ({ post, navigation }) => {
           style={globalStyles.dots}
         >
           <MenuTrigger>
-            {post.data.uid == currentUser.uid ? (
+            {post.data.uid == currentUser.uid || admin == 1 ? (
               <Entypo name="dots-three-horizontal" size={20}></Entypo>
             ) : null}
           </MenuTrigger>

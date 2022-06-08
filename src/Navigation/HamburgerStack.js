@@ -11,11 +11,7 @@ import AdminNavigator from "./AdminNavigator";
 const Drawer = createDrawerNavigator();
 
 const HamburgerStack = () => {
-  const { admin, checkAdmin } = useData();
-
-  useEffect(() => {
-    checkAdmin();
-  }, []);
+  const { admin } = useData();
 
   return (
     <Drawer.Navigator

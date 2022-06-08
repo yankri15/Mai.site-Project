@@ -15,7 +15,7 @@ import { useData } from "../../../AuthProvider/UserDataProvider";
 import { globalStyles } from "../../../styles/global";
 const SubjectScreen = ({ route, navigation }) => {
   const { currentUser } = useAuth();
-  const { deleteThread } = useData();
+  const { deleteThread, admin } = useData();
   const [thread, setThread] = useState([]);
   const [refreshing, setRefreshing] = useState(true);
   const [threadLocation, setThreadLocation] = useState("");
@@ -82,7 +82,7 @@ const SubjectScreen = ({ route, navigation }) => {
                     style={globalStyles.dots}
                   >
                     <MenuTrigger>
-                      {item.uid == currentUser.uid ? (
+                      {item.uid == currentUser.uid || admin == 1 ? (
                         <Entypo name="dots-three-horizontal" size={20}></Entypo>
                       ) : null}
                     </MenuTrigger>
