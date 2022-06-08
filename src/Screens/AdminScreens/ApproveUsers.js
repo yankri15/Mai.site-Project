@@ -1,10 +1,15 @@
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { where, query, collection, getDocs } from "firebase/firestore";
+import { FlatList, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { db } from "../../../firebase";
-import { DataTable } from "react-native-paper";
-import { Pressable, View, FlatList, Text } from "react-native";
-import { doc, updateDoc } from "firebase/firestore";
 import { globalStyles } from "../../styles/global";
 
 const ApproveUsers = ({ navigation }) => {
@@ -12,7 +17,6 @@ const ApproveUsers = ({ navigation }) => {
   const [render, setRender] = useState(1);
   const [approved, setApproved] = useState({});
   const [declined, setDeclined] = useState({});
-
 
   //Gets the lists of users whith status 1 - pending
   useEffect(() => {
@@ -28,24 +32,24 @@ const ApproveUsers = ({ navigation }) => {
   //Set user status to 2 - Approved
   const approveUser = async (uid) => {
     await updateDoc(doc(db, "users", uid), "status", 2).then(() => {
-      setApproved(prev => {
+      setApproved((prev) => {
         let temp = {};
         temp[uid] = 2;
-        return { ...prev, ...temp }
+        return { ...prev, ...temp };
       });
-      setRender(prev => prev + 1);
+      setRender((prev) => prev + 1);
     });
   };
 
   //Set user status to -1 - blocked
   const declineUser = async (uid) => {
     await updateDoc(doc(db, "users", uid), "status", -1).then(() => {
-      setDeclined(prev => {
+      setDeclined((prev) => {
         let temp = {};
         temp[uid] = -1;
-        return { ...prev, ...temp }
+        return { ...prev, ...temp };
       });
-      setRender(prev => prev + 1);
+      setRender((prev) => prev + 1);
     });
   };
 
@@ -53,68 +57,117 @@ const ApproveUsers = ({ navigation }) => {
     if (render && !approved[item.id] && !declined[item.id]) {
       return (
         <View
-          style={{ flexDirection: 'row', width: '30%', justifyContent: 'space-between' }}
+          style={{
+            flexDirection: "row",
+            width: "30%",
+            justifyContent: "space-between",
+          }}
         >
           <Pressable
-            style={{ borderStyle: 'solid', borderWidth: 3, borderColor: 'green', borderRadius: 5 }}
+            style={{
+              borderStyle: "solid",
+              borderWidth: 3,
+              borderColor: "green",
+              borderRadius: 5,
+            }}
             onPress={() => {
               approveUser(item.id);
             }}
           >
             <Text
-              style={{ fontSize: 15, fontWeight: "bold", padding: 3, color: 'green' }}
-            >{"אשר"}</Text>
+              style={{
+                fontSize: 15,
+                fontWeight: "bold",
+                padding: 3,
+                color: "green",
+              }}
+            >
+              {"אשר"}
+            </Text>
           </Pressable>
           <Pressable
-            style={{ borderStyle: 'solid', borderWidth: 3, borderColor: 'red', borderRadius: 5 }}
+            style={{
+              borderStyle: "solid",
+              borderWidth: 3,
+              borderColor: "red",
+              borderRadius: 5,
+            }}
             onPress={() => {
               declineUser(item.id);
             }}
-
           >
             <Text
-              style={{ fontSize: 15, fontWeight: "bold", padding: 3, color: 'red' }}
-            >{"דחה"}</Text>
+              style={{
+                fontSize: 15,
+                fontWeight: "bold",
+                padding: 3,
+                color: "red",
+              }}
+            >
+              {"דחה"}
+            </Text>
           </Pressable>
         </View>
-      )
-    }
-    else if (approved[item.id]) {
+      );
+    } else if (approved[item.id]) {
       return (
-        <View
-          style={{ borderRadius: 5, backgroundColor: '#EAE7E6' }}
-        >
+        <View style={{ borderRadius: 5, backgroundColor: "#EAE7E6" }}>
           <Text
-            style={{ fontSize: 15, fontWeight: "bold", padding: 5, color: 'black' }}
-          >{"אושר"}</Text>
+            style={{
+              fontSize: 15,
+              fontWeight: "bold",
+              padding: 5,
+              color: "black",
+            }}
+          >
+            {"אושר"}
+          </Text>
         </View>
-      )
-    }
-    else {
+      );
+    } else {
       return (
-
-        <View
-          style={{ borderRadius: 5, backgroundColor: '#EAE7E6' }}
-        >
+        <View style={{ borderRadius: 5, backgroundColor: "#EAE7E6" }}>
           <Text
-            style={{ fontSize: 15, fontWeight: "bold", padding: 5, color: 'black' }}
-          >{"נדחה"}</Text>
+            style={{
+              fontSize: 15,
+              fontWeight: "bold",
+              padding: 5,
+              color: "black",
+            }}
+          >
+            {"נדחה"}
+          </Text>
         </View>
-      )
+      );
     }
-  }
+  };
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, alignItems: 'center', width: '100%', }}
-    >
-      <Text style={{ fontSize: 22, fontWeight: "bold", marginBottom: 5, marginTop: 5 }}>{"אשר משתמשים ממתינים"}</Text>
+    <SafeAreaView style={{ flex: 1, alignItems: "center", width: "100%" }}>
+      <Text
+        style={{
+          fontSize: 22,
+          fontWeight: "bold",
+          marginBottom: 5,
+          marginTop: 5,
+        }}
+      >
+        {"אשר משתמשים ממתינים"}
+      </Text>
       <FlatList
-        style={{ width: '100%', }}
+        style={{ width: "100%" }}
         data={snapshot}
         renderItem={({ item }) => (
           <View
-            style={{ alignSelf: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '85%', paddingBottom: 10, paddingTop: 10 }}
+            style={{
+              alignSelf: "center",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              width: "85%",
+              paddingBottom: 10,
+              paddingTop: 10,
+            }}
           >
             <Pressable
               onPress={() => {
@@ -123,9 +176,9 @@ const ApproveUsers = ({ navigation }) => {
                 });
               }}
             >
-              <Text
-                style={{ fontSize: 15, fontWeight: "bold" }}
-              >{item.data().name}</Text>
+              <Text style={{ fontSize: 15, fontWeight: "bold" }}>
+                {item.data().name}
+              </Text>
             </Pressable>
             {getBottuns(item)}
           </View>
@@ -138,13 +191,13 @@ const ApproveUsers = ({ navigation }) => {
           );
         }}
         ItemSeparatorComponent={() => {
-          return <View style={{ height: 1, backgroundColor: 'gray' }}></View>;
+          return <View style={{ height: 1, backgroundColor: "gray" }}></View>;
         }}
         keyExtractor={(item, index) => index.toString()}
       />
-      <View style={{ height: 1, backgroundColor: 'gray' }}></View>
-      {/* </DataTable> */}
-    </SafeAreaView >
+      <View style={{ height: 1, backgroundColor: "gray" }}></View>
+      
+    </SafeAreaView>
   );
 };
 
