@@ -133,7 +133,7 @@ const FeedScreen = ({ navigation, route }) => {
       <Pressable
         title="edit"
         onPress={() => {
-          navigation.navigate("CreateProject");
+          navigation.navigate("יצירת פרויקט חדש");
         }}
         style={globalStyles.plus_btn}
       >
