@@ -589,7 +589,6 @@ export const globalStyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginLeft: "4%",
-    marginRight: "0.5%",
   },
   info_like_comment: {
     flexDirection: "row",
@@ -727,7 +726,9 @@ export const globalStyles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     color: "#a77ce8",
+    padding: '3%',
     marginTop: "5%",
+    marginBottom: '3%',
   },
   tread_comments: {
     marginLeft: "2%",
