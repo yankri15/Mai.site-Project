@@ -1,7 +1,7 @@
-import { View, Text, Pressable, Image } from 'react-native'
-import React from 'react'
+import { Ionicons } from "@expo/vector-icons";
+import React from 'react';
+import { Pressable, Text, View } from 'react-native';
 import { globalStyles } from '../../styles/global';
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 const LandingScreen = ({ navigation }) => {
     return (

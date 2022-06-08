@@ -1,18 +1,13 @@
+import React, { useEffect, useState } from "react";
 import {
-  View,
-  Text,
-  TextInput,
-  Picker,
-  Pressable,
-  Image,
-  Alert,
+  Alert, Image, Picker,
+  Pressable, Text,
+  TextInput, View
 } from "react-native";
-import { globalStyles } from "../../styles/global";
-import React, { useState, useEffect } from "react";
+import DatePicker from "react-native-datepicker";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import { useData } from "../../AuthProvider/UserDataProvider";
-import DatePicker from "react-native-datepicker";
-import style from "react-native-datepicker/style";
+import { globalStyles } from "../../styles/global";
 
 const RegistrationDetailsScreen = () => {
   const { addDataToDB, getNeighborhoods } = useData();
@@ -93,7 +88,7 @@ const RegistrationDetailsScreen = () => {
       <TextInput
         style={globalStyles.textInput}
         placeholder="*שם + שם משפחה"
-        // placeholderTextColor="red" 
+       
         value={name}
         maxLength={20}
         onChangeText={(text) => setName(text)}

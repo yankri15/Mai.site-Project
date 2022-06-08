@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Text, TextInput, View, Pressable, Alert, Image } from "react-native";
-import { globalStyles } from "../../styles/global";
+import { Alert, Image, Pressable, Text, TextInput, View } from "react-native";
 import AuthProvider, { useAuth } from "../../AuthProvider/AuthProvider";
 import { useData } from "../../AuthProvider/UserDataProvider";
+import { globalStyles } from "../../styles/global";
 
 const RegisterScreen = ({ navigation }) => {
   const { signup } = useAuth();
@@ -14,7 +14,6 @@ const RegisterScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
 
 
-  //function deal with password, need to alert the user
   function confirm(password, ConfirmPassword) {
     if (password.length == 0 || ConfirmPassword.length == 0 || email.length == 0) {
       Alert.alert("אופסי..", "חובה למלא את כל השדות");

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Pressable, Alert, Image } from "react-native";
-import { globalStyles } from '../../styles/global';
+import { Alert, Image, Pressable, Text, TextInput, View } from "react-native";
 import { useAuth } from "../../AuthProvider/AuthProvider";
+import { globalStyles } from '../../styles/global';
 
 const ForgotPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
