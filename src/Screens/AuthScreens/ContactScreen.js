@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Pressable, TextInput } from "react-native";
+import { Pressable, Text, TextInput, View } from "react-native";
 import email from "react-native-email";
 import { globalStyles } from "../../styles/global";
 

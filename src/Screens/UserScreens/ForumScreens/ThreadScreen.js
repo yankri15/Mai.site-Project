@@ -1,28 +1,25 @@
+import { Feather } from "@expo/vector-icons";
 import {
-  View,
-  Text,
-  FlatList,
-  Pressable,
-  TextInput,
-  Vibration,
-  Keyboard,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import React, { useState, useEffect } from "react";
-import {
-  collection,
-  doc,
   addDoc,
+  collection,
   getDocs,
-  serverTimestamp,
-  query,
   orderBy,
+  query,
+  serverTimestamp,
 } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import {
+  FlatList,
+  Keyboard,
+  Pressable,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import { db } from "../../../../firebase";
 import { useAuth } from "../../../AuthProvider/AuthProvider";
 import { globalStyles } from "../../../styles/global";
 import Comment from "./Comment";
-import { Feather } from "@expo/vector-icons";
 
 const ThreadScreen = ({ route, navigation }) => {
   const [comments, setComments] = useState([]);

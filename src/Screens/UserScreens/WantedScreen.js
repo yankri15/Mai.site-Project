@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Text, Pressable, FlatList, SafeAreaView, View, Modal, TextInput, ScrollView, Vibration, } from "react-native";
-import ProfilePic from "../../API/ProfilePic";
+import React, { useEffect, useState } from "react";
+import { FlatList, Modal, Pressable, Text, TextInput, View } from "react-native";
 import Job from "../../API/Job";
-import { globalStyles } from "../../styles/global";
-import { useData } from "../../AuthProvider/UserDataProvider";
 import { useAuth } from "../../AuthProvider/AuthProvider";
+import { useData } from "../../AuthProvider/UserDataProvider";
+import { globalStyles } from "../../styles/global";
 
 const WantedScreen = ({ navigation }) => {
   const { currentUser } = useAuth();

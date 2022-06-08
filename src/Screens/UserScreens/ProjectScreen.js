@@ -1,20 +1,19 @@
-import { View, Text, Pressable, Alert } from "react-native";
-import React, { useEffect, useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { globalStyles } from "../../styles/global";
-import { ScrollView } from "react-native-gesture-handler";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../../firebase";
-import { useData } from "../../AuthProvider/UserDataProvider";
-import { useAuth } from "../../AuthProvider/AuthProvider";
 import { Entypo } from "@expo/vector-icons";
-import BasicPostDisplay from "../../API/BasicPostDisplay";
+import { doc, getDoc } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { Alert, Pressable, Text, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import {
   Menu,
   MenuOptions,
   MenuTrigger,
-  renderers,
+  renderers
 } from "react-native-popup-menu";
+import { db } from "../../../firebase";
+import BasicPostDisplay from "../../API/BasicPostDisplay";
+import { useAuth } from "../../AuthProvider/AuthProvider";
+import { useData } from "../../AuthProvider/UserDataProvider";
+import { globalStyles } from "../../styles/global";
 
 const ProjectScreen = ({ route, navigation }) => {
   const { currentUser } = useAuth();

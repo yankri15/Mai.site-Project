@@ -1,5 +1,5 @@
-import { View, Text, Pressable, ScrollView, SafeAreaView } from 'react-native'
 import React from 'react'
+import { Pressable, SafeAreaView, Text } from 'react-native'
 import { globalStyles } from '../../styles/global'
 
 const AdminSelectScreen = ({ navigation }) => {

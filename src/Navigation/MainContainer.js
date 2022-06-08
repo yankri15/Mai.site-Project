@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from "react";
-
 import { createStackNavigator } from "@react-navigation/stack";
+import React from "react";
 import { useAuth } from "../AuthProvider/AuthProvider";
-import LandingScreen from "../Screens/AuthScreens/LandingScreen";
-import RegisterScreen from "../Screens/AuthScreens/RegisterScreen";
-import LoginScreen from "../Screens/AuthScreens/LoginScreen";
-import HamburgerStack from "./HamburgerStack";
-import ForgotPasswordScreen from "../Screens/AuthScreens/ForgotPasswordScreen";
-import LoadingScreen from "../Screens/LoadingScreen";
-import ApprovalWatingScreen from "../Screens/UserScreens/ApprovalWatingScreen";
-import BlockedScreen from "../Screens/UserScreens/BlockedScreen";
 import { useData } from "../AuthProvider/UserDataProvider";
-import RegistrationDetailsScreen from "../Screens/AuthScreens/RegistrationDetailsScreen";
 import GuestNavigator from "../Navigation/GuestNavigator";
+import ForgotPasswordScreen from "../Screens/AuthScreens/ForgotPasswordScreen";
+import LandingScreen from "../Screens/AuthScreens/LandingScreen";
+import LoginScreen from "../Screens/AuthScreens/LoginScreen";
+import RegisterScreen from "../Screens/AuthScreens/RegisterScreen";
+import RegistrationDetailsScreen from "../Screens/AuthScreens/RegistrationDetailsScreen";
+import LoadingScreen from "../Screens/LoadingScreen";
+import HamburgerStack from "./HamburgerStack";
+
 const Stack = createStackNavigator();
 
 const MainContainer = () => {
@@ -26,8 +24,6 @@ const MainContainer = () => {
       return <GuestNavigator />;
     } else if (userStatus == 0) {
       return <RegistrationDetailsScreen />;
-    } else if (userStatus == -1) {
-      return <BlockedScreen />;
     } else {
       return <LoadingScreen />;
     }

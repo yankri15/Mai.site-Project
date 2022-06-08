@@ -1,46 +1,27 @@
-import React, { useState, useEffect } from "react";
+import { AntDesign, Entypo, Feather, FontAwesome } from "@expo/vector-icons";
 import {
-  View,
-  Text,
-  Image,
-  Pressable,
-  Modal,
-  FlatList,
-  TextInput,
-  Alert,
-  Vibration,
-  Keyboard,
-} from "react-native";
-import { globalStyles } from "../styles/global";
-import UserPicName from "./UserPicName";
-import { getDownloadURL, ref } from "firebase/storage";
-import { storage } from "../../firebase";
-import { AntDesign, FontAwesome, Entypo, Feather } from "@expo/vector-icons";
-import Comment from "../Screens/UserScreens/ForumScreens/Comment";
-import { MenuProvider } from "react-native-popup-menu";
-import ImageViewer from "react-native-image-zoom-viewer";
-
-import {
-  collection,
-  getDocs,
-  setDoc,
-  doc,
-  deleteDoc,
-  query,
-  orderBy,
-  serverTimestamp,
+  collection, deleteDoc, doc, getDocs, orderBy, query, serverTimestamp, setDoc
 } from "firebase/firestore";
+import { getDownloadURL, ref } from "firebase/storage";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
+import {
+  Alert, FlatList, Image, Keyboard, Modal, Pressable, Text, TextInput, View
+} from "react-native";
+import ImageViewer from "react-native-image-zoom-viewer";
 import {
   Menu,
-  MenuOptions,
-  MenuTrigger,
-  renderers,
+  MenuOptions, MenuProvider, MenuTrigger,
+  renderers
 } from "react-native-popup-menu";
-import { db } from "../../firebase";
+import { db, storage } from "../../firebase";
 import { useAuth } from "../AuthProvider/AuthProvider";
-import moment from "moment";
 import { useData } from "../AuthProvider/UserDataProvider";
+import Comment from "../Screens/UserScreens/ForumScreens/Comment";
+import { globalStyles } from "../styles/global";
 import ProjectPost from "./ProjectPost";
+import UserPicName from "./UserPicName";
+
 
 const Post = ({ post, navigation }) => {
   const [images, setImages] = useState([]);
@@ -151,7 +132,7 @@ const Post = ({ post, navigation }) => {
                 </View>
               );
             }}
-            keyExtractor={(item, index) => index.toString()}
+            keyExtractor={(index) => index.toString()}
           />
           <View style={globalStyles.Forum_Comment}>
             <TextInput

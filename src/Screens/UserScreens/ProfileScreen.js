@@ -1,16 +1,16 @@
-import { EvilIcons, Ionicons, MaterialCommunityIcons, MaterialIcons, SimpleLineIcons, } from "@expo/vector-icons";
+import { EvilIcons, Ionicons, MaterialCommunityIcons, MaterialIcons, SimpleLineIcons } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { FlatList, ImageBackground, Modal, Pressable, Text, View, } from "react-native";
+import { FlatList, ImageBackground, Modal, Pressable, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import ImageViewer from "react-native-image-zoom-viewer";
 import { db } from "../../../firebase";
 import Job from "../../API/Job";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import { useData } from "../../AuthProvider/UserDataProvider";
 import { globalStyles } from "../../styles/global";
-import ImageViewer from "react-native-image-zoom-viewer";
 const defaultImage = require("../../../assets/default_profile_pic.jpg");
 
 const ProfileScreen = ({ route, navigation }) => {

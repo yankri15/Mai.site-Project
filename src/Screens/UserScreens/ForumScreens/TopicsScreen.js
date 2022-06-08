@@ -1,8 +1,6 @@
-import { View, Text, Pressable, FlatList, Vibration } from "react-native";
-import React, { useState, useEffect } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { async } from "@firebase/util";
 import { collection, getDocs } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { FlatList, Pressable, Text, View } from "react-native";
 import { db } from "../../../../firebase";
 import { globalStyles } from "../../../styles/global";
 

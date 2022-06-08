@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, Image, Modal, Pressable } from "react-native";
-import UserPicName from "./UserPicName";
-import { globalStyles } from "../styles/global";
-import moment from "moment";
 import { getDownloadURL, ref } from "firebase/storage";
-import { storage } from "../../firebase";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { Image, Modal, Pressable, Text, View } from "react-native";
 import ImageViewer from "react-native-image-zoom-viewer";
+import { storage } from "../../firebase";
+import { globalStyles } from "../styles/global";
+import UserPicName from "./UserPicName";
 
 const BasicPostDisplay = ({ post, navigation }) => {
   const [images, setImages] = useState([]);
@@ -50,7 +50,7 @@ const BasicPostDisplay = ({ post, navigation }) => {
           }}
         >
           <Image
-            style={[globalStyles.post_img, {marginBottom: '-2%'}]}
+            style={[globalStyles.post_img, { marginBottom: "-2%" }]}
             source={{ uri: images[0].url }}
           />
         </Pressable>

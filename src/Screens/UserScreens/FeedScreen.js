@@ -1,8 +1,8 @@
-import { Text, Pressable, FlatList, View, Modal } from "react-native";
-import { globalStyles } from "../../styles/global";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { FlatList, Pressable, Text, View } from "react-native";
 import Post from "../../API/Post";
 import { useData } from "../../AuthProvider/UserDataProvider";
+import { globalStyles } from "../../styles/global";
 
 const FeedScreen = ({ navigation, route }) => {
   const [refreshing, setRefreshing] = useState(true);

@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import { Text, Pressable, Modal, View, TextInput, Alert } from "react-native";
-import { globalStyles } from "../styles/global";
-import email from "react-native-email";
-import { db } from "../../firebase";
+import { Entypo } from "@expo/vector-icons";
 import { doc, getDoc } from "firebase/firestore";
+import React, { useState } from "react";
+import { Alert, Modal, Pressable, Text, TextInput, View } from "react-native";
+import email from "react-native-email";
 import {
   Menu,
   MenuOptions,
   MenuTrigger,
-  renderers,
+  renderers
 } from "react-native-popup-menu";
+import { db } from "../../firebase";
 import { useAuth } from "../AuthProvider/AuthProvider";
 import { useData } from "../AuthProvider/UserDataProvider";
-import { Entypo } from "@expo/vector-icons";
+import { globalStyles } from "../styles/global";
 
 const Job = ({ job, profileScreen }) => {
   const [contactModalVisible, setContactModalVisible] = useState(false);

@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from "react";
+import { Ionicons } from "@expo/vector-icons";
 import {
-  createDrawerNavigator,
   DrawerContentScrollView,
-  DrawerItem,
   DrawerItemList,
 } from "@react-navigation/drawer";
+import React, { useEffect, useState } from "react";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { useAuth } from "../AuthProvider/AuthProvider";
-import { View, Image, Text, TouchableOpacity } from "react-native";
 import { useData } from "../AuthProvider/UserDataProvider";
 import { globalStyles } from "../styles/global";
-import { Ionicons } from "@expo/vector-icons";
 const defaultImage = require("../../assets/default_profile_pic.jpg");
 
 const CustomDrawer = (props) => {
-  const { currentUser, logout } = useAuth();
+  const { logout } = useAuth();
   const [error, setError] = useState("");
   const { name, getName, image } = useData();
 
@@ -31,7 +29,6 @@ const CustomDrawer = (props) => {
     getName();
     return;
   }, []);
-
 
   return (
     <View style={{ flex: 1 }}>

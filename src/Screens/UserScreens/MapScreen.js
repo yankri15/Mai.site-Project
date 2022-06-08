@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Modal, View, FlatList, Text, Pressable, Alert } from "react-native";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { Alert, FlatList, Modal, Pressable, Text, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { globalStyles } from "../../styles/global";
-import { useData } from "../../AuthProvider/UserDataProvider";
 import { db } from "../../../firebase";
-import { collection, where, getDocs, query } from "firebase/firestore";
+import { useData } from "../../AuthProvider/UserDataProvider";
+import { globalStyles } from "../../styles/global";
 
 const MapScreen = () => {
   const { markers, getMarkers } = useData();
@@ -101,7 +101,6 @@ const MapScreen = () => {
           setModalVisible(!modalVisible);
         }}
       >
-        {/* <Text>הפרוייקטים ב{marker.title}</Text> */}
         <FlatList contentContainerStyle={{ marginTop: "5%" }}
           data={currentProjects}
 

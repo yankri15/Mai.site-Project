@@ -1,10 +1,9 @@
-import { View, Text, TextInput, FlatList, Pressable, Image } from 'react-native'
-import React, { useState, useEffect } from 'react'
-import { globalStyles } from '../../styles/global'
+import React, { useEffect, useState } from 'react'
+import { FlatList, Image, Pressable, Text, TextInput, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import Ionicons from "react-native-vector-icons/Ionicons"
 import { useData } from '../../AuthProvider/UserDataProvider'
-import Ionicons from "react-native-vector-icons/Ionicons";
-import UserPicName from '../../API/UserPicName'
+import { globalStyles } from '../../styles/global'
 
 
 const NominateAdmin = ({ navigation }) => {

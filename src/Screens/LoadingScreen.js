@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Image } from "react-native";
+import { Image, View } from "react-native";
 import { globalStyles } from "../styles/global";
 
 const LoadingPage = () => {
