@@ -29,13 +29,6 @@ const GuestHomeScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={[globalStyles.global, globalStyles.settingsContainer]}>
-      <Pressable
-        style={{ position: 'absolute', top: 10, left: 10, flexDirection: 'row', ...globalStyles.settingsBtn }}
-        onPress={handleLogout}
-      >
-        <Text>{'התנתקות'}</Text>
-        <Ionicons name="log-out-outline" size={20}></Ionicons>
-      </Pressable>
       <View style={{ alignItems: 'center' }}>
         <Text style={[globalStyles.landing_title_text]}>
           שלום {userStatus === 1 && name ? name.split(" ")[0] : "אורח"}
@@ -94,6 +87,15 @@ const GuestHomeScreen = ({ navigation }) => {
       >
         <Text style={globalStyles.settingsBtnText}>צור קשר</Text>
       </Pressable>
+      {userStatus === 0 ? (
+      <Pressable
+        onPress={handleLogout}
+        style={{ flexDirection: 'row', marginTop: '5%' }}
+      >
+        <Text style={globalStyles.out_blue_btn}>{'התנתקות'}</Text>
+        <Ionicons name="log-out-outline" size={20} style={{color: 'blue', marginLeft: '1%'}}></Ionicons>
+      </Pressable>
+      ) : null}
     </SafeAreaView>
   );
 };
