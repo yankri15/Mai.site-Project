@@ -31,7 +31,7 @@ const FeedNavigator = ({ navigation }) => {
       <UserStack.Screen name="Settings" component={SettingsScreen} />
       <UserStack.Screen name="Wanted" component={WantedScreen} />
       <UserStack.Screen name="CreatePost" component={CreatePost} />
-      <UserStack.Screen name="Project" component={ProjectScreen} />
+      <UserStack.Screen name="פרויקט" component={ProjectScreen} />
       <UserStack.Screen name="CreateProject" component={CreateProjectScreen} />
     </UserStack.Navigator>
   );

@@ -22,7 +22,7 @@ const ProjectPost = ({ pid, navigation }) => {
       <Pressable
         style={globalStyles.project_details}
         onPress={() =>
-          navigation.navigate("Project", { project: project, pid: pid })
+          navigation.navigate("פרויקט", { project: project, pid: pid })
         }
       >
         <View style={globalStyles.side_details_comp}>
