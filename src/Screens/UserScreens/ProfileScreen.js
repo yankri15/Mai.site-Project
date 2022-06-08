@@ -270,11 +270,9 @@ const ProfileScreen = ({ route, navigation }) => {
       <View style={globalStyles.profile_line}></View>
       <View style={globalStyles.stage2}>
         <Text style={globalStyles.profile_title}>המיזמים שלי</Text>
-        {console.log(projects)}
         <FlatList
           data={projects}
-          numColumns={2}
-          columnWrapperStyle={{ justifyContent: "space-between" }}
+          horizontal={true}
           style={{ paddingRight: "15%", paddingLeft: "15%" }}
           renderItem={({ item }) => (
             <Pressable
