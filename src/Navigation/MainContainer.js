@@ -9,7 +9,6 @@ import LoginScreen from "../Screens/AuthScreens/LoginScreen";
 import RegisterScreen from "../Screens/AuthScreens/RegisterScreen";
 import RegistrationDetailsScreen from "../Screens/AuthScreens/RegistrationDetailsScreen";
 import LoadingScreen from "../Screens/LoadingScreen";
-import BlockedScreen from "../Screens/UserScreens/BlockedScreen";
 import HamburgerStack from "./HamburgerStack";
 
 const Stack = createStackNavigator();
@@ -25,8 +24,6 @@ const MainContainer = () => {
       return <GuestNavigator />;
     } else if (userStatus == 0) {
       return <RegistrationDetailsScreen />;
-    } else if (userStatus == -1) {
-      return <BlockedScreen />;
     } else {
       return <LoadingScreen />;
     }

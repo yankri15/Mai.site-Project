@@ -9,7 +9,6 @@ import MapScreen from "../Screens/UserScreens/MapScreen";
 import ProfileEditScreen from "../Screens/UserScreens/ProfileEditScreen";
 import ProfileScreen from "../Screens/UserScreens/ProfileScreen";
 import ProjectScreen from "../Screens/UserScreens/ProjectScreen";
-import SearchResultScreen from "../Screens/UserScreens/SearchResultScreen";
 import SettingsScreen from "../Screens/UserScreens/SettingsScreen";
 import WantedScreen from "../Screens/UserScreens/WantedScreen";
 
@@ -29,7 +28,6 @@ const FeedNavigator = ({ navigation }) => {
       <UserStack.Screen name="Map" component={MapScreen} />
       <UserStack.Screen name="פרופיל" component={ProfileScreen} />
       <UserStack.Screen name="עריכת פרופיל" component={ProfileEditScreen} />
-      <UserStack.Screen name="SearchResult" component={SearchResultScreen} />
       <UserStack.Screen name="Settings" component={SettingsScreen} />
       <UserStack.Screen name="Wanted" component={WantedScreen} />
       <UserStack.Screen name="CreatePost" component={CreatePost} />
