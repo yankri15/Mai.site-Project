@@ -231,7 +231,6 @@ const CreateProjectScreen = ({ navigation }) => {
           itemTextStyle={{ color: "#222" }}
           itemsContainerStyle={{ maxHeight: 140 }}
           items={tagsList}
-          defaultIndex={2}
           chip={true}
           resetValue={false}
           textInputProps={{

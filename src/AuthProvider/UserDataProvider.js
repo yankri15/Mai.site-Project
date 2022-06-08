@@ -120,6 +120,12 @@ const UserDataProvider = ({ children }) => {
     });
   };
 
+  const getBlockedUsers = async () => {
+    const q = query(collection(db, "users"), where("status", "==", -1));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs;
+  };
+
   const getName = async () => {
     if (currentUser) {
       const docRef = doc(db, "users", currentUser.uid);
@@ -390,6 +396,7 @@ const UserDataProvider = ({ children }) => {
     getTags,
     getProject,
     getNeighborhoods,
+    getBlockedUsers,
     changeData,
     uploadJob,
     uploadDataPost,
