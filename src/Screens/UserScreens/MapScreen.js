@@ -13,6 +13,7 @@ const MapScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [markersLoaded, setMarkersLoaded] = useState(false);
   const [currentProjects, setCurrentProjects] = useState([]);
+  const [currentNeighborhood, setCurrentNeighborhood] = useState("");
   const mapRegion = {
     latitude: 31.7851951925,
     longitude: 35.2060641757,
@@ -34,7 +35,6 @@ const MapScreen = () => {
     setModalVisible(true);
   };
 
-
   useEffect(() => {
     getMarkers().then(() => {
       setMarkersArr([]);
@@ -55,18 +55,10 @@ const MapScreen = () => {
 
     return;
   }, [markersLoaded]);
-  const ItemDivider = () => {
-    return (
-      <View
-        style={{
-          height: 1,
-          width: "100%",
-          backgroundColor: "#607D8B",
-        }}
-      />
-    );
-  }
 
+  const getHeader = () => {
+    return <Text>{currentNeighborhood}</Text>;
+  };
   return (
     <SafeAreaView style={globalStyles.mapScreenContainer}>
       <MapView style={globalStyles.map} region={mapRegion} provider={null}>
@@ -88,29 +80,32 @@ const MapScreen = () => {
               description={"לחץ על מנת לצפות בפרוייקטים"}
               onCalloutPress={() => {
                 handleMarkerPressed(marker.title);
+                setCurrentNeighborhood(marker.title);
               }}
               key={index}
             ></Marker>
           );
         })}
       </MapView>
-      <Modal style={globalStyles.modal}
+      <Modal
+        style={globalStyles.modal}
         visible={modalVisible}
         animationType="slide"
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}
       >
-        <FlatList contentContainerStyle={{ marginTop: "5%" }}
+        <FlatList
+          contentContainerStyle={{ marginTop: "5%" }}
           data={currentProjects}
-
           renderItem={({ item }) => {
-
             return (
               <Pressable
                 style={globalStyles.forums_titles}
                 onPress={() => {
-                  Alert.alert("תיאור הפרוייקט", item.description,
+                  Alert.alert(
+                    "תיאור הפרוייקט",
+                    item.description,
                     [
                       {
                         text: "סגור",
@@ -126,12 +121,15 @@ const MapScreen = () => {
           }}
           ListEmptyComponent={() => {
             return (
-              <View >
-                <Text style={globalStyles.be_first}>נראה שאין מה להציג כרגע..</Text>
+              <View>
+                <Text style={globalStyles.be_first}>
+                  נראה שאין מה להציג כרגע..
+                </Text>
               </View>
             );
           }}
           keyExtractor={(item, index) => index.toString()}
+          ListHeaderComponent={getHeader}
         />
       </Modal>
     </SafeAreaView>
