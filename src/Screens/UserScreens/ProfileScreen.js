@@ -22,11 +22,12 @@ const ProfileScreen = ({ route, navigation }) => {
     myJobs,
     getMyJobs,
     saveDownloadURL,
-    image,
     uploadImg,
+    deleteFile,
   } = useData();
   const id = uid ? uid : currentUser.uid;
   const isFocused = useIsFocused();
+  const [userData, setUserData] = useState({});
   const [name, setName] = useState("");
   const [school, setSchool] = useState("");
   const [neighborhood, setNeighborhood] = useState("");
@@ -43,6 +44,7 @@ const ProfileScreen = ({ route, navigation }) => {
       const docRef = doc(db, "users", id);
       const docSnap = await getDoc(docRef);
       const userData = docSnap.data();
+      setUserData(userData);
       setName(userData.name);
       setSchool(userData.school);
       setNeighborhood(userData.neighborhood);
@@ -88,6 +90,8 @@ const ProfileScreen = ({ route, navigation }) => {
 
     if (!result.cancelled) {
       const date = new Date().getTime();
+      if (userData.pic)
+        deleteFile(userData.pic);
       const path = "/img/" + currentUser.uid + "/pofile/" + date + ".jpg";
       uploadImg(path, result.uri)
         .then(() => {

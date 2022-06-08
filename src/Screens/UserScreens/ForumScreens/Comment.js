@@ -21,7 +21,7 @@ const Comment = ({
   commentData,
   first,
 }) => {
-  const { deleteComment } = useData();
+  const { deleteComment, admin } = useData();
   const { Popover } = renderers;
   const { currentUser } = useAuth();
   const commentStyle = first
@@ -44,7 +44,7 @@ const Comment = ({
           style={globalStyles.dots}
         >
           <MenuTrigger>
-            {commentData.uid == currentUser.uid && !first ? (
+            {(commentData.uid == currentUser.uid || admin == 1) && !first ? (
               <Entypo name="dots-three-horizontal" size={20}></Entypo>
             ) : null}
           </MenuTrigger>

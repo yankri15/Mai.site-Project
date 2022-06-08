@@ -2,7 +2,7 @@ import {
   addDoc,
   collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, serverTimestamp, setDoc, updateDoc, where
 } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import React, { useContext, useEffect, useState } from "react";
 import { db, storage } from "../../firebase";
 import { useAuth } from "./AuthProvider";
@@ -151,7 +151,7 @@ const UserDataProvider = ({ children }) => {
   };
 
   const deleteSelf = async () => {
-    
+
     await deleteDoc(doc(db, "users", currentUser.uid));
   };
 
@@ -171,6 +171,19 @@ const UserDataProvider = ({ children }) => {
       deleteDoc(doc.ref);
     });
   };
+
+  const deleteFile = (path) => {
+    // Create a reference to the file to delete
+    const desertRef = ref(storage, path);
+
+    // Delete the file
+    deleteObject(desertRef).then(() => {
+      console.log("File deleted successfully");
+    }).catch((error) => {
+      console.log("Uh-oh, an error occurred!");
+    });
+  }
+
   const getPosts = async () => {
     setPostsList([]);
 
@@ -277,13 +290,13 @@ const UserDataProvider = ({ children }) => {
       creation: serverTimestamp(),
     });
   };
-  const checkAdmin = async () => {
-    if (currentUser) {
-      const docRef = doc(db, "users", currentUser.uid);
-      const docSnap = await getDoc(docRef);
-      setAdmin(docSnap.data().admin);
-    }
-  };
+  // const checkAdmin = async () => {
+  //   if (currentUser) {
+  //     const docRef = doc(db, "users", currentUser.uid);
+  //     const docSnap = await getDoc(docRef);
+  //     setAdmin(docSnap.data().admin);
+  //   }
+  // };
 
   const uploadDataPost = async (postText, pid, images, tags) => {
     await addDoc(collection(db, "posts"), {
@@ -333,6 +346,7 @@ const UserDataProvider = ({ children }) => {
         const docSnap = await getDoc(docRef);
         setUserStatus(docSnap.data().status);
         setImage(docSnap.data().profilePic);
+        setAdmin(docSnap.data().admin);
       }
     };
     getData().catch(console.error);
@@ -344,13 +358,13 @@ const UserDataProvider = ({ children }) => {
     name,
     admin,
     changeData,
-    checkAdmin,
     deleteComment,
     deleteThread,
     deletePost,
     deleteSelf,
     deleteProject,
     deleteJob,
+    deleteFile,
     image,
     jobs,
     myJobs,

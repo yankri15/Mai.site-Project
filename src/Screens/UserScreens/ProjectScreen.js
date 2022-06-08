@@ -17,7 +17,7 @@ import { globalStyles } from "../../styles/global";
 
 const ProjectScreen = ({ route, navigation }) => {
   const { currentUser } = useAuth();
-  const { projectPosts, getProjectPosts, deleteProject } = useData();
+  const { projectPosts, getProjectPosts, deleteProject, admin } = useData();
   const { Popover } = renderers;
 
   const project = route.params.project;
@@ -69,7 +69,7 @@ const ProjectScreen = ({ route, navigation }) => {
           }}
         >
           <MenuTrigger>
-            {currentUser.uid === project.uid ? (
+            {currentUser.uid === project.uid || admin == 1 ? (
               <Entypo name="dots-three-horizontal" size={20}></Entypo>
             ) : null}
           </MenuTrigger>
