@@ -1,19 +1,9 @@
 import {
-  doc,
-  setDoc,
-  getDoc,
-  updateDoc,
   addDoc,
-  collection,
-  serverTimestamp,
-  getDocs,
-  query,
-  orderBy,
-  where,
-  deleteDoc,
+  collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, serverTimestamp, setDoc, updateDoc, where
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { db, storage } from "../../firebase";
 import { useAuth } from "./AuthProvider";
 
@@ -89,10 +79,6 @@ const UserDataProvider = ({ children }) => {
     organiztion,
     uri
   ) => {
-    // const docRef = doc(db, "users", uid);
-    // const docSnap = await getDoc(docRef);
-    // const userData = docSnap.data();
-
     await updateDoc(
       doc(db, "users", uid),
       "name",
@@ -165,7 +151,7 @@ const UserDataProvider = ({ children }) => {
   };
 
   const deleteSelf = async () => {
-    //We should delete images from the storage
+    
     await deleteDoc(doc(db, "users", currentUser.uid));
   };
 
