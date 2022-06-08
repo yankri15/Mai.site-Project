@@ -102,12 +102,11 @@ const SettingsScreen = ({ navigation }) => {
     } catch (err) {}
 
     setLoading(false);
-    navigation.navigate("Login");
   }
 
   return (
     <SafeAreaView style={globalStyles.settingsContainer}>
-      {/* MOdal for change password */}
+      {/* Modal for change password */}
       <Modal
         style={globalStyles.modal}
         animationType={"slide"}
