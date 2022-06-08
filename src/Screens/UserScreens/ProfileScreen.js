@@ -1,9 +1,22 @@
-import { EvilIcons, Ionicons, MaterialCommunityIcons, MaterialIcons, SimpleLineIcons } from "@expo/vector-icons";
+import {
+  EvilIcons,
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+  SimpleLineIcons,
+} from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { FlatList, ImageBackground, Modal, Pressable, Text, View } from "react-native";
+import {
+  FlatList,
+  ImageBackground,
+  Modal,
+  Pressable,
+  Text,
+  View,
+} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import ImageViewer from "react-native-image-zoom-viewer";
 import { db } from "../../../firebase";
@@ -90,8 +103,7 @@ const ProfileScreen = ({ route, navigation }) => {
 
     if (!result.cancelled) {
       const date = new Date().getTime();
-      if (userData.pic)
-        deleteFile(userData.pic);
+      if (userData.pic) deleteFile(userData.pic);
       const path = "/img/" + currentUser.uid + "/pofile/" + date + ".jpg";
       uploadImg(path, result.uri)
         .then(() => {
@@ -116,7 +128,7 @@ const ProfileScreen = ({ route, navigation }) => {
         }}
       >
         <View style={globalStyles.modalView}>
-          {profilePic &&
+          {profilePic && (
             <Pressable
               style={[
                 globalStyles.take_a_pic_btn,
@@ -128,11 +140,13 @@ const ProfileScreen = ({ route, navigation }) => {
               }}
               disabled={loading}
             >
-              <Text style={[globalStyles.take_a_pic_btn_text, { fontSize: 20 }]}>
+              <Text
+                style={[globalStyles.take_a_pic_btn_text, { fontSize: 20 }]}
+              >
                 הצג תמונה{" "}
               </Text>
             </Pressable>
-          }
+          )}
           <Pressable
             style={[
               globalStyles.take_a_pic_btn,
@@ -256,6 +270,7 @@ const ProfileScreen = ({ route, navigation }) => {
       <View style={globalStyles.profile_line}></View>
       <View style={globalStyles.stage2}>
         <Text style={globalStyles.profile_title}>המיזמים שלי</Text>
+        {console.log(projects)}
         <FlatList
           data={projects}
           numColumns={2}
@@ -291,20 +306,15 @@ const ProfileScreen = ({ route, navigation }) => {
       <View style={globalStyles.profile_line}></View>
       <View style={globalStyles.stage3}>
         <Text style={globalStyles.profile_title}>הדרושים שלי</Text>
-        <FlatList
-          data={myJobs}
-          renderItem={({ item }) => <Job job={item} profileScreen={true} />}
-          ListEmptyComponent={() => {
-            return (
-              <View>
-                <Text style={globalStyles.be_first}>
-                  נראה שאין דרושים כרגע..
-                </Text>
-              </View>
-            );
-          }}
-          keyExtractor={(item, index) => index.toString()}
-        />
+        {myJobs.length > 0 ? (
+          myJobs.map((element, index) => {
+            return <Job job={element} profileScreen={true} key={index} />;
+          })
+        ) : (
+          <View>
+            <Text style={globalStyles.be_first}>נראה שאין דרושים כרגע..</Text>
+          </View>
+        )}
       </View>
     </ScrollView>
   );
