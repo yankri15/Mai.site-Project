@@ -30,13 +30,13 @@ const GuestHomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={[globalStyles.global, globalStyles.settingsContainer]}>
       <View style={{ alignItems: 'center' }}>
-        <Text style={[globalStyles.landing_title_text]}>
+        <Text style={globalStyles.landing_title_text}>
           שלום {userStatus === 1 && name ? name.split(" ")[0] : "אורח"}
         </Text>
         {userStatus === 1 ? (
           <View style={globalStyles.approval_waiting_view}>
             <Text style={globalStyles.approval_waiting}>
-              אנו מבצעים כעת בדיקת מערכת,{"\n"} עליך להמתין עד לקבלת אישור.{"\n"} ניצור איתך קשר בהקדם,{"\n"} תודה על הסבלנות.
+              עליך להמתין עד לקבלת אישור,{"\n"} יש להכנס שוב מאוחר יותר.{"\n"} תודה על הסבלנות!
             </Text>
           </View>
         ) : null}
@@ -87,7 +87,7 @@ const GuestHomeScreen = ({ navigation }) => {
       >
         <Text style={globalStyles.settingsBtnText}>צור קשר</Text>
       </Pressable>
-      {userStatus === 0 ? (
+      {userStatus === 1 ? (
       <Pressable
         onPress={handleLogout}
         style={{ flexDirection: 'row', marginTop: '5%' }}
