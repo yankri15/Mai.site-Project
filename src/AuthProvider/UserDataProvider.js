@@ -73,7 +73,7 @@ const UserDataProvider = ({ children }) => {
       organiztion,
       "status",
       1,
-      "profilePic",
+      "pic",
       uri
     ).then(() => {
       setUserStatus(1);
