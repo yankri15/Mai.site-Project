@@ -140,6 +140,14 @@ export const globalStyles = StyleSheet.create({
     fontWeight: "bold",
     textDecorationLine: "underline",
   },
+  out_blue_btn: {
+    marginBottom: 4,
+    fontSize: 15,
+    fontFamily: "sans-serif",
+    color: "blue",
+    fontWeight: "bold",
+    textDecorationLine: "underline",
+  },
   forgot_title: {
     top: 1,
     marginBottom: 30,
