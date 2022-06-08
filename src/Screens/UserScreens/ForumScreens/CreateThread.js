@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, Pressable, Vibration } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { doc, setDocs, addDoc, collection, setDoc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import React, { useState } from "react";
+import { Pressable, Text, TextInput, Vibration, View } from "react-native";
 import { db } from "../../../../firebase";
 import { useAuth } from "../../../AuthProvider/AuthProvider";
 import { globalStyles } from '../../../styles/global';
@@ -69,7 +68,6 @@ const CreateThread = ({ route, navigation }) => {
           Vibration.vibrate(15)
           handleSubmitThread();
         }}
-      // disabled={loading}
       >
         <Text style={globalStyles.open_sub_btn_text}>פרסמו אותי</Text>
       </Pressable>

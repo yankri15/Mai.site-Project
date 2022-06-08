@@ -1,18 +1,18 @@
-import React from "react";
-import { View, Text, Pressable, Vibration } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import UserPicName from "../../../API/UserPicName";
 import { Entypo } from "@expo/vector-icons";
-import { globalStyles } from "../../../styles/global";
-import { useAuth } from "../../../AuthProvider/AuthProvider";
-import { useData } from "../../../AuthProvider/UserDataProvider";
 import moment from "moment";
+import React from "react";
+import { Pressable, Text, View } from "react-native";
 import {
   Menu,
   MenuOptions,
   MenuTrigger,
-  renderers,
+  renderers
 } from "react-native-popup-menu";
+import { SafeAreaView } from "react-native-safe-area-context";
+import UserPicName from "../../../API/UserPicName";
+import { useAuth } from "../../../AuthProvider/AuthProvider";
+import { useData } from "../../../AuthProvider/UserDataProvider";
+import { globalStyles } from "../../../styles/global";
 
 const Comment = ({
   navigation,

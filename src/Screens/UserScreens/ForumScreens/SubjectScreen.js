@@ -1,19 +1,18 @@
-import { View, Text, FlatList, Pressable, Vibration } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import React, { useState, useEffect } from "react";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-import { db } from "../../../../firebase";
-import UserPicName from "../../../API/UserPicName";
-import { globalStyles } from "../../../styles/global";
 import { Entypo } from "@expo/vector-icons";
-import { useAuth } from "../../../AuthProvider/AuthProvider";
-import { useData } from "../../../AuthProvider/UserDataProvider";
+import { collection, getDocs } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { FlatList, Pressable, Text, View } from "react-native";
 import {
   Menu,
   MenuOptions,
   MenuTrigger,
-  renderers,
+  renderers
 } from "react-native-popup-menu";
+import { db } from "../../../../firebase";
+import UserPicName from "../../../API/UserPicName";
+import { useAuth } from "../../../AuthProvider/AuthProvider";
+import { useData } from "../../../AuthProvider/UserDataProvider";
+import { globalStyles } from "../../../styles/global";
 const SubjectScreen = ({ route, navigation }) => {
   const { currentUser } = useAuth();
   const { deleteThread } = useData();
