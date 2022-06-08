@@ -1,12 +1,10 @@
-import React from "react";
-
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
-
 //Navigators
 import FeedNavigator from "../Navigation/FeedNavigator";
-import WantedNavigator from "../Navigation/WantedNavigator";
 import ForumNavigator from "../Navigation/ForumNavigator";
+import WantedNavigator from "../Navigation/WantedNavigator";
 
 //Navigators names
 const feedName = "פיד";

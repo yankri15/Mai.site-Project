@@ -1,14 +1,8 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  TouchableOpacity,
-  Image,
-  SafeAreaView,
-  Pressable,
-} from "react-native";
-import { globalStyles } from "../styles/global";
 import { Ionicons } from "@expo/vector-icons";
+import React from "react";
+import {Image,SafeAreaView, TouchableOpacity} from "react-native";
 import { useData } from "../AuthProvider/UserDataProvider";
+import { globalStyles } from "../styles/global";
 
 const ProfilePic = ({ navigation }) => {
   const { image } = useData();

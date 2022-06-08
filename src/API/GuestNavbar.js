@@ -1,13 +1,10 @@
-import React from "react";
-
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import React from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
-
 //Screens
 import GuestHomeScreen from "../Screens/GuestScreens/GuestHomeScreen";
 import StaticsScreen from "../Screens/GuestScreens/StatisticsScreen";
-
 //Screen names
 const homeName = "Home";
 const statisticsName = "Statistics";

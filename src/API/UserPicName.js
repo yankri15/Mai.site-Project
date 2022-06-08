@@ -1,10 +1,8 @@
-import { View, Text, Image, Pressable } from "react-native";
-import React, { useState, useEffect } from "react";
-import { globalStyles } from "../styles/global";
-import { db, storage } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { ref, getDownloadURL } from "firebase/storage";
-import { useAuth } from "../AuthProvider/AuthProvider";
+import React, { useEffect, useState } from "react";
+import { Image, Pressable, Text, View } from "react-native";
+import { db } from "../../firebase";
+import { globalStyles } from "../styles/global";
 
 const UserPicName = ({ uid, navigation, posted }) => {
   const [userData, setUserData] = useState("");
