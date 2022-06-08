@@ -157,7 +157,7 @@ const ProfileScreen = ({ route, navigation }) => {
             disabled={loading}
           >
             <Text style={[globalStyles.take_a_pic_btn_text, { fontSize: 20 }]}>
-              להעלאת תמונה{" "}
+              העלאת תמונה{" "}
             </Text>
             <MaterialIcons
               style={{ color: "#fdc123" }}
@@ -258,14 +258,6 @@ const ProfileScreen = ({ route, navigation }) => {
           <Text style={globalStyles.side_details_text}>הארגון שלי: </Text>
           <Text>{organiztion}</Text>
         </View>
-        <View style={globalStyles.side_details_comp}>
-          <MaterialCommunityIcons
-            style={{ color: "#a77ce8", marginRight: "2%" }}
-            name="lightbulb-on-outline"
-            size={20}
-          ></MaterialCommunityIcons>
-          <Text style={globalStyles.side_details_text}>תחומי העניין שלי: </Text>
-        </View>
       </View>
       <View style={globalStyles.profile_line}></View>
       <View style={globalStyles.stage2}>
@@ -273,7 +265,7 @@ const ProfileScreen = ({ route, navigation }) => {
         <FlatList
           data={projects}
           horizontal={true}
-          style={{ paddingRight: "15%", paddingLeft: "15%" }}
+          style={{ marginRight: "0.5%", marginLeft: "0.5%" }}
           renderItem={({ item }) => (
             <Pressable
               style={globalStyles.profile_project}
@@ -289,6 +281,7 @@ const ProfileScreen = ({ route, navigation }) => {
               </Text>
             </Pressable>
           )}
+          showsHorizontalScrollIndicator={false}
           ListEmptyComponent={() => {
             return (
               <View>
