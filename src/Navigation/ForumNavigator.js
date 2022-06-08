@@ -22,7 +22,7 @@ const ForumNavigator = ({ navigation }) => {
       <Stack.Screen name="אשכול" component={ThreadScreen} />
       <Stack.Screen name="יצירת נושא חדש" component={CreateThread} />
       <Stack.Screen name="פרופיל" component={ProfileScreen} />
-      <Stack.Screen name="Project" component={ProjectScreen} />
+      <Stack.Screen name="פרויקט" component={ProjectScreen} />
     </Stack.Navigator>
   );
 };

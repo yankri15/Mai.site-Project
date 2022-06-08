@@ -16,7 +16,7 @@ const AdminNavigator = () => {
             <Stack.Screen name="Nominate" component={NominateAdmin} />
             <Stack.Screen name="Blocked" component={BlockedUser} />
             <Stack.Screen name="פרופיל" component={ProfileScreen} />
-            <Stack.Screen name="Project" component={ProjectScreen} />
+            <Stack.Screen name="פרויקט" component={ProjectScreen} />
         </Stack.Navigator>
     );
 };
