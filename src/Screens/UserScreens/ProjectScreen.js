@@ -1,14 +1,15 @@
 import { Entypo } from "@expo/vector-icons";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { Alert, Pressable, Text, View } from "react-native";
+import { Alert, Pressable, Text, View, Modal,FlatList } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import {
   Menu,
   MenuOptions,
   MenuTrigger,
-  renderers
+  renderers,
 } from "react-native-popup-menu";
+import { EvilIcons } from "@expo/vector-icons";
 import { db } from "../../../firebase";
 import BasicPostDisplay from "../../API/BasicPostDisplay";
 import { useAuth } from "../../AuthProvider/AuthProvider";
@@ -24,23 +25,20 @@ const ProjectScreen = ({ route, navigation }) => {
   const pid = route.params.pid;
   const [collabNames, setCollabNames] = useState([]);
   const [name, setName] = useState("");
+  const [showModalE, setShowModalE] = useState(false);
 
   const getName = async (uid) => {
     const docRef = doc(db, "users", uid);
     const docSnap = await getDoc(docRef);
-    if (docSnap.data())
-      setName(docSnap.data().name);
-    else
-      setName("משתמש מחוק");
+    if (docSnap.data()) setName(docSnap.data().name);
+    else setName("משתמש מחוק");
   };
 
   const getColabNames = () => {
     let collabs = [];
     for (let i = 0; i < project.collaborators.length; i++) {
-      if(i +1 !== project.collaborators.length)
-      collabs.push(project.collaborators[i].name + ', ');
-      else
-      collabs.push(project.collaborators[i].name);
+        collabs.push(project.collaborators[i].name);
+
     }
     setCollabNames(collabs);
   };
@@ -64,6 +62,36 @@ const ProjectScreen = ({ route, navigation }) => {
 
   return (
     <View>
+      <Modal
+        style={globalStyles.modal}
+        animationType={"slide"}
+        transparent={false}
+        visible={showModalE}
+        onRequestClose={() => {
+          setShowModalE(!showModalE);
+        }}
+      >
+        <View>
+          <Text style={globalStyles.project_title_details}>שותפים: </Text>
+          <FlatList
+            data={collabNames}
+            renderItem={({ item, index }) => <Text>{item}</Text>}
+            ListEmptyComponent={() => {
+              return (
+                <View>
+                  <Text>לא קיימים שותפים</Text>
+                </View>
+              );
+            }}
+            ItemSeparatorComponent={() => {
+              return (
+                <View style={{ height: 1, backgroundColor: "gray" }}></View>
+              );
+            }}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </View>
+      </Modal>
       <ScrollView>
         <Menu
           renderer={Popover}
@@ -109,7 +137,24 @@ const ProjectScreen = ({ route, navigation }) => {
           </View>
           <View style={globalStyles.project_details_view}>
             <Text style={globalStyles.project_title_details}>שותפים: </Text>
-            <Text>{collabNames}</Text>
+            {collabNames.map((item, index)=>{
+              return (index === collabNames.length-1 ? <Text>{item}</Text>: <Text>{item}, </Text>)
+            })}
+            <Pressable
+              style={globalStyles.profile_edit_btn}
+              title="edit"
+              onPress={() => {
+                setShowModalE(!showModalE);
+              }}
+            >
+              <Text style={globalStyles.profile_edit_btn_text}>
+                <EvilIcons
+                  name="pencil"
+                  size={35}
+                  style={{ color: "#b0b0b0" }}
+                ></EvilIcons>
+              </Text>
+            </Pressable>
           </View>
           <View style={globalStyles.project_details_view}>
             <Text style={globalStyles.project_title_details}>ארגון: </Text>
