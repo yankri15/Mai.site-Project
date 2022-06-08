@@ -241,7 +241,7 @@ const Post = ({ post, navigation }) => {
               <View style={globalStyles.info_like_comment}>
                 <View style={globalStyles.comment_like_info_view}>
                   <AntDesign
-                    style={{ color: "#fdc123" }}
+                    style={{ color: "#fdd000" }}
                     name="like1"
                     size={12}
                   ></AntDesign>
@@ -253,7 +253,7 @@ const Post = ({ post, navigation }) => {
               <View style={globalStyles.info_like_comment}>
                 <View style={globalStyles.comment_like_info_view}>
                   <FontAwesome
-                    style={{ color: "#fdc123" }}
+                    style={{ color: "#fdd000" }}
                     name="commenting"
                     size={12}
                   ></FontAwesome>
