@@ -340,7 +340,6 @@ export const globalStyles = StyleSheet.create({
   //////////////////project///////////////////////
   project_screen_details: {
     padding: "3%",
-    
   },
   project_details_view: {
     flexDirection: "row",
