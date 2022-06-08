@@ -30,7 +30,7 @@ const FeedNavigator = ({ navigation }) => {
       <UserStack.Screen name="עריכת פרופיל" component={ProfileEditScreen} />
       <UserStack.Screen name="Settings" component={SettingsScreen} />
       <UserStack.Screen name="Wanted" component={WantedScreen} />
-      <UserStack.Screen name="CreatePost" component={CreatePost} />
+      <UserStack.Screen name="יצירת פוסט" component={CreatePost} />
       <UserStack.Screen name="פרויקט" component={ProjectScreen} />
       <UserStack.Screen name="יצירת פרויקט חדש" component={CreateProjectScreen} />
     </UserStack.Navigator>

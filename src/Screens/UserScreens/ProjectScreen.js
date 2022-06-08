@@ -197,7 +197,7 @@ const ProjectScreen = ({ route, navigation }) => {
         <Pressable
           title="edit"
           onPress={() => {
-            navigation.navigate("CreatePost", { project: project, pid: pid });
+            navigation.navigate("יצירת פוסט", { project: project, pid: pid });
           }}
           style={globalStyles.plus_btn}
         >
