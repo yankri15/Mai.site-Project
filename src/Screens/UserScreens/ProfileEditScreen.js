@@ -132,7 +132,7 @@ const EditProfileScreen = ({ navigation }) => {
           onPress={pickImage}
           disabled={loading}
         >
-          <Text style={globalStyles.take_a_pic_btn_text}>העלה תמונה </Text>
+          <Text style={globalStyles.take_a_pic_btn_text}>העלאת תמונה </Text>
           <MaterialIcons
             style={{ color: "#fdc123" }}
             name="photo-library"
