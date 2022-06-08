@@ -29,7 +29,7 @@ const Comment = ({
     : globalStyles.comment;
 
   return (
-    <SafeAreaView>
+    <View>
       <View style={commentStyle}>
         <UserPicName
           uid={commentData.uid}
@@ -61,7 +61,7 @@ const Comment = ({
         </Menu>
         <Text style={globalStyles.comment_data}>{commentData.comment}</Text>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

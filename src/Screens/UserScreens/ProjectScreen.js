@@ -28,7 +28,10 @@ const ProjectScreen = ({ route, navigation }) => {
   const getName = async (uid) => {
     const docRef = doc(db, "users", uid);
     const docSnap = await getDoc(docRef);
-    setName(docSnap.data().name);
+    if (docSnap.data())
+      setName(docSnap.data().name);
+    else
+      setName("משתמש מחוק");
   };
 
   const getColabNames = () => {
