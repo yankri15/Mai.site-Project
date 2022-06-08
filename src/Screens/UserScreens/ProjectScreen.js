@@ -37,6 +37,9 @@ const ProjectScreen = ({ route, navigation }) => {
   const getColabNames = () => {
     let collabs = [];
     for (let i = 0; i < project.collaborators.length; i++) {
+      if(i +1 !== project.collaborators.length)
+      collabs.push(project.collaborators[i].name + ', ');
+      else
       collabs.push(project.collaborators[i].name);
     }
     setCollabNames(collabs);
