@@ -1,15 +1,15 @@
-import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-
+import React from "react";
+import ProfilePic from "../API/ProfilePic";
 //Screens
 import FeedScreen from "../Screens/UserScreens/FeedScreen";
 import MapScreen from "../Screens/UserScreens/MapScreen";
 import ProfileScreen from "../Screens/UserScreens/ProfileScreen";
+import ProjectScreen from "../Screens/UserScreens/ProjectScreen";
 import SearchResultScreen from "../Screens/UserScreens/SearchResultScreen";
 import SettingsScreen from "../Screens/UserScreens/SettingsScreen";
 import WantedScreen from "../Screens/UserScreens/WantedScreen";
-import ProfilePic from "../API/ProfilePic";
-import ProjectScreen from "../Screens/UserScreens/ProjectScreen";
+
 
 const Stack = createStackNavigator();
 

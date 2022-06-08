@@ -1,11 +1,11 @@
-import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-
+import React from "react";
 //Screens
 import ContactScreen from "../Screens/AuthScreens/ContactScreen";
-import ProfileEditScreen from "../Screens/UserScreens/ProfileEditScreen";
 import LoginScreen from "../Screens/AuthScreens/LoginScreen";
+import ProfileEditScreen from "../Screens/UserScreens/ProfileEditScreen";
 import SettingsScreen from "../Screens/UserScreens/SettingsScreen";
+
 
 const Stack = createStackNavigator();
 
