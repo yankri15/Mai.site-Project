@@ -1,9 +1,9 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
-import React, { useState, useEffect } from "react";
-import { SafeAreaView, Text, Dimensions, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Dimensions, SafeAreaView, ScrollView, Text } from "react-native";
+import { BarChart, PieChart } from "react-native-chart-kit";
 import { db } from "../../../firebase";
 import { globalStyles } from "../../styles/global";
-import { BarChart, PieChart } from "react-native-chart-kit";
 
 const StatisticsScreen = () => {
   const [userCount, setUserCount] = useState(0);

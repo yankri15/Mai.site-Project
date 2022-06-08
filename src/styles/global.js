@@ -1,4 +1,4 @@
-import { StyleSheet, StatusBar, Dimensions } from "react-native";
+import { Dimensions, StatusBar, StyleSheet } from "react-native";
 
 export const globalStyles = StyleSheet.create({
   global: {
@@ -165,9 +165,6 @@ export const globalStyles = StyleSheet.create({
     fontSize: 10,
   },
   reg_choose: {
-    //textAlign: "right",
-    //justifyContent: 'flex-start',
-    //width: "80%",
     height: 28,
     marginLeft: "-20%",
   },
@@ -212,14 +209,11 @@ export const globalStyles = StyleSheet.create({
     marginBottom: "2%",
   },
   stage2: {
-    //backgroundColor: "#C4A5F3",
     textAlign: "center",
-    //alignItems: 'center',
   },
   stage3: {
     alignItems: "center",
     justifyContent: "center",
-    //marginBottom: '5%',
   },
   touchable_profile_pic: {
     height: 35,
@@ -274,7 +268,6 @@ export const globalStyles = StyleSheet.create({
     height: 150,
     borderRadius: 75,
     overflow: "hidden",
-    //alignItems: "center",
     justifyContent: "center",
     marginBottom: "3%",
   },
@@ -289,8 +282,6 @@ export const globalStyles = StyleSheet.create({
     width: "100%",
     borderWidth: 3,
     borderColor: "#fee6a7",
-    //marginTop: '2%',
-    //marginBottom: '5%',
   },
   picAndDetails: {
     alignItems: "center",
@@ -320,8 +311,6 @@ export const globalStyles = StyleSheet.create({
     justifyContent: "center",
     width: 115,
     height: 80,
-    //marginLeft: '17%',
-    //marginRight: '17%',
     marginBottom: "8%",
     borderWidth: 2,
     borderRadius: 15,
@@ -355,9 +344,6 @@ export const globalStyles = StyleSheet.create({
     fontWeight: "bold",
   },
   project_details_container: {
-    //alignContent: 'center',
-    //alignItems: 'center',
-    //width: '92%',
     marginLeft: "4%",
     marginRight: "4%",
     padding: "2%",
@@ -412,10 +398,7 @@ export const globalStyles = StyleSheet.create({
   },
   choose_img: {
     width: "15%",
-    //position: 'absolute',
-    //bottom: '1%',
     left: "5%",
-    //top: '1%',
     marginTop: "3%",
     marginBottom: "3%",
     borderColor: "black",
@@ -449,21 +432,16 @@ export const globalStyles = StyleSheet.create({
   create_post_img: {
     height: "75%",
     marginTop: "2%",
-    //width: '92%',
-    //marginLeft: '4%',
     resizeMode: "stretch",
     resizeMode: "contain",
   },
   to_post: {
-    //position: 'absolute',
     width: "38%",
     alignItems: "center",
-    //bottom: '1%',
     left: "5%",
     borderColor: "black",
     borderStyle: "solid",
     backgroundColor: "#a77ce8",
-    //textAlign: "center",
     borderWidth: 2,
     borderRadius: 12,
     padding: "2%",
@@ -477,8 +455,6 @@ export const globalStyles = StyleSheet.create({
   },
   ////////////////////////////////////////////////
   feed: {
-    // marginTop: '-7.5%',
-    // bottom: '4.5%',
     backgroundColor: "#fee6a7",
   },
   empty_feed: {
@@ -497,7 +473,6 @@ export const globalStyles = StyleSheet.create({
     width: "100%",
     paddingBottom: "1.5%",
     marginBottom: "1%",
-    //marginTop: '0%',
     backgroundColor: "#ffffff",
   },
   post_text: {
@@ -601,7 +576,6 @@ export const globalStyles = StyleSheet.create({
     justifyContent: "space-between",
     marginLeft: "10%",
     marginRight: "10%",
-    // paddingBottom: "1%",
     marginTop: "1%",
   },
   details_like_comment: {
@@ -719,7 +693,6 @@ export const globalStyles = StyleSheet.create({
     backgroundColor: "#fff89e",
     paddingBottom: "2%",
     marginBottom: "2%",
-    //width: "92%",
     marginLeft: "5%",
     marginRight: "5%",
     borderRadius: 25,
@@ -757,7 +730,6 @@ export const globalStyles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: "1%",
     borderColor: "black",
-    //borderWidth: 1,
     padding: "4%",
     borderRadius: 20,
     width: "92%",

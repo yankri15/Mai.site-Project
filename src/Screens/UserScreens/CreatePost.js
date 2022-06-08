@@ -1,29 +1,13 @@
-import {
-  View,
-  Text,
-  Pressable,
-  TextInput,
-  Image,
-  SafeAreaView,
-  Alert,
-  FlatList,
-  ScrollView,
-} from "react-native";
-import React, { useState } from "react";
+import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import { globalStyles } from "../../styles/global";
-import { ref, uploadBytes } from "firebase/storage";
-import { db, storage } from "../../../firebase";
-import { useAuth } from "../../AuthProvider/AuthProvider";
+import React, { useState } from "react";
 import {
-  doc,
-  setDoc,
-  serverTimestamp,
-  collection,
-  addDoc,
-} from "firebase/firestore";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+  Alert,
+  FlatList, Image, Pressable, SafeAreaView, Text, TextInput, View
+} from "react-native";
+import { useAuth } from "../../AuthProvider/AuthProvider";
 import { useData } from "../../AuthProvider/UserDataProvider";
+import { globalStyles } from "../../styles/global";
 
 const CreatePost = ({ navigation, route }) => {
   const project = route.params.project;

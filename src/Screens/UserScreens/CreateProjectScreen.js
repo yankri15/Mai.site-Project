@@ -1,24 +1,14 @@
-import {
-  View,
-  Text,
-  Image,
-  Alert,
-  TextInput,
-  Pressable,
-  SafeAreaView,
-  ScrollView,
-  FlatList,
-  Picker,
-  Vibration,
-} from "react-native";
-import React, { useState, useEffect, Fragment } from "react";
-import { globalStyles } from "../../styles/global";
-import { useData } from "../../AuthProvider/UserDataProvider";
-import SearchableDropdown from "react-native-searchable-dropdown";
 import * as ImagePicker from "expo-image-picker";
-import { useAuth } from "../../AuthProvider/AuthProvider";
+import React, { useEffect, useState } from "react";
+import {
+  Alert, FlatList, Image, Picker, Pressable, ScrollView, Text, TextInput, View
+} from "react-native";
+import SearchableDropdown from "react-native-searchable-dropdown";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import DropdownSearch from "../../API/DropdownSearch";
+import { useAuth } from "../../AuthProvider/AuthProvider";
+import { useData } from "../../AuthProvider/UserDataProvider";
+import { globalStyles } from "../../styles/global";
 
 const CreateProjectScreen = ({ navigation }) => {
   const { currentUser } = useAuth();
@@ -233,8 +223,6 @@ const CreateProjectScreen = ({ navigation }) => {
           itemStyle={{
             padding: 10,
             marginTop: '1.5%',
-            //fontSize: 50,
-            //fontWidth: "bold",
             backgroundColor: "#C4A5F3",
             borderColor: "#000",
             borderWidth: 1,
@@ -279,7 +267,6 @@ const CreateProjectScreen = ({ navigation }) => {
         }}
         style={globalStyles.choose_img}
       >
-        {/* <Text>העלו תמונות</Text> */}
         <Text style={globalStyles.choose_img_text}>
           <Ionicons name="image-outline" size={25}></Ionicons>+
         </Text>

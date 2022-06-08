@@ -1,22 +1,14 @@
 import {
-  View,
-  Text,
-  Pressable,
-  Modal,
-  TextInput,
-  SafeAreaView,
-  Alert,
-} from "react-native";
-import React, { useState } from "react";
-import { useAuth } from "../../AuthProvider/AuthProvider";
-import {useData} from "../../AuthProvider/UserDataProvider"
-import { globalStyles } from "../../styles/global";
-import {
-  reauthenticateWithCredential,
-  updatePassword,
-  EmailAuthProvider,
-  deleteUser,
+  deleteUser, EmailAuthProvider, reauthenticateWithCredential,
+  updatePassword
 } from "firebase/auth";
+import React, { useState } from "react";
+import {
+  Alert, Modal, Pressable, SafeAreaView, Text, TextInput, View
+} from "react-native";
+import { useAuth } from "../../AuthProvider/AuthProvider";
+import { useData } from "../../AuthProvider/UserDataProvider";
+import { globalStyles } from "../../styles/global";
 
 const SettingsScreen = ({ navigation }) => {
   const { currentUser } = useAuth();

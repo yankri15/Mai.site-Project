@@ -1,21 +1,16 @@
-import React, { useState, useEffect } from "react";
-import {
-  Image,
-  View,
-  TextInput,
-  Pressable,
-  Text,
-  Picker,
-  Alert,
-} from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import { useAuth } from "../../AuthProvider/AuthProvider";
-import { globalStyles } from "../../styles/global";
-import { useData } from "../../AuthProvider/UserDataProvider";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../../firebase";
+import React, { useEffect, useState } from "react";
+import {
+  Alert, Image, Picker, Pressable,
+  Text, TextInput, View
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { db } from "../../../firebase";
+import { useAuth } from "../../AuthProvider/AuthProvider";
+import { useData } from "../../AuthProvider/UserDataProvider";
+import { globalStyles } from "../../styles/global";
 
 const EditProfileScreen = ({ navigation }) => {
   const { currentUser } = useAuth();

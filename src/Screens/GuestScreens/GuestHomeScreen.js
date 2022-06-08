@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, Pressable, SafeAreaView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { globalStyles } from "../../styles/global";
-import { useData } from "../../AuthProvider/UserDataProvider";
+import React, { useEffect, useState } from "react";
+import { Pressable, SafeAreaView, Text, View } from "react-native";
 import { useAuth } from "../../AuthProvider/AuthProvider";
+import { useData } from "../../AuthProvider/UserDataProvider";
+import { globalStyles } from "../../styles/global";
 
 const GuestHomeScreen = ({ navigation }) => {
   const { logout } = useAuth();
