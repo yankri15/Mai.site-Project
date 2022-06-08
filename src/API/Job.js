@@ -56,7 +56,7 @@ const Job = ({ job, profileScreen }) => {
         "\n",
       [
         {
-          text: "Ok",
+          text: "סגור",
         },
       ],
       {

@@ -57,7 +57,7 @@ const MapScreen = () => {
   }, [markersLoaded]);
 
   const getHeader = () => {
-    return <Text>{currentNeighborhood}</Text>;
+    return <Text style={globalStyles.forum_title_text}>{currentNeighborhood}</Text>;
   };
   return (
     <SafeAreaView style={globalStyles.mapScreenContainer}>
@@ -96,12 +96,11 @@ const MapScreen = () => {
         }}
       >
         <FlatList
-          contentContainerStyle={{ marginTop: "5%" }}
           data={currentProjects}
           renderItem={({ item }) => {
             return (
               <Pressable
-                style={globalStyles.forums_titles}
+                style={[globalStyles.forums_titles, {marginBottom: '4%'}]}
                 onPress={() => {
                   Alert.alert(
                     "תיאור הפרוייקט",
@@ -122,9 +121,7 @@ const MapScreen = () => {
           ListEmptyComponent={() => {
             return (
               <View>
-                <Text style={globalStyles.be_first}>
-                  נראה שאין מה להציג כרגע..
-                </Text>
+                <Text style={globalStyles.be_first}>נראה שאין מה להציג כרגע..</Text>
               </View>
             );
           }}
