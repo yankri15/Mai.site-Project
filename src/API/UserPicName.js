@@ -32,7 +32,7 @@ const UserPicName = ({ uid, navigation, posted }) => {
             source={
               userData.profilePic
                 ? { uri: userData.profilePic }
-                : { defaultImage }
+                : defaultImage
             }
             style={globalStyles.logo_image_area}
           ></Image>

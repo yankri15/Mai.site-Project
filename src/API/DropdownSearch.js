@@ -131,7 +131,7 @@ const DropdownSearch = ({
                     source={
                       item.profilePic
                         ? { uri: item.profilePic }
-                        : { defaultImage }
+                        : defaultImage
                     }
                     style={globalStyles.logo_image_area}
                   />
