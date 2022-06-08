@@ -12,7 +12,11 @@ const UserPicName = ({ uid, navigation, posted }) => {
     const getUserData = async () => {
       const docRef = doc(db, "users", uid);
       const docSnap = await getDoc(docRef);
-      setUserData(docSnap.data());
+      // console.log("uid: ", uid, "\n data\n: ", docSnap.data(), "\n");
+      if (docSnap.data())
+        setUserData(docSnap.data());
+      else
+        setUserData({ name: "משתמש מחוק" })
     };
     getUserData();
   }, []);
@@ -27,6 +31,7 @@ const UserPicName = ({ uid, navigation, posted }) => {
               uid: uid,
             });
           }}
+          disabled={userData.name === "משתמש מחוק"}
         >
           <Image
             source={
@@ -46,6 +51,7 @@ const UserPicName = ({ uid, navigation, posted }) => {
               uid: uid,
             });
           }}
+          disabled={userData.name === "משתמש מחוק"}
         >
           <Text style={globalStyles.user_name}>{userData.name}</Text>
         </Pressable>
