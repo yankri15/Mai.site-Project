@@ -317,9 +317,9 @@ export const globalStyles = StyleSheet.create({
     backgroundColor: "#fdc123",
     borderColor: "black",
     justifyContent: "center",
-    width: 115,
-    height: 80,
-    marginBottom: "8%",
+    width: 120,
+    height: 70,
+    margin: 8,
     borderWidth: 2,
     borderRadius: 15,
   },
@@ -328,7 +328,7 @@ export const globalStyles = StyleSheet.create({
     fontSize: 17,
     color: "#000000",
     fontWeight: "bold",
-    padding: "2%",
+    padding: "1%",
     flexWrap: "wrap",
   },
   line: {
@@ -491,10 +491,8 @@ export const globalStyles = StyleSheet.create({
   post_img: {
     width: "100%",
     height: 375,
-    //paddingBottom: "2%",
     resizeMode: "stretch",
     marginBottom: '3%',
-    //resizeMode: "contain",
   },
   images_length_view: {
     position: 'absolute',
