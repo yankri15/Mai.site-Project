@@ -6,7 +6,7 @@ import LandingScreen from "../Screens/AuthScreens/LandingScreen";
 import LoginScreen from "../Screens/AuthScreens/LoginScreen";
 import RegisterScreen from "../Screens/AuthScreens/RegisterScreen";
 import RegistrationDetailsScreen from "../Screens/AuthScreens/RegistrationDetailsScreen";
-import LoadingScreen from "../Screens/LoadingScreen";
+
 
 const Stack = createStackNavigator();
 
@@ -24,7 +24,7 @@ const AuthContainer = () => {
           name="RegistrationDetails"
           component={RegistrationDetailsScreen}
         />
-        <Stack.Screen name="Loading" component={LoadingScreen} />
+        
         <Stack.Screen name="GuestHome" component={GuestNavigator} />
       </Stack.Navigator>
     );

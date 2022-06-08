@@ -4,7 +4,6 @@ import { useAuth } from "../AuthProvider/AuthProvider";
 import { useData } from "../AuthProvider/UserDataProvider";
 import GuestNavigator from "../Navigation/GuestNavigator";
 import RegistrationDetailsScreen from "../Screens/AuthScreens/RegistrationDetailsScreen";
-import LoadingScreen from "../Screens/LoadingScreen";
 import BlockedScreen from "../Screens/UserScreens/BlockedScreen";
 import HamburgerStack from "./HamburgerStack";
 import AuthContainer from "./AuthContainer"
@@ -24,9 +23,11 @@ const MainContainer = () => {
       return <RegistrationDetailsScreen />;
     } else if (userStatus == -1) {
       return <BlockedScreen />;
-    } else {
-      return <LoadingScreen />;
     }
+    else{
+      return null;
+    }
+   
   } else {
     return <AuthContainer />;
   }
