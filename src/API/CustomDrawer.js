@@ -27,7 +27,11 @@ const CustomDrawer = (props) => {
     }
   }
 
-  getName();
+  useEffect(() => {
+    getName();
+    return;
+  }, []);
+
 
   return (
     <View style={{ flex: 1 }}>

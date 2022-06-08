@@ -13,7 +13,6 @@ import BlockedScreen from "../Screens/UserScreens/BlockedScreen";
 import { useData } from "../AuthProvider/UserDataProvider";
 import RegistrationDetailsScreen from "../Screens/AuthScreens/RegistrationDetailsScreen";
 import GuestNavigator from "../Navigation/GuestNavigator";
-import GuestHomeScreen from "../Screens/GuestScreens/GuestHomeScreen";
 const Stack = createStackNavigator();
 
 const MainContainer = () => {
@@ -24,7 +23,7 @@ const MainContainer = () => {
     if (userStatus == 2) {
       return <HamburgerStack />;
     } else if (userStatus == 1) {
-      return <GuestHomeScreen />;
+      return <GuestNavigator />;
     } else if (userStatus == 0) {
       return <RegistrationDetailsScreen />;
     } else if (userStatus == -1) {

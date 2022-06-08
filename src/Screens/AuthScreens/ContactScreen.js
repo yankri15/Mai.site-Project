@@ -26,10 +26,10 @@ const Contact = ({ navigation }) => {
   }
 
   return (
-    <View style={globalStyles.settingsContainer}>
+    <View style={[globalStyles.global, globalStyles.settingsContainer]}>
       <Text style={globalStyles.forum_title_text}>צור קשר</Text>
       <TextInput
-      style={globalStyles.textInput}
+        style={globalStyles.textInput}
         placeholder="נושא"
         value={subject}
         onChangeText={(text) => setSubject(text)}

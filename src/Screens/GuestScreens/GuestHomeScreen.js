@@ -1,10 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Pressable, SafeAreaView } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { globalStyles } from "../../styles/global";
 import { useData } from "../../AuthProvider/UserDataProvider";
+import { useAuth } from "../../AuthProvider/AuthProvider";
 
 const GuestHomeScreen = ({ navigation }) => {
+  const { logout } = useAuth();
   const { userStatus, getName, name } = useData();
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (userStatus) {
@@ -13,11 +17,28 @@ const GuestHomeScreen = ({ navigation }) => {
     return;
   }, []);
 
+  async function handleLogout() {
+    try {
+      setError("");
+      await logout();
+    } catch (err) {
+      setError("Failed to logout");
+      console.log(error + ":\n " + err);
+    }
+  }
+
   return (
-    <SafeAreaView style={globalStyles.settingsContainer}>
+    <SafeAreaView style={[globalStyles.global, globalStyles.settingsContainer]}>
+      <Pressable
+        style={{ position: 'absolute', top: 10, left: 10, flexDirection: 'row', ...globalStyles.settingsBtn }}
+        onPress={handleLogout}
+      >
+        <Text>{'התנתקות'}</Text>
+        <Ionicons name="log-out-outline" size={20}></Ionicons>
+      </Pressable>
       <View style={{ alignItems: 'center' }}>
         <Text style={[globalStyles.landing_title_text]}>
-          שלום {userStatus === 1 ? name.split(" ")[0] : "אורח"}
+          שלום {userStatus === 1 && name ? name.split(" ")[0] : "אורח"}
         </Text>
         {userStatus === 1 ? (
           <View style={globalStyles.approval_waiting_view}>
