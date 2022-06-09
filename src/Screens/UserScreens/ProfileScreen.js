@@ -1,22 +1,9 @@
-import {
-  EvilIcons,
-  Ionicons,
-  MaterialCommunityIcons,
-  MaterialIcons,
-  SimpleLineIcons,
-} from "@expo/vector-icons";
+import { EvilIcons, Ionicons, MaterialIcons, SimpleLineIcons, } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import {
-  FlatList,
-  ImageBackground,
-  Modal,
-  Pressable,
-  Text,
-  View,
-} from "react-native";
+import { FlatList, ImageBackground, Modal, Pressable, Text, View, } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import ImageViewer from "react-native-image-zoom-viewer";
 import { db } from "../../../firebase";
@@ -244,19 +231,19 @@ const ProfileScreen = ({ route, navigation }) => {
           <Ionicons
             style={{ color: "#a77ce8", marginRight: "2%" }}
             name="school-outline"
-            size={20}
+            size={23}
           ></Ionicons>
           <Text style={globalStyles.side_details_text}>בית הספר שלי: </Text>
-          <Text>{school}</Text>
+          <Text style={{ fontSize: 16 }}>{school}</Text>
         </View>
         <View style={globalStyles.side_details_comp}>
           <SimpleLineIcons
             style={{ color: "#a77ce8", marginRight: "2%" }}
             name="organization"
-            size={20}
+            size={23}
           ></SimpleLineIcons>
           <Text style={globalStyles.side_details_text}>הארגון שלי: </Text>
-          <Text>{organiztion}</Text>
+          <Text style={{ fontSize: 16 }}>{organiztion}</Text>
         </View>
       </View>
       <View style={globalStyles.profile_line}></View>

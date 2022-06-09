@@ -1,13 +1,6 @@
 import React from "react";
-import {
-  FlatList,
-  Image,
-  Pressable,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import { FlatList, Image, Pressable, Text, TextInput, View, } from "react-native";
+import { Ionicons, Octicons } from "@expo/vector-icons";
 import { globalStyles } from "../styles/global";
 
 const DropdownSearch = ({
@@ -23,13 +16,12 @@ const DropdownSearch = ({
   const defaultImage = require("../../assets/default_profile_pic.jpg");
   return (
     <View>
-      <View style={{ width: "90%", paddingBottom: 5, marginLeft: "5%" }}>
+      <View style={{ width: "90%", paddingBottom: '1%', marginLeft: "5%" }}>
         <View
           style={{
             flexDirection: "row",
             flexWrap: "wrap",
-            paddingBottom: 10,
-            marginTop: 5,
+            marginTop: '1%',
           }}
         >
           {selectedItems &&
@@ -62,7 +54,7 @@ const DropdownSearch = ({
                       width: 25,
                       height: 25,
                       borderRadius: 100,
-                      marginLeft: 10,
+                      marginLeft: '10%',
                     }}
                   >
                     <Text>{"X"}</Text>
@@ -87,17 +79,17 @@ const DropdownSearch = ({
           style={globalStyles.textInputProject}
         />
         {display === "flex" && filteredList && (
-          <Ionicons
-            name="close-outline"
+          <Octicons
+            name="x"
             style={{
               position: "absolute",
               alignSelf: "center",
-              right: 20,
-              backgroundColor: "#DEDAD9",
+              color: 'red',
+              top: '18%',
+              right: '8%',
               zIndex: 3,
-              borderRadius: 10,
             }}
-            size={30}
+            size={25}
             onPress={() => setDisplay("none")}
           />
         )}

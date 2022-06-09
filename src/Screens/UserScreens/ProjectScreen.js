@@ -3,12 +3,7 @@ import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { Alert, Pressable, Text, View, Modal, FlatList } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import {
-  Menu,
-  MenuOptions,
-  MenuTrigger,
-  renderers,
-} from "react-native-popup-menu";
+import { Menu, MenuOptions, MenuTrigger, renderers } from "react-native-popup-menu";
 import { EvilIcons } from "@expo/vector-icons";
 import { db } from "../../../firebase";
 import BasicPostDisplay from "../../API/BasicPostDisplay";
@@ -122,24 +117,25 @@ const ProjectScreen = ({ route, navigation }) => {
           setShowModalE(!showModalE);
         }}
       >
-        <DropdownSearch
-          placeHolder={"שותפים"}
-          selectedItems={collaborators}
-          filteredList={usersData}
-          handleSearch={handleSearchUser}
-          handleSelect={handleSelectUser}
-          handleUnselect={handleUnselectUser}
-          display={displayUsers}
-          setDisplay={setDisplayUsers}
-        />
-        <Pressable
-          style={{ alignSelf: 'center', }}
-          onPress={handleNewCollabs}
-        >
-          <Text
-            style={{ fontSize: 30 }}
-          >אישור</Text>
-        </Pressable>
+        <View style={{ marginTop: '10%' }}>
+          <Text style={globalStyles.title_creat_post}>הוספת/הורדת שותפים</Text>
+          <DropdownSearch
+            placeHolder={"שותפים"}
+            selectedItems={collaborators}
+            filteredList={usersData}
+            handleSearch={handleSearchUser}
+            handleSelect={handleSelectUser}
+            handleUnselect={handleUnselectUser}
+            display={displayUsers}
+            setDisplay={setDisplayUsers}
+          />
+          <Pressable
+            style={[globalStyles.landing_log_button, { alignSelf: 'center', marginTop: '40%' }]}
+            onPress={handleNewCollabs}
+          >
+            <Text style={[globalStyles.landing_log_btn_text, { fontSize: 20 }]}>אישור</Text>
+          </Pressable>
+        </View>
       </Modal>
       <ScrollView>
         <Menu
@@ -187,21 +183,10 @@ const ProjectScreen = ({ route, navigation }) => {
           <View style={globalStyles.project_details_view}>
             <Text style={globalStyles.project_title_details}>שותפים: </Text>
             {collabNames.map((item, index) => {
-              return (index === collabNames.length - 1 ? <Text key={index}>{item}</Text> : <Text key={index}>{item}, </Text>)
+              return (index === collabNames.length - 1 ?
+                <Text style={globalStyles.project_details} key={index}>{item}</Text>
+                : <Text style={globalStyles.project_details} key={index}>{item}, </Text>)
             })}
-            {project.uid === currentUser.uid && <Pressable
-              style={{ paddingLeft: '2%' }}
-              title="edit"
-              onPress={() => {
-                setShowModalE(!showModalE);
-              }}
-            >
-              <EvilIcons
-                name="pencil"
-                size={30}
-                style={{ color: "#C4A5F3" }}
-              ></EvilIcons>
-            </Pressable>}
           </View>
           <View style={globalStyles.project_details_view}>
             <Text style={globalStyles.project_title_details}>ארגון: </Text>
@@ -210,19 +195,30 @@ const ProjectScreen = ({ route, navigation }) => {
             </Text>
           </View>
           <View style={globalStyles.project_details_view}>
-            <Text style={globalStyles.project_title_details}>
-              נושאי המיזם:{" "}
-            </Text>
+            <Text style={globalStyles.project_title_details}>נושאי המיזם:{" "}</Text>
             <Text style={globalStyles.project_details}>{project.tags}</Text>
           </View>
           <View style={globalStyles.project_details_view}>
-            <Text style={globalStyles.project_title_details}>
-              תיאור המיזם:{" "}
-            </Text>
+            <Text style={globalStyles.project_title_details}>תיאור המיזם:{" "}</Text>
             <Text style={globalStyles.project_details}>
               {project.description}
             </Text>
           </View>
+          {project.uid === currentUser.uid &&
+            <Pressable
+              style={globalStyles.edit_collabs}
+              title="edit"
+              onPress={() => {
+                setShowModalE(!showModalE);
+              }}
+            >
+              <EvilIcons
+                name="pencil"
+                size={25}
+                style={{ color: "#723ac9" }}
+              ></EvilIcons>
+              <Text style={[globalStyles.take_a_pic_btn_text, { color: 'black', fontSize: 12 }]}>עריכת שותפים</Text>
+            </Pressable>}
         </View>
         <View style={globalStyles.profile_line}></View>
         {projectPosts.map((post, index) => {

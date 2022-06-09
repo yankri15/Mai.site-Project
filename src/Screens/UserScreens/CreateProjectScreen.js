@@ -1,8 +1,6 @@
 import * as ImagePicker from "expo-image-picker";
 import React, { useEffect, useState } from "react";
-import {
-  Alert, FlatList, Image, Picker, Pressable, ScrollView, Text, TextInput, View
-} from "react-native";
+import { Alert, FlatList, Image, Picker, Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import SearchableDropdown from "react-native-searchable-dropdown";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import DropdownSearch from "../../API/DropdownSearch";
@@ -228,7 +226,7 @@ const CreateProjectScreen = ({ navigation }) => {
             borderWidth: 1,
             borderRadius: 5,
           }}
-          itemTextStyle={{ color: "#222" }}
+          itemTextStyle={{ color: 'black', fontSize: 15, fontWeight: 'bold' }}
           itemsContainerStyle={{ maxHeight: 140 }}
           items={tagsList}
           chip={true}
