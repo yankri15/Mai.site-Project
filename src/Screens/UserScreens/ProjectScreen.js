@@ -178,7 +178,7 @@ const ProjectScreen = ({ route, navigation }) => {
             </Pressable>
           </MenuOptions>
         </Menu>
-        <Text style={[globalStyles.forum_title_text, {marginTop: '10%', marginBottom: '0%'}]}>{project.name}</Text>
+        <Text style={[globalStyles.forum_title_text, { marginTop: '10%', marginBottom: '0%' }]}>{project.name}</Text>
         <View style={globalStyles.project_screen_details}>
           <View style={globalStyles.project_details_view}>
             <Text style={globalStyles.project_title_details}>יוצר המיזם: </Text>
@@ -190,7 +190,7 @@ const ProjectScreen = ({ route, navigation }) => {
               return (index === collabNames.length - 1 ? <Text key={index}>{item}</Text> : <Text key={index}>{item}, </Text>)
             })}
             {project.uid === currentUser.uid && <Pressable
-              style={{paddingLeft: '2%'}}
+              style={{ paddingLeft: '2%' }}
               title="edit"
               onPress={() => {
                 setShowModalE(!showModalE);
@@ -201,7 +201,7 @@ const ProjectScreen = ({ route, navigation }) => {
                 size={30}
                 style={{ color: "#C4A5F3" }}
               ></EvilIcons>
-            </Pressable>
+            </Pressable>}
           </View>
           <View style={globalStyles.project_details_view}>
             <Text style={globalStyles.project_title_details}>ארגון: </Text>
