@@ -21,7 +21,7 @@ const Job = ({ job, profileScreen }) => {
   const [uidEmail, setUidEmail] = useState("");
   const { Popover } = renderers;
   const { currentUser } = useAuth();
-  const { deleteJob, getJobs, getMyJobs } = useData();
+  const { deleteJob, getJobs, getMyJobs, admin } = useData();
 
   const getUidEmail = async (uid) => {
     const docRef = doc(db, "users", uid);
@@ -46,14 +46,14 @@ const Job = ({ job, profileScreen }) => {
     Alert.alert(
       "פרטי התפקיד",
       "שם הפרויקט: " +
-        job.data.projectName +
-        "\n" +
-        "שם התפקיד: " +
-        jobTitle +
-        "\n" +
-        "תאור התפקיד: " +
-        job.data.jobDescription +
-        "\n",
+      job.data.projectName +
+      "\n" +
+      "שם התפקיד: " +
+      jobTitle +
+      "\n" +
+      "תאור התפקיד: " +
+      job.data.jobDescription +
+      "\n",
       [
         {
           text: "סגור",
@@ -105,7 +105,7 @@ const Job = ({ job, profileScreen }) => {
           style={globalStyles.dots}
         >
           <MenuTrigger>
-            {job.data.uid == currentUser.uid ? (
+            {job.data.uid == currentUser.uid || admin == 1 ? (
               <Entypo name="dots-three-horizontal" size={22}></Entypo>
             ) : null}
           </MenuTrigger>
