@@ -91,7 +91,10 @@ const ProjectScreen = ({ route, navigation }) => {
   }
 
   const handleNewCollabs = () => {
-    addCollabs(pid, collaborators);
+    const newCollabs = collaborators.map(collab => {
+      return { id: collab.id, name: collab.name };
+    })
+    addCollabs(pid, newCollabs);
     setShowModalE(!showModalE);
   }
 
