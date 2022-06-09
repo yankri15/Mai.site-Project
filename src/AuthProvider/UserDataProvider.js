@@ -1,8 +1,23 @@
 import {
   addDoc,
-  collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, serverTimestamp, setDoc, updateDoc, where
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy,
+  query,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+  where,
 } from "firebase/firestore";
-import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
 import React, { useContext, useEffect, useState } from "react";
 import { db, storage } from "../../firebase";
 import { useAuth } from "./AuthProvider";
@@ -93,9 +108,7 @@ const UserDataProvider = ({ children }) => {
       organiztion,
       "profilePic",
       uri
-    ).then(() => {
-      console.log("details updated");
-    });
+    );
   };
 
   const updateAdmin = async (uid, admin) => {
@@ -106,7 +119,13 @@ const UserDataProvider = ({ children }) => {
     const imgRef = ref(storage, path);
     let res;
     await getDownloadURL(imgRef).then(async (img) => {
-      await updateDoc(doc(db, "users", currentUser.uid), "pic", path, "profilePic", img);
+      await updateDoc(
+        doc(db, "users", currentUser.uid),
+        "pic",
+        path,
+        "profilePic",
+        img
+      );
       res = img;
       setImage(img);
     });
@@ -142,7 +161,11 @@ const UserDataProvider = ({ children }) => {
       if (currentUser.uid !== element.id) {
         setUsersList((prev) => [
           ...prev,
-          { key: element.id + new Date().getTime(), id: element.id, data: element.data() },
+          {
+            key: element.id + new Date().getTime(),
+            id: element.id,
+            data: element.data(),
+          },
         ]);
       }
     });
@@ -150,7 +173,7 @@ const UserDataProvider = ({ children }) => {
 
   const addCollabs = async (pid, collaborators) => {
     await updateDoc(doc(db, "projects", pid), "collaborators", collaborators);
-  }
+  };
 
   const deleteComment = async (commentLocation, commentId) => {
     await deleteDoc(doc(commentLocation, commentId));
@@ -161,7 +184,6 @@ const UserDataProvider = ({ children }) => {
   };
 
   const deleteSelf = async () => {
-
     await deleteDoc(doc(db, "users", currentUser.uid));
   };
 
@@ -187,12 +209,14 @@ const UserDataProvider = ({ children }) => {
     const desertRef = ref(storage, path);
 
     // Delete the file
-    deleteObject(desertRef).then(() => {
-      console.log("File deleted successfully");
-    }).catch((error) => {
-      console.log("Uh-oh, an error occurred!");
-    });
-  }
+    deleteObject(desertRef)
+      .then(() => {
+        console.log("File deleted successfully");
+      })
+      .catch((error) => {
+        console.log("Uh-oh, an error occurred!");
+      });
+  };
 
   const getPosts = async () => {
     setPostsList([]);

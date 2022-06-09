@@ -115,7 +115,7 @@ const ProfileScreen = ({ route, navigation }) => {
         }}
       >
         <View style={globalStyles.modalView}>
-          {profilePic && (
+          {
             <Pressable
               style={[
                 globalStyles.take_a_pic_btn,
@@ -133,7 +133,7 @@ const ProfileScreen = ({ route, navigation }) => {
                 הצג תמונה{" "}
               </Text>
             </Pressable>
-          )}
+          }
           <Pressable
             style={[
               globalStyles.take_a_pic_btn,
