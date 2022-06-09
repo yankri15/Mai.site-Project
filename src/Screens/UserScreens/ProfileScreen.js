@@ -270,7 +270,7 @@ const ProfileScreen = ({ route, navigation }) => {
             <Pressable
               style={globalStyles.profile_project}
               onPress={() =>
-                navigation.navigate("Project", {
+                navigation.navigate("פרויקט", {
                   project: item.data,
                   pid: item.pid,
                 })

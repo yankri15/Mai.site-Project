@@ -153,7 +153,7 @@ const ProjectScreen = ({ route, navigation }) => {
         >
           <MenuTrigger>
             {currentUser.uid === project.uid || admin == 1 ? (
-              <Entypo name="dots-three-horizontal" size={20}></Entypo>
+              <Entypo name="dots-three-horizontal" size={23}></Entypo>
             ) : null}
           </MenuTrigger>
           <MenuOptions style={globalStyles.delete_dots_btn}>
@@ -178,7 +178,7 @@ const ProjectScreen = ({ route, navigation }) => {
             </Pressable>
           </MenuOptions>
         </Menu>
-        <Text style={globalStyles.forum_title_text}>{project.name}</Text>
+        <Text style={[globalStyles.forum_title_text, {marginTop: '10%', marginBottom: '0%'}]}>{project.name}</Text>
         <View style={globalStyles.project_screen_details}>
           <View style={globalStyles.project_details_view}>
             <Text style={globalStyles.project_title_details}>יוצר המיזם: </Text>
@@ -190,20 +190,18 @@ const ProjectScreen = ({ route, navigation }) => {
               return (index === collabNames.length - 1 ? <Text key={index}>{item}</Text> : <Text key={index}>{item}, </Text>)
             })}
             {project.uid === currentUser.uid && <Pressable
-              style={globalStyles.profile_edit_btn}
+              style={{paddingLeft: '2%'}}
               title="edit"
               onPress={() => {
                 setShowModalE(!showModalE);
               }}
             >
-              <Text style={globalStyles.profile_edit_btn_text}>
-                <EvilIcons
-                  name="pencil"
-                  size={35}
-                  style={{ color: "#b0b0b0" }}
-                ></EvilIcons>
-              </Text>
-            </Pressable>}
+              <EvilIcons
+                name="pencil"
+                size={30}
+                style={{ color: "#C4A5F3" }}
+              ></EvilIcons>
+            </Pressable>
           </View>
           <View style={globalStyles.project_details_view}>
             <Text style={globalStyles.project_title_details}>ארגון: </Text>
@@ -246,7 +244,7 @@ const ProjectScreen = ({ route, navigation }) => {
         <Pressable
           title="edit"
           onPress={() => {
-            navigation.navigate("CreatePost", { project: project, pid: pid });
+            navigation.navigate("יצירת פוסט", { project: project, pid: pid });
           }}
           style={globalStyles.plus_btn}
         >

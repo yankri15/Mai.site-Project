@@ -348,8 +348,12 @@ export const globalStyles = StyleSheet.create({
   },
   project_title_details: {
     color: "black",
-    fontSize: 15,
+    fontSize: 17,
     fontWeight: "bold",
+  },
+  project_details: {
+    color: "black",
+    fontSize: 17,
   },
   project_details_container: {
     marginLeft: "4%",
@@ -359,10 +363,6 @@ export const globalStyles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     borderColor: "#e2e2e2",
-  },
-  project_details: {
-    color: "black",
-    fontSize: 15,
   },
   ////////////////////////////////////////////////
   plus_btn: {
