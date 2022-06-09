@@ -14,7 +14,7 @@ import DropdownSearch from "../../API/DropdownSearch";
 
 const ProjectScreen = ({ route, navigation }) => {
   const { currentUser } = useAuth();
-  const { projectPosts, getProjectPosts, deleteProject, admin, usersList, getUsersList, addCollabs } = useData();
+  const { projectPosts, getProjectPosts, deleteProject, admin, usersList, getUsersList, addCollabs, getPosts } = useData();
   const { Popover } = renderers;
 
   const project = route.params.project;
@@ -165,7 +165,11 @@ const ProjectScreen = ({ route, navigation }) => {
                     {
                       text: "מחק אותי",
                       onPress: () => {
-                        deleteProject(pid);
+                        deleteProject(pid).then(() => {
+                          getPosts().then(() => {
+                            navigation.navigate("Feed")
+                          })
+                        });
                       },
                     },
                   ],

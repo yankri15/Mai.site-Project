@@ -225,7 +225,7 @@ const UserDataProvider = ({ children }) => {
     const docSnap = await getDocs(q);
 
     docSnap.docs.forEach((item) => {
-      setPostsList((prev) => [...prev, { id: item.id, data: item.data() }]);
+      setPostsList((prev) => [...prev, { key: item.id + new Date().getTime(), id: item.id, data: item.data() }]);
     });
 
     return docSnap.docs.map((item) => {

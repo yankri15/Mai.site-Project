@@ -10,17 +10,7 @@ import { globalStyles } from "../../styles/global";
 
 const CreateProjectScreen = ({ navigation }) => {
   const { currentUser } = useAuth();
-  const {
-    uploadProject,
-    uploadDataPost,
-    uploadImg,
-    usersList,
-    getUsersList,
-    tagsList,
-    getTags,
-    getPosts,
-    getNeighborhoods,
-  } = useData();
+  const { uploadProject, uploadDataPost, uploadImg, usersList, getUsersList, tagsList, getTags, getPosts, getNeighborhoods, } = useData();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [collaborators, setCollaborators] = useState([]);
@@ -109,8 +99,8 @@ const CreateProjectScreen = ({ navigation }) => {
     uploadProject(name, organization, newCollabs, neighborhood, imageURLs, tagNames, description).then((pid) => {
       uploadDataPost("פרויקט חדש באוויר!", pid, imageURLs, tagNames).then(
         () => {
-          getPosts();
-          navigation.navigate("Feed");
+          getPosts().then(() => navigation.navigate("Feed"));
+
         }
       );
     });
