@@ -37,6 +37,7 @@ const DropdownSearch = ({
             selectedItems.map((item) => {
               return (
                 <View
+                  key={item.key}
                   style={{
                     width: item.name.length * 8 + 60,
                     justifyContent: "center",
