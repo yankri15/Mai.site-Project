@@ -3,8 +3,13 @@ import * as ImagePicker from "expo-image-picker";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import {
-  Alert, Image, Picker, Pressable,
-  Text, TextInput, View
+  Alert,
+  Image,
+  Picker,
+  Pressable,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { db } from "../../../firebase";
@@ -32,6 +37,7 @@ const EditProfileScreen = ({ navigation }) => {
       const docRef = doc(db, "users", currentUser.uid);
       const docSnap = await getDoc(docRef);
       const userData = docSnap.data();
+      setImageImageToBeSet(userData.profilePic);
       setName(userData.name);
       setNeighborhood(userData.neighborhood);
       setSchool(userData.school);
@@ -54,7 +60,7 @@ const EditProfileScreen = ({ navigation }) => {
       setLoading(true);
       const uid = currentUser.uid;
       let path = "";
-      if (imageToBeSet) {
+      if (imageToBeSet !== "") {
         const date = new Date().getTime();
         path = "/img/" + currentUser.uid + "/pofile/" + date + ".jpg";
         uploadImg(path, imageToBeSet).then(() => {
@@ -119,12 +125,12 @@ const EditProfileScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={globalStyles.container_enter_screens}>
-      {image && (
+      {
         <Image
           source={image ? { uri: image } : defaultImage}
           style={globalStyles.edit_profile_pic}
         />
-      )}
+      }
       <View style={globalStyles.take_a_pic}>
         <Pressable
           style={globalStyles.take_a_pic_btn}
