@@ -294,6 +294,7 @@ export const globalStyles = StyleSheet.create({
   picAndDetails: {
     alignItems: "center",
     justifyContent: "center",
+    marginBottom: '5%',
   },
   side_details: {
     flexDirection: "column",
@@ -310,7 +311,7 @@ export const globalStyles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "left",
     justifyContent: "center",
-    fontSize: 13,
+    fontSize: 16,
     flexWrap: "wrap",
   },
   profile_project: {
@@ -363,6 +364,17 @@ export const globalStyles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     borderColor: "#e2e2e2",
+  },
+  edit_collabs: {
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    padding: '1%',
+    marginTop: '5%',
+    marginLeft: '65%',
+    borderRadius: 20,
+    backgroundColor: "#d6d4d4",
+    //width: '35%',
   },
   ////////////////////////////////////////////////
   plus_btn: {
@@ -953,7 +965,7 @@ export const globalStyles = StyleSheet.create({
     paddingRight: "2%",
     fontSize: 17,
     borderWidth: 2,
-    marginBottom: "1.5%",
+    marginBottom: "3%",
     textAlign: "right",
     borderRadius: 5,
     backgroundColor: "#fffffa",
@@ -987,11 +999,12 @@ export const globalStyles = StyleSheet.create({
     backgroundColor: "#fffffa",
     borderColor: "black",
     borderRadius: 5,
-    padding: "0.5%",
-    paddingRight: 10,
-    fontSize: 17,
+    //padding: "0.5%",
+    paddingRight: '2%',
+    fontSize: 20,
     borderWidth: 2,
     marginBottom: "1%",
+    marginTop: "2%",
     textAlign: "right",
   },
   /////////////Admin///////////////
