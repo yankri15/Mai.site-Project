@@ -142,11 +142,15 @@ const UserDataProvider = ({ children }) => {
       if (currentUser.uid !== element.id) {
         setUsersList((prev) => [
           ...prev,
-          { id: element.id, data: element.data() },
+          { key: element.id + new Date().getTime(), id: element.id, data: element.data() },
         ]);
       }
     });
   };
+
+  const addCollabs = async (pid, collaborators) => {
+    await updateDoc(doc(db, "projects", pid), "collaborators", collaborators);
+  }
 
   const deleteComment = async (commentLocation, commentId) => {
     await deleteDoc(doc(commentLocation, commentId));
@@ -385,6 +389,7 @@ const UserDataProvider = ({ children }) => {
     setPostsList,
     approveUser,
     addDataToDB,
+    addCollabs,
     getName,
     getMarkers,
     getJobs,
