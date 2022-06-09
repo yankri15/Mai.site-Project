@@ -100,26 +100,15 @@ const CreateProjectScreen = ({ navigation }) => {
     }
     const tagNames = tags.map(tag => tag.name);
     const imageURLs = images.map((image, index) => {
-      const path =
-        "/img/" +
-        currentUser.uid +
-        "/projects/" +
-        new Date().getTime() +
-        index +
-        ".jpg";
+      const path = "/img/" + currentUser.uid + "/projects/" + new Date().getTime() + index + ".jpg";
       uploadImg(path, image);
       return path;
     });
     setImages(imageURLs);
-    uploadProject(
-      name,
-      organization,
-      collaborators,
-      neighborhood,
-      imageURLs,
-      tagNames,
-      description
-    ).then((pid) => {
+    const newCollabs = collaborators.map(collab => {
+      return { id: collab.id, name: collab.name };
+    });
+    uploadProject(name, organization, newCollabs, neighborhood, imageURLs, tagNames, description).then((pid) => {
       uploadDataPost("פרויקט חדש באוויר!", pid, imageURLs, tagNames).then(
         () => {
           getPosts();
