@@ -1,6 +1,6 @@
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import React, { useState } from "react";
-import { Pressable, Text, TextInput, Vibration, View } from "react-native";
+import { Pressable, Text, TextInput, View } from "react-native";
 import { db } from "../../../../firebase";
 import { useAuth } from "../../../AuthProvider/AuthProvider";
 import { globalStyles } from '../../../styles/global';
@@ -12,30 +12,32 @@ const CreateThread = ({ route, navigation }) => {
   const { currentUser } = useAuth();
 
   async function handleSubmitThread() {
-    const threadRef = await addDoc(
+    await addDoc(
       collection(db, "forum", subjectData.topicId, subjectData.topicName),
       {
         title: title,
         uid: currentUser.uid,
       }
-    );
+    ).then(async (threadRef) => {
+      await addDoc(
+        collection(
+          db,
+          "forum",
+          subjectData.topicId,
+          subjectData.topicName,
+          threadRef.id,
+          "comments"
+        ),
+        {
+          comment: comment,
+          creation: serverTimestamp(),
+          uid: currentUser.uid,
+        }
+      ).then(() => navigation.navigate("פורום", { subjectData }));
+    });
 
-    await addDoc(
-      collection(
-        db,
-        "forum",
-        subjectData.topicId,
-        subjectData.topicName,
-        threadRef.id,
-        "comments"
-      ),
-      {
-        comment: comment,
-        creation: serverTimestamp(),
-        uid: currentUser.uid,
-      }
-    );
-    navigation.navigate("פורום", { subjectData });
+
+
   }
   return (
     <View
@@ -65,7 +67,6 @@ const CreateThread = ({ route, navigation }) => {
         title="publish"
         style={globalStyles.open_sub_btn}
         onPress={() => {
-          Vibration.vibrate(15)
           handleSubmitThread();
         }}
       >
