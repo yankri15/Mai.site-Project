@@ -6,7 +6,7 @@ import { globalStyles } from "../../styles/global";
 
 const FeedScreen = ({ navigation, route }) => {
   const [refreshing, setRefreshing] = useState(true);
-  const { getPosts, tagsList, getTags, postsList } = useData();
+  const { getPosts, tagsList, getTags, postsList, postsTrigger } = useData();
   const [selectedTags, setSelectedTags] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
 
@@ -81,19 +81,16 @@ const FeedScreen = ({ navigation, route }) => {
     );
   };
   useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
-      console.log("First useEffect");
-      getPosts()
-        .then(() => {
-          setFilteredPosts(postsList);
-          setSelectedTags([]);
-          setRefreshing(false);
-        })
-        .catch(console.error);
-      getTags();
-    });
-    return unsubscribe;
-  }, [navigation, postsList]);
+    console.log("First useEffect");
+    getPosts()
+      .then(() => {
+        setFilteredPosts(postsList);
+        setSelectedTags([]);
+        setRefreshing(false);
+      })
+      .catch(console.error);
+    getTags();
+  }, [postsTrigger]);
 
   useEffect(() => {
     filterPosts();
