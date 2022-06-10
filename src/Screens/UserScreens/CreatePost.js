@@ -13,7 +13,7 @@ const CreatePost = ({ navigation, route }) => {
   const project = route.params.project;
   const pid = route.params.pid;
   const { currentUser } = useAuth();
-  const { uploadDataPost, uploadImg, getPosts } = useData();
+  const { uploadDataPost, uploadImg, getPosts, triggerFeed } = useData();
   const [postText, setPostText] = useState("");
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState([]);
@@ -58,8 +58,8 @@ const CreatePost = ({ navigation, route }) => {
     setImages(imageURLs);
 
     uploadDataPost(postText, pid, imageURLs, project.tags).then(() => {
-      getPosts().then(() => navigation.navigate("Feed"));
-
+      triggerFeed();
+      navigation.navigate("Feed");
     });
   };
 
