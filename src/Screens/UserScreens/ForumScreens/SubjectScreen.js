@@ -80,13 +80,12 @@ const SubjectScreen = ({ route, navigation }) => {
                     onPress={() => setDeleteModalVisible(!deleteModalVisible)}
                   ></TouchableOpacity>
                   <View
-                    style={{
+                    style={[globalStyles.delete_modal_view, {
                       height: Dimensions.get("window").height * 0.3,
-                      marginTop: "auto",
-                      backgroundColor: "white",
-                    }}
+                    }]}
                   >
                     <Pressable
+                      style={globalStyles.delete_modal_btn}
                       onPress={() => {
                         Alert.alert(
                           "האם אתה בטוח?",
@@ -108,7 +107,7 @@ const SubjectScreen = ({ route, navigation }) => {
                         );
                       }}
                     >
-                      <Text style={globalStyles.delete_dots_text}>מחק</Text>
+                      <Text style={[globalStyles.delete_dots_text, globalStyles.delete_modal_btn_txt]}>מחק</Text>
                     </Pressable>
                   </View>
                 </Modal>
