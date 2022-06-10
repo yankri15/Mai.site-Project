@@ -81,7 +81,6 @@ const FeedScreen = ({ navigation, route }) => {
     );
   };
   useEffect(() => {
-    console.log("First useEffect");
     getPosts()
       .then(() => {
         setFilteredPosts(postsList);
@@ -94,7 +93,6 @@ const FeedScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     filterPosts();
-    console.log("Second useEffect");
     return;
   }, [selectedTags]);
 

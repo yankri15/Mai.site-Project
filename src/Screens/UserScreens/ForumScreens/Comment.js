@@ -57,7 +57,9 @@ const Comment = ({
                   [
                     {
                       text: "מחק אותי",
-                      onPress: () => { deleteComment(commentLocation, commentId).then(() => refreshComments()) }
+                      onPress: () => {
+                        deleteComment(commentLocation, commentId).then(() => { refreshComments(); setDeleteModalVisible(!deleteModalVisible) })
+                      }
                     },
                   ],
                   { cancelable: true }
