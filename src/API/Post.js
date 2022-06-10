@@ -76,6 +76,7 @@ const Post = ({ post, navigation }) => {
       setComments((prev) => [
         ...prev,
         {
+          key: element.id + Date.now(),
           commentId: element.id,
           commentData: element.data(),
         },
@@ -84,12 +85,13 @@ const Post = ({ post, navigation }) => {
   };
 
   useEffect(() => {
-    console.log("Post useEffect");
     getImages().catch(console.error);
     getLikes().catch(console.error);
-    getComments().catch(console.error);
+    // getComments().catch(console.error);
     return;
   }, []);
+
+  useEffect(() => { getComments().catch(console.error); }, [commentsTrigger])
 
   async function handleLike() {
     if (likes.includes(currentUser.uid)) {
@@ -103,9 +105,6 @@ const Post = ({ post, navigation }) => {
   }
 
   async function handleNewComment() {
-    if (newComment.length <= 4) {
-      return;
-    }
     const commentsRef = doc(collection(db, "posts", post.id, "comments"));
     await setDoc(commentsRef, {
       comment: newComment,
@@ -127,7 +126,6 @@ const Post = ({ post, navigation }) => {
       >
         <FlatList
           data={comments}
-          extraData={commentsTrigger}
           renderItem={({ item }) => (
             <Comment
               commentData={item.commentData}
@@ -143,7 +141,6 @@ const Post = ({ post, navigation }) => {
               </View>
             );
           }}
-          keyExtractor={(index) => index.toString()}
         />
         <View style={globalStyles.Forum_Comment}>
           <TextInput
