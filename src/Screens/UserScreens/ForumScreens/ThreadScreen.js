@@ -18,6 +18,7 @@ import {
 } from "react-native";
 import { db } from "../../../../firebase";
 import { useAuth } from "../../../AuthProvider/AuthProvider";
+import { useData } from "../../../AuthProvider/UserDataProvider";
 import { globalStyles } from "../../../styles/global";
 import Comment from "./Comment";
 
@@ -25,9 +26,11 @@ const ThreadScreen = ({ route, navigation }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [refreshing, setRefreshing] = useState(true);
-  const subjectData = route.params.item;
-  const { currentUser } = useAuth();
   const [commentLocation, setCommentLocation] = useState("");
+  const { currentUser } = useAuth();
+  const { commentsTrigger } = useData()
+  const subjectData = route.params.item;
+
   const handleRefresh = () => {
     getComments()
       .then(() => {
@@ -38,9 +41,6 @@ const ThreadScreen = ({ route, navigation }) => {
   };
 
   const handleNewComment = async () => {
-    if (newComment.length <= 4) {
-      return;
-    }
     await addDoc(
       collection(
         db,
@@ -91,7 +91,7 @@ const ThreadScreen = ({ route, navigation }) => {
       })
       .catch(console.error);
     return;
-  }, []);
+  }, [commentsTrigger]);
 
   return (
     <View style={{ flex: 1 }}>
