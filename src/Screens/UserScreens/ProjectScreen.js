@@ -1,9 +1,8 @@
 import { Entypo } from "@expo/vector-icons";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { Alert, Pressable, Text, View, Modal, FlatList } from "react-native";
+import { Alert, Pressable, Text, View, Modal, TouchableOpacity, Dimensions } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { Menu, MenuOptions, MenuTrigger, renderers } from "react-native-popup-menu";
 import { EvilIcons } from "@expo/vector-icons";
 import { db } from "../../../firebase";
 import BasicPostDisplay from "../../API/BasicPostDisplay";
@@ -15,16 +14,17 @@ import DropdownSearch from "../../API/DropdownSearch";
 const ProjectScreen = ({ route, navigation }) => {
   const { currentUser } = useAuth();
   const { projectPosts, getProjectPosts, deleteProject, admin, usersList, getUsersList, addCollabs, triggerFeed } = useData();
-  const { Popover } = renderers;
 
   const project = route.params.project;
   const pid = route.params.pid;
+
   const [collabNames, setCollabNames] = useState([]);
   const [name, setName] = useState("");
   const [showModalE, setShowModalE] = useState(false);
   const [usersData, setUsersData] = useState([]);
   const [collaborators, setCollaborators] = useState([]);
   const [displayUsers, setDisplayUsers] = useState("none");
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 
   const getName = async (uid) => {
     const docRef = doc(db, "users", uid);
@@ -141,21 +141,23 @@ const ProjectScreen = ({ route, navigation }) => {
         </View>
       </Modal>
       <ScrollView>
-        <Menu
-          renderer={Popover}
-          rendererProps={{ preferredPlacement: "right" }}
-          style={{
-            position: "absolute",
-            right: "2%",
-            top: "1%",
-          }}
+        <Modal
+          visible={deleteModalVisible}
+          transparent={true}
+          animationType="slide"
+          onRequestClose={() => setDeleteModalVisible(!deleteModalVisible)}
         >
-          <MenuTrigger>
-            {currentUser.uid === project.uid || admin == 1 ? (
-              <Entypo name="dots-three-horizontal" size={23}></Entypo>
-            ) : null}
-          </MenuTrigger>
-          <MenuOptions style={globalStyles.delete_dots_btn}>
+          <TouchableOpacity
+            style={{ height: Dimensions.get("window").height * 0.7, backgroundColor: "gray", opacity: 0.3 }}
+            onPress={() => setDeleteModalVisible(!deleteModalVisible)}
+          ></TouchableOpacity>
+          <View
+            style={{
+              height: Dimensions.get("window").height * 0.3,
+              marginTop: "auto",
+              backgroundColor: "white",
+            }}
+          >
             <Pressable
               onPress={() => {
                 Alert.alert(
@@ -167,9 +169,10 @@ const ProjectScreen = ({ route, navigation }) => {
                       onPress: () => {
                         deleteProject(pid).then(() => {
                           triggerFeed();
+                          setDeleteModalVisible(!deleteModalVisible);
                           navigation.navigate("Feed");
-                        });
-                      },
+                        })
+                      }
                     },
                   ],
                   { cancelable: true }
@@ -178,8 +181,14 @@ const ProjectScreen = ({ route, navigation }) => {
             >
               <Text style={globalStyles.delete_dots_text}>מחק</Text>
             </Pressable>
-          </MenuOptions>
-        </Menu>
+          </View>
+        </Modal>
+        <Pressable style={globalStyles.dots}
+          onPress={() => setDeleteModalVisible(!deleteModalVisible)}>
+          {currentUser.uid === project.uid || admin == 1 ? (
+            <Entypo name="dots-three-horizontal" size={23}></Entypo>
+          ) : null}
+        </Pressable>
         <Text style={[globalStyles.forum_title_text, { marginTop: '10%', marginBottom: '0%' }]}>{project.name}</Text>
         <View style={globalStyles.project_screen_details}>
           <View style={globalStyles.project_details_view}>

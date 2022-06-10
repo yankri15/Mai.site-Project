@@ -1,14 +1,8 @@
 import { Entypo } from "@expo/vector-icons";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useState } from "react";
-import { Alert, Modal, Pressable, Text, TextInput, View } from "react-native";
+import { Alert, Modal, Pressable, Text, TextInput, View, TouchableOpacity, Dimensions } from "react-native";
 import email from "react-native-email";
-import {
-  Menu,
-  MenuOptions,
-  MenuTrigger,
-  renderers
-} from "react-native-popup-menu";
 import { db } from "../../firebase";
 import { useAuth } from "../AuthProvider/AuthProvider";
 import { useData } from "../AuthProvider/UserDataProvider";
@@ -19,7 +13,7 @@ const Job = ({ job, profileScreen }) => {
   const [msgBody, setMsgBody] = useState("");
   const [jobTitle, setJobTitle] = useState(job.data.jobTitle);
   const [uidEmail, setUidEmail] = useState("");
-  const { Popover } = renderers;
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const { currentUser } = useAuth();
   const { deleteJob, getJobs, getMyJobs, admin } = useData();
 
@@ -99,17 +93,23 @@ const Job = ({ job, profileScreen }) => {
         </View>
       </Modal>
       <View style={globalStyles.wanted_list_item}>
-        <Menu
-          renderer={Popover}
-          rendererProps={{ preferredPlacement: "right" }}
-          style={globalStyles.dots}
+        <Modal
+          visible={deleteModalVisible}
+          transparent={true}
+          animationType="slide"
+          onRequestClose={() => setDeleteModalVisible(!deleteModalVisible)}
         >
-          <MenuTrigger>
-            {job.data.uid == currentUser.uid || admin == 1 ? (
-              <Entypo name="dots-three-horizontal" size={22}></Entypo>
-            ) : null}
-          </MenuTrigger>
-          <MenuOptions style={globalStyles.delete_dots_btn}>
+          <TouchableOpacity
+            style={{ height: Dimensions.get("window").height * 0.7, backgroundColor: "gray", opacity: 0.3 }}
+            onPress={() => setDeleteModalVisible(!deleteModalVisible)}
+          ></TouchableOpacity>
+          <View
+            style={{
+              height: Dimensions.get("window").height * 0.3,
+              marginTop: "auto",
+              backgroundColor: "white",
+            }}
+          >
             <Pressable
               onPress={() => {
                 Alert.alert(
@@ -118,10 +118,12 @@ const Job = ({ job, profileScreen }) => {
                   [
                     {
                       text: "מחק אותי",
-                      onPress: () =>
+                      onPress: () => {
                         deleteJob(job.id).then(() => {
                           profileScreen ? getMyJobs(job.data.uid) : getJobs();
-                        }),
+                          setDeleteModalVisible(!deleteModalVisible)
+                        })
+                      }
                     },
                   ],
                   { cancelable: true }
@@ -130,8 +132,15 @@ const Job = ({ job, profileScreen }) => {
             >
               <Text style={globalStyles.delete_dots_text}>מחק</Text>
             </Pressable>
-          </MenuOptions>
-        </Menu>
+          </View>
+        </Modal>
+        <Pressable
+          style={globalStyles.dots}
+          onPress={() => setDeleteModalVisible(!deleteModalVisible)}>
+          {job.data.uid == currentUser.uid || admin == 1 ? (
+            <Entypo name="dots-three-horizontal" size={22}></Entypo>
+          ) : null}
+        </Pressable>
         <Text style={globalStyles.wanted_text}>דרוש/ה</Text>
         <Text style={globalStyles.wanted_text}>{job.data.jobTitle}</Text>
         <View style={globalStyles.wanted_btns}>

@@ -1,13 +1,7 @@
 import { Entypo } from "@expo/vector-icons";
 import { collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { FlatList, Pressable, Text, View } from "react-native";
-import {
-  Menu,
-  MenuOptions,
-  MenuTrigger,
-  renderers
-} from "react-native-popup-menu";
+import { FlatList, Pressable, Text, View, Modal, TouchableOpacity, Dimensions, Alert } from "react-native";
 import { db } from "../../../../firebase";
 import UserPicName from "../../../API/UserPicName";
 import { useAuth } from "../../../AuthProvider/AuthProvider";
@@ -18,8 +12,8 @@ const SubjectScreen = ({ route, navigation }) => {
   const { deleteThread, admin } = useData();
   const [thread, setThread] = useState([]);
   const [refreshing, setRefreshing] = useState(true);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [threadLocation, setThreadLocation] = useState("");
-  const { Popover } = renderers;
 
   const handleRefresh = () => {
     getThread()
@@ -75,33 +69,56 @@ const SubjectScreen = ({ route, navigation }) => {
               <Pressable
                 onPress={() => navigation.navigate("אשכול", { item })}
               >
-                {
-                  <Menu
-                    renderer={Popover}
-                    rendererProps={{ preferredPlacement: "right" }}
-                    style={globalStyles.dots}
+                <Modal
+                  visible={deleteModalVisible}
+                  transparent={true}
+                  animationType="slide"
+                  onRequestClose={() => setDeleteModalVisible(!deleteModalVisible)}
+                >
+                  <TouchableOpacity
+                    style={{ height: Dimensions.get("window").height * 0.7, backgroundColor: "gray", opacity: 0.3 }}
+                    onPress={() => setDeleteModalVisible(!deleteModalVisible)}
+                  ></TouchableOpacity>
+                  <View
+                    style={{
+                      height: Dimensions.get("window").height * 0.3,
+                      marginTop: "auto",
+                      backgroundColor: "white",
+                    }}
                   >
-                    <MenuTrigger>
-                      {item.uid == currentUser.uid || admin == 1 ? (
-                        <Entypo name="dots-three-horizontal" size={20}></Entypo>
-                      ) : null}
-                    </MenuTrigger>
-                    <MenuOptions style={globalStyles.delete_dots_btn}>
-                      <Pressable
-                        style={globalStyles.edit_comment}
-                        onPress={() => {
-                          deleteThread(threadLocation, item.threadId).then(
-                            () => {
-                              handleRefresh();
-                            }
-                          );
-                        }}
-                      >
-                        <Text style={globalStyles.delete_dots_text}>מחק</Text>
-                      </Pressable>
-                    </MenuOptions>
-                  </Menu>
-                }
+                    <Pressable
+                      onPress={() => {
+                        Alert.alert(
+                          "האם אתה בטוח?",
+                          "",
+                          [
+                            {
+                              text: "מחק אותי",
+                              onPress: () => {
+                                deleteThread(threadLocation, item.threadId).then(
+                                  () => {
+                                    setDeleteModalVisible(!deleteModalVisible)
+                                    handleRefresh();
+                                  }
+                                );
+                              }
+                            },
+                          ],
+                          { cancelable: true }
+                        );
+                      }}
+                    >
+                      <Text style={globalStyles.delete_dots_text}>מחק</Text>
+                    </Pressable>
+                  </View>
+                </Modal>
+                <Pressable
+                  style={globalStyles.dots}
+                  onPress={() => setDeleteModalVisible(!deleteModalVisible)}>
+                  {item.uid == currentUser.uid || admin == 1 ? (
+                    <Entypo name="dots-three-horizontal" size={20}></Entypo>
+                  ) : null}
+                </Pressable>
                 <UserPicName uid={item.uid} navigation={navigation} />
                 <Text style={globalStyles.subjects_txt}>
                   {item.threadTitle}

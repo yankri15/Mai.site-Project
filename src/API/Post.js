@@ -177,7 +177,7 @@ const Post = ({ post, navigation }) => {
         onRequestClose={() => setDeleteModalVisible(!deleteModalVisible)}
       >
         <TouchableOpacity
-          style={{ height: Dimensions.get("window").height * 0.7 }}
+          style={{ height: Dimensions.get("window").height * 0.7, backgroundColor: "gray", opacity: 0.3 }}
           onPress={() => setDeleteModalVisible(!deleteModalVisible)}
         ></TouchableOpacity>
         <View
