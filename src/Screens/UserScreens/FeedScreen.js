@@ -82,19 +82,22 @@ const FeedScreen = ({ navigation, route }) => {
   };
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
+      console.log("First useEffect");
       getPosts()
         .then(() => {
           setFilteredPosts(postsList);
+          setSelectedTags([]);
           setRefreshing(false);
         })
         .catch(console.error);
       getTags();
     });
     return unsubscribe;
-  }, [navigation]);
+  }, [navigation, postsList]);
 
   useEffect(() => {
     filterPosts();
+    console.log("Second useEffect");
     return;
   }, [selectedTags]);
 
