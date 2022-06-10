@@ -44,7 +44,7 @@ const Post = ({ post, navigation }) => {
   const [commentLocation, setCommentLocation] = useState("");
   const [displayImages, setDisplayImages] = useState(false);
   const { currentUser } = useAuth();
-  const { deletePost, admin, getPosts } = useData();
+  const { deletePost, admin, triggerFeed, commentsTrigger } = useData();
 
   const getImages = async () => {
     setImages([]);
@@ -127,7 +127,7 @@ const Post = ({ post, navigation }) => {
       >
         <FlatList
           data={comments}
-          extraData={comments}
+          extraData={commentsTrigger}
           renderItem={({ item }) => (
             <Comment
               commentData={item.commentData}
@@ -197,9 +197,8 @@ const Post = ({ post, navigation }) => {
                     text: "מחק אותי",
                     onPress: () =>
                       deletePost(post.id).then(() => {
-                        getPosts().then(() =>
-                          setDeleteModalVisible(!deleteModalVisible)
-                        );
+                        triggerFeed();
+                        setDeleteModalVisible(!deleteModalVisible)
                       }),
                   },
                 ],
