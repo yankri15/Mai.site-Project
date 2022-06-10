@@ -1,19 +1,31 @@
 import { AntDesign, Entypo, Feather, FontAwesome } from "@expo/vector-icons";
 import {
-  collection, deleteDoc, doc, getDocs, orderBy, query, serverTimestamp, setDoc
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  orderBy,
+  query,
+  serverTimestamp,
+  setDoc,
 } from "firebase/firestore";
 import { getDownloadURL, ref } from "firebase/storage";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import {
-  Alert, FlatList, Image, Keyboard, Modal, Pressable, Text, TextInput, View
+  Alert,
+  FlatList,
+  Image,
+  Keyboard,
+  Modal,
+  Pressable,
+  Text,
+  TextInput,
+  View,
+  Dimensions,
+  TouchableOpacity,
 } from "react-native";
 import ImageViewer from "react-native-image-zoom-viewer";
-import {
-  Menu,
-  MenuOptions, MenuProvider, MenuTrigger,
-  renderers
-} from "react-native-popup-menu";
 import { db, storage } from "../../firebase";
 import { useAuth } from "../AuthProvider/AuthProvider";
 import { useData } from "../AuthProvider/UserDataProvider";
@@ -22,18 +34,17 @@ import { globalStyles } from "../styles/global";
 import ProjectPost from "./ProjectPost";
 import UserPicName from "./UserPicName";
 
-
 const Post = ({ post, navigation }) => {
   const [images, setImages] = useState([]);
   const [likes, setLikes] = useState([]);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
-  const [modalVisible, setModalVisible] = useState(false);
+  const [commentsModalVisible, setCommentsModalVisible] = useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [commentLocation, setCommentLocation] = useState("");
   const [displayImages, setDisplayImages] = useState(false);
-  const { Popover } = renderers;
   const { currentUser } = useAuth();
-  const { deletePost, admin } = useData();
+  const { deletePost, admin, getPosts } = useData();
 
   const getImages = async () => {
     setImages([]);
@@ -73,6 +84,7 @@ const Post = ({ post, navigation }) => {
   };
 
   useEffect(() => {
+    console.log("Post useEffect");
     getImages().catch(console.error);
     getLikes().catch(console.error);
     getComments().catch(console.error);
@@ -107,96 +119,112 @@ const Post = ({ post, navigation }) => {
   return (
     <View>
       <Modal
-        visible={modalVisible}
+        visible={commentsModalVisible}
         animationType="slide"
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          setCommentsModalVisible(!commentsModalVisible);
         }}
       >
-        <MenuProvider skipInstanceCheck>
-          <FlatList
-            data={comments}
-            extraData={comments}
-            renderItem={({ item }) => (
-              <Comment
-                commentData={item.commentData}
-                commentId={item.commentId}
-                commentLocation={commentLocation}
-                navigation={navigation}
-              />
-            )}
-            ListEmptyComponent={() => {
-              return (
-                <View>
-                  <Text style={globalStyles.be_first}>כתבו תגובה ראשונה</Text>
-                </View>
+        <FlatList
+          data={comments}
+          extraData={comments}
+          renderItem={({ item }) => (
+            <Comment
+              commentData={item.commentData}
+              commentId={item.commentId}
+              commentLocation={commentLocation}
+              navigation={navigation}
+            />
+          )}
+          ListEmptyComponent={() => {
+            return (
+              <View>
+                <Text style={globalStyles.be_first}>כתבו תגובה ראשונה</Text>
+              </View>
+            );
+          }}
+          keyExtractor={(index) => index.toString()}
+        />
+        <View style={globalStyles.Forum_Comment}>
+          <TextInput
+            style={globalStyles.Forum_Comment_Text}
+            value={newComment}
+            multiline={true}
+            placeholder="כתוב תגובה..."
+            onChangeText={(text) => setNewComment(text)}
+            minLength={20}
+          />
+          <Pressable
+            title="publishNewComment"
+            style={globalStyles.Forum_Button}
+            onPress={() => {
+              handleNewComment();
+              Keyboard.dismiss();
+            }}
+          >
+            <Feather
+              style={{ color: "#fdc123" }}
+              name="send"
+              size={30}
+            ></Feather>
+          </Pressable>
+        </View>
+      </Modal>
+      <Modal
+        visible={deleteModalVisible}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => setDeleteModalVisible(!deleteModalVisible)}
+      >
+        <TouchableOpacity
+          style={{ height: Dimensions.get("window").height * 0.7 }}
+          onPress={() => setDeleteModalVisible(!deleteModalVisible)}
+        ></TouchableOpacity>
+        <View
+          style={{
+            height: Dimensions.get("window").height * 0.3,
+            marginTop: "auto",
+            backgroundColor: "white",
+          }}
+        >
+          <Pressable
+            onPress={() => {
+              Alert.alert(
+                "האם אתה בטוח?",
+                "",
+                [
+                  {
+                    text: "מחק אותי",
+                    onPress: () =>
+                      deletePost(post.id).then(() => {
+                        getPosts().then(() =>
+                          setDeleteModalVisible(!deleteModalVisible)
+                        );
+                      }),
+                  },
+                ],
+                { cancelable: true }
               );
             }}
-            keyExtractor={(index) => index.toString()}
-          />
-          <View style={globalStyles.Forum_Comment}>
-            <TextInput
-              style={globalStyles.Forum_Comment_Text}
-              value={newComment}
-              multiline={true}
-              placeholder="כתוב תגובה..."
-              onChangeText={(text) => setNewComment(text)}
-              minLength={20}
-            />
-            <Pressable
-              title="publishNewComment"
-              style={globalStyles.Forum_Button}
-              onPress={() => {
-                handleNewComment();
-                Keyboard.dismiss();
-              }}
-            >
-              <Feather
-                style={{ color: "#fdc123" }}
-                name="send"
-                size={30}
-              ></Feather>
-            </Pressable>
-          </View>
-        </MenuProvider>
+          >
+            <Text style={globalStyles.delete_dots_text}>מחק</Text>
+          </Pressable>
+        </View>
       </Modal>
-
       <View style={globalStyles.post}>
         <UserPicName
           uid={post.data.uid}
           navigation={navigation}
           posted={moment(new Date(post.data.creation.seconds * 1000)).fromNow()}
         />
-        <Menu
-          renderer={Popover}
-          rendererProps={{ preferredPlacement: "right" }}
+        <Pressable
           style={globalStyles.dots}
+          onPress={() => setDeleteModalVisible(!deleteModalVisible)}
         >
-          <MenuTrigger>
-            {post.data.uid == currentUser.uid || admin == 1 ? (
-              <Entypo name="dots-three-horizontal" size={20}></Entypo>
-            ) : null}
-          </MenuTrigger>
-          <MenuOptions style={globalStyles.delete_dots_btn}>
-            <Pressable
-              onPress={() => {
-                Alert.alert(
-                  "האם אתה בטוח?",
-                  "",
-                  [
-                    {
-                      text: "מחק אותי",
-                      onPress: () => deletePost(post.id),
-                    },
-                  ],
-                  { cancelable: true }
-                );
-              }}
-            >
-              <Text style={globalStyles.delete_dots_text}>מחק</Text>
-            </Pressable>
-          </MenuOptions>
-        </Menu>
+          {post.data.uid == currentUser.uid || admin == 1 ? (
+            <Entypo name="dots-three-horizontal" size={20}></Entypo>
+          ) : null}
+        </Pressable>
         <Text style={globalStyles.post_text}>{post && post.data.postText}</Text>
         {images.length !== 0 && (
           <Pressable
@@ -214,8 +242,7 @@ const Post = ({ post, navigation }) => {
                   1/{images.length}
                 </Text>
               </View>
-            ) : null
-            }
+            ) : null}
           </Pressable>
         )}
         {
@@ -233,8 +260,8 @@ const Post = ({ post, navigation }) => {
           <Pressable
             title="like_comment"
             onPress={() => {
-              if (modalVisible) setModalVisible(false);
-              else setModalVisible(true);
+              if (commentsModalVisible) setCommentsModalVisible(false);
+              else setCommentsModalVisible(true);
             }}
           >
             <View style={globalStyles.details_like_comment}>
@@ -299,8 +326,8 @@ const Post = ({ post, navigation }) => {
           <Pressable
             title="comment"
             onPress={() => {
-              if (modalVisible) setModalVisible(false);
-              else setModalVisible(true);
+              if (commentsModalVisible) setCommentsModalVisible(false);
+              else setCommentsModalVisible(true);
             }}
             style={globalStyles.like_comment_btn}
           >
