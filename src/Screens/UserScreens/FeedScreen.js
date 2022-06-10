@@ -6,19 +6,14 @@ import { globalStyles } from "../../styles/global";
 
 const FeedScreen = ({ navigation, route }) => {
   const [refreshing, setRefreshing] = useState(true);
-  const { getPosts, tagsList, getTags } = useData();
-  const [postsList, setPostsList] = useState([]);
+  const { getPosts, tagsList, getTags, postsList, postsTrigger } = useData();
   const [selectedTags, setSelectedTags] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
 
   const handleRefresh = () => {
     getPosts()
-      .then((posts) => {
-        const postsWithKeys = posts.map((post) => {
-          return { post: post, key: post.id + Date.now() };
-        });
-        setPostsList(postsWithKeys);
-        setFilteredPosts(postsWithKeys);
+      .then(() => {
+        setFilteredPosts(postsList);
         setSelectedTags([]);
         setRefreshing(false);
       })
@@ -87,15 +82,14 @@ const FeedScreen = ({ navigation, route }) => {
   };
   useEffect(() => {
     getPosts()
-      .then((posts) => {
-        setPostsList(posts);
-        setFilteredPosts(posts);
+      .then(() => {
+        setFilteredPosts(postsList);
+        setSelectedTags([]);
         setRefreshing(false);
       })
       .catch(console.error);
     getTags();
-    return;
-  }, []);
+  }, [postsTrigger]);
 
   useEffect(() => {
     filterPosts();

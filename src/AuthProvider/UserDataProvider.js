@@ -42,6 +42,8 @@ const UserDataProvider = ({ children }) => {
   const [project, setProject] = useState([]);
   const [markers, setMarkers] = useState([]);
   const [image, setImage] = useState("");
+  const [postsTrigger, setPostsTrigger] = useState(false);
+  const [commentsTrigger, setCommentsTrigger] = useState(false);
 
   //Add user to db with email and status
   const setUserToDB = async (uid, email) => {
@@ -50,6 +52,10 @@ const UserDataProvider = ({ children }) => {
       status: 0,
     }).then(() => setUserStatus(0));
   };
+
+  const triggerFeed = () => setPostsTrigger(!postsTrigger);
+
+  const refreshComments = () => setCommentsTrigger(!commentsTrigger)
 
   //Add other registration details (name, school, organization etc.)
   const addDataToDB = async (
@@ -225,7 +231,7 @@ const UserDataProvider = ({ children }) => {
     const docSnap = await getDocs(q);
 
     docSnap.docs.forEach((item) => {
-      setPostsList((prev) => [...prev, { id: item.id, data: item.data() }]);
+      setPostsList((prev) => [...prev, { key: item.id + new Date().getTime(), id: item.id, data: item.data() }]);
     });
 
     return docSnap.docs.map((item) => {
@@ -433,6 +439,10 @@ const UserDataProvider = ({ children }) => {
     uploadImg,
     updateAdmin,
     saveDownloadURL,
+    postsTrigger,
+    triggerFeed,
+    commentsTrigger,
+    refreshComments,
   };
 
   return (

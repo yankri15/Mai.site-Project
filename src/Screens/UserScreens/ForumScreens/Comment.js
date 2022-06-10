@@ -1,14 +1,7 @@
 import { Entypo } from "@expo/vector-icons";
 import moment from "moment";
-import React from "react";
-import { Pressable, Text, View } from "react-native";
-import {
-  Menu,
-  MenuOptions,
-  MenuTrigger,
-  renderers
-} from "react-native-popup-menu";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useState } from "react";
+import { Pressable, Text, View, Modal, TouchableOpacity, Dimensions, Alert } from "react-native";
 import UserPicName from "../../../API/UserPicName";
 import { useAuth } from "../../../AuthProvider/AuthProvider";
 import { useData } from "../../../AuthProvider/UserDataProvider";
@@ -21,9 +14,9 @@ const Comment = ({
   commentData,
   first,
 }) => {
-  const { deleteComment, admin } = useData();
-  const { Popover } = renderers;
+  const { deleteComment, admin, refreshComments } = useData();
   const { currentUser } = useAuth();
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const commentStyle = first
     ? globalStyles.first_comment
     : globalStyles.comment;
@@ -38,27 +31,52 @@ const Comment = ({
             new Date(commentData.creation.seconds * 1000)
           ).fromNow()}
         />
-        <Menu
-          renderer={Popover}
-          rendererProps={{ preferredPlacement: "right" }}
-          style={globalStyles.dots}
+
+        <Modal
+          visible={deleteModalVisible}
+          transparent={true}
+          animationType="slide"
+          onRequestClose={() => setDeleteModalVisible(!deleteModalVisible)}
         >
-          <MenuTrigger>
-            {(commentData.uid == currentUser.uid || admin == 1) && !first ? (
-              <Entypo name="dots-three-horizontal" size={20}></Entypo>
-            ) : null}
-          </MenuTrigger>
-          <MenuOptions style={globalStyles.delete_dots_btn}>
+          <TouchableOpacity
+            style={{ height: Dimensions.get("window").height * 0.7, backgroundColor: "gray", opacity: 0.3 }}
+            onPress={() => setDeleteModalVisible(!deleteModalVisible)}
+          ></TouchableOpacity>
+          <View
+            style={{
+              height: Dimensions.get("window").height * 0.3,
+              marginTop: "auto",
+              backgroundColor: "white",
+            }}
+          >
             <Pressable
-              style={globalStyles.edit_comment}
               onPress={() => {
-                deleteComment(commentLocation, commentId);
+                Alert.alert(
+                  "האם אתה בטוח?",
+                  "",
+                  [
+                    {
+                      text: "מחק אותי",
+                      onPress: () => {
+                        deleteComment(commentLocation, commentId).then(() => { refreshComments(); setDeleteModalVisible(!deleteModalVisible) })
+                      }
+                    },
+                  ],
+                  { cancelable: true }
+                );
               }}
             >
               <Text style={globalStyles.delete_dots_text}>מחק</Text>
             </Pressable>
-          </MenuOptions>
-        </Menu>
+          </View>
+        </Modal>
+        <Pressable
+          style={globalStyles.dots}
+          onPress={() => setDeleteModalVisible(!deleteModalVisible)}>
+          {(commentData.uid == currentUser.uid || admin == 1) && !first ? (
+            <Entypo name="dots-three-horizontal" size={20}></Entypo>
+          ) : null}
+        </Pressable>
         <Text style={globalStyles.comment_data}>{commentData.comment}</Text>
       </View>
     </View>
