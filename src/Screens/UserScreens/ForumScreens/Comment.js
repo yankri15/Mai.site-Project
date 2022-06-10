@@ -21,7 +21,7 @@ const Comment = ({
   commentData,
   first,
 }) => {
-  const { deleteComment, admin } = useData();
+  const { deleteComment, admin, refreshComments } = useData();
   const { Popover } = renderers;
   const { currentUser } = useAuth();
   const commentStyle = first
@@ -48,11 +48,13 @@ const Comment = ({
               <Entypo name="dots-three-horizontal" size={20}></Entypo>
             ) : null}
           </MenuTrigger>
-          <MenuOptions style={globalStyles.delete_dots_btn}>
+          <MenuOptions
+            style={globalStyles.delete_dots_btn}
+          >
             <Pressable
               style={globalStyles.edit_comment}
               onPress={() => {
-                deleteComment(commentLocation, commentId);
+                deleteComment(commentLocation, commentId).then(() => refreshComments());
               }}
             >
               <Text style={globalStyles.delete_dots_text}>מחק</Text>
