@@ -79,7 +79,7 @@ const NominateAdmin = ({ navigation }) => {
                                     style={globalStyles.user_pic}
                                 >
                                     <Image
-                                        source={item.data.profilePic ? { uri: item.data.profilePic } : { defaultImage }}
+                                        source={item.data.profilePic ? { uri: item.data.profilePic } : defaultImage}
                                         style={globalStyles.logo_image_area}
                                     />
                                 </View>
