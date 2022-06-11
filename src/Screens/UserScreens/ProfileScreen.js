@@ -3,7 +3,7 @@ import { useIsFocused } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { FlatList, ImageBackground, Modal, Pressable, Text, View, } from "react-native";
+import { FlatList, ImageBackground, Modal, Pressable, Text, View, Alert } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import ImageViewer from "react-native-image-zoom-viewer";
 import { db } from "../../../firebase";
@@ -160,13 +160,26 @@ const ProfileScreen = ({ route, navigation }) => {
                 { width: "50%", height: "8%", backgroundColor: "#fdc123" },
               ]}
               title="dicard"
+
               onPress={() => {
-                deleteImages([userData.pic]).then(() => {
-                  deleteProfilePic();
-                  setProfilePic("");
-                  setShowModalCP(!showModalCP);
-                  getUserData();
-                });
+                Alert.alert(
+                  "האם אתה בטוח?",
+                  "",
+                  [
+                    {
+                      text: "מחק אותי",
+                      onPress: () => {
+                        deleteImages([userData.pic]).then(() => {
+                          deleteProfilePic();
+                          setProfilePic("");
+                          setShowModalCP(!showModalCP);
+                          getUserData();
+                        });
+                      }
+                    },
+                  ],
+                  { cancelable: true }
+                );
               }}
               disabled={loading}
             >
