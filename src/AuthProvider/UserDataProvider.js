@@ -217,7 +217,6 @@ const UserDataProvider = ({ children }) => {
     if (!images) return;
     images.forEach(path => {
       const desertRef = ref(storage, path);
-
       // Delete the file
       deleteObject(desertRef)
         .then(() => {
@@ -228,6 +227,10 @@ const UserDataProvider = ({ children }) => {
         });
     })
   };
+
+  const deleteProfilePic = async () => {
+    await updateDoc(doc(db, "users", currentUser.uid), "pic", "", "profilePic", "");
+  }
 
   const getPosts = async () => {
     setPostsList([]);
@@ -410,6 +413,7 @@ const UserDataProvider = ({ children }) => {
     deleteProject,
     deleteJob,
     deleteImages,
+    deleteProfilePic,
     image,
     jobs,
     myJobs,
