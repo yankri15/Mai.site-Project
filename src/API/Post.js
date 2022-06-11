@@ -44,7 +44,7 @@ const Post = ({ post, navigation }) => {
   const [commentLocation, setCommentLocation] = useState("");
   const [displayImages, setDisplayImages] = useState(false);
   const { currentUser } = useAuth();
-  const { deletePost, admin, triggerFeed, commentsTrigger } = useData();
+  const { deletePost, deleteImages, admin, triggerFeed, commentsTrigger } = useData();
 
   const getImages = async () => {
     setImages([]);
@@ -191,11 +191,14 @@ const Post = ({ post, navigation }) => {
                 [
                   {
                     text: "מחק אותי",
-                    onPress: () =>
-                      deletePost(post.id).then(() => {
-                        triggerFeed();
-                        setDeleteModalVisible(!deleteModalVisible)
-                      }),
+                    onPress: () => {
+                      deleteImages(post.data.images).then(() => {
+                        deletePost(post.id).then(() => {
+                          triggerFeed();
+                          setDeleteModalVisible(!deleteModalVisible)
+                        });
+                      });
+                    },
                   },
                 ],
                 { cancelable: true }

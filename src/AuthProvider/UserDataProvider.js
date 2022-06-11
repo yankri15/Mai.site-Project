@@ -206,23 +206,31 @@ const UserDataProvider = ({ children }) => {
     const q = query(collection(db, "posts"), where("pid", "==", projectId));
     const docSnap = await getDocs(q);
     docSnap.docs.forEach((doc) => {
-      deleteDoc(doc.ref);
+      deleteImages(doc.data().images).then(() => {
+        deletePost(doc.id);
+      })
     });
   };
 
-  const deleteFile = (path) => {
+  const deleteImages = async (images) => {
     // Create a reference to the file to delete
-    const desertRef = ref(storage, path);
-
-    // Delete the file
-    deleteObject(desertRef)
-      .then(() => {
-        console.log("File deleted successfully");
-      })
-      .catch((error) => {
-        console.log("Uh-oh, an error occurred!");
-      });
+    if (!images) return;
+    images.forEach(path => {
+      const desertRef = ref(storage, path);
+      // Delete the file
+      deleteObject(desertRef)
+        .then(() => {
+          console.log("File deleted successfully");
+        })
+        .catch((error) => {
+          console.log("Uh-oh, an error occurred!");
+        });
+    })
   };
+
+  const deleteProfilePic = async () => {
+    await updateDoc(doc(db, "users", currentUser.uid), "pic", "", "profilePic", "");
+  }
 
   const getPosts = async () => {
     setPostsList([]);
@@ -404,7 +412,8 @@ const UserDataProvider = ({ children }) => {
     deleteSelf,
     deleteProject,
     deleteJob,
-    deleteFile,
+    deleteImages,
+    deleteProfilePic,
     image,
     jobs,
     myJobs,
