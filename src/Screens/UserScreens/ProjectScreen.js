@@ -210,7 +210,13 @@ const ProjectScreen = ({ route, navigation }) => {
           </View>
           <View style={globalStyles.project_details_view}>
             <Text style={globalStyles.project_title_details}>נושאי המיזם:{" "}</Text>
-            <Text style={globalStyles.project_details}>{project.tags}</Text>
+            <Text style={globalStyles.project_details}>
+              {project.tags.map((item, index) => {
+                return (index === project.tags.length - 1 ?
+                  <Text style={globalStyles.project_details} key={index}>{item}</Text>
+                  : <Text style={globalStyles.project_details} key={index}>{item}, </Text>)
+              })}
+            </Text>
           </View>
           <View style={globalStyles.project_details_view}>
             <Text style={globalStyles.project_title_details}>תיאור המיזם:{" "}</Text>
