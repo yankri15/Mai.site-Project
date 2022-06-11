@@ -1,4 +1,3 @@
-import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { useAuth } from "../AuthProvider/AuthProvider";
 import { useData } from "../AuthProvider/UserDataProvider";
@@ -7,8 +6,6 @@ import RegistrationDetailsScreen from "../Screens/AuthScreens/RegistrationDetail
 import BlockedScreen from "../Screens/UserScreens/BlockedScreen";
 import HamburgerStack from "./HamburgerStack";
 import AuthContainer from "./AuthContainer"
-
-const Stack = createStackNavigator();
 
 const MainContainer = () => {
   const { userStatus } = useData();
@@ -24,10 +21,10 @@ const MainContainer = () => {
     } else if (userStatus == -1) {
       return <BlockedScreen />;
     }
-    else{
+    else {
       return null;
     }
-   
+
   } else {
     return <AuthContainer />;
   }
