@@ -16,15 +16,7 @@ const defaultImage = require("../../../assets/default_profile_pic.jpg");
 const ProfileScreen = ({ route, navigation }) => {
   const uid = route.params ? route.params.uid : undefined;
   const { currentUser } = useAuth();
-  const {
-    projects,
-    getProjects,
-    myJobs,
-    getMyJobs,
-    saveDownloadURL,
-    uploadImg,
-    deleteFile,
-  } = useData();
+  const { projects, getProjects, myJobs, getMyJobs, saveDownloadURL, uploadImg, deleteImages, deleteProfilePic } = useData();
   const id = uid ? uid : currentUser.uid;
   const isFocused = useIsFocused();
   const [userData, setUserData] = useState({});
@@ -60,6 +52,13 @@ const ProfileScreen = ({ route, navigation }) => {
     return;
   }, [isFocused]);
 
+  const getUserData = async () => {
+    const docRef = doc(db, "users", id);
+    const docSnap = await getDoc(docRef);
+    const userData = docSnap.data();
+    setUserData(userData);
+  }
+
   function calculate_age(birthDate) {
     const today_date = new Date();
     const today_year = today_date.getFullYear();
@@ -90,13 +89,14 @@ const ProfileScreen = ({ route, navigation }) => {
 
     if (!result.cancelled) {
       const date = new Date().getTime();
-      if (userData.pic) deleteFile(userData.pic);
+      if (userData.pic) deleteImages([userData.pic]);
       const path = "/img/" + currentUser.uid + "/pofile/" + date + ".jpg";
       uploadImg(path, result.uri)
         .then(() => {
           saveDownloadURL(path).then((img) => {
             setProfilePic(img);
             setShowModalCP(!showModalCP);
+            getUserData();
           });
         })
         .catch(console.error);
@@ -115,7 +115,7 @@ const ProfileScreen = ({ route, navigation }) => {
         }}
       >
         <View style={globalStyles.modalView}>
-          {
+          {profilePic !== undefined && profilePic !== "" &&
             <Pressable
               style={[
                 globalStyles.take_a_pic_btn,
@@ -153,6 +153,32 @@ const ProfileScreen = ({ route, navigation }) => {
             ></MaterialIcons>
           </Pressable>
 
+          {profilePic !== undefined && profilePic !== "" &&
+            <Pressable
+              style={[
+                globalStyles.take_a_pic_btn,
+                { width: "50%", height: "8%", backgroundColor: "#fdc123" },
+              ]}
+              title="dicard"
+              onPress={() => {
+                deleteImages([userData.pic]).then(() => {
+                  deleteProfilePic();
+                  setProfilePic("");
+                  setShowModalCP(!showModalCP);
+                  getUserData();
+                });
+              }}
+              disabled={loading}
+            >
+              <Text
+                style={[
+                  globalStyles.take_a_pic_btn_text,
+                  { fontSize: 20, color: "black" },
+                ]}
+              >
+                מחיקת תמונה{" "}
+              </Text>
+            </Pressable>}
           <Pressable
             style={[
               globalStyles.take_a_pic_btn,
