@@ -4,7 +4,7 @@ import Post from "../../API/Post";
 import { useData } from "../../AuthProvider/UserDataProvider";
 import { globalStyles } from "../../styles/global";
 
-const FeedScreen = ({ navigation, route }) => {
+const FeedScreen = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(true);
   const { getPosts, tagsList, getTags, postsList, postsTrigger } = useData();
   const [selectedTags, setSelectedTags] = useState([]);
@@ -18,6 +18,7 @@ const FeedScreen = ({ navigation, route }) => {
         setRefreshing(false);
       })
       .catch(console.error);
+    getTags().catch(console.error)
   };
 
   const handleSelectTag = (tag) => {
@@ -81,6 +82,7 @@ const FeedScreen = ({ navigation, route }) => {
     );
   };
   useEffect(() => {
+    console.log("First useEffect")
     getPosts()
       .then(() => {
         setFilteredPosts(postsList);
@@ -92,6 +94,7 @@ const FeedScreen = ({ navigation, route }) => {
   }, [postsTrigger]);
 
   useEffect(() => {
+    console.log("secondUseEffect")
     filterPosts();
     return;
   }, [selectedTags]);
