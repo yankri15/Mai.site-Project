@@ -1,7 +1,7 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { Alert, FlatList, Modal, Pressable, Text, View } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE  } from "react-native-maps";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { db } from "../../../firebase";
 import { useData } from "../../AuthProvider/UserDataProvider";
@@ -61,7 +61,7 @@ const MapScreen = () => {
   };
   return (
     <SafeAreaView style={globalStyles.mapScreenContainer}>
-      <MapView style={globalStyles.map} region={mapRegion} provider={null}>
+      <MapView provider={PROVIDER_GOOGLE} style={globalStyles.map} region={mapRegion}>
         <Marker
           coordinate={{ latitude: 31.7851951925, longitude: 35.2060641757 }}
           pinColor={"purple"}
