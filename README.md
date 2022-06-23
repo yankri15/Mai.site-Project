@@ -20,3 +20,6 @@ The association asked for an application that will be mainly dedicated to young 
 
 Guests will be able to see existing projects and the association statistics. 
 
+# Link to the app APK
+
+https://github.com/yankri15/Mai.site-Project/releases/tag/v1.0.0
